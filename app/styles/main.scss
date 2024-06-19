@@ -1,0 +1,9 @@
+// src/styles/main.scss
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+@import 'base/reset';
+@import 'pages/home';
+@import 'layout/container'; // Add this line
+
+// Components import
+@import 'components/toggleSwitch';

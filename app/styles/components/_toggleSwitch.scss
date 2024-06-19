@@ -1,0 +1,59 @@
+.toggleSwitch {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 60px;
+  padding: 30px;
+  width: 300px;
+  justify-content: space-between;
+
+  span {
+    font-size: 16px;
+    color: #555;
+  }
+
+  .toggleSwitch__switch {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 70px;
+    height: 30px;
+    position: relative;
+  }
+
+  .toggleSwitch__student,
+  .toggleSwitch__teacher {
+    background-color: #000;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    transition: transform 0.3s ease;
+  }
+
+  .toggleSwitch__student {
+    transform: translateX(5px);
+  }
+
+  .toggleSwitch__teacher {
+    transform: translateX(40px);
+  }
+
+  .toggleSwitch__active {
+    font-weight: bold;
+    font-size: 1.5rem;
+    background: linear-gradient(
+      to bottom right,
+      #120d26 0,
+      #422e87 25%,
+      #775bbc 60%,
+      #ffc629
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text; // Add the standard property 'background-clip'
+  }
+}

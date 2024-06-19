@@ -1,0 +1,111 @@
+.home {
+  position: relative;
+
+  .home__intro {
+    background-color: #f3f1fa47;
+    background-image: url('/images/header-bg.jpg');
+    background-size: cover;
+    padding-bottom: 0;
+    .home__header-wrapper {
+      display: flex;
+      justify-content: space-between;
+      padding-block: 10px;
+      ::before {
+        position: absolute;
+        top: 15%;
+        right: -20%;
+        bottom: 0;
+        content: '';
+        width: 65%;
+        height: 80%;
+        background-image: url(/images/pattern.svg);
+        background-position: bottom;
+        background-size: contain;
+        background-repeat: no-repeat;
+        filter: opacity(0.2);
+      }
+      .home__left-side {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        .home__navbar__menu {
+          ul {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            li {
+              margin-right: 20px;
+
+              a {
+                text-decoration: none;
+                color: #000;
+                font-weight: 400;
+                font-size: 0.9rem;
+                &:hover {
+                  color: #fbf9518c;
+                }
+              }
+            }
+          }
+        }
+      }
+      .home__right-side {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        button {
+          @include get-started-button;
+        }
+        .home__user-actions {
+          display: flex;
+          gap: 20px;
+          a {
+            text-decoration: none;
+            color: #422e87;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+    .home__content {
+      display: flex;
+      justify-content: center;
+      padding-top: 3rem;
+      margin-top: 3rem;
+      padding-bottom: 3rem;
+      flex-direction: column;
+      align-items: center;
+      .home__main-title {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin-top: 2rem;
+        position: relative;
+        span:first-child {
+          font-size: 4.5rem; //
+          font-weight: 700;
+          color: #422e87;
+          display: inline-block;
+          margin-bottom: 0.5rem;
+        }
+        span:first-child span {
+          color: #000;
+        }
+        .home__sub-title {
+          font-weight: 500;
+          color: #000;
+        }
+      }
+      .home__cta {
+        display: flex;
+        gap: 20px;
+        margin-top: 2rem;
+        button {
+          @include get-started-button;
+          padding: 15px 50px;
+        }
+      }
+    }
+  }
+}
