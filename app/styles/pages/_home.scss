@@ -1,29 +1,16 @@
 .home {
-  position: relative;
-
   .home__intro {
     background-color: #f3f1fa47;
     background-image: url('/images/header-bg.jpg');
     background-size: cover;
     padding-bottom: 0;
+    position: relative;
+
     .home__header-wrapper {
       display: flex;
       justify-content: space-between;
       padding-block: 10px;
-      ::before {
-        position: absolute;
-        top: 15%;
-        right: -20%;
-        bottom: 0;
-        content: '';
-        width: 65%;
-        height: 80%;
-        background-image: url(/images/pattern.svg);
-        background-position: bottom;
-        background-size: contain;
-        background-repeat: no-repeat;
-        filter: opacity(0.2);
-      }
+
       .home__left-side {
         display: flex;
         gap: 20px;
@@ -43,7 +30,7 @@
                 font-weight: 400;
                 font-size: 0.9rem;
                 &:hover {
-                  color: #fbf9518c;
+                  color: darken($color-secondary, 10%);
                 }
               }
             }
@@ -62,7 +49,7 @@
           gap: 20px;
           a {
             text-decoration: none;
-            color: #422e87;
+            color: $color-primary;
             font-weight: 600;
           }
         }
@@ -85,7 +72,7 @@
         span:first-child {
           font-size: 4.5rem; //
           font-weight: 700;
-          color: #422e87;
+          color: $color-primary;
           display: inline-block;
           margin-bottom: 0.5rem;
         }
@@ -105,6 +92,35 @@
           @include get-started-button;
           padding: 15px 50px;
         }
+      }
+    }
+  }
+  .home__intro::before {
+    position: absolute;
+    top: 15%;
+    right: -20%;
+    bottom: 0;
+    content: '';
+    width: 65%;
+    height: 80%;
+    background-image: url(/images/pattern.svg);
+    background-position: bottom;
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: opacity(0.8);
+  }
+  .home__packages {
+    padding-block: 7rem;
+    .home__packages__title {
+      margin-bottom: 3rem;
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      font-weight: 700;
+
+      .home__packages__title__explore {
+        font-weight: 700;
+        color: $color-secondary;
+        text-transform: uppercase;
       }
     }
   }
