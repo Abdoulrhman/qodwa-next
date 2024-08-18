@@ -1,5 +1,4 @@
 import { useTranslations } from 'next-intl';
-import '../styles/main.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import ToggleSwitch from './components/ToggleSwitch';
