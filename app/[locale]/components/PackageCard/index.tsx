@@ -22,41 +22,45 @@ const PackageCard: React.FC<PackageCardProps> = ({
   return (
     <div className='price-card-wrapper'>
       <div className='price-card'>
-        <div className='flied-icon2'>
+        {/* <div className='flied-icon2'>
           <Image
             src='/images/cilbration.png'
             alt='cilbration'
             width={200}
             height={200}
           />
-        </div>
+        </div> */}
         <div className='price'>
-          <span className='discounted-price'>{current_price}</span>
           <span className='original-price'>{original_price}</span>
-          <span className='discount-percentage'>{discount} off</span>
-          <span className='subscription-frequency'>
-            {subscription_frequency}
-          </span>
+          <div className='package-price'>
+            <span className='discounted-price'>{current_price}</span>
+            {/* <span className='discount-percentage'>{discount} off</span> */}
+            <span className='subscription-frequency'>
+              /{subscription_frequency}
+            </span>
+          </div>
         </div>
         <div className='course-details'>
           <p className='time-per-week'>{class_duration}</p>
           <ul>
             <li>
-              <BsCalendar2 size={20} />
+              <BsCalendar2 size={16} />
               {days_per_week}
             </li>
             <li>
-              <BsClock size={20} />
+              <BsClock size={16} />
               {classes_per_month}
             </li>
             <li>
-              <BsEnvelopePaperFill size={20} />
+              <BsEnvelopePaperFill size={16} />
 
               {package_type}
             </li>
           </ul>
         </div>
-        <button className='enroll-button'>{enrollment_action}</button>
+        <div className='btn-wrapper'>
+          <button className='enroll-button'>{enrollment_action}</button>
+        </div>
       </div>
     </div>
   );

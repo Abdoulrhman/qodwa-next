@@ -1,60 +1,70 @@
 .price-card-wrapper {
   perspective: 1000px;
+  display: flex;
+  justify-content: center;
   .price-card {
     transition: transform 0.6s;
     transform-style: preserve-3d;
     width: 300px; // Or your desired width
-    height: 100%; // Or your desired height
-
+    height: 100%; // Or your desired heights
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 16px;
+    padding: 24px 0px 16px 0px;
     background: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
     cursor: grab;
+    border-top: 5px $color-primary solid;
 
-    .flied-icon {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      img {
-        width: 50px;
-        height: 50px;
-      }
-    }
-    .flied-icon2 {
-      position: absolute;
-      top: 15px;
-      left: -50px;
+    // .flied-icon {
+    //   position: absolute;
+    //   top: 15px;
+    //   right: 15px;
+    //   img {
+    //     width: 50px;
+    //     height: 50px;
+    //   }
+    // }
+    // .flied-icon2 {
+    //   position: absolute;
+    //   top: 15px;
+    //   left: -50px;
 
-      transform: rotate(300deg);
-      img {
-        width: 200px;
-        height: 200px;
-      }
-    }
+    //   transform: rotate(300deg);
+    //   img {
+    //     width: 200px;
+    //     height: 200px;
+    //   }
+    // }
 
     .price {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-bottom: 16px;
-
-      .discounted-price {
-        font-size: 24px;
-        color: #2a7ae4;
+      gap: 10px;
+      .package-price {
+        .discounted-price {
+          font-size: 24px;
+          font-weight: 600;
+          color: black;
+        }
+        .subscription-frequency {
+          font-size: 10px;
+          margin-inline-start: 5px;
+        }
+        // .discount-percentage {
+        //   color: #ff6347;
+        //   font-weight: bold;
+        // }
       }
-
       .original-price {
         text-decoration: line-through;
-        color: #666;
-      }
-
-      .discount-percentage {
-        color: #ff6347;
-        font-weight: bold;
+        color: $color-primary;
+        background-color: #8766cc4a;
+        padding: 2px 5px;
+        border-radius: 4px;
       }
     }
 
@@ -62,10 +72,13 @@
       margin-bottom: 16px;
 
       .time-per-week {
+        background-color: #ffc62994;
         text-transform: uppercase;
-        color: #666;
+        /* color: #666; */
         font-size: 14px;
         margin-bottom: 8px;
+        padding: 5px;
+        text-align: center;
       }
 
       ul {
@@ -74,28 +87,33 @@
         margin: 0;
 
         li {
-          margin-bottom: 4px;
+          margin-bottom: 10px;
           display: flex;
           justify-content: start;
           align-items: center;
           gap: 8px;
+          font-size: 14px;
         }
       }
     }
+    .btn-wrapper {
+      justify-content: center;
+      padding: 0px 16px;
+      display: flex;
+      .enroll-button {
+        width: 80%;
+        padding: 12px;
+        border: none;
+        background: $color-primary;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
 
-    .enroll-button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      background: #2a7ae4;
-      color: #fff;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s;
-
-      &:hover {
-        background-color: darken(#2a7ae4, 10%);
+        &:hover {
+          background-color: darken(#2a7ae4, 10%);
+        }
       }
     }
   }
