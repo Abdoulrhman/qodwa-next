@@ -9,12 +9,17 @@ generator client {
 }
 
 model Package {
-  id          Int     @id @default(autoincrement())
-  weekly      String
-  price       Float
-  frequency   String
-  details     String
-  sixMonths   Float
-  twelveMonths Float
+  id                    Int      @id @default(autoincrement())
+  current_price         String
+  original_price        String
+  discount              String
+  subscription_frequency String
+  days_per_week         String
+  classes_per_month     String
+  class_duration        String
+  enrollment_action     String
+  package_type          String
+
+  @@map("packages")
 }
 
