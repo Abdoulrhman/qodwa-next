@@ -6,9 +6,17 @@ import { Autoplay } from 'swiper/modules';
 
 import PackageCard from '../../components/PackageCard';
 import { useTranslations } from 'next-intl';
+import { useEffect } from 'react';
+import axiosInstance from '@/app/services/axiosInstance';
 
 const HomePackages: React.FC = () => {
   const t = useTranslations('Home');
+
+  useEffect(() => {
+    axiosInstance.get('/packages').then((res) => {
+      console.log(res.data);
+    });
+  }, []);
 
   return (
     <div className='home__packages'>
