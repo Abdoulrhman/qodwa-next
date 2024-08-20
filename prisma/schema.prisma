@@ -1,0 +1,20 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Package {
+  id          Int     @id @default(autoincrement())
+  weekly      String
+  price       Float
+  frequency   String
+  details     String
+  sixMonths   Float
+  twelveMonths Float
+}
+

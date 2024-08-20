@@ -8,6 +8,7 @@ import PackageCard from '../../components/PackageCard';
 import { useTranslations } from 'next-intl';
 import SwitchButton from '../../components/SwitchButton';
 import { useEffect, useState } from 'react';
+import axiosInstance from '@/app/services/axiosInstance';
 
 const HomePackages: React.FC = () => {
   const t = useTranslations('Home');
@@ -137,6 +138,12 @@ const HomePackages: React.FC = () => {
       setSelectedList(packageData2 as never[]);
     }
   }, [selected]);
+
+  useEffect(() => {
+    axiosInstance.get('/packages').then((res) => {
+      console.log(res.data);
+    });
+  }, []);
 
   return (
     <div className='home__packages'>
