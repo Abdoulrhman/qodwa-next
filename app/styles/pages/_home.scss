@@ -111,16 +111,23 @@
   }
   .home__packages {
     padding-block: 7rem;
-    .home__packages__title {
-      margin-bottom: 3rem;
-      font-size: 2.5rem;
-      text-transform: uppercase;
-      font-weight: 700;
+    .container {
+      .container__header {
+        margin-bottom: 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .home__packages__title {
+          font-size: 2.5rem;
+          text-transform: uppercase;
+          font-weight: 700;
 
-      .home__packages__title__explore {
-        font-weight: 700;
-        color: $color-secondary;
-        text-transform: uppercase;
+          .home__packages__title__explore {
+            font-weight: 700;
+            color: $color-secondary;
+            text-transform: uppercase;
+          }
+        }
       }
     }
   }

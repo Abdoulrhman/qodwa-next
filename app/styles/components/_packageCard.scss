@@ -83,7 +83,7 @@
 
       ul {
         list-style: none;
-        padding: 0;
+        padding: 0 1rem;
         margin: 0;
 
         li {
@@ -112,7 +112,8 @@
         transition: background-color 0.3s;
 
         &:hover {
-          background-color: darken(#2a7ae4, 10%);
+          background-color: darken(rgba(135, 102, 204, 0.2901960784), 10%);
+          color: #000;
         }
       }
     }
