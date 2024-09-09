@@ -20,37 +20,42 @@ const PackageCard: React.FC<PackageCardProps> = ({
   },
 }) => {
   return (
-    <div className='price-card-wrapper'>
-      <div className='price-card'>
-        <div className='price'>
-          <span className='original-price'>${original_price}</span>
-          <div className='package-price'>
-            <span className='discounted-price'>${current_price}</span>
-            <span className='subscription-frequency'>
+    <div className='package-card-wrapper'>
+      <div className='package-card'>
+        <div className='package-card__price'>
+          <span className='package-card__price--original'>
+            ${original_price}
+          </span>
+          <div className='package-card__price-wrapper'>
+            <span className='package-card__price--discounted'>
+              ${current_price}
+            </span>
+            <span className='package-card__subscription-frequency'>
               /{subscription_frequency}
             </span>
           </div>
         </div>
-        <div className='course-details'>
-          <p className='time-per-week'>{class_duration}</p>
-          <ul>
-            <li>
+        <div className='package-card__course-details'>
+          <p className='package-card__time-per-week'>{class_duration}</p>
+          <ul className='package-card__info-list'>
+            <li className='package-card__info-item'>
               <BsCalendar2 size={16} />
               {days_per_week}
             </li>
-            <li>
+            <li className='package-card__info-item'>
               <BsClock size={16} />
               {classes_per_month}
             </li>
-            <li>
+            <li className='package-card__info-item'>
               <BsEnvelopePaperFill size={16} />
-
               {package_type}
             </li>
           </ul>
         </div>
-        <div className='btn-wrapper'>
-          <button className='enroll-button'>{enrollment_action}</button>
+        <div className='package-card__btn-wrapper'>
+          <button className='package-card__enroll-button'>
+            {enrollment_action}
+          </button>
         </div>
       </div>
     </div>
