@@ -22,19 +22,10 @@ const PackageCard: React.FC<PackageCardProps> = ({
   return (
     <div className='price-card-wrapper'>
       <div className='price-card'>
-        {/* <div className='flied-icon2'>
-          <Image
-            src='/images/cilbration.png'
-            alt='cilbration'
-            width={200}
-            height={200}
-          />
-        </div> */}
         <div className='price'>
-          <span className='original-price'>{original_price}</span>
+          <span className='original-price'>${original_price}</span>
           <div className='package-price'>
-            <span className='discounted-price'>{current_price}</span>
-            {/* <span className='discount-percentage'>{discount} off</span> */}
+            <span className='discounted-price'>${current_price}</span>
             <span className='subscription-frequency'>
               /{subscription_frequency}
             </span>

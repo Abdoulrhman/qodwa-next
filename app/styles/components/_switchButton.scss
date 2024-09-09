@@ -1,0 +1,25 @@
+.toggle-switch {
+  display: flex;
+  border-radius: 11px;
+  overflow: hidden;
+  width: 260px;
+  border: 1px solid;
+}
+
+.toggle-option {
+  flex: 1;
+  text-align: center;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: rgba(135, 102, 204, 0.2901960784);
+  color: #000;
+  font-size: 14px;
+  transition: all 0.3s ease;
+
+  &.active {
+    background-color: $color-primary;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+  }
+}

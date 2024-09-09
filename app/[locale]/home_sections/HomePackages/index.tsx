@@ -1,130 +1,114 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
 
 import PackageCard from '../../components/PackageCard';
 import { useTranslations } from 'next-intl';
-import { useEffect } from 'react';
+import SwitchButton from '../../components/SwitchButton';
 import axiosInstance from '@/app/services/axiosInstance';
+import { Package, PackagesResponse } from '@/app/APISchema';
+import Skeleton from '../../components/Skeleton';
 
 const HomePackages: React.FC = () => {
   const t = useTranslations('Home');
 
+  const [selectedList, setSelectedList] = useState<Package[]>([]);
+  const [packages, setPackages] = useState<PackagesResponse>(
+    {} as PackagesResponse
+  );
+  const [selected, setSelected] = useState('30 minutes');
+  const [loading, setLoading] = useState(true); // Initial loading state
+  const [error, setError] = useState<string | null>(null); // Error state
+
   useEffect(() => {
-    axiosInstance.get('/packages').then((res) => {
-      console.log(res.data);
-    });
-  }, []);
+    axiosInstance
+      .get('/packages')
+      .then((res) => {
+        setPackages(res.data);
+        setLoading(false); // Stop loading when data is fetched
+      })
+      .catch((err) => {
+        setError(t('error_loading_packages')); // Set error message
+        setLoading(false); // Stop loading on error
+      });
+  }, [t]);
+
+  useEffect(() => {
+    if (selected === '30 minutes') {
+      setSelectedList(packages.thirtyMinutes || []);
+    } else {
+      setSelectedList(packages.sixtyMinutes || []);
+    }
+  }, [selected, packages]);
+
+  const renderSkeletons = () => (
+    <div className='skeleton-container'>
+      {Array(3)
+        .fill(0)
+        .map((_, index) => (
+          <Skeleton
+            key={index}
+            width='calc(33.33% - 20px)'
+            height='300px'
+            borderRadius='8px'
+          />
+        ))}
+    </div>
+  );
 
   return (
     <div className='home__packages'>
       <div className='container'>
-        <h2 className='home__packages__title'>
-          <span className='home__packages__title__explore'>{t('explore')}</span>{' '}
-          <span>{t('our_packages')}</span>
-        </h2>
-        <Swiper
-          spaceBetween={50}
-          slidesPerView={3}
-          //   autoplay={{
-          //     delay: 2500,
-          //     pauseOnMouseEnter: true,
-          //   }}
-          loop
-          navigation={true}
-          modules={[Autoplay]}
-          breakpoints={{
-            300: {
-              slidesPerView: 1,
-            },
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 20,
-            },
-          }}
-        >
-          <SwiperSlide>
-            <PackageCard
-              cardInfo={{
-                current_price: '$100',
-                original_price: '$200',
-                discount: '50%',
-                subscription_frequency: 'Month',
-                days_per_week: '3 Days / Week',
-                classes_per_month: '12 Classes / Month',
-                class_duration: '60 mins',
-                enrollment_action: 'Enroll Now',
-                package_type: 'Basic',
-              }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <PackageCard
-              cardInfo={{
-                current_price: '$100',
-                original_price: '$200',
-                discount: '50%',
-                subscription_frequency: 'Monthly',
-                days_per_week: '3 Days',
-                classes_per_month: '12 Classes',
-                class_duration: '1 Hour',
-                enrollment_action: 'Enroll Now',
-                package_type: 'Basic',
-              }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <PackageCard
-              cardInfo={{
-                current_price: '$100',
-                original_price: '$200',
-                discount: '50%',
-                subscription_frequency: 'Monthly',
-                days_per_week: '3 Days',
-                classes_per_month: '12 Classes',
-                class_duration: '1 Hour',
-                enrollment_action: 'Enroll Now',
-                package_type: 'Basic',
-              }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <PackageCard
-              cardInfo={{
-                current_price: '$100',
-                original_price: '$200',
-                discount: '50%',
-                subscription_frequency: 'Monthly',
-                days_per_week: '3 Days',
-                classes_per_month: '12 Classes',
-                class_duration: '1 Hour',
-                enrollment_action: 'Enroll Now',
-                package_type: 'Basic',
-              }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <PackageCard
-              cardInfo={{
-                current_price: '$100',
-                original_price: '$200',
-                discount: '50%',
-                subscription_frequency: 'Monthly',
-                days_per_week: '3 Days',
-                classes_per_month: '12 Classes',
-                class_duration: '1 Hour',
-                enrollment_action: 'Enroll Now',
-                package_type: 'Basic',
-              }}
-            />
-          </SwiperSlide>
-        </Swiper>
+        <div className='container__header'>
+          <h2 className='home__packages__title'>
+            <span className='home__packages__title__explore'>
+              {t('explore')}
+            </span>
+            <span> {t('our_packages')} </span>
+          </h2>
+          <SwitchButton selected={selected} setSelected={setSelected} />
+        </div>
+
+        {loading ? (
+          renderSkeletons() // Render skeletons outside of Swiper
+        ) : (
+          <Swiper
+            spaceBetween={50}
+            slidesPerView={3}
+            loop
+            autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
+            navigation={true}
+            modules={[Autoplay]}
+            breakpoints={{
+              300: {
+                slidesPerView: 1,
+              },
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+            }}
+          >
+            {selectedList.map((data, index) => (
+              <SwiperSlide key={index}>
+                <PackageCard cardInfo={data} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
+
+        {error && (
+          <div className='error_message'>
+            <p>{error}</p>
+          </div>
+        )}
       </div>
     </div>
   );
