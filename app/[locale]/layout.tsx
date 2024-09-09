@@ -1,6 +1,6 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import '../styles/main.scss';
+import '../../styles/main.scss';
 
 export default async function LocaleLayout({
   children,

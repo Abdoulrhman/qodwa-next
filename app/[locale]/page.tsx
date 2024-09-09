@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
-import ToggleSwitch from './components/ToggleSwitch';
+import ToggleSwitch from '@/components/shared/ToggleSwitch';
 import HomePackages from './home_sections/HomePackages';
 
 export default function Home() {
