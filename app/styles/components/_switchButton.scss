@@ -1,9 +1,9 @@
 .toggle-switch {
   display: flex;
-
-  border-radius: 5px;
+  border-radius: 11px;
   overflow: hidden;
-  width: min-content;
+  width: 260px;
+  border: 1px solid;
 }
 
 .toggle-option {
@@ -13,15 +13,13 @@
   cursor: pointer;
   background-color: rgba(135, 102, 204, 0.2901960784);
   color: #000;
-  font-weight: bold;
+  font-size: 14px;
   transition: all 0.3s ease;
-
-  &:not(.active):hover {
-    background-color: #cfd8dc;
-  }
 
   &.active {
     background-color: $color-primary;
     color: #fff;
+    font-weight: bold;
+    font-size: 16px;
   }
 }

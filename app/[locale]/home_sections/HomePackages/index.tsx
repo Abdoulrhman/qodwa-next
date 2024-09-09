@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
@@ -7,143 +8,56 @@ import { Autoplay } from 'swiper/modules';
 import PackageCard from '../../components/PackageCard';
 import { useTranslations } from 'next-intl';
 import SwitchButton from '../../components/SwitchButton';
-import { useEffect, useState } from 'react';
 import axiosInstance from '@/app/services/axiosInstance';
+import { Package, PackagesResponse } from '@/app/APISchema';
+import Skeleton from '../../components/Skeleton';
 
 const HomePackages: React.FC = () => {
   const t = useTranslations('Home');
 
-  const [selectedList, setSelectedList] = useState([]);
+  const [selectedList, setSelectedList] = useState<Package[]>([]);
+  const [packages, setPackages] = useState<PackagesResponse>(
+    {} as PackagesResponse
+  );
   const [selected, setSelected] = useState('30 minutes');
+  const [loading, setLoading] = useState(true); // Initial loading state
+  const [error, setError] = useState<string | null>(null); // Error state
 
-  const packageData1 = [
-    {
-      current_price: '$100',
-      original_price: '$300',
-      discount: '50%',
-      subscription_frequency: 'Month',
-      days_per_week: '3 Days / Week',
-      classes_per_month: '12 Classes / Month',
-      class_duration: '60 mins',
-      enrollment_action: 'Enroll Now',
-      package_type: 'Basic',
-    },
-    {
-      current_price: '$100',
-      original_price: '$200',
-      discount: '50%',
-      subscription_frequency: 'Monthly',
-      days_per_week: '3 Days',
-      classes_per_month: '12 Classes',
-      class_duration: '1 Hour',
-      enrollment_action: 'Enroll Now',
-      package_type: 'Basic',
-    },
-    {
-      current_price: '$100',
-      original_price: '$200',
-      discount: '50%',
-      subscription_frequency: 'Monthly',
-      days_per_week: '3 Days',
-      classes_per_month: '12 Classes',
-      class_duration: '1 Hour',
-      enrollment_action: 'Enroll Now',
-      package_type: 'Basic',
-    },
-    {
-      current_price: '$100',
-      original_price: '$200',
-      discount: '50%',
-      subscription_frequency: 'Monthly',
-      days_per_week: '3 Days',
-      classes_per_month: '12 Classes',
-      class_duration: '1 Hour',
-      enrollment_action: 'Enroll Now',
-      package_type: 'Basic',
-    },
-    {
-      current_price: '$100',
-      original_price: '$200',
-      discount: '50%',
-      subscription_frequency: 'Monthly',
-      days_per_week: '3 Days',
-      classes_per_month: '12 Classes',
-      class_duration: '1 Hour',
-      enrollment_action: 'Enroll Now',
-      package_type: 'Basic',
-    },
-  ];
-  const packageData2 = [
-    {
-      current_price: '$100',
-      original_price: '$200',
-      discount: '50%',
-      subscription_frequency: 'Monthly',
-      days_per_week: '3 Days',
-      classes_per_month: '12 Classes',
-      class_duration: '1 Hour',
-      enrollment_action: 'Enroll Now',
-      package_type: 'Basic',
-    },
-    {
-      current_price: '$100',
-      original_price: '$200',
-      discount: '50%',
-      subscription_frequency: 'Monthly',
-      days_per_week: '3 Days',
-      classes_per_month: '12 Classes',
-      class_duration: '1 Hour',
-      enrollment_action: 'Enroll Now',
-      package_type: 'Basic',
-    },
-    {
-      current_price: '$100',
-      original_price: '$200',
-      discount: '50%',
-      subscription_frequency: 'Monthly',
-      days_per_week: '3 Days',
-      classes_per_month: '12 Classes',
-      class_duration: '1 Hour',
-      enrollment_action: 'Enroll Now',
-      package_type: 'Basic',
-    },
-    {
-      current_price: '$100',
-      original_price: '$200',
-      discount: '50%',
-      subscription_frequency: 'Monthly',
-      days_per_week: '3 Days',
-      classes_per_month: '12 Classes',
-      class_duration: '1 Hour',
-      enrollment_action: 'Enroll Now',
-      package_type: 'Basic',
-    },
-    {
-      current_price: '$100',
-      original_price: '$200',
-      discount: '50%',
-      subscription_frequency: 'Monthly',
-      days_per_week: '3 Days',
-      classes_per_month: '12 Classes',
-      class_duration: '1 Hour',
-      enrollment_action: 'Enroll Now',
-      package_type: 'Basic',
-    },
-  ];
+  useEffect(() => {
+    axiosInstance
+      .get('/packages')
+      .then((res) => {
+        setPackages(res.data);
+        setLoading(false); // Stop loading when data is fetched
+      })
+      .catch((err) => {
+        setError(t('error_loading_packages')); // Set error message
+        setLoading(false); // Stop loading on error
+      });
+  }, [t]);
 
   useEffect(() => {
     if (selected === '30 minutes') {
-      setSelectedList(packageData1 as never[]);
+      setSelectedList(packages.thirtyMinutes || []);
     } else {
-      setSelectedList(packageData2 as never[]);
+      setSelectedList(packages.sixtyMinutes || []);
     }
-  }, [selected]);
+  }, [selected, packages]);
 
-  useEffect(() => {
-    axiosInstance.get('/packages').then((res) => {
-      console.log(res.data);
-    });
-  }, []);
+  const renderSkeletons = () => (
+    <div className='skeleton-container'>
+      {Array(3)
+        .fill(0)
+        .map((_, index) => (
+          <Skeleton
+            key={index}
+            width='calc(33.33% - 20px)'
+            height='300px'
+            borderRadius='8px'
+          />
+        ))}
+    </div>
+  );
 
   return (
     <div className='home__packages'>
@@ -158,36 +72,43 @@ const HomePackages: React.FC = () => {
           <SwitchButton selected={selected} setSelected={setSelected} />
         </div>
 
-        <Swiper
-          spaceBetween={50}
-          slidesPerView={3}
-          //   autoplay={{
-          //     delay: 2500,
-          //     pauseOnMouseEnter: true,
-          //   }}
-          loop
-          navigation={true}
-          modules={[Autoplay]}
-          breakpoints={{
-            300: {
-              slidesPerView: 1,
-            },
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 20,
-            },
-          }}
-        >
-          {selectedList.map((data, index) => (
-            <SwiperSlide key={index}>
-              <PackageCard cardInfo={data} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {loading ? (
+          renderSkeletons() // Render skeletons outside of Swiper
+        ) : (
+          <Swiper
+            spaceBetween={50}
+            slidesPerView={3}
+            loop
+            autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
+            navigation={true}
+            modules={[Autoplay]}
+            breakpoints={{
+              300: {
+                slidesPerView: 1,
+              },
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+            }}
+          >
+            {selectedList.map((data, index) => (
+              <SwiperSlide key={index}>
+                <PackageCard cardInfo={data} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
+
+        {error && (
+          <div className='error_message'>
+            <p>{error}</p>
+          </div>
+        )}
       </div>
     </div>
   );

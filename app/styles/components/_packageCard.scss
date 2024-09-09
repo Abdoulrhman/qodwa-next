@@ -7,7 +7,6 @@
     transform-style: preserve-3d;
     width: 300px; // Or your desired width
     height: 100%; // Or your desired heights
-    border: 1px solid #ddd;
     border-radius: 8px;
     padding: 24px 0px 16px 0px;
     background: #fff;
@@ -15,56 +14,31 @@
     position: relative;
     overflow: hidden;
     cursor: grab;
-    border-top: 5px $color-primary solid;
-
-    // .flied-icon {
-    //   position: absolute;
-    //   top: 15px;
-    //   right: 15px;
-    //   img {
-    //     width: 50px;
-    //     height: 50px;
-    //   }
-    // }
-    // .flied-icon2 {
-    //   position: absolute;
-    //   top: 15px;
-    //   left: -50px;
-
-    //   transform: rotate(300deg);
-    //   img {
-    //     width: 200px;
-    //     height: 200px;
-    //   }
-    // }
-
+    border-top: 4px $color-primary solid;
+    border-bottom: 4px $color-primary solid;
     .price {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      margin-inline-start: 2rem;
       margin-bottom: 16px;
-      gap: 10px;
+      gap: 3px;
       .package-price {
         .discounted-price {
-          font-size: 24px;
-          font-weight: 600;
+          font-size: 36px;
+          font-weight: 400;
           color: black;
         }
         .subscription-frequency {
-          font-size: 10px;
+          font-size: 14px;
           margin-inline-start: 5px;
+          font-weight: 300;
         }
-        // .discount-percentage {
-        //   color: #ff6347;
-        //   font-weight: bold;
-        // }
       }
       .original-price {
         text-decoration: line-through;
-        color: $color-primary;
-        background-color: #8766cc4a;
-        padding: 2px 5px;
-        border-radius: 4px;
+        color: #000;
+        font-size: 24px;
+        font-weight: 300;
       }
     }
 
@@ -73,17 +47,16 @@
 
       .time-per-week {
         background-color: #ffc62994;
-        text-transform: uppercase;
-        /* color: #666; */
-        font-size: 14px;
+        font-size: 16px;
         margin-bottom: 8px;
-        padding: 5px;
+        padding: 10px;
+        text-transform: capitalize;
         text-align: center;
       }
 
       ul {
         list-style: none;
-        padding: 0 1rem;
+        padding: 0 2rem;
         margin: 0;
 
         li {
@@ -101,7 +74,7 @@
       padding: 0px 16px;
       display: flex;
       .enroll-button {
-        width: 80%;
+        width: 75%;
         padding: 12px;
         border: none;
         background: $color-primary;
@@ -112,7 +85,7 @@
         transition: background-color 0.3s;
 
         &:hover {
-          background-color: darken(rgba(135, 102, 204, 0.2901960784), 10%);
+          background-color: rgba(135, 102, 204, 0.2901960784);
           color: #000;
         }
       }
