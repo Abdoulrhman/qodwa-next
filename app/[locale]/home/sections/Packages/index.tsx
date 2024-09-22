@@ -5,12 +5,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
 
-import PackageCard from '../../components/PackageCard';
 import { useTranslations } from 'next-intl';
-import SwitchButton from '../../components/SwitchButton';
-import axiosInstance from '@/app/services/axiosInstance';
-import { Package, PackagesResponse } from '@/app/APISchema';
-import Skeleton from '../../components/Skeleton';
+import SwitchButton from '@/components/SwitchButton';
+import axiosInstance from '@/services/axiosInstance';
+import { Package, PackagesResponse } from '@/APISchema';
+import Skeleton from '@/components/Skeleton';
+import PackageCard from '@/components/PackageCard';
 
 const HomePackages: React.FC = () => {
   const t = useTranslations('Home');
