@@ -2,7 +2,8 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import ToggleSwitch from '@/components/ToggleSwitch';
-import HomePackages from './home_sections/HomePackages';
+import HomePackages from './home/sections/Packages';
+import HomeServices from './home/sections/Services';
 
 export default function Home() {
   const t = useTranslations('Home');
@@ -64,6 +65,7 @@ export default function Home() {
         </div>
       </div>
       <HomePackages />
+      <HomeServices />
     </div>
   );
 }
