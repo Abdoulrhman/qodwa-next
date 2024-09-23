@@ -6,6 +6,9 @@
     "get_started": "Get Started",
     "login": "Login",
     "our_packages": "Our Packages",
-    "explore": "Explore"
+    "explore": "Explore",
+    "Packages":{
+      "error_loading_packages" : "An error occurred while loading the packages"
+    }
   }
 }

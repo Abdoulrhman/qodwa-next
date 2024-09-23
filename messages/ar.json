@@ -6,6 +6,10 @@
     "get_started": "ابدأ الآن",
     "login": "تسجيل الدخول",
     "our_packages": "باقاتنا",
-    "explore": "استكشف"
+    "explore": "استكشف",
+    "Packages":{
+      "error_loading_packages" : "حدث خطأ أثناء تحميل الباقات"
+    }
   }
+
 }
