@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import { Package, PackagesResponse } from '@/app/APISchema';
+import { Package, PackagesResponse } from '@/APISchema';
 
 const prisma = new PrismaClient();
 
