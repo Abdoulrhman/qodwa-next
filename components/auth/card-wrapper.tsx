@@ -35,7 +35,7 @@ export const CardWrapper = ({
       </CardContent>
       {showSocial && (
         <CardFooter>
-          {/* <Social /> */}
+          <Social />
         </CardFooter>
       )}
       <CardFooter>
