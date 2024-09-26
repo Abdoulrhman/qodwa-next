@@ -21,7 +21,8 @@ import { CardWrapper } from "@/components/auth/card-wrapper"
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-// import { login } from "@/actions/login";
+import { login } from "@/actions/login";
+import { useLocale } from "next-intl";
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -34,6 +35,8 @@ export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+
+  const locale = useLocale();
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -48,15 +51,30 @@ export const LoginForm = () => {
     setSuccess("");
     
     startTransition(() => {
-     console.log("Login form submitted with values:", values);
+      login(values, callbackUrl)
+        .then((data) => {
+          if (data?.error) {
+            form.reset();
+            setError(data.error);
+          }
+
+          if (data?.success) {
+            form.reset();
+            setSuccess(data.success);
+          }
+
+          if (data?.twoFactor) {
+            setShowTwoFactor(true);
+          }
+        })
+        .catch(() => setError("Something went wrong"));
     });
   };
-
   return (
     <CardWrapper
       headerLabel="🔐 Welcome back "
       backButtonLabel="Don't have an account?"
-      backButtonHref="/auth/register"
+      backButtonHref="register"
       showSocial
     >
       <Form {...form}>

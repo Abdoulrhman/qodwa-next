@@ -3,10 +3,10 @@ import createMiddleware from 'next-intl/middleware';
 import NextAuth from 'next-auth';
 import authConfig from "@/auth.config";
 import {
-  DEFAULT_LOGIN_REDIRECT,
   apiAuthPrefix,
   authRoutes,
   publicRoutes,
+  getDefaultLoginRedirect,
 } from "@/routes";
 
 // Create localization middleware
@@ -29,15 +29,18 @@ export default async function middleware(req: any) {
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
+  // Locale
+  const locale = req.locale;
+
   if (isApiAuthRoute) {
     return NextResponse.next();
   }
 
   if (isAuthRoute) {
     if (isLoggedIn) {
-      return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+      return NextResponse.redirect(new URL(getDefaultLoginRedirect(locale), nextUrl));
     }
-    return NextResponse.next();
+    return null
   }
 
   if (!isLoggedIn && !isPublicRoute) {
@@ -59,9 +62,9 @@ export default async function middleware(req: any) {
 // Middleware config
 export const config = {
   matcher: [
-    '/((?!.+\\.[\\w]+$|_next).*)', // Match all pages except static files
+    '/(ar|en)/((?!.+\\.[\\w]+$|_next).*)', // Match all pages except static files
     '/',
-    '/(api|trpc)(.*)',
+    '/(ar|en)/(api|trpc)(.*)',
     '/(ar|en)/:path*' // Also match localized paths
   ],
 };
