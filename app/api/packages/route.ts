@@ -1,13 +1,12 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
 import { Package, PackagesResponse } from '@/APISchema';
+import { db } from "@/lib/db";
 
-const prisma = new PrismaClient();
 
 export async function GET() {
   try {
     // Fetch all packages from the database
-    const packages = await prisma.package.findMany();
+    const packages = await db.package.findMany();
 
     // Separate packages into 30-minute and 60-minute arrays based on class_duration
     const thirtyMinutes = packages.filter((pkg: Package) =>
@@ -16,6 +15,7 @@ export async function GET() {
     const sixtyMinutes = packages.filter((pkg: Package) =>
       pkg.package_type.includes('60 Minutes')
     );
+
 
     const response: PackagesResponse = {
       thirtyMinutes,

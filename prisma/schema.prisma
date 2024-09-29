@@ -19,7 +19,7 @@ model Package {
   enrollment_action      String
   package_type           String
 
-  @@map("packages")
+  @@map("Package")  // Explicitly map to the "Package" table
 }
 
 enum UserRole {

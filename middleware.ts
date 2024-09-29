@@ -17,7 +17,7 @@ const localeMiddleware = createMiddleware({
 
 
 export default async function middleware(req: any) {
-  const { nextUrl } = req;
+  const { nextUrl,locale } = req;
 
   // Apply locale middleware first
   const localeResponse = localeMiddleware(req);
@@ -29,8 +29,6 @@ export default async function middleware(req: any) {
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-  // Locale
-  const locale = req.locale;
 
   if (isApiAuthRoute) {
     return NextResponse.next();

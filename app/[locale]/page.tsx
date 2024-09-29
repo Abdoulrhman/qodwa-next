@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import ToggleSwitch from '@/components/shared/ToggleSwitch';
@@ -7,6 +7,7 @@ import HomeServices from './home/sections/Services';
 
 export default function Home() {
   const t = useTranslations('Home');
+  const locale = useLocale();
   return (
     <div className='home'>
       <div className='home__intro'>
@@ -39,7 +40,7 @@ export default function Home() {
               <button className='home__get-started'>{t('get_started')}</button>
 
               <div className='home__user-actions'>
-                <Link href={'/login'}>{t('login')}</Link>
+                <Link href={`${locale}/auth/login`}>{t('login')}</Link>
                 <Link href={'/ar'}>عربي</Link>
               </div>
             </div>
