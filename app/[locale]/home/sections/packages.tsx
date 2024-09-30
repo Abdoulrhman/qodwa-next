@@ -60,8 +60,7 @@ const HomePackages: React.FC = () => {
   );
 
   return (
-    <div className='home__packages'>
-      <div className='container'>
+    <div className='home-packages'>
         <div className='container__header'>
           <h2 className='home__packages__title'>
             <span className='home__packages__title__explore'>
@@ -110,7 +109,6 @@ const HomePackages: React.FC = () => {
           </div>
         )}
       </div>
-    </div>
   );
 };
 

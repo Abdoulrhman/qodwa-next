@@ -1,0 +1,62 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 250px;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+
+  // Default to left position
+  &.left {
+    left: 0;
+    transform: translateX(-100%); // Hidden by default from left
+
+    &.open {
+      transform: translateX(0); // Show sidebar when open from left
+    }
+
+    &.closed {
+      transform: translateX(-100%); // Hide sidebar when closed from left
+    }
+  }
+
+  // Right position
+  &.right {
+    right: 0;
+    transform: translateX(100%); // Hidden by default from right
+
+    &.open {
+      transform: translateX(0); // Show sidebar when open from right
+    }
+
+    &.closed {
+      transform: translateX(100%); // Hide sidebar when closed from right
+    }
+  }
+
+  .sidebar-close-btn {
+    position: absolute;
+    top: 20px;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000;
+
+    // Position the close button depending on the sidebar side
+    &.left {
+      right: 20px; // Close button on the right side for left sidebar
+    }
+
+    &.right {
+      left: 20px; // Close button on the left side for right sidebar
+    }
+  }
+
+  .sidebar-content {
+    margin-top: 40px; // Adjust based on your needs
+  }
+}

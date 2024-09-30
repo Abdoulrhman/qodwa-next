@@ -9,3 +9,9 @@
   line-height: 1.5;
   border: none;
 }
+
+@mixin max-width($max-width: 1200px) {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 15px;
+}

@@ -1,43 +1,65 @@
 .services {
-    padding: 2rem;
-    text-align: center;
+  padding: 2rem;
+  text-align: center;
+  @include max-width(1200px);
   
-    &__title {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      color: #333;
+  &__title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // Default to 3 columns
+    gap: 2rem;
+
+    // Media query for tablets (width up to 1024px)
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr); // Change to 2 columns
     }
-  
-    &__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-    }
-  
-    &__card {
-      background-color: #fff;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      text-align: left;
-      
-      &-icon {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        color: #666;
-      }
-  
-      &-title {
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
-        font-weight: bold;
-        color: #333;
-      }
-  
-      &-description {
-        font-size: 1rem;
-        color: #666;
-      }
+
+    // Media query for mobile devices (width up to 768px)
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr; // Change to 1 column
     }
   }
-  
+
+  &__card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+
+    &-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #666;
+    }
+
+    &-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    &-description {
+      font-size: 1rem;
+      color: #666;
+    }
+  }
+
+  // Adjustments for mobile devices (width up to 768px)
+  @media (max-width: 768px) {
+    &__title {
+      font-size: 1.5rem; // Decrease title font size for smaller screens
+      margin-bottom: 1.5rem;
+    }
+
+    &__card {
+      padding: 1rem; // Reduce padding for smaller screens
+    }
+  }
+}

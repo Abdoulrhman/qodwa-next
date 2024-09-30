@@ -1,0 +1,34 @@
+.intro-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 0;
+
+  .intro-title {
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: $color-primary;
+    margin-bottom: 1rem;
+
+    .intro-title-highlight {
+      color: #000;
+    }
+  }
+
+  .intro-subtitle {
+    font-weight: 500;
+    color: #000;
+    font-size: 1.2rem;
+  }
+
+  .intro-cta {
+    margin-top: 2rem;
+
+    .intro-cta-btn {
+      @include get-started-button;
+      padding: 15px 50px;
+    }
+  }
+}
