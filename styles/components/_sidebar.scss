@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   height: 100%;
-  width: 250px;
+  width: 50%;
   background-color: #fff;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
   z-index: 100;
@@ -59,4 +59,20 @@
   .sidebar-content {
     margin-top: 40px; // Adjust based on your needs
   }
+}
+
+/* Backdrop styling for the blur effect */
+.sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(5px); // Blur the background
+  z-index: 99; // Make sure it's behind the sidebar
+  transition: opacity 0.3s ease;
+}
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
 }
