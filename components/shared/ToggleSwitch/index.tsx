@@ -36,7 +36,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
         ></div>
       </div>
       <span className={mode === 'teacher' ? 'toggleSwitch__active' : ''}>
-        teacher
+        Teacher
       </span>
     </div>
   );

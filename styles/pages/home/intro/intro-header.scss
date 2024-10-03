@@ -4,6 +4,7 @@
     padding: 10px 0;
     position: relative;
     @include max-width(1200px);
+    margin-bottom: 2rem;
   
     .intro__header-content {
       display: flex;

@@ -8,7 +8,7 @@
   justify-content: space-between;
 
   span {
-    font-size: 16px;
+    font-size: 1.5rem;
     color: #555;
   }
 
@@ -56,4 +56,38 @@
     -webkit-text-fill-color: transparent;
     background-clip: text; // Add the standard property 'background-clip'
   }
+}
+@media screen and (max-width: 768px) {
+  .toggleSwitch {
+    padding: 20px;
+    width: 200px;
+
+    span {
+      font-size: 0.8rem 
+    }
+
+    .toggleSwitch__switch {
+      width: 50px;
+      height: 20px;
+    }
+
+    .toggleSwitch__student,
+    .toggleSwitch__teacher {
+      height: 15px;
+      width: 15px;
+    }
+
+    .toggleSwitch__student {
+      transform: translateX(3px);
+    }
+
+    .toggleSwitch__teacher {
+      transform: translateX(20px);
+    }
+
+    .toggleSwitch__active {
+      font-size: 0.8rem;
+    }
+  }
+  
 }
