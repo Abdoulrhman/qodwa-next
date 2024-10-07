@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 interface ToggleSwitchProps {
@@ -12,6 +13,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
   onToggle,
 }) => {
   const [mode, setMode] = useState<'student' | 'teacher'>(initialMode);
+  const t = useTranslations('Home');
 
   const handleToggle = () => {
     const newMode = mode === 'student' ? 'teacher' : 'student';
@@ -24,7 +26,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
   return (
     <div className='toggleSwitch'>
       <span className={mode === 'student' ? 'toggleSwitch__active' : ''}>
-        Student
+        {t('student')}
       </span>
       <div className='toggleSwitch__switch' onClick={handleToggle}>
         <div
@@ -36,7 +38,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
         ></div>
       </div>
       <span className={mode === 'teacher' ? 'toggleSwitch__active' : ''}>
-        Teacher
+      {t('teacher')}
       </span>
     </div>
   );

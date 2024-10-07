@@ -45,70 +45,91 @@ const HomePackages: React.FC = () => {
   }, [selected, packages]);
 
   const renderSkeletons = () => (
-    <div className='skeleton-container'>
+    <Swiper
+      spaceBetween={50}
+      slidesPerView={3}
+      loop
+      autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
+      navigation={true}
+      modules={[Autoplay]}
+      breakpoints={{
+        300: {
+          slidesPerView: 1,
+        },
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+        },
+      }}
+    >
       {Array(3)
         .fill(0)
         .map((_, index) => (
-          <Skeleton
-            key={index}
-            width='calc(33.33% - 20px)'
-            height='300px'
-            borderRadius='8px'
-          />
+          <SwiperSlide key={index}>
+            <Skeleton
+              width='calc(100% - 20px)'
+              height='300px'
+              borderRadius='8px'
+            />
+          </SwiperSlide>
         ))}
-    </div>
+    </Swiper>
   );
 
   return (
     <div className='home-packages'>
-        <div className='container__header'>
-          <h2 className='home__packages__title'>
-            <span className='home__packages__title__explore'>
-              {t('explore')}
-            </span>
-            <span> {t('our_packages')} </span>
-          </h2>
-          <SwitchButton selected={selected} setSelected={setSelected} />
-        </div>
-
-        {loading ? (
-          renderSkeletons() // Render skeletons outside of Swiper
-        ) : (
-          <Swiper
-            spaceBetween={50}
-            slidesPerView={3}
-            loop
-            autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
-            navigation={true}
-            modules={[Autoplay]}
-            breakpoints={{
-              300: {
-                slidesPerView: 1,
-              },
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 20,
-              },
-            }}
-          >
-            {selectedList.map((data, index) => (
-              <SwiperSlide key={index}>
-                <PackageCard cardInfo={data} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        )}
-
-        {error && (
-          <div className='error_message'>
-            <p>{error}</p>
-          </div>
-        )}
+      <div className='container__header'>
+        <h2 className='home__packages__title'>
+          <span className='home__packages__title__explore'>
+            {t('explore')}
+          </span>
+          <span> {t('our_packages')} </span>
+        </h2>
+        <SwitchButton selected={selected} setSelected={setSelected} />
       </div>
+
+      {loading ? (
+        renderSkeletons() // Render skeletons inside Swiper
+      ) : (
+        <Swiper
+          spaceBetween={50}
+          slidesPerView={3}
+          loop
+          autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
+          navigation={true}
+          modules={[Autoplay]}
+          breakpoints={{
+            300: {
+              slidesPerView: 1,
+            },
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+          }}
+        >
+          {selectedList.map((data, index) => (
+            <SwiperSlide key={index}>
+              <PackageCard cardInfo={data} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
+
+      {error && (
+        <div className='error_message'>
+          <p>{error}</p>
+        </div>
+      )}
+    </div>
   );
 };
 

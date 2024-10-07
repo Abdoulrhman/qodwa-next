@@ -8,12 +8,10 @@ import {
   publicRoutes,
   getDefaultLoginRedirect,
 } from "@/routes";
+import { routing } from './i18n/routing';
 
 // Create localization middleware
-const localeMiddleware = createMiddleware({
-  locales: ['en', 'ar'],
-  defaultLocale: 'en',
-});
+const localeMiddleware = createMiddleware(routing);
 
 
 export default async function middleware(req: any) {

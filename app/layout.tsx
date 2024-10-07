@@ -1,25 +1,38 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Almarai } from 'next/font/google';
 import '../styles/main.scss';
 import '../app/globals.css';
-const inter = Inter({ subsets: ["latin"] });
+import { useLocale } from 'next-intl';
 
-export const metadata: Metadata = {
-  title:"Qodwa | Quran Platform",
-  description: "Qodwa is a platform that helps you to memorize the Quran easily and effectively.",
-};
+const inter = Inter({ subsets: ['latin'] });
+const almarai = Almarai({ subsets: ['arabic'], weight: ['400', '700'] });
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
+  params?: { locale: string };
 }>) {
+  const locale = useLocale();
+console.log({locale});
   return (
-    <html suppressHydrationWarning={true} lang="en">
+    <html suppressHydrationWarning={true} lang={locale} dir={
+      locale === 'ar' ? 'rtl' : 'ltr' 
+    }>
       <head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel='icon' href='/favicon.ico' />
       </head>
-      <body suppressHydrationWarning={true} className={inter.className}>{children}</body>
+      <body
+        suppressHydrationWarning={true}
+        className={locale !== 'ar' ? inter.className : almarai.className}
+      >
+        {children}
+      </body>
     </html>
+
   );
+
 }
+
+
+
+ 

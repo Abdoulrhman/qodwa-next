@@ -1,5 +1,6 @@
 .home-packages {
     padding-block: 7rem;
+    margin-bottom: $spacing-md * 2 !important;
     @include max-width(1200px);
 
       .container__header {
@@ -73,5 +74,17 @@
           }
         }
       }
+  }
+
+  @media screen and (max-width: 768px) {
+    .home-packages {
+      padding-block: 5rem;
+      .container__header {
+        margin-bottom: 2rem;
+        .home__packages__title {
+          font-size: 2rem;
+        }
+      }
+    }
     
   }

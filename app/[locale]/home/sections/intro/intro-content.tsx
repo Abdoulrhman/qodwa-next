@@ -6,14 +6,16 @@ const IntroContent: React.FC = () => {
   const t = useTranslations('Home');
 
   return (
-    <section className="intro-content">
+    <section className='intro-content'>
       <ToggleSwitch />
-      <h1 className="intro-title">
-        Hire <span className="intro-title-highlight">Remote Top Talents</span>
+      <h1 className='intro-title'>
+       
+        <span className='intro-title-highlight'>{t('main_header_text')}</span>{' '}
+        {t('now')}
       </h1>
-      <p className="intro-subtitle">24,000+ Talent from around 80+ Countries</p>
-      <div className="intro-cta">
-        <button className="intro-cta-btn">{t('get_started')}</button>
+      <p className='intro-subtitle'>{t('sub_header_text')}</p>
+      <div className='intro-cta'>
+        <button className='intro-cta-btn'>{t('get_started')}</button>
       </div>
     </section>
   );

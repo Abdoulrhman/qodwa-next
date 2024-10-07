@@ -7,6 +7,13 @@
     "login": "Login",
     "our_packages": "Our Packages",
     "explore": "Explore",
+    "main_header_text": "Empower Your Quranic Journey",
+    "sub_header_text": "Learn Quran with Tajweed, Tafseer, and Arabic",
+    "now": "Now",
+    "student": "Student",
+    "teacher": "Teacher",
+    "30Min": "30 Min",
+    "60Min": "60 Min",
     "Packages":{
       "error_loading_packages" : "An error occurred while loading the packages"
     }

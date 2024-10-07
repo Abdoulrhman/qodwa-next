@@ -23,3 +23,28 @@
     font-size: 16px;
   }
 }
+
+// Media query to adjust for small screens
+@media (max-width: 768px) {
+  .toggle-switch {
+    width: 200px; // Resize width for smaller screens
+  }
+
+  .toggle-option {
+    font-size: 10px; // Reduce font size for smaller screens
+
+    &.active {
+      font-size: 12px; // Increase font size for active option
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .toggle-switch {
+    width: 200px; // Further reduce width for very small screens
+  }
+
+  .toggle-option {
+    font-size: 10px; // Further reduce font size for very small screens
+  }
+}

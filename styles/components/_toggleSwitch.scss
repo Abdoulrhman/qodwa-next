@@ -54,16 +54,27 @@
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text; // Add the standard property 'background-clip'
+    background-clip: text;
+  }
+
+  // RTL adjustments
+  [dir="rtl"] & {
+    .toggleSwitch__student {
+      transform: translateX(-4px) !important;  
+    }
+    .toggleSwitch__teacher {
+      transform: translateX(-30px) !important;  
+    }
   }
 }
+
 @media screen and (max-width: 768px) {
   .toggleSwitch {
     padding: 20px;
     width: 200px;
 
     span {
-      font-size: 0.8rem 
+      font-size: 0.8rem;
     }
 
     .toggleSwitch__switch {
@@ -85,9 +96,18 @@
       transform: translateX(20px);
     }
 
+    // RTL adjustments for mobile
+    [dir="rtl"] & {
+      .toggleSwitch__student {
+        transform: translateX(20px);  // Adjust for mobile RTL
+      }
+      .toggleSwitch__teacher {
+        transform: translateX(3px);  // Adjust for mobile RTL
+      }
+    }
+
     .toggleSwitch__active {
       font-size: 0.8rem;
     }
   }
-  
 }

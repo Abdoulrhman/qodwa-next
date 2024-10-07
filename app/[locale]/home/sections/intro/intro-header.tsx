@@ -1,15 +1,18 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import {Link} from '@/i18n/routing';
+
+import { useLocale, useTranslations } from 'next-intl';
 import Sidebar from '@/components/shared/sidebar';
+import LanguageSwitcher from '@/components/lang-switcher';
 
 
 const IntroHeader: React.FC = () => {
   const t = useTranslations('Home');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const locale = useLocale();
 
   useEffect(() => {
     const handleResize = () => {
@@ -60,8 +63,8 @@ const IntroHeader: React.FC = () => {
 
         {!isMobile && (
           <div className='intro__header-user-actions'>
-            <Link href='/auth/login'>{t('login')}</Link>
-            <Link href='/ar'>عربي</Link>
+            <Link href='/auth/login' locale={locale}>{t('login')}</Link>
+         <LanguageSwitcher />
           </div>
         )}
         
@@ -87,7 +90,7 @@ const IntroHeader: React.FC = () => {
 
         <div className='intro__sidebar-user-actions'>
           <Link href='/auth/login'>{t('login')}</Link>
-          <Link href='/ar'>عربي</Link>
+          <LanguageSwitcher />
         </div>
       </Sidebar>
     </header>
