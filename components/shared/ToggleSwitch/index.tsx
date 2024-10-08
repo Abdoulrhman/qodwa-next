@@ -1,44 +1,70 @@
 'use client';
 
+import { useRouter, usePathname } from '@/i18n/routing'; // Import usePathname
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+// Define constants for the modes
+const STUDENT_MODE = 'student';
+const TEACHER_MODE = 'teacher';
 
 interface ToggleSwitchProps {
-  initialMode?: 'student' | 'teacher';
-  onToggle?: (mode: 'student' | 'teacher') => void;
+  initialMode?: typeof STUDENT_MODE | typeof TEACHER_MODE;
+  onToggle?: (mode: typeof STUDENT_MODE | typeof TEACHER_MODE) => void;
 }
 
 const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
-  initialMode = 'student',
+  initialMode = STUDENT_MODE,
   onToggle,
 }) => {
-  const [mode, setMode] = useState<'student' | 'teacher'>(initialMode);
+  const router = useRouter();
+  const pathname = usePathname(); // Get the current pathname
   const t = useTranslations('Home');
 
+  // Determine initial mode based on pathname
+  const getInitialMode = (): typeof STUDENT_MODE | typeof TEACHER_MODE => {
+    return pathname.includes('teacher') ? TEACHER_MODE : STUDENT_MODE;
+  };
+
+  const [mode, setMode] = useState<typeof STUDENT_MODE | typeof TEACHER_MODE>(getInitialMode); // Initialize based on pathname
+
+  useEffect(() => {
+    // Update mode when the pathname changes
+    setMode(getInitialMode());
+  }, [pathname]);
+
   const handleToggle = () => {
-    const newMode = mode === 'student' ? 'teacher' : 'student';
+    const newMode = mode === STUDENT_MODE ? TEACHER_MODE : STUDENT_MODE;
     setMode(newMode);
+
     if (onToggle) {
       onToggle(newMode);
+    }
+
+    // Use newMode to determine the routing
+    if (newMode === STUDENT_MODE) {
+      router.push('/'); // Redirect to student route
+    } else {
+      router.push('/teacher'); // Redirect to teacher route
     }
   };
 
   return (
-    <div className='toggleSwitch'>
-      <span className={mode === 'student' ? 'toggleSwitch__active' : ''}>
+    <div className="toggleSwitch">
+      <span className={mode === STUDENT_MODE ? 'toggleSwitch__active' : ''}>
         {t('student')}
       </span>
-      <div className='toggleSwitch__switch' onClick={handleToggle}>
+      <div className="toggleSwitch__switch" onClick={handleToggle}>
         <div
           className={
-            mode === 'student'
+            mode === STUDENT_MODE
               ? 'toggleSwitch__student'
               : 'toggleSwitch__teacher'
           }
         ></div>
       </div>
-      <span className={mode === 'teacher' ? 'toggleSwitch__active' : ''}>
-      {t('teacher')}
+      <span className={mode === TEACHER_MODE ? 'toggleSwitch__active' : ''}>
+        {t('teacher')}
       </span>
     </div>
   );

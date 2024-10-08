@@ -1,27 +1,28 @@
 .services {
   padding: 2rem;
-  text-align: center;
   @include max-width(1200px);
-  
+
   &__title {
     font-size: 2rem;
     margin-bottom: 2rem;
     color: #333;
+    max-width: 100%;
+    text-align: start;
+    line-height: 1.2;
+    width: 44%;
   }
 
   &__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr); // Default to 3 columns
-    gap: 2rem;
+    gap: $spacing-xxl;
 
-    // Media query for tablets (width up to 1024px)
     @media (max-width: 1024px) {
-      grid-template-columns: repeat(2, 1fr); // Change to 2 columns
+      grid-template-columns: repeat(2, 1fr); // Change to 2 columns for tablets
     }
 
-    // Media query for mobile devices (width up to 768px)
     @media (max-width: 768px) {
-      grid-template-columns: 1fr; // Change to 1 column
+      grid-template-columns: 1fr; // Change to 1 column for mobile devices
     }
   }
 
@@ -33,8 +34,15 @@
     text-align: left;
 
     &-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      align-items: center;
+      background: #fbfaf9;
+      border-radius: 50%;
+      display: flex;
+      height: 100px;
+      justify-content: center;
+      margin-bottom: 30px;
+      width: 100px;
+      font-size: 2rem; // Ensure icon size fits the circle
       color: #666;
     }
 
@@ -48,10 +56,19 @@
     &-description {
       font-size: 1rem;
       color: #666;
+      line-height: 1.9;
     }
   }
 
-  // Adjustments for mobile devices (width up to 768px)
+  // Custom margin adjustments for the second and third cards
+  .mt-50 {
+    margin-top: 50px;
+  }
+
+  .mt-100 {
+    margin-top: 100px;
+  }
+
   @media (max-width: 768px) {
     &__title {
       font-size: 1.5rem; // Decrease title font size for smaller screens
@@ -60,6 +77,29 @@
 
     &__card {
       padding: 1rem; // Reduce padding for smaller screens
+    }
+  }
+}
+
+/* Handle RTL styling at the end */
+[dir='rtl'] {
+  .services {
+    &__title {
+      text-align: right; // Align titles to the right for RTL
+    }
+
+    &__card {
+      text-align: right; // Align card content to the right for RTL
+
+      &-icon {
+        margin-right: 0; // Remove any left margin
+        margin-left: 1rem; // Add margin to the left instead
+      }
+
+      &-title,
+      &-description {
+        text-align: right; // Align the title and description to the right
+      }
     }
   }
 }

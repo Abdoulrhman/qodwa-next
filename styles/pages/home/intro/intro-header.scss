@@ -1,124 +1,164 @@
 .intro__header {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    position: relative;
-    @include max-width(1200px);
-    margin-bottom: 2rem;
-  
-    .intro__header-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-  
-      .intro__header-logo {
-        img {
-          width: 120px;
-        }
-      }
-  
-      .intro__header-navbar {
-        display: flex;
-  
-        .intro__header-navbar-nav-list {
-          display: flex;
-          list-style: none;
-          gap: 20px;
-  
-          .intro__header-navbar-nav-item {
-            a {
-              text-decoration: none;
-              color: #000;
-              font-weight: 400;
-              font-size: 0.9rem;
-  
-              &:hover {
-                color: darken($color-secondary, 10%);
-              }
-            }
-          }
-        }
-      }
-  
-      .intro__header-burger {
-        font-size: 2rem;
-        cursor: pointer;
-        background: none;
-        border: none;
-        color: #000;
-  
-        &:hover {
-          color: darken($color-secondary, 10%);
-        }
-      }
-  
-      .intro__header-user-actions {
-        display: flex;
-        gap: 20px;
-  
-        a {
-          text-decoration: none;
-          color: $color-primary;
-          font-weight: 600;
-        }
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  position: relative;
+  @include max-width(1200px);
+  margin-bottom: 2rem;
+
+  &.white {
+    // Make sure the white text style has a higher specificity
+    .intro__header-navbar-nav-item a {
+      color: #fff !important; // Ensure white text is applied by using !important if necessary
+
+      &:hover {
+        color: lighten(
+          $color-secondary,
+          20%
+        ); // Lighter hover effect for white text
       }
     }
-    .sidebar-content{
-      position: relative;
-      height: 100%;
-      .intro__sidebar-nav{
-        text-align: center;
-        .intro__sidebar-nav-item{
-          padding: 10px 0;
-          border-bottom: 1px solid #00000013;
-          a{
+    .intro__header-user-actions {
+      .language-switcher {
+        color: #fff;
+      }
+    }
+    .intro__header-user-actions a,
+    .intro__sidebar-user-actions a {
+      color: #fff !important; // Use !important if needed
+
+      &:hover {
+        color: lighten($color-secondary, 20%);
+      }
+    }
+
+    .intro__header-burger {
+      color: #fff !important; // Ensure white text is applied by using !important if necessary
+
+      &:hover {
+        color: lighten($color-secondary, 20%);
+      }
+    }
+
+    .intro__sidebar-nav-item a {
+      color: #fff !important; // Ensure white text is applied by using !important if necessary
+
+      &:hover {
+        color: lighten($color-secondary, 20%);
+      }
+    }
+  }
+
+  // Existing styles...
+
+  .intro__header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .intro__header-logo {
+      img {
+        width: 120px;
+      }
+    }
+
+    .intro__header-navbar {
+      display: flex;
+
+      .intro__header-navbar-nav-list {
+        display: flex;
+        list-style: none;
+        gap: 20px;
+
+        .intro__header-navbar-nav-item {
+          a {
             text-decoration: none;
             color: #000;
             font-weight: 400;
             font-size: 0.9rem;
+
             &:hover {
               color: darken($color-secondary, 10%);
             }
           }
         }
       }
-      .intro__sidebar-user-actions{
-        position: absolute;
-        bottom: 10%;
-        left: 0;
-        width: 100%;
-        display: flex;
-        gap: 20px;
-        padding: 20px;
-        background-color: #422e87;
-        color: #fff;
-        border-radius: 6px;
-        justify-content: space-between;
-        a{
-          color: #fff;
-          font-weight: 600;
+    }
+
+    .intro__header-burger {
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #000;
+
+      &:hover {
+        color: darken($color-secondary, 10%);
+      }
+    }
+
+    .intro__header-user-actions {
+      display: flex;
+      gap: 20px;
+
+      a {
+        text-decoration: none;
+        color: $color-primary;
+        font-weight: 600;
+      }
+    }
+  }
+  .sidebar-content {
+    position: relative;
+    height: 100%;
+    .intro__sidebar-nav {
+      text-align: center;
+      .intro__sidebar-nav-item {
+        padding: 10px 0;
+        border-bottom: 1px solid #00000013;
+        a {
+          text-decoration: none;
+          color: #000;
+          font-weight: 400;
+          font-size: 0.9rem;
           &:hover {
             color: darken($color-secondary, 10%);
           }
         }
-
-
+      }
+    }
+    .intro__sidebar-user-actions {
+      position: absolute;
+      bottom: 10%;
+      left: 0;
+      width: 100%;
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      background-color: #422e87;
+      color: #fff;
+      border-radius: 6px;
+      justify-content: space-between;
+      a {
+        color: #fff;
+        font-weight: 600;
+        &:hover {
+          color: darken($color-secondary, 10%);
+        }
       }
     }
   }
-  
+}
 
-  
-  @media (max-width: 768px) {
-    .intro__header-content {
-      .intro__header-navbar {
-        display: none; // Hide the navbar on small screens
-      }
-  
-      .intro__header-burger {
-        display: block; // Show burger menu on small screens
-      }
+@media (max-width: 768px) {
+  .intro__header-content {
+    .intro__header-navbar {
+      display: none; // Hide the navbar on small screens
+    }
+
+    .intro__header-burger {
+      display: block; // Show burger menu on small screens
     }
   }
-  
+}

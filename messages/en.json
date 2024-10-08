@@ -14,13 +14,40 @@
     "teacher": "Teacher",
     "30Min": "30 Min",
     "60Min": "60 Min",
-    "Meta":{
+    "Meta": {
       "title": "Quranic Journey",
       "description": "Empower Your Quranic Journey",
       "keywords": "Quran, Tajweed, Tafseer, Arabic"
     },
-    "Packages":{
-      "error_loading_packages" : "An error occurred while loading the packages"
+    "Packages": {
+      "error_loading_packages": "An error occurred while loading the packages"
+    },
+    "Services": {
+      "title": "Enhance Your Quran Memorization with Our Expert Instructors",
+      "any_quran_memorization_path": {
+        "title": "Any Quran Memorization Path, Anytime",
+        "content": "Access and manage personalized Quran memorization plans. Your dedicated teachers and a structured curriculum are available at your convenience."
+      },
+      "browse_teacher_profiles": {
+        "title": "Browse Teacher Profiles",
+        "content": "Find certified Quran and Arabic teachers by reviewing their experience, qualifications, and student feedback before joining their classes."
+      },
+      "achieve_quran_goals_faster": {
+        "title": "Achieve Your Quran Goals Faster",
+        "content": "Accelerate your Quran memorization with personalized learning paths and on-demand sessions tailored to fit your schedule and progress."
+      },
+      "comprehensive_support": {
+        "title": "Comprehensive Support",
+        "content": "Our platform handles everything, from progress tracking to managing lessons and assignments, so you can focus solely on learning."
+      },
+      "teacher_flexibility": {
+        "title": "Teacher Flexibility",
+        "content": "Not satisfied with your current teacher? You can easily switch to another certified instructor who better matches your learning style."
+      },
+      "faster_quran_memorization": {
+        "title": "60% Faster Quran Memorization",
+        "content": "Our proven techniques and experienced teachers help you memorize the Quran more efficiently, without compromising quality."
+      }
     }
   }
 }

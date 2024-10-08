@@ -1,34 +1,38 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import {Link} from '@/i18n/routing';
-
+import { Link } from '@/i18n/routing';
 import { useLocale, useTranslations } from 'next-intl';
 import Sidebar from '@/components/shared/sidebar';
 import LanguageSwitcher from '@/components/lang-switcher';
+import useIsMobile from '@/hooks/use-is-mobile'; // Import the custom hook
 
 
-const IntroHeader: React.FC = () => {
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+interface IntroHeaderProps {
+  navLinks: NavLink[]; // Dynamic navigation links
+  isTextWhite?: boolean; // New prop to change text color to white
+}
+
+const IntroHeader: React.FC<IntroHeaderProps> = ({ navLinks, isTextWhite = false }) => {
   const t = useTranslations('Home');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const locale = useLocale();
+  const isMobile = useIsMobile();
+ 
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
-    <header className='intro__header'>
+    <header className={`intro__header ${isTextWhite && !isMobile ? 'white' : ''}`}> {/* Add conditional class */}
       <div className='intro__header-content'>
         <div className='intro__header-logo'>
           <Image
@@ -41,15 +45,11 @@ const IntroHeader: React.FC = () => {
         {!isMobile && (
           <nav className='intro__header-navbar'>
             <ul className='intro__header-navbar-nav-list'>
-              <li className='intro__header-navbar-nav-item'>
-                <Link href='#'>{t('about-us')}</Link>
-              </li>
-              <li className='intro__header-navbar-nav-item'>
-                <Link href='#'>{t('contact-us')}</Link>
-              </li>
-              <li className='intro__header-navbar-nav-item'>
-                <Link href='#'>{t('packages')}</Link>
-              </li>
+              {navLinks.map((link, index) => (
+                <li key={index} className='intro__header-navbar-nav-item'>
+                  <Link href={link.href}>{link.label}</Link> {/* Dynamic link and label */}
+                </li>
+              ))}
             </ul>
           </nav>
         )}
@@ -63,29 +63,22 @@ const IntroHeader: React.FC = () => {
 
         {!isMobile && (
           <div className='intro__header-user-actions'>
-            <Link href='/auth/login' locale={locale}>{t('login')}</Link>
-         <LanguageSwitcher />
+            <Link href='/auth/login' locale={locale}>
+              {t('login')}
+            </Link>
+            <LanguageSwitcher />
           </div>
         )}
-        
       </div>
 
       {/* Sidebar for Mobile */}
-      <Sidebar
-        isOpen={isSidebarOpen}
-        toggleSidebar={toggleSidebar}
-        position='right'
-      >
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} position='right'>
         <ul className='intro__sidebar-nav'>
-          <li className='intro__sidebar-nav-item'>
-            <Link href='#'>{t('about-us')}</Link>
-          </li>
-          <li className='intro__sidebar-nav-item'>
-            <Link href='#'>{t('contact-us')}</Link>
-          </li>
-          <li className='intro__sidebar-nav-item'>
-            <Link href='#'>{t('packages')}</Link>
-          </li>
+          {navLinks.map((link, index) => (
+            <li key={index} className='intro__sidebar-nav-item'>
+              <Link href={link.href}>{link.label}</Link>
+            </li>
+          ))}
         </ul>
 
         <div className='intro__sidebar-user-actions'>

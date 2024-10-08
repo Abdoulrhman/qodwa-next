@@ -13,7 +13,6 @@ export default function RootLayout({
   params?: { locale: string };
 }>) {
   const locale = useLocale();
-console.log({locale});
   return (
     <html suppressHydrationWarning={true} lang={locale} dir={
       locale === 'ar' ? 'rtl' : 'ltr' 
