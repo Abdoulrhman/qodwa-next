@@ -14,6 +14,11 @@
     "teacher": "Teacher",
     "30Min": "30 Min",
     "60Min": "60 Min",
+    "Meta":{
+      "title": "Quranic Journey",
+      "description": "Empower Your Quranic Journey",
+      "keywords": "Quran, Tajweed, Tafseer, Arabic"
+    },
     "Packages":{
       "error_loading_packages" : "An error occurred while loading the packages"
     }
