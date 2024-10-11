@@ -13,9 +13,19 @@
     font-weight: 700;
     color: $color-primary;
     margin-block: 1rem;
-
+    &.white-version {
+      color: $color-secondary !important;
+    }
+    span {
+      &.white-version {
+        color: #fff !important;
+      }
+    }
     .intro-title-highlight {
       color: #000;
+      &.white-version {
+        color: #fff !important;
+      }
     }
   }
 
@@ -23,6 +33,9 @@
     font-weight: 500;
     color: #000;
     font-size: 1.2rem;
+    &.white-version {
+      color: #fff !important;
+    }
   }
 
   .intro-cta {
@@ -45,5 +58,4 @@
       font-size: 1rem;
     }
   }
-  
 }

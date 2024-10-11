@@ -2,15 +2,26 @@
 import { useTranslations } from 'next-intl';
 import ToggleSwitch from '@/components/shared/ToggleSwitch';
 
-const IntroContent: React.FC = () => {
+interface IntroContentProps {
+  isTeacherPage: boolean;
+}
+
+const IntroContent: React.FC<IntroContentProps> = ({ isTeacherPage }) => {
   const t = useTranslations('Home');
+
+  const teacherStyle = {
+    color: isTeacherPage ? '#fff' : '#000',
+  };
+
+  const teacherColorClass = isTeacherPage ? 'white-version' : '';
 
   return (
     <section className='intro-content'>
       <ToggleSwitch />
-      <h1 className='intro-title'>
-       
-        <span className='intro-title-highlight'>{t('main_header_text')}</span>{' '}
+      <h1 className={`intro-title ${teacherColorClass}`}>
+        <span className={`intro-title-highlight ${teacherColorClass}`}>
+          {t('main_header_text')}
+        </span>{' '}
         {t('now')}
       </h1>
       <p className='intro-subtitle'>{t('sub_header_text')}</p>

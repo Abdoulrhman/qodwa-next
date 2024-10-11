@@ -10,7 +10,11 @@ interface HomeIntroProps {
   isBgImage?: boolean; // Determines if the background image should be applied
 }
 
-const HomeIntro: React.FC<HomeIntroProps> = ({ bgImage, bgColor, isBgImage = true }) => {
+const HomeIntro: React.FC<HomeIntroProps> = ({
+  bgImage,
+  bgColor,
+  isBgImage = true,
+}) => {
   const [isTeacherPage, setIsTeacherPage] = useState(false);
   const navLinks = [
     { label: 'About Us', href: '/about' },
@@ -24,21 +28,19 @@ const HomeIntro: React.FC<HomeIntroProps> = ({ bgImage, bgColor, isBgImage = tru
 
   const backgroundStyle = {
     backgroundColor: !isBgImage ? bgColor || defaultBgColor : 'transparent',
-    backgroundImage: isBgImage ? `url(${bgImage || defaultBgImage})` : 'none', 
+    backgroundImage: isBgImage ? `url(${bgImage || defaultBgImage})` : 'none',
   };
 
-  const pathName = usePathname(); 
+  const pathName = usePathname();
 
   useEffect(() => {
     setIsTeacherPage(pathName.includes('teacher'));
-  }
-  , [pathName]);
-
+  }, [pathName]);
 
   return (
-    <div className="intro" style={backgroundStyle}>
-      <IntroHeader navLinks={navLinks} isTextWhite={isTeacherPage}  />
-      <IntroContent />
+    <div className='intro' style={backgroundStyle}>
+      <IntroHeader navLinks={navLinks} isTextWhite={isTeacherPage} />
+      <IntroContent isTeacherPage={isTeacherPage} />
     </div>
   );
 };
