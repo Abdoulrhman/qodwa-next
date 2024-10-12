@@ -1,46 +1,53 @@
 import React from 'react';
-import { FcLibrary, FcBusinessman, FcApproval, FcAssistant, FcSwitchCamera, FcClock } from 'react-icons/fc'; // Import icons from react-icons/fc
+import {
+  FcLibrary,
+  FcBusinessman,
+  FcApproval,
+  FcAssistant,
+  FcSwitchCamera,
+  FcClock,
+} from 'react-icons/fc'; // Import icons from react-icons/fc
 import { useTranslations } from 'next-intl';
 import Services from '@/components/shared/services';
 
 const HomeServices: React.FC = () => {
-  const t = useTranslations('Home'); 
+  const t = useTranslations('Home');
 
   const servicesData = [
     {
-      icon: <FcLibrary size={60} />, 
-      title: t('Services.any_quran_memorization_path.title'), 
-      description: t('Services.any_quran_memorization_path.content'), 
+      icon: <FcLibrary size={60} />,
+      title: t('Services.any_quran_memorization_path.title'),
+      description: t('Services.any_quran_memorization_path.content'),
     },
     {
-      icon: <FcBusinessman size={60} />, 
-      title: t('Services.browse_teacher_profiles.title'), 
-      description: t('Services.browse_teacher_profiles.content'), 
+      icon: <FcBusinessman size={60} />,
+      title: t('Services.browse_teacher_profiles.title'),
+      description: t('Services.browse_teacher_profiles.content'),
     },
     {
-      icon: <FcApproval size={60} />, 
-      title: t('Services.achieve_quran_goals_faster.title'), 
-      description: t('Services.achieve_quran_goals_faster.content'), 
+      icon: <FcApproval size={60} />,
+      title: t('Services.achieve_quran_goals_faster.title'),
+      description: t('Services.achieve_quran_goals_faster.content'),
     },
     {
-      icon: <FcAssistant size={60} />, 
-      title: t('Services.comprehensive_support.title'), 
-      description: t('Services.comprehensive_support.content'), 
+      icon: <FcAssistant size={60} />,
+      title: t('Services.comprehensive_support.title'),
+      description: t('Services.comprehensive_support.content'),
     },
     {
       icon: <FcSwitchCamera size={60} />,
-      title: t('Services.teacher_flexibility.title'), 
-      description: t('Services.teacher_flexibility.content'), 
+      title: t('Services.teacher_flexibility.title'),
+      description: t('Services.teacher_flexibility.content'),
     },
     {
-      icon: <FcClock size={60} />, 
-      title: t('Services.faster_quran_memorization.title'), 
-      description: t('Services.faster_quran_memorization.content'), 
+      icon: <FcClock size={60} />,
+      title: t('Services.faster_quran_memorization.title'),
+      description: t('Services.faster_quran_memorization.content'),
     },
   ];
 
   return (
-    <div>
+    <div className='mt-12 mb-12'>
       <Services title={t('Services.title')} services={servicesData} />
     </div>
   );

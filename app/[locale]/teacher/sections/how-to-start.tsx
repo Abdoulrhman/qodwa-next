@@ -1,101 +1,122 @@
 import React from 'react';
-import { FaRegArrowAltCircleRight } from 'react-icons/fa';
+import {
+  FaRegArrowAltCircleRight,
+  FaRegArrowAltCircleLeft,
+} from 'react-icons/fa';
+import { useTranslations, useLocale } from 'next-intl'; // Import useLocale to detect language direction
 
 const HowToStart: React.FC = () => {
+  const t = useTranslations('Home.HowToStart');
+  const locale = useLocale(); // Get the current locale
+
+  const isRTL = locale === 'ar'; // Check if the language is Arabic (right-to-left)
+
   return (
     <div className='how-to-start-wrapper'>
-      <h2 className='how-to-start-title'>How to get Started</h2>
-      <p className='how-to-start-subtitle'>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-      </p>
+      <h2 className='how-to-start-title'>{t('title')}</h2>
+      <p className='how-to-start-subtitle'>{t('subtitle')}</p>
       <div className='how-to-start-main'>
+        {/* Step 1 */}
         <div className='how-to-start-main-points'>
-          <p className='points-number'>1</p>
+          <p className='points-number'>{t('steps.step1.number')}</p>
           <div className='points-wrapper'>
             <div className='points-wrapper-main'>
               <div className='points-title'>
                 <div className='points-title-wrapper'>
-                  <p className='title'>register account</p>
+                  <p className='title'>{t('steps.step1.title')}</p>
                   <div className='under-line'></div>
                 </div>
               </div>
               <div className='points-content'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Officiis, quae. Quod animi ex officiis fugit nisi explicabo
-                suscipit.
+                {t('steps.step1.description')}
               </div>
             </div>
             <div className='arrow'>
-              <FaRegArrowAltCircleRight size='30px' />
+              {isRTL ? (
+                <FaRegArrowAltCircleLeft size='30px' /> // Show left arrow for RTL
+              ) : (
+                <FaRegArrowAltCircleRight size='30px' /> // Show right arrow for LTR
+              )}
             </div>
           </div>
         </div>
+
+        {/* Step 2 */}
         <div className='how-to-start-main-points'>
-          <p className='points-number'>2</p>
+          <p className='points-number'>{t('steps.step2.number')}</p>
           <div className='points-wrapper'>
             <div className='points-wrapper-main'>
               <div className='points-title'>
                 <div className='points-title-wrapper'>
-                  <p className='title'>register account</p>
+                  <p className='title'>{t('steps.step2.title')}</p>
                   <div className='under-line'></div>
                 </div>
               </div>
               <div className='points-content'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Officiis, quae. Quod animi ex officiis fugit nisi explicabo
-                suscipit.
+                {t('steps.step2.description')}
               </div>
             </div>
             <div className='arrow'>
-              <FaRegArrowAltCircleRight size='30px' />
+              {isRTL ? (
+                <FaRegArrowAltCircleLeft size='30px' />
+              ) : (
+                <FaRegArrowAltCircleRight size='30px' />
+              )}
             </div>
           </div>
         </div>
+
+        {/* Step 3 */}
         <div className='how-to-start-main-points'>
-          <p className='points-number'>3</p>
+          <p className='points-number'>{t('steps.step3.number')}</p>
           <div className='points-wrapper'>
             <div className='points-wrapper-main'>
               <div className='points-title'>
                 <div className='points-title-wrapper'>
-                  <p className='title'>register account</p>
+                  <p className='title'>{t('steps.step3.title')}</p>
                   <div className='under-line'></div>
                 </div>
               </div>
               <div className='points-content'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Officiis, quae. Quod animi ex officiis fugit nisi explicabo
-                suscipit.
+                {t('steps.step3.description')}
               </div>
             </div>
             <div className='arrow'>
-              <FaRegArrowAltCircleRight size='30px' />
+              {isRTL ? (
+                <FaRegArrowAltCircleLeft size='30px' />
+              ) : (
+                <FaRegArrowAltCircleRight size='30px' />
+              )}
             </div>
           </div>
         </div>
+
+        {/* Step 4 */}
         <div className='how-to-start-main-points'>
-          <p className='points-number'>4</p>
+          <p className='points-number'>{t('steps.step4.number')}</p>
           <div className='points-wrapper'>
             <div className='points-wrapper-main'>
               <div className='points-title'>
                 <div className='points-title-wrapper'>
-                  <p className='title'>register account</p>
+                  <p className='title'>{t('steps.step4.title')}</p>
                   <div className='under-line'></div>
                 </div>
               </div>
               <div className='points-content'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Officiis, quae. Quod animi ex officiis fugit nisi explicabo
-                suscipit.
+                {t('steps.step4.description')}
               </div>
             </div>
             <div className='arrow'>
-              <FaRegArrowAltCircleRight size='30px' />
+              {isRTL ? (
+                <FaRegArrowAltCircleLeft size='30px' />
+              ) : (
+                <FaRegArrowAltCircleRight size='30px' />
+              )}
             </div>
           </div>
         </div>
       </div>
-      <button>Apply as a talent</button>
+      <button>{t('apply_button')}</button>
     </div>
   );
 };

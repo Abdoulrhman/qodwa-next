@@ -8,7 +8,6 @@ const TeacherPage: React.FC = () => {
     <div>
       <HomeIntro bgColor='#422e87' isBgImage={false} />
       <TeacherServices />
-      <HowToStart />
     </div>
   );
 };

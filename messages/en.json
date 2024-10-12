@@ -75,6 +75,34 @@
         "title": "Collaborative Learning Environment",
         "content": "Work with other instructors to create a collaborative and supportive learning environment for all students."
       }
+    },
+
+    "HowToStart": {
+      "title": "How to get Started as a Student",
+      "subtitle": "Follow these simple steps to begin your Quran memorization journey.",
+      "steps": {
+        "step1": {
+          "number": "1",
+          "title": "Register Account",
+          "description": "Sign up by creating your account and providing the necessary information to start your learning journey."
+        },
+        "step2": {
+          "number": "2",
+          "title": "Book a Free Session",
+          "description": "Schedule your free trial session with a certified Quran teacher to evaluate your needs and goals."
+        },
+        "step3": {
+          "number": "3",
+          "title": "Select Your Package",
+          "description": "Choose from our available packages that suit your learning preferences and pace."
+        },
+        "step4": {
+          "number": "4",
+          "title": "Start Learning",
+          "description": "Begin your Quran memorization journey with personalized lessons and continuous support from your teacher."
+        }
+      },
+      "apply_button": "Apply as a Student"
     }
   }
 }
