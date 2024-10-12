@@ -13,20 +13,24 @@ const IntroContent: React.FC<IntroContentProps> = ({ isTeacherPage }) => {
     color: isTeacherPage ? '#fff' : '#000',
   };
 
-  const teacherColorClass = isTeacherPage ? 'white-version' : '';
+  const teachersStylingClass = isTeacherPage ? 'teacher-version' : '';
 
   return (
     <section className='intro-content'>
       <ToggleSwitch />
-      <h1 className={`intro-title ${teacherColorClass}`}>
-        <span className={`intro-title-highlight ${teacherColorClass}`}>
+      <h1 className={`intro-title ${teachersStylingClass}`}>
+        <span className={`intro-title-highlight ${teachersStylingClass}`}>
           {t('main_header_text')}
         </span>{' '}
         {t('now')}
       </h1>
-      <p className='intro-subtitle'>{t('sub_header_text')}</p>
+      <p className={`intro-subtitle  ${teachersStylingClass}`}>
+        {t('sub_header_text')}
+      </p>
       <div className='intro-cta'>
-        <button className='intro-cta-btn'>{t('get_started')}</button>
+        <button className={`intro-cta-btn ${teachersStylingClass}`}>
+          {t('get_started')}
+        </button>
       </div>
     </section>
   );

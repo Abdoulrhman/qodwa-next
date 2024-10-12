@@ -14,12 +14,12 @@ interface NavLink {
 
 interface IntroHeaderProps {
   navLinks: NavLink[]; // Dynamic navigation links
-  isTextWhite?: boolean; // New prop to change text color to white
+  isTeacherPage?: boolean; // New prop to change text color to white
 }
 
 const IntroHeader: React.FC<IntroHeaderProps> = ({
   navLinks,
-  isTextWhite = false,
+  isTeacherPage = false,
 }) => {
   const t = useTranslations('Home');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -32,14 +32,14 @@ const IntroHeader: React.FC<IntroHeaderProps> = ({
 
   return (
     <header
-      className={`intro__header ${isTextWhite && !isMobile ? 'white' : ''}`}
+      className={`intro__header ${isTeacherPage && !isMobile ? 'white' : ''}`}
     >
       {' '}
       {/* Add conditional class */}
       <div className='intro__header-content'>
         <div className='intro__header-logo'>
           <Image
-            src='/images/logo/logo.png'
+            src={`/images/logo/${!isTeacherPage ? 'logo' : 'logo-white'}.png`}
             alt='Logo'
             width={120}
             height={40}
@@ -64,7 +64,7 @@ const IntroHeader: React.FC<IntroHeaderProps> = ({
             className='intro__header-burger'
             onClick={toggleSidebar}
             style={{
-              color: isTextWhite ? '#fff' : '#000',
+              color: isTeacherPage ? '#fff' : '#000',
             }}
           >
             &#9776;

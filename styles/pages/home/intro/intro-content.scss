@@ -13,17 +13,17 @@
     font-weight: 700;
     color: $color-primary;
     margin-block: 1rem;
-    &.white-version {
+    &.teacher-version {
       color: $color-secondary !important;
     }
     span {
-      &.white-version {
+      &.teacher-version {
         color: #fff !important;
       }
     }
     .intro-title-highlight {
       color: #000;
-      &.white-version {
+      &.teacher-version {
         color: #fff !important;
       }
     }
@@ -33,7 +33,7 @@
     font-weight: 500;
     color: #000;
     font-size: 1.2rem;
-    &.white-version {
+    &.teacher-version {
       color: #fff !important;
     }
   }
@@ -44,6 +44,11 @@
     .intro-cta-btn {
       @include get-started-button;
       padding: 15px 50px;
+      &.teacher-version {
+        background-color: $color-secondary !important;
+        border-color: $color-secondary !important;
+        color: #000 !important;
+      }
     }
   }
 }
@@ -56,6 +61,9 @@
 
     .intro-subtitle {
       font-size: 1rem;
+      &.teacher-version {
+        color: #fff !important;
+      }
     }
   }
 }

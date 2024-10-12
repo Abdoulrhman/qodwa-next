@@ -39,7 +39,7 @@ const HomeIntro: React.FC<HomeIntroProps> = ({
 
   return (
     <div className='intro' style={backgroundStyle}>
-      <IntroHeader navLinks={navLinks} isTextWhite={isTeacherPage} />
+      <IntroHeader navLinks={navLinks} isTeacherPage={isTeacherPage} />
       <IntroContent isTeacherPage={isTeacherPage} />
     </div>
   );

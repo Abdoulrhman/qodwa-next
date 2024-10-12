@@ -48,6 +48,33 @@
         "title": "60% Faster Quran Memorization",
         "content": "Our proven techniques and experienced teachers help you memorize the Quran more efficiently, without compromising quality."
       }
+    },
+    "TeacherServices": {
+      "title": "Enhance Your Teaching Skills with Our Expert Tools",
+      "guided_teaching_path": {
+        "title": "Guided Teaching Path",
+        "content": "Receive personalized guidance on structuring your Quran and Arabic lessons to best fit the students' learning paths."
+      },
+      "teacher_training": {
+        "title": "Teacher Training & Certification",
+        "content": "Participate in training programs to enhance your teaching methods and earn certifications recognized by the community."
+      },
+      "feedback_improvement": {
+        "title": "Receive and Improve Through Feedback",
+        "content": "Collect feedback from students and improve your teaching techniques to provide the best learning experience."
+      },
+      "efficient_scheduling": {
+        "title": "Efficient Scheduling",
+        "content": "Manage your class schedules effectively and efficiently with our built-in tools designed for Quran and Arabic teachers."
+      },
+      "performance_tracking": {
+        "title": "Performance Tracking",
+        "content": "Track student performance and adjust your teaching strategies to optimize their learning experience."
+      },
+      "collaborative_learning": {
+        "title": "Collaborative Learning Environment",
+        "content": "Work with other instructors to create a collaborative and supportive learning environment for all students."
+      }
     }
   }
 }
