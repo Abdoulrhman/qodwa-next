@@ -1,0 +1,107 @@
+.how-to-start-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+  padding: 100px 0;
+  background-color: #422e87;
+  color: #fff;
+  .how-to-start-title {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .how-to-start-subtitle {
+    color: #aba2c9;
+    max-width: 570px;
+    text-align: center;
+  }
+  .how-to-start-main {
+    margin-top: 20px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    .how-to-start-main-points {
+      .points-number {
+        color: #ffc629;
+        font-size: 96px;
+        font-weight: bold;
+      }
+      .points-wrapper {
+        display: flex;
+        gap: 6px;
+        .points-wrapper-main {
+          .points-title {
+            display: flex;
+            gap: 6px;
+            .points-title-wrapper {
+              .title {
+                font-size: 20px;
+                font-weight: bold;
+              }
+              .under-line {
+                background-color: #ffc629;
+                height: 4px;
+                width: 90px;
+                border-radius: 4px;
+                margin-top: 6px;
+                margin-bottom: 24px;
+              }
+            }
+          }
+          .points-content {
+            max-width: 150px;
+            color: #aba2c9;
+          }
+        }
+        .arrow {
+          margin-top: 16px;
+        }
+      }
+    }
+  }
+  button {
+    padding: 13px 30px;
+    background: #ffc629;
+    border-radius: 50px;
+    color: #000;
+    font-weight: bold;
+    margin-top: 80px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .how-to-start-wrapper {
+    .how-to-start-main {
+      .how-to-start-main-points {
+        .points-wrapper {
+          .points-wrapper-main {
+            .points-content {
+              max-width: 220px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 460px) {
+  .how-to-start-wrapper {
+    .how-to-start-main {
+      flex-wrap: nowrap;
+      flex-direction: column;
+      .how-to-start-main-points {
+        .points-wrapper {
+          flex-direction: column;
+          .arrow {
+            svg {
+              transform: rotate(90deg);
+            }
+          }
+        }
+      }
+    }
+  }
+}
