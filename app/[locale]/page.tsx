@@ -4,9 +4,14 @@ import HomeServices from './home/sections/services';
 import HomeIntro from './home/sections/intro';
 import Head from 'next/head';
 import HowToStart from './teacher/sections/how-to-start';
+import Footer from '@/components/shared/footer';
 
 export default function Home() {
   const t = useTranslations('Home');
+  const navLinks = [
+    { label: 'Apply as a Student', href: '/student/register' },
+    { label: 'Packages', href: '/packages' },
+  ];
   return (
     <>
       <Head>
@@ -21,6 +26,7 @@ export default function Home() {
       <HomePackages />
       <HowToStart />
       <HomeServices />
+      <Footer navLinks={navLinks} />
     </>
   );
 }

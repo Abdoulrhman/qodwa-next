@@ -1,0 +1,115 @@
+.footer-wrapper {
+  color: #fff;
+  background-color: #422e87;
+  &.teacher-version {
+    background-color: #dcd2f0;
+    color: black;
+  }
+  .footer-main {
+    padding: 70px 40px;
+    display: flex;
+    gap: 20px;
+    .footer-about {
+      width: 25%;
+      .footer-about-txt {
+        margin-top: 16px;
+        font-size: 12px;
+        max-width: 270px;
+        line-height: 1.2rem;
+      }
+    }
+    .footer-quick-links {
+      width: 50%;
+      .quick-links-title {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .links {
+        cursor: pointer;
+        margin-top: 16px;
+        font-size: 14px;
+        p {
+          margin-bottom: 8px;
+        }
+      }
+    }
+    .footer-communication {
+      .background {
+        border: 1px solid #fff;
+        background-color: transparent;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 16px;
+        &.teacher-version {
+          background-color: #422e87;
+          border-color: #422e87;
+          color: #fff;
+        }
+        cursor: pointer;
+        &:hover {
+          background-color: yellow;
+          border-color: yellow;
+          svg {
+            fill: #422e87;
+          }
+        }
+      }
+      width: 25%;
+      display: flex;
+      gap: 8px;
+    }
+  }
+  .footer-bottom {
+    text-align: center;
+    background-color: #392481;
+    padding: 10px 0;
+    &.teacher-version {
+      background-color: #fff;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .footer-wrapper {
+    .footer-main {
+      padding: 70px 20px;
+      justify-content: space-between;
+      .footer-about {
+        width: 33%;
+      }
+      .footer-quick-links {
+        width: 33%;
+      }
+      .footer-communication {
+        width: 33%;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .footer-wrapper {
+    .footer-main {
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .footer-about {
+        width: 100%;
+        .footer-about-txt {
+          max-width: 100%;
+        }
+      }
+      .footer-quick-links {
+        width: 100%;
+      }
+      .footer-communication {
+        justify-content: flex-start;
+        width: 100%;
+      }
+    }
+  }
+}
