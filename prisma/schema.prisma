@@ -27,7 +27,7 @@ enum UserRole {
   USER
   TEACHER
 }
-enum Gender {
+ enum Gender {
   MALE
   FEMALE
 }

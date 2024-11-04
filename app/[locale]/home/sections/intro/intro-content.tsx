@@ -1,6 +1,7 @@
 'use client';
 import { useTranslations } from 'next-intl';
 import ToggleSwitch from '@/components/shared/ToggleSwitch';
+import { useRouter } from 'next/navigation';
 
 interface IntroContentProps {
   isTeacherPage: boolean;
@@ -8,10 +9,15 @@ interface IntroContentProps {
 
 const IntroContent: React.FC<IntroContentProps> = ({ isTeacherPage }) => {
   const t = useTranslations('Home');
+  const router = useRouter();
 
   const teacherStyle = {
     color: isTeacherPage ? '#fff' : '#000',
   };
+  const handleGetStarted = () => {
+    const path = isTeacherPage ? '/teacher/register' : '/student/register';
+    router.push(path);
+  }
 
   const teachersStylingClass = isTeacherPage ? 'teacher-version' : '';
 
@@ -28,7 +34,7 @@ const IntroContent: React.FC<IntroContentProps> = ({ isTeacherPage }) => {
         {t('sub_header_text')}
       </p>
       <div className='intro-cta'>
-        <button className={`intro-cta-btn ${teachersStylingClass}`}>
+        <button className={`intro-cta-btn ${teachersStylingClass}`} onClick={handleGetStarted}>
           {t('get_started')}
         </button>
       </div>
