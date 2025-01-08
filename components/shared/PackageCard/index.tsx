@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { PackageObject } from './types';
 import { BsCalendar2, BsClock, BsEnvelopePaperFill } from 'react-icons/bs';
+import CheckoutButton from '../../stripe/Button'; // Import the CheckoutButton
 
 interface PackageCardProps {
   cardInfo: PackageObject;
@@ -53,9 +54,15 @@ const PackageCard: React.FC<PackageCardProps> = ({
           </ul>
         </div>
         <div className='package-card__btn-wrapper'>
-          <button className='package-card__enroll-button'>
-            {enrollment_action}
-          </button>
+          <CheckoutButton
+            items={[
+              {
+                name: `${package_type} Package`,
+                price: +current_price,
+                quantity: 1,
+              },
+            ]}
+          />
         </div>
       </div>
     </div>

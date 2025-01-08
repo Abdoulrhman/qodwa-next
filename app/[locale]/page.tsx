@@ -5,6 +5,7 @@ import HomeIntro from './home/sections/intro';
 import Head from 'next/head';
 import HowToStart from './teacher/sections/how-to-start';
 import Footer from '@/components/shared/footer';
+import Button from '@/components/stripe/Button';
 
 export default function Home() {
   const t = useTranslations('Home');
