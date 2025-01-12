@@ -1,30 +1,41 @@
-"use client";
+'use client';
 
-import { UserRole } from "@prisma/client";
+import { useEffect, useState } from 'react';
+import { UserRole } from '@prisma/client';
 
-import { useCurrentRole } from "@/hooks/use-current-role";
-import { FormError } from "@/components/form-error";
+import { useCurrentRole } from '@/hooks/use-current-role';
+import { FormError } from '@/components/form-error';
 
 interface RoleGateProps {
   children: React.ReactNode;
   allowedRole: UserRole;
-};
+}
 
-export const RoleGate = ({
-  children,
-  allowedRole,
-}: RoleGateProps) => {
-  const role = useCurrentRole();
+export const RoleGate = ({ children, allowedRole }: RoleGateProps) => {
+  const rolePromise = useCurrentRole(); // Call the hook here
+  const [role, setRole] = useState<UserRole | undefined>();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    rolePromise
+      .then((currentRole) => {
+        setRole(currentRole);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }, [rolePromise]);
+
+  if (loading) {
+    return <div>Loading...</div>; // Show a loading state
+  }
 
   if (role !== allowedRole) {
     return (
-      <FormError message="You do not have permission to view this content!" />
-    )
+      <FormError message='You do not have permission to view this content!' />
+    );
   }
 
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 };
