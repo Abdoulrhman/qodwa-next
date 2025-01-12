@@ -1,5 +1,5 @@
-import { notFound } from 'next/navigation';
-import { getRequestConfig, setRequestLocale } from 'next-intl/server';
+import { getRequestConfig } from 'next-intl/server';
+import { routing } from '../i18n/routing';
 
 // Define supported locales
 const locales = ['en', 'ar'];
@@ -10,17 +10,18 @@ const messages = {
   ar: require('../messages/ar.json'),
 };
 
-export default getRequestConfig(({ locale }) => {
-  // Set the request locale for static rendering
-  setRequestLocale(locale);
+export default getRequestConfig(async ({ requestLocale }) => {
+  // Get the locale from the request
+  let locale = await requestLocale;
 
   // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as string)) {
-    notFound(); // Trigger a 404 if the locale is not supported
+  if (!locale || !routing.locales.includes(locale as any)) {
+    locale = routing.defaultLocale;
   }
 
   // Return the correct messages for the locale
   return {
     messages: messages[locale as keyof typeof messages],
+    locale,
   };
 });
