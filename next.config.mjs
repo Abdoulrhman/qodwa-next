@@ -9,6 +9,10 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(process.cwd(), 'src/styles')], //
   },
+  env: {
+    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+  },
 };
 
 export default withNextIntl(nextConfig);

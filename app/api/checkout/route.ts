@@ -13,6 +13,8 @@ export async function POST(req: Request) {
     const locale =
       req.headers.get('accept-language')?.split(',')[0].split('-')[0] || 'en';
 
+    console.log('Stripe Secret Key:', process.env.STRIPE_SECRET_KEY);
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: items.map((item) => ({

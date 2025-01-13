@@ -1,10 +1,10 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
 }
 
 model Package {
@@ -19,17 +19,7 @@ model Package {
   enrollment_action      String
   package_type           String
 
-  @@map("Package")  // Explicitly map to the "Package" table
-}
-
-enum UserRole {
-  ADMIN
-  USER
-  TEACHER
-}
- enum Gender {
-  MALE
-  FEMALE
+  @@map("Package")
 }
 
 model User {
@@ -40,19 +30,17 @@ model User {
   image                 String?
   password              String?
   role                  UserRole               @default(USER)
-  accounts              Account[]
   isTwoFactorEnabled    Boolean                @default(false)
+  birthDate             DateTime?
+  gender                Gender?
+  isTeacher             Boolean?               @default(false)
+  phone                 String?
+  qualifications        String?
+  referralSource        String?
+  subjects              String?
+  teachingExperience    Int?
+  accounts              Account[]
   twoFactorConfirmation TwoFactorConfirmation?
-   // Common fields
-  phone                 String?                // Phone number
-  gender                Gender?                // Gender (enum)
-  birthDate             DateTime?              // Birth date
-  referralSource        String?                // How did they hear about you
-    // Teacher-specific fields (Optional)
-  isTeacher             Boolean?               @default(false) // Mark if the user is a teacher
-  qualifications        String?                // Teacher's qualifications
-  subjects              String?                // Subjects taught by the teacher
-  teachingExperience    Int?                   // Number of years of teaching experience
 }
 
 model Account {
@@ -61,15 +49,14 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -102,10 +89,18 @@ model TwoFactorToken {
 }
 
 model TwoFactorConfirmation {
-  id String @id @default(cuid())
-
-  userId String
+  id     String @id @default(cuid())
+  userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
-  @@unique([userId])
+enum UserRole {
+  ADMIN
+  USER
+  TEACHER
+}
+
+enum Gender {
+  MALE
+  FEMALE
 }

@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname } from '@/i18n/routing'; // Import usePathname
 import { useTranslations } from 'next-intl';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 // Define constants for the modes
 const STUDENT_MODE = 'student';
@@ -22,16 +22,20 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
   const t = useTranslations('Home');
 
   // Determine initial mode based on pathname
-  const getInitialMode = (): typeof STUDENT_MODE | typeof TEACHER_MODE => {
+  const getInitialMode = useCallback(():
+    | typeof STUDENT_MODE
+    | typeof TEACHER_MODE => {
     return pathname.includes('teacher') ? TEACHER_MODE : STUDENT_MODE;
-  };
+  }, [pathname]);
 
-  const [mode, setMode] = useState<typeof STUDENT_MODE | typeof TEACHER_MODE>(getInitialMode); // Initialize based on pathname
+  const [mode, setMode] = useState<typeof STUDENT_MODE | typeof TEACHER_MODE>(
+    getInitialMode
+  ); // Initialize based on pathname
 
   useEffect(() => {
     // Update mode when the pathname changes
     setMode(getInitialMode());
-  }, [pathname]);
+  }, [pathname, getInitialMode]);
 
   const handleToggle = () => {
     const newMode = mode === STUDENT_MODE ? TEACHER_MODE : STUDENT_MODE;
@@ -50,11 +54,11 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
   };
 
   return (
-    <div className="toggleSwitch">
+    <div className='toggleSwitch'>
       <span className={mode === STUDENT_MODE ? 'toggleSwitch__active' : ''}>
         {t('student')}
       </span>
-      <div className="toggleSwitch__switch" onClick={handleToggle}>
+      <div className='toggleSwitch__switch' onClick={handleToggle}>
         <div
           className={
             mode === STUDENT_MODE
