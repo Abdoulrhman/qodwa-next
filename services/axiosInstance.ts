@@ -2,7 +2,8 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: process.env.API_URL || 'http://localhost:3000/api',
+  baseURL:
+    `${process.env.NEXT_PUBLIC_APP_URL}api` || 'http://localhost:3000/api',
   timeout: 10000, // Set a timeout for requests
   headers: {
     'Content-Type': 'application/json',
