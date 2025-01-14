@@ -12,6 +12,7 @@
   "dependencies": {
     "@auth/prisma-adapter": "^2.5.0",
     "@hookform/resolvers": "^3.9.1",
+    "@lottiefiles/lottie-player": "^2.0.12",
     "@prisma/client": "5.18.0",
     "@radix-ui/react-avatar": "^1.1.2",
     "@radix-ui/react-checkbox": "^1.1.1",
@@ -27,6 +28,7 @@
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "lottie-react": "^2.4.0",
     "lucide-react": "^0.454.0",
     "next": "^14.2.4",
     "next-auth": "^5.0.0-beta.4",
@@ -37,6 +39,7 @@
     "react-hook-form": "^7.53.1",
     "react-i18next": "^14.1.2",
     "react-icons": "^5.2.1",
+    "react-lottie-player": "^2.1.0",
     "react-responsive": "^10.0.0",
     "react-spinners": "^0.14.1",
     "resend": "^4.0.0",

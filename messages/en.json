@@ -49,6 +49,16 @@
         "content": "Our proven techniques and experienced teachers help you memorize the Quran more efficiently, without compromising quality."
       }
     },
+    "SuccessPayment": {
+      "title": "Payment Successful",
+      "content": "Your payment has been successfully processed. You will receive a confirmation email shortly.",
+      "goHome": "Go Home"
+    },
+    "CancelPayment": {
+      "title": "Payment Canceled",
+      "content": "Your payment has been canceled. You can return to the homepage to try again.",
+      "goHome": "Go Home"
+    },
     "TeacherServices": {
       "title": "Enhance Your Teaching Skills with Our Expert Tools",
       "guided_teaching_path": {
