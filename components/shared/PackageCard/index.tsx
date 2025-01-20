@@ -62,7 +62,9 @@ const PackageCard: React.FC<PackageCardProps> = ({
         </div>
         <div className='package-card__btn-wrapper'>
           <Link href={`/${locale}/packages/${id}`}>
-            <Button className='w-full'>{t('buttons.view_details')}</Button>
+            <Button size='lg' className='w-full' variant='qo_primary'>
+              {t('buttons.view_details')}
+            </Button>
           </Link>
         </div>
       </div>

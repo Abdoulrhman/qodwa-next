@@ -84,9 +84,7 @@ const HomePackages: React.FC = () => {
     <div className='home-packages'>
       <div className='container__header'>
         <h2 className='home__packages__title'>
-          <span className='home__packages__title__explore'>
-            {t('explore')}
-          </span>
+          <span className='home__packages__title__explore'>{t('explore')}</span>
           <span> {t('our_packages')} </span>
         </h2>
         <SwitchButton selected={selected} setSelected={setSelected} />
@@ -98,10 +96,10 @@ const HomePackages: React.FC = () => {
         <Swiper
           spaceBetween={50}
           slidesPerView={3}
-          loop
-          autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
-          navigation={true}
-          modules={[Autoplay]}
+          // loop
+          // autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
+          // navigation={true}
+          // modules={[Autoplay]}
           breakpoints={{
             300: {
               slidesPerView: 1,
