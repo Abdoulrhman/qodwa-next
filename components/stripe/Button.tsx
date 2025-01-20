@@ -4,6 +4,7 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { MouseEvent, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 const stripePromise: Promise<Stripe | null> = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
@@ -16,6 +17,7 @@ interface CheckoutButtonProps {
 
 export default function CheckoutButton({ items, className }: CheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
+  const t = useTranslations('PackageDetails');
 
   const handleCheckout = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -53,9 +55,9 @@ export default function CheckoutButton({ items, className }: CheckoutButtonProps
       )}
     >
       {loading ? (
-        <span>Processing...</span>
+        <span>{t('loading')}</span>
       ) : (
-        <span>Enroll Now</span>
+        <span>{t('buttons.enroll_now')}</span>
       )}
     </Button>
   );

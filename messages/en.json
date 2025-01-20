@@ -86,7 +86,6 @@
         "content": "Work with other instructors to create a collaborative and supportive learning environment for all students."
       }
     },
-
     "HowToStart": {
       "title": "How to get Started as a Student",
       "subtitle": "Follow these simple steps to begin your Quran memorization journey.",
@@ -113,6 +112,10 @@
         }
       },
       "apply_button": "Apply as a Student"
+    },
+    "buttons": {
+      "view_details": "View Details",
+      "enroll_now": "Enroll Now"
     }
   },
   "PackageDetails": {
@@ -134,6 +137,9 @@
       "quality": "High-Quality Learning Experience",
       "certified": "Certified Teachers",
       "flexible": "Flexible Schedule"
+    },
+    "buttons": {
+      "enroll_now": "Enroll Now"
     }
   }
 }

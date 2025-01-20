@@ -104,9 +104,6 @@ export default async function PackageDetails({
                 <span className='text-2xl font-bold'>{t('details')}</span>
                 <span className='text-3xl font-bold text-primary'>
                   ${packageData.current_price}
-                  <span className='text-sm text-muted-foreground'>
-                    /{packageData.subscription_frequency}
-                  </span>
                 </span>
               </CardTitle>
             </CardHeader>
@@ -168,8 +165,9 @@ export default async function PackageDetails({
                 {benefits.map((benefit, index) => (
                   <li
                     key={index}
-                    className='flex items-center space-x-3 p-3
-                                           hover:bg-primary/10 rounded-lg transition-colors'
+                    className='flex items-center gap-3 p-3
+                             hover:bg-primary/10 rounded-lg transition-colors
+                             [&>span]:mx-2'
                   >
                     {benefit.icon}
                     <span>{benefit.text}</span>

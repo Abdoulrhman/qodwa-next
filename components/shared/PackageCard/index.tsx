@@ -4,6 +4,7 @@ import { BsCalendar2, BsClock, BsEnvelopePaperFill } from 'react-icons/bs';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 interface PackageCardProps {
   cardInfo: PackageObject;
@@ -24,6 +25,7 @@ const PackageCard: React.FC<PackageCardProps> = ({
   },
 }) => {
   const { locale } = useParams();
+  const t = useTranslations('Home');
 
   return (
     <div className='package-card-wrapper'>
@@ -60,7 +62,7 @@ const PackageCard: React.FC<PackageCardProps> = ({
         </div>
         <div className='package-card__btn-wrapper'>
           <Link href={`/${locale}/packages/${id}`}>
-            <Button className='w-full'>View Details</Button>
+            <Button className='w-full'>{t('buttons.view_details')}</Button>
           </Link>
         </div>
       </div>
