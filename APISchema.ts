@@ -1,4 +1,5 @@
 export type Package = {
+  id: number;
   current_price: string;
   original_price: string;
   discount: string;
@@ -8,6 +9,7 @@ export type Package = {
   class_duration: string;
   enrollment_action: string;
   package_type: string;
+  description?: string;
 };
 
 export type PackagesResponse = {

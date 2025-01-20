@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { Package } from '@/APISchema';
 
 interface PackageCardProps {
-  cardInfo: PackageObject;
+  cardInfo: Package;
 }
 
 const PackageCard: React.FC<PackageCardProps> = ({
@@ -62,7 +63,7 @@ const PackageCard: React.FC<PackageCardProps> = ({
         </div>
         <div className='package-card__btn-wrapper'>
           <Link href={`/${locale}/packages/${id}`}>
-            <Button size='lg' className='w-full' variant='qo_primary'>
+            <Button size='lg' className='w-full' variant='secondary'>
               {t('buttons.view_details')}
             </Button>
           </Link>
