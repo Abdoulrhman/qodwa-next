@@ -115,7 +115,8 @@
     },
     "buttons": {
       "view_details": "عرض التفاصيل",
-      "enroll_now": "سجل الآن"
+      "enroll_now": "سجل الآن",
+      "loading": "جار التحميل"
     }
   },
   "PackageDetails": {
@@ -125,6 +126,7 @@
     "no_description": "لا يوجد وصف متاح",
     "checkout": "المتابعة للدفع",
     "details": "تفاصيل الباقة",
+    "loading": "جار التحميل",
     "features": {
       "days_per_week": "أيام في الأسبوع",
       "duration": "مدة الحصة",

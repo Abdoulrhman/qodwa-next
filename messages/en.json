@@ -115,7 +115,8 @@
     },
     "buttons": {
       "view_details": "View Details",
-      "enroll_now": "Enroll Now"
+      "enroll_now": "Enroll Now",
+      "loading": "Loading"
     }
   },
   "PackageDetails": {
@@ -125,6 +126,7 @@
     "no_description": "No description available",
     "checkout": "Proceed to Checkout",
     "details": "Package Details",
+    "loading": "Loading",
     "features": {
       "days_per_week": "Days per Week",
       "duration": "Class Duration",

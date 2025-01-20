@@ -8,13 +8,14 @@ const FeatureItem = ({
   value: string;
 }) => (
   <div
-    className='flex items-center space-x-3 p-3 rounded-lg
-                    hover:bg-primary/10 transition-colors'
+    className='flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 
+               p-2 sm:p-3 rounded-lg hover:bg-primary/10 transition-colors'
   >
-    {icon}
-    <div></div>
-    <p className='text-sm text-muted-foreground'>{label}</p>
-    <p className='font-medium'>{value}</p>
+    <div className='flex items-center gap-2'>
+      {icon}
+      <p className='text-xs sm:text-sm text-muted-foreground'>{label}</p>
+    </div>
+    <p className='text-sm sm:text-base font-medium ml-6 sm:ml-auto'>{value}</p>
   </div>
 );
 

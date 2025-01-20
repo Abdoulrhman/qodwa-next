@@ -79,37 +79,35 @@ export default async function PackageDetails({
   return (
     <div className='min-h-screen bg-gradient-to-b from-primary/5 to-background'>
       {/* Hero Section */}
-      <div className='relative py-12 bg-primary/10 overflow-hidden'>
+      <div className='relative py-8 md:py-12 bg-primary/10 overflow-hidden'>
         <div className='absolute inset-0 pattern-grid-lg opacity-5' />
-        <div className='container mx-auto px-4 relative z-10'>
-          <h1 className='text-4xl md:text-5xl font-bold text-center mb-4 animate-fade-in'>
+        <div className='container mx-auto px-4 sm:px-6 relative z-10'>
+          <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 animate-fade-in'>
             {packageData.package_type}
           </h1>
-          <p className='text-muted-foreground text-center max-w-2xl mx-auto'>
+          <p className='text-sm sm:text-base text-muted-foreground text-center max-w-2xl mx-auto'>
             {packageData?.description || t('no_description')}
           </p>
         </div>
       </div>
 
-      <div className='container mx-auto p-6'>
-        <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
+      <div className='container mx-auto p-4 sm:p-6'>
+        <div className='grid gap-4 sm:gap-8 lg:grid-cols-3'>
           {/* Main Package Card */}
-          <Card
-            className='col-span-2 hover:shadow-lg transition-shadow duration-300
-                         bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-background/60
-                         border-gradient-to-r from-primary/20 to-primary/40'
-          >
+          <Card className='lg:col-span-2 hover:shadow-lg transition-shadow duration-300 bg-card/50 backdrop-blur'>
             <CardHeader>
-              <CardTitle className='flex items-center justify-between'>
-                <span className='text-2xl font-bold'>{t('details')}</span>
-                <span className='text-3xl font-bold text-primary'>
+              <CardTitle className='flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4'>
+                <span className='text-xl sm:text-2xl font-bold'>
+                  {t('details')}
+                </span>
+                <span className='text-2xl sm:text-3xl font-bold text-primary'>
                   ${packageData.current_price}
                 </span>
               </CardTitle>
             </CardHeader>
-            <CardContent className='space-y-6'>
+            <CardContent className='space-y-4 sm:space-y-6'>
               {/* Features Grid with animation */}
-              <div className='grid grid-cols-2 gap-4 animate-fade-in'>
+              <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 animate-fade-in'>
                 <FeatureItem
                   icon={<BsCalendar2 className='text-primary' size={20} />}
                   label={t('features.days_per_week')}
@@ -135,7 +133,7 @@ export default async function PackageDetails({
               </div>
 
               {/* Checkout Button */}
-              <div className='flex justify-center mt-6 '>
+              <div className='flex justify-center mt-4 sm:mt-6'>
                 <CheckoutButton
                   items={[
                     {
@@ -145,7 +143,7 @@ export default async function PackageDetails({
                     },
                   ]}
                   className='w-full bg-green-600 hover:bg-green-700 text-white 
-                            font-semibold py-6 px-8 rounded-lg transition-all
+                            font-semibold py-4 sm:py-6 px-4 sm:px-8 rounded-lg transition-all
                             hover:scale-105 duration-300 shadow-md
                             hover:shadow-lg active:scale-95'
                 />
@@ -156,7 +154,7 @@ export default async function PackageDetails({
           {/* Benefits Card */}
           <Card className='bg-primary/5 border-none'>
             <CardHeader>
-              <CardTitle className='text-xl font-semibold'>
+              <CardTitle className='text-lg sm:text-xl font-semibold'>
                 {t('benefits.title')}
               </CardTitle>
             </CardHeader>
