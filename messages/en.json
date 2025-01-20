@@ -114,5 +114,26 @@
       },
       "apply_button": "Apply as a Student"
     }
+  },
+  "PackageDetails": {
+    "error_loading_package": "Error loading package details",
+    "package_not_found": "Package not found",
+    "description": "Package Description",
+    "no_description": "No description available",
+    "checkout": "Proceed to Checkout",
+    "details": "Package Details",
+    "features": {
+      "days_per_week": "Days per Week",
+      "duration": "Class Duration",
+      "classes": "Classes per Month",
+      "savings": "Savings",
+      "off": "off"
+    },
+    "benefits": {
+      "title": "What You Get",
+      "quality": "High-Quality Learning Experience",
+      "certified": "Certified Teachers",
+      "flexible": "Flexible Schedule"
+    }
   }
 }

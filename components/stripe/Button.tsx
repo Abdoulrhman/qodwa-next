@@ -1,7 +1,9 @@
 'use client';
 
 import { loadStripe, Stripe } from '@stripe/stripe-js';
-import { MouseEvent } from 'react';
+import { MouseEvent, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const stripePromise: Promise<Stripe | null> = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
@@ -9,11 +11,15 @@ const stripePromise: Promise<Stripe | null> = loadStripe(
 
 interface CheckoutButtonProps {
   items: { name: string; price: number; quantity: number }[];
+  className?: string;
 }
 
-export default function CheckoutButton({ items }: CheckoutButtonProps) {
+export default function CheckoutButton({ items, className }: CheckoutButtonProps) {
+  const [loading, setLoading] = useState(false);
+
   const handleCheckout = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setLoading(true);
 
     const stripe = await stripePromise;
 
@@ -33,11 +39,24 @@ export default function CheckoutButton({ items }: CheckoutButtonProps) {
         console.error(result.error.message);
       }
     }
+
+    setLoading(false);
   };
 
   return (
-    <button onClick={handleCheckout} className='package-card__enroll-button'>
-      Checkout
-    </button>
+    <Button
+      onClick={handleCheckout}
+      disabled={loading}
+      className={cn(
+        "flex items-center justify-center gap-2",
+        className
+      )}
+    >
+      {loading ? (
+        <span>Processing...</span>
+      ) : (
+        <span>Enroll Now</span>
+      )}
+    </Button>
   );
 }

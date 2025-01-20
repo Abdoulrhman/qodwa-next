@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import { PackageObject } from './types';
 import { BsCalendar2, BsClock, BsEnvelopePaperFill } from 'react-icons/bs';
-import CheckoutButton from '../../stripe/Button'; // Import the CheckoutButton
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 interface PackageCardProps {
   cardInfo: PackageObject;
@@ -9,6 +11,7 @@ interface PackageCardProps {
 
 const PackageCard: React.FC<PackageCardProps> = ({
   cardInfo: {
+    id,
     current_price,
     original_price,
     discount,
@@ -20,6 +23,8 @@ const PackageCard: React.FC<PackageCardProps> = ({
     package_type,
   },
 }) => {
+  const { locale } = useParams();
+
   return (
     <div className='package-card-wrapper'>
       <div className='package-card'>
@@ -54,15 +59,9 @@ const PackageCard: React.FC<PackageCardProps> = ({
           </ul>
         </div>
         <div className='package-card__btn-wrapper'>
-          <CheckoutButton
-            items={[
-              {
-                name: `${package_type} Package`,
-                price: +current_price,
-                quantity: 1,
-              },
-            ]}
-          />
+          <Link href={`/${locale}/packages/${id}`}>
+            <Button className='w-full'>View Details</Button>
+          </Link>
         </div>
       </div>
     </div>
