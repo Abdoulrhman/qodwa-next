@@ -12,7 +12,7 @@ import CheckoutButton from '@/components/stripe/Button';
 import axiosInstance from '@/services/axiosInstance';
 import { Package } from '@/APISchema';
 import { headers } from 'next/headers';
-import FeatureItem from '../FeatureItem';
+import FeatureItem from './FeatureItem';
 
 async function getPackage(id: string): Promise<Package> {
   try {
