@@ -1,0 +1,61 @@
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: $color-secondary;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+
+  &__logo img {
+    height: 40px;
+    cursor: pointer;
+  }
+
+  &__nav {
+    display: flex;
+    gap: 20px;
+
+    &__link {
+      font-size: 16px;
+      font-weight: bold;
+      color: $color-primary;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    &__language-toggle {
+      font-size: 14px;
+      color: $color-primary;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    &__login {
+      font-size: 16px;
+      font-weight: bold;
+      color: $color-primary;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

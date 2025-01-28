@@ -6,6 +6,7 @@ import Head from 'next/head';
 import HowToStart from './teacher/sections/how-to-start';
 import Footer from '@/components/shared/footer';
 import Button from '@/components/stripe/Button';
+import AboutTutorSection from '@/components/about-tutor-section';
 
 export default function Home() {
   const t = useTranslations('Home');
@@ -27,6 +28,7 @@ export default function Home() {
       <HomePackages />
       <HowToStart />
       <HomeServices />
+      <AboutTutorSection />
       <Footer navLinks={navLinks} />
     </>
   );
