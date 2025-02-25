@@ -19,30 +19,37 @@ const HomePackages: React.FC = () => {
   const [packages, setPackages] = useState<PackagesResponse>(
     {} as PackagesResponse
   );
-  const [selected, setSelected] = useState('30 minutes');
-  const [loading, setLoading] = useState(true); // Initial loading state
-  const [error, setError] = useState<string | null>(null); // Error state
+  const [selectedDuration, setSelectedDuration] = useState('30 minutes');
+  const [selectedFrequency, setSelectedFrequency] = useState('monthly'); // Filter for subscription frequency
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     axiosInstance
       .get('/packages')
       .then((res) => {
         setPackages(res.data);
-        setLoading(false); // Stop loading when data is fetched
+        setLoading(false);
       })
       .catch((err) => {
-        setError(t('Packages.error_loading_packages')); // Set error message
-        setLoading(false); // Stop loading on error
+        setError(t('Packages.error_loading_packages'));
+        setLoading(false);
       });
   }, [t]);
 
   useEffect(() => {
-    if (selected === '30 minutes') {
-      setSelectedList(packages.thirtyMinutes || []);
-    } else {
-      setSelectedList(packages.sixtyMinutes || []);
-    }
-  }, [selected, packages]);
+    // Selecting packages based on duration and subscription frequency
+    const filteredPackages =
+      packages[selectedFrequency as keyof PackagesResponse] || [];
+
+    const filteredList = filteredPackages.filter((pkg) =>
+      selectedDuration === '30 minutes'
+        ? pkg.duration === 30
+        : pkg.duration === 60
+    );
+
+    setSelectedList(filteredList);
+  }, [selectedDuration, selectedFrequency, packages]);
 
   const renderSkeletons = () => (
     <Swiper
@@ -53,17 +60,9 @@ const HomePackages: React.FC = () => {
       navigation={true}
       modules={[Autoplay]}
       breakpoints={{
-        300: {
-          slidesPerView: 1,
-        },
-        640: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        768: {
-          slidesPerView: 3,
-          spaceBetween: 20,
-        },
+        300: { slidesPerView: 1 },
+        640: { slidesPerView: 2, spaceBetween: 20 },
+        768: { slidesPerView: 3, spaceBetween: 20 },
       }}
     >
       {Array(3)
@@ -87,38 +86,60 @@ const HomePackages: React.FC = () => {
           <span className='home__packages__title__explore'>{t('explore')}</span>
           <span> {t('our_packages')} </span>
         </h2>
-        <SwitchButton selected={selected} setSelected={setSelected} />
+
+        {/* Filters Wrapper */}
+        <div className='filters-container'>
+          {/* Subscription Frequency Filter */}
+          <SwitchButton
+            selected={selectedFrequency}
+            setSelected={setSelectedFrequency}
+            options={[
+              { value: 'monthly', label: t('monthly') },
+              { value: 'quarterly', label: t('quarterly') },
+              { value: 'half-year', label: t('half-year') },
+              { value: 'yearly', label: t('yearly') },
+            ]}
+            width='700px'
+          />
+
+          {/* 30 / 60 Minutes Filter */}
+          <SwitchButton
+            selected={selectedDuration}
+            setSelected={setSelectedDuration}
+            options={[
+              { value: '30 minutes', label: t('30Min') },
+              { value: '60 minutes', label: t('60Min') },
+            ]}
+            width='260px'
+          />
+        </div>
       </div>
 
       {loading ? (
-        renderSkeletons() // Render skeletons inside Swiper
+        renderSkeletons()
       ) : (
         <Swiper
           spaceBetween={50}
           slidesPerView={3}
-          // loop
-          // autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
-          // navigation={true}
-          // modules={[Autoplay]}
           breakpoints={{
-            300: {
-              slidesPerView: 1,
-            },
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 20,
-            },
+            300: { slidesPerView: 1 },
+            640: { slidesPerView: 2, spaceBetween: 20 },
+            768: { slidesPerView: 3, spaceBetween: 20 },
           }}
         >
-          {selectedList.map((data, index) => (
-            <SwiperSlide key={index}>
-              <PackageCard cardInfo={data} />
+          {selectedList.length > 0 ? (
+            selectedList.map((data, index) => (
+              <SwiperSlide key={index}>
+                <PackageCard cardInfo={data} />
+              </SwiperSlide>
+            ))
+          ) : (
+            <SwiperSlide>
+              <div className='no-packages'>
+                {t('Packages.no_packages_available')}
+              </div>
             </SwiperSlide>
-          ))}
+          )}
         </Swiper>
       )}
 

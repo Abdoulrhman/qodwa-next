@@ -14,13 +14,25 @@
     "teacher": "Teacher",
     "30Min": "30 Min",
     "60Min": "60 Min",
+    "monthly": "Monthly",
+    "quarterly": "Quarterly",
+    "half-year": "Semmi-Annual",
+    "yearly": "Yearly",
+    "Features": {
+      "days_per_week": "Days per Week",
+      "duration": "Class Duration",
+      "classes": "Classes per Month",
+      "savings": "Savings",
+      "off": "off"
+    },
+    "Packages": {
+      "error_loading_packages": "An error occurred while loading the packages",
+      "no_packages_available": "No packages available"
+    },
     "Meta": {
       "title": "Quranic Journey",
       "description": "Empower Your Quranic Journey",
       "keywords": "Quran, Tajweed, Tafseer, Arabic"
-    },
-    "Packages": {
-      "error_loading_packages": "An error occurred while loading the packages"
     },
     "Services": {
       "title": "Enhance Your Quran Memorization with Our Expert Instructors",

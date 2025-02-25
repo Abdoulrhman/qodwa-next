@@ -2,12 +2,14 @@
   display: flex;
   border-radius: 11px;
   overflow: hidden;
-  width: 260px;
   border: 1px solid;
 }
 
 .toggle-option {
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 10px 20px;
   cursor: pointer;

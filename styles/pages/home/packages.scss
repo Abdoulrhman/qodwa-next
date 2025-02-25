@@ -1,90 +1,92 @@
 .home-packages {
-    padding-block: 7rem;
-    margin-block: $spacing-md * 2 !important;
-    @include max-width(1200px);
+  padding-block: 7rem;
+  margin-block: $spacing-md * 2 !important;
+  @include max-width(1200px);
 
-      .container__header {
-        margin-bottom: 3rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        .home__packages__title {
-          font-size: 2.5rem;
-          text-transform: uppercase;
-          font-weight: 700;
+  .container__header {
+    margin-bottom: 3rem;
+    .filters-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+    }
 
-          .home__packages__title__explore {
-            font-weight: 700;
-            color: $color-secondary;
-            text-transform: uppercase;
-          }
-        }
-      }
-      .skeleton-container {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        flex-wrap: wrap;
+    .home__packages__title {
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      font-weight: 700;
 
-        // For screens 768px and up, display three skeletons per row
-        @media (min-width: 768px) {
-          .skeleton {
-            width: calc(
-              (100% - 40px) / 3
-            ); // 3 items per row with 20px gaps between them
-          }
-        }
-
-        // For screens between 640px and 768px, display two skeletons per row
-        @media (max-width: 768px) and (min-width: 640px) {
-          .skeleton {
-            width: calc((100% - 20px) / 2); // 2 items per row with 20px gap
-          }
-
-          // Hide the last skeleton item when under 768px
-          .skeleton:last-child {
-            display: none;
-          }
-        }
-
-        // For screens between 300px and 640px, display one skeleton per row
-        @media (max-width: 640px) and (min-width: 300px) {
-          .skeleton {
-            width: 100%; // 1 item per row with no gap
-          }
-
-          // Hide the last skeleton item when under 768px
-          .skeleton:last-child {
-            display: none;
-          }
-        }
-
-        // For screens less than 300px, center the skeleton and display one per row
-        @media (max-width: 300px) {
-          flex-direction: column;
-          align-items: center;
-
-          .skeleton {
-            width: 100%; // 1 item per row centered
-          }
-
-          // Hide the last skeleton item when under 768px
-          .skeleton:last-child {
-            display: none;
-          }
-        }
-      }
-  }
-
-  @media screen and (max-width: 768px) {
-    .home-packages {
-      padding-block: 5rem;
-      .container__header {
-        margin-bottom: 2rem;
-        .home__packages__title {
-          font-size: 2rem;
-        }
+      .home__packages__title__explore {
+        font-weight: 700;
+        color: $color-secondary;
+        text-transform: uppercase;
       }
     }
-    
   }
+  .skeleton-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    // For screens 768px and up, display three skeletons per row
+    @media (min-width: 768px) {
+      .skeleton {
+        width: calc(
+          (100% - 40px) / 3
+        ); // 3 items per row with 20px gaps between them
+      }
+    }
+
+    // For screens between 640px and 768px, display two skeletons per row
+    @media (max-width: 768px) and (min-width: 640px) {
+      .skeleton {
+        width: calc((100% - 20px) / 2); // 2 items per row with 20px gap
+      }
+
+      // Hide the last skeleton item when under 768px
+      .skeleton:last-child {
+        display: none;
+      }
+    }
+
+    // For screens between 300px and 640px, display one skeleton per row
+    @media (max-width: 640px) and (min-width: 300px) {
+      .skeleton {
+        width: 100%; // 1 item per row with no gap
+      }
+
+      // Hide the last skeleton item when under 768px
+      .skeleton:last-child {
+        display: none;
+      }
+    }
+
+    // For screens less than 300px, center the skeleton and display one per row
+    @media (max-width: 300px) {
+      flex-direction: column;
+      align-items: center;
+
+      .skeleton {
+        width: 100%; // 1 item per row centered
+      }
+
+      // Hide the last skeleton item when under 768px
+      .skeleton:last-child {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .home-packages {
+    padding-block: 5rem;
+    .container__header {
+      margin-bottom: 2rem;
+      .home__packages__title {
+        font-size: 2rem;
+      }
+    }
+  }
+}

@@ -9,13 +9,15 @@ datasource db {
 
 model Package {
   id                     Int    @id @default(autoincrement())
-  current_price          String
+  package_id             Int    @unique  // Added to match expected response format
+  current_price          String // This is used as "price"
   original_price         String
   discount               String
-  subscription_frequency String
-  days_per_week          String
-  classes_per_month      String
-  class_duration         String
+  subscription_frequency String // "monthly", "quarterly", "half-year", "yearly"
+  days                   Int    // Added to store the number of days per week
+  class_duration         Int    // This will store duration (30 or 60 minutes)
+  is_popular             Boolean @default(false) // Added to track popular packages
+  currency               String  @default("USD") // Added to set the currency
   enrollment_action      String
   package_type           String
 

@@ -15,15 +15,26 @@ export async function GET(
       );
     }
 
-    const package_ = await db.package.findUnique({
+    const pkg = await db.package.findUnique({
       where: { id },
     });
 
-    if (!package_) {
+    if (!pkg) {
       return NextResponse.json({ error: 'Package not found' }, { status: 404 });
     }
 
-    return NextResponse.json(package_);
+    // Transform the package data to match the expected response format
+    const response = {
+      id: pkg.id,
+      package_id: pkg.package_id,
+      price: pkg.current_price,
+      currency: 'USD',
+      days: pkg.days,
+      duration: pkg.class_duration,
+      is_popular: pkg.is_popular,
+    };
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Failed to retrieve package:', error);
     return NextResponse.json(

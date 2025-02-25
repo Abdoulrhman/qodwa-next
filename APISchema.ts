@@ -1,18 +1,16 @@
 export type Package = {
   id: number;
-  current_price: string;
-  original_price: string;
-  discount: string;
-  subscription_frequency: string;
-  days_per_week: string;
-  classes_per_month: string;
-  class_duration: string;
-  enrollment_action: string;
-  package_type: string;
-  description?: string;
+  package_id: number;
+  price: string; // Represents "current_price" in previous versions
+  currency: string; // "USD"
+  days: number; // Number of days per week
+  duration: number; // Class duration in minutes (30 or 60)
+  is_popular: boolean;
 };
 
 export type PackagesResponse = {
-  thirtyMinutes: Package[];
-  sixtyMinutes: Package[];
+  monthly: Package[];
+  quarterly: Package[];
+  'half-year': Package[];
+  yearly: Package[];
 };

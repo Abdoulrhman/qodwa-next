@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { PackageObject } from './types';
 import { BsCalendar2, BsClock, BsEnvelopePaperFill } from 'react-icons/bs';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -12,52 +11,29 @@ interface PackageCardProps {
 }
 
 const PackageCard: React.FC<PackageCardProps> = ({
-  cardInfo: {
-    id,
-    current_price,
-    original_price,
-    discount,
-    subscription_frequency,
-    days_per_week,
-    classes_per_month,
-    class_duration,
-    enrollment_action,
-    package_type,
-  },
+  cardInfo: { id, package_id, price, currency, days, duration, is_popular },
 }) => {
   const { locale } = useParams();
   const t = useTranslations('Home');
 
   return (
     <div className='package-card-wrapper'>
-      <div className='package-card'>
+      <div className={`package-card ${is_popular ? 'popular' : ''}`}>
         <div className='package-card__price'>
-          <span className='package-card__price--original'>
-            ${original_price}
-          </span>
           <div className='package-card__price-wrapper'>
             <span className='package-card__price--discounted'>
-              ${current_price}
-            </span>
-            <span className='package-card__subscription-frequency'>
-              /{subscription_frequency}
+              {currency} {price}
             </span>
           </div>
         </div>
         <div className='package-card__course-details'>
-          <p className='package-card__time-per-week'>{class_duration}</p>
+          <p className='package-card__time-per-week'>{duration} min</p>
           <ul className='package-card__info-list'>
             <li className='package-card__info-item'>
-              <BsCalendar2 size={16} />
-              {days_per_week}
+              <BsCalendar2 size={16} /> {days} {t('Features.days_per_week')}
             </li>
             <li className='package-card__info-item'>
-              <BsClock size={16} />
-              {classes_per_month}
-            </li>
-            <li className='package-card__info-item'>
-              <BsEnvelopePaperFill size={16} />
-              {package_type}
+              <BsClock size={16} /> {duration} min {t('Features.duration')}
             </li>
           </ul>
         </div>

@@ -1,29 +1,30 @@
 import { useTranslations } from 'next-intl';
-import React, { useState } from 'react';
+import React from 'react';
 
-const SwitchButton = ({
-  selected,
-  setSelected,
-}: {
+interface SwitchButtonProps {
   selected: string;
   setSelected: React.Dispatch<React.SetStateAction<string>>;
-}) => {
+  options: { value: string; label: string }[]; // Updated to accept objects
+  width?: string;
+}
 
-  const t = useTranslations('Home');
+const SwitchButton: React.FC<SwitchButtonProps> = ({
+  selected,
+  setSelected,
+  options,
+  width = 'fit-content',
+}) => {
   return (
-    <div className='toggle-switch'>
-      <div
-        className={`toggle-option ${selected === '30 minutes' ? 'active' : ''}`}
-        onClick={() => setSelected('30 minutes')}
-      >
-        {t('30Min')}
-      </div>
-      <div
-        className={`toggle-option ${selected === '60 minutes' ? 'active' : ''}`}
-        onClick={() => setSelected('60 minutes')}
-      >
-        {t('60Min')}
-      </div>
+    <div className='toggle-switch' style={{ width }}>
+      {options.map(({ value, label }) => (
+        <div
+          key={value}
+          className={`toggle-option ${selected === value ? 'active' : ''}`}
+          onClick={() => setSelected(value)}
+        >
+          {label}
+        </div>
+      ))}
     </div>
   );
 };

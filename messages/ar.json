@@ -14,13 +14,25 @@
     "teacher": "معلم",
     "30Min": "30 دقيقة",
     "60Min": "60 دقيقة",
+    "monthly": "شهري",
+    "quarterly": "ربع سنوي",
+    "half-year": "نصف سنوي",
+    "yearly": "سنوي",
+    "Features": {
+      "days_per_week": "أيام في الأسبوع",
+      "duration": "مدة الحصة",
+      "classes": "الحصص في الشهر",
+      "savings": "التوفير",
+      "off": "خصم"
+    },
+    "Packages": {
+      "error_loading_packages": "حدث خطأ أثناء تحميل الباقات",
+      "no_packages_available": "لا توجد باقات متاحة"
+    },
     "Meta": {
       "title": "رحلتك القرآنية",
       "description": "قم بتمكين رحلتك القرآنية",
       "keywords": "القرآن، التجويد، التفسير، العربية"
-    },
-    "Packages": {
-      "error_loading_packages": "حدث خطأ أثناء تحميل الباقات"
     },
     "Services": {
       "title": "قم بتعزيز حفظ القرآن الخاص بك مع معلمينا الخبراء",
