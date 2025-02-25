@@ -11,12 +11,10 @@ import {
 import CheckoutButton from '@/components/stripe/Button';
 import axiosInstance from '@/services/axiosInstance';
 import { Package } from '@/APISchema';
-import { headers } from 'next/headers';
 import FeatureItem from './FeatureItem';
 
 async function getPackage(id: string): Promise<Package> {
   try {
-    // Use absolute URL to ensure correct API path
     const res = await axiosInstance.get(`packages/${id}`);
 
     if (!res.data || res.data.error) {
@@ -35,7 +33,6 @@ export default async function PackageDetails({
 }: {
   params: { id: string; locale: string };
 }) {
-  // Validate locale and redirect if needed
   if (!['en', 'ar'].includes(locale)) {
     redirect('/en/packages');
   }
@@ -83,10 +80,10 @@ export default async function PackageDetails({
         <div className='absolute inset-0 pattern-grid-lg opacity-5' />
         <div className='container mx-auto px-4 sm:px-6 relative z-10'>
           <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 animate-fade-in'>
-            {packageData.package_type}
+            {t('details')}
           </h1>
           <p className='text-sm sm:text-base text-muted-foreground text-center max-w-2xl mx-auto'>
-            {packageData?.description || t('no_description')}
+            {t('no_description')}
           </p>
         </div>
       </div>
@@ -101,34 +98,22 @@ export default async function PackageDetails({
                   {t('details')}
                 </span>
                 <span className='text-2xl sm:text-3xl font-bold text-primary'>
-                  ${packageData.current_price}
+                  {packageData.currency} {packageData.price}
                 </span>
               </CardTitle>
             </CardHeader>
             <CardContent className='space-y-4 sm:space-y-6'>
-              {/* Features Grid with animation */}
+              {/* Features Grid */}
               <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 animate-fade-in'>
                 <FeatureItem
                   icon={<BsCalendar2 className='text-primary' size={20} />}
                   label={t('features.days_per_week')}
-                  value={packageData.days_per_week}
+                  value={packageData.days.toString()}
                 />
                 <FeatureItem
                   icon={<BsClock className='text-primary' size={20} />}
                   label={t('features.duration')}
-                  value={packageData.class_duration}
-                />
-                <FeatureItem
-                  icon={
-                    <BsEnvelopePaperFill className='text-primary' size={20} />
-                  }
-                  label={t('features.classes')}
-                  value={packageData.classes_per_month}
-                />
-                <FeatureItem
-                  icon={<BsCurrencyDollar className='text-primary' size={20} />}
-                  label={t('features.savings')}
-                  value={`${packageData.discount}% ${t('features.off')}`}
+                  value={`${packageData.duration} min`}
                 />
               </div>
 
@@ -137,8 +122,8 @@ export default async function PackageDetails({
                 <CheckoutButton
                   items={[
                     {
-                      name: `${packageData.package_type} Package`,
-                      price: +packageData.current_price,
+                      name: `Package #${packageData.package_id}`,
+                      price: +packageData.price,
                       quantity: 1,
                     },
                   ]}
