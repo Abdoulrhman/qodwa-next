@@ -6,7 +6,7 @@ import React from 'react';
 
 const AboutTutorSection = () => {
   return (
-    <section className='tp-about-tutor-area pt-[110px] pb-[90px]'>
+    <section className='tp-about-tutor-area pt-[110px] pb-[90px]' id='about-us'>
       {/* Container */}
       <div className='container max-w-7xl mx-auto px-4'>
         {/* Top Row */}

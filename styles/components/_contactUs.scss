@@ -1,0 +1,41 @@
+.contact-us-wrapper {
+  padding: 0 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .contact-us-header {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  .contact-us-content {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+
+    .contact-card {
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+      width: 33%;
+      padding: 25px;
+      border-radius: 10px;
+      .icon {
+        margin-bottom: 1rem;
+      }
+      .title {
+        font-size: 20px;
+        font-weight: 700;
+      }
+      .description {
+        margin: 1rem 0;
+        color: gray;
+      }
+      .contact-info {
+        font-size: 18px;
+        font-weight: 600;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}

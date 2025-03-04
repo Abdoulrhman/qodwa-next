@@ -7,6 +7,7 @@ import HowToStart from './teacher/sections/how-to-start';
 import Footer from '@/components/shared/footer';
 import Button from '@/components/stripe/Button';
 import AboutTutorSection from '@/components/about-tutor-section';
+import ContactUs from './home/sections/contact-us';
 
 export default function Home() {
   const t = useTranslations('Home');
@@ -26,6 +27,7 @@ export default function Home() {
 
       <HomeIntro />
       <HomePackages />
+      <ContactUs />
       <HowToStart />
       <HomeServices />
       <AboutTutorSection />

@@ -13,7 +13,7 @@ interface ServicesProps {
 
 const Services: React.FC<ServicesProps> = ({ title, services }) => {
   return (
-    <section className='services'>
+    <section className='services' id='services'>
       <h2 className='services__title'>{title}</h2>
       <ul className='services__grid'>
         {services.map((service, index) => (

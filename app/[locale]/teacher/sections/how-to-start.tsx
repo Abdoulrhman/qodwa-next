@@ -12,7 +12,7 @@ const HowToStart: React.FC = () => {
   const isRTL = locale === 'ar'; // Check if the language is Arabic (right-to-left)
 
   return (
-    <div className='how-to-start-wrapper'>
+    <div className='how-to-start-wrapper' id='how-to-start'>
       <h2 className='how-to-start-title'>{t('title')}</h2>
       <p className='how-to-start-subtitle'>{t('subtitle')}</p>
       <div className='how-to-start-main'>

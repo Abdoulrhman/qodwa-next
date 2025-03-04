@@ -80,7 +80,7 @@ const HomePackages: React.FC = () => {
   );
 
   return (
-    <div className='home-packages'>
+    <div className='home-packages' id='packages'>
       <div className='container__header'>
         <h2 className='home__packages__title'>
           <span className='home__packages__title__explore'>{t('explore')}</span>
