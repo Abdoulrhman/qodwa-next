@@ -17,11 +17,11 @@ const HomeIntro: React.FC<HomeIntroProps> = ({
 }) => {
   const [isTeacherPage, setIsTeacherPage] = useState(false);
   const navLinks = [
-    { label: 'About Us', href: '#about-us' },
-    { label: 'Contact Us', href: '#contact-us' },
     { label: 'Packages', href: '#packages' },
+    { label: 'Guide', href: '#how-to-start' },
+    { label: 'About Us', href: '#about-us' },
     { label: 'Services', href: '#services' },
-    { label: 'Get Started', href: '#how-to-start' },
+    { label: 'Contact Us', href: '#contact-us' },
   ];
 
   // Default values for bgImage and bgColor if not provided

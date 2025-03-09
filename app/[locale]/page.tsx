@@ -27,10 +27,10 @@ export default function Home() {
 
       <HomeIntro />
       <HomePackages />
-      <ContactUs />
       <HowToStart />
-      <HomeServices />
       <AboutTutorSection />
+      <HomeServices />
+      <ContactUs />
       <Footer navLinks={navLinks} />
     </>
   );

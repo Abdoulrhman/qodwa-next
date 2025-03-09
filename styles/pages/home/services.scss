@@ -1,11 +1,10 @@
 .services {
-  padding: 2rem;
   @include max-width(1200px);
+  padding: 2rem;
+  margin-block: 2rem;
 
   &__title {
     font-size: 2rem;
-    margin-bottom: 2rem;
-    color: #333;
     max-width: 100%;
     text-align: start;
     line-height: 1.2;

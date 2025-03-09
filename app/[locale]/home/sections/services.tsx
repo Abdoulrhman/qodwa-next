@@ -47,8 +47,12 @@ const HomeServices: React.FC = () => {
   ];
 
   return (
-    <div className='mt-12 mb-12'>
-      <Services title={t('Services.title')} services={servicesData} />
+    <div className='bg-[#422e87] mb-12 mt-12'>
+      <Services
+        title={t('Services.title')}
+        services={servicesData}
+        titleClassName='text-white'
+      />
     </div>
   );
 };

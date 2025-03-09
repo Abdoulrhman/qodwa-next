@@ -1,6 +1,7 @@
 .tp-about-tutor-area {
-  padding-top: 110px;
-  padding-bottom: 90px;
+  @include max-width(1200px);
+  padding: 2rem;
+  margin-block: 2rem;
 
   .tp-tutor-item {
     &.about {

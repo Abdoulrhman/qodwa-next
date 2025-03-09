@@ -9,12 +9,19 @@ interface Service {
 interface ServicesProps {
   title: string;
   services: Service[];
+  className?: string;
+  titleClassName?: string;
 }
 
-const Services: React.FC<ServicesProps> = ({ title, services }) => {
+const Services: React.FC<ServicesProps> = ({
+  title,
+  services,
+  className = '',
+  titleClassName = '',
+}) => {
   return (
-    <section className='services' id='services'>
-      <h2 className='services__title'>{title}</h2>
+    <section className={`services ${className}`} id='services'>
+      <h2 className={`services__title ${titleClassName}`}>{title}</h2>
       <ul className='services__grid'>
         {services.map((service, index) => (
           <li

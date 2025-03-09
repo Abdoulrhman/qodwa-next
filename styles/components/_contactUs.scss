@@ -1,7 +1,7 @@
 .contact-us-wrapper {
-  padding: 0 15px;
-  max-width: 1200px;
-  margin: 0 auto;
+  @include max-width(1200px);
+  padding: 2rem;
+  margin-block: 2rem;
 
   .contact-us-header {
     font-size: 40px;
