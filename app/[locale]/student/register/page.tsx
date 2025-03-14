@@ -1,15 +1,18 @@
 import StudentForm from '@/components/student-form';
 import React from 'react';
+import AuthLayout from '../../auth/layout';
 
 const RegisterStudent = () => {
-
-
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md">
-        <StudentForm />
-      </div>
-    </div>
+    <AuthLayout
+      backgroundImage='/images/mosque.jpg'
+      platformName='Custom Platform Name'
+      testimonialQuote='Custom testimonial quote.'
+      testimonialAuthor='Custom Author'
+      isColorBlack={false}
+    >
+      <StudentForm />
+    </AuthLayout>
   );
 };
 
