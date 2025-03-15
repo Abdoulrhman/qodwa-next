@@ -1,10 +1,11 @@
 import StudentForm from '@/components/student-form';
 import React from 'react';
 import AuthLayout from '../../auth/layout';
+import SplittedLayout from '@/components/shared/splittedLayout';
 
 const RegisterStudent = () => {
   return (
-    <AuthLayout
+    <SplittedLayout
       backgroundImage='/images/mosque.jpg'
       platformName='Custom Platform Name'
       testimonialQuote='Custom testimonial quote.'
@@ -12,7 +13,7 @@ const RegisterStudent = () => {
       isColorBlack={false}
     >
       <StudentForm />
-    </AuthLayout>
+    </SplittedLayout>
   );
 };
 
