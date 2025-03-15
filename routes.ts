@@ -21,7 +21,6 @@ export const authRoutes = locales.flatMap((locale) => [
   `/${locale}/auth/error`,
   `/${locale}/auth/reset`,
   `/${locale}/auth/new-password`,
-  `/${locale}/profile`,
 ]);
 
 /**
