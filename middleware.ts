@@ -1,78 +1,71 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
-import { auth } from './auth'; // Import NextAuth.js authentication
+import { auth } from '@/auth';
 
 import {
   apiAuthPrefix,
   authRoutes,
   publicRoutes,
   protectedRoutes,
-  getDefaultLoginRedirect,
+  DEFAULT_LOGIN_REDIRECT,
 } from '@/routes';
 import { routing } from './i18n/routing';
 
 // Create localization middleware
 const localeMiddleware = createMiddleware(routing);
 
-export default async function middleware(req: NextRequest) {
-  const { nextUrl } = req;
-
-  // Extract locale from the pathname (assuming URLs start with /en/ or /ar/)
-  const pathnameParts = nextUrl.pathname.split('/');
-  const locale =
-    pathnameParts[1] === 'ar' || pathnameParts[1] === 'en'
-      ? pathnameParts[1]
-      : 'en'; // Default to 'en'
+export default async function middleware(request: any) {
+  const { nextUrl } = request;
 
   // Apply locale middleware first
-  const localeResponse = localeMiddleware(req);
+  const localeResponse = localeMiddleware(request);
   if (localeResponse) return localeResponse;
 
-  // Fetch the user session from NextAuth
-  const session = await auth();
-  const isLoggedIn = !!session?.user; // Check if the user is authenticated
+  // Get the pathname of the request
+  const pathname = nextUrl.pathname;
 
-  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
-  const isAuthRoute = authRoutes.includes(nextUrl.pathname);
-  const isProtectedRoute = protectedRoutes.includes(nextUrl.pathname);
-
-  if (isApiAuthRoute) {
+  // Check if the pathname is an API auth route
+  if (pathname.startsWith(apiAuthPrefix)) {
     return NextResponse.next();
   }
 
-  // Redirect logged-in users away from authentication pages
-  if (isAuthRoute && isLoggedIn) {
-    return NextResponse.redirect(
-      new URL(getDefaultLoginRedirect(locale), nextUrl)
-    );
+  // Get the token from the session
+  const session = await auth();
+  const isLoggedIn = !!session;
+
+  // Check if the route is protected
+  const isProtectedRoute = protectedRoutes.some(
+    (route) => pathname.startsWith(route) || pathname === route
+  );
+
+  // Check if the route is a public route
+  const isPublicRoute = publicRoutes.some(
+    (route) => pathname.startsWith(route) || pathname === route
+  );
+
+  // Check if the route is an auth route
+  const isAuthRoute = authRoutes.some(
+    (route) => pathname.startsWith(route) || pathname === route
+  );
+
+  // If the route is protected and the user isn't logged in,
+  // redirect to the login page
+  if (isProtectedRoute && !isLoggedIn) {
+    const redirectUrl = new URL('/auth/login', nextUrl);
+    redirectUrl.searchParams.set('callbackUrl', pathname);
+    return NextResponse.redirect(redirectUrl);
   }
 
-  // Redirect non-logged-in users trying to access protected routes
-  if (isProtectedRoute && !isLoggedIn) {
-    let callbackUrl = nextUrl.pathname;
-    if (nextUrl.search) {
-      callbackUrl += nextUrl.search;
-    }
-    const encodedCallbackUrl = encodeURIComponent(callbackUrl);
-
-    return NextResponse.redirect(
-      new URL(
-        `/${locale}/auth/login?callbackUrl=${encodedCallbackUrl}`,
-        nextUrl
-      )
-    );
+  // If the route is an auth route and the user is logged in,
+  // redirect to the default page
+  if (isAuthRoute && isLoggedIn) {
+    return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
   }
 
   return NextResponse.next();
 }
 
-// Middleware config
 export const config = {
-  matcher: [
-    '/(ar|en)/((?!.+\\.[\\w]+$|_next).*)', // Match all pages except static files
-    '/',
-    '/(ar|en)/(api|trpc)(.*)',
-    '/(ar|en)/:path*', // Also match localized paths
-  ],
+  // Matcher ignoring `/_next/` and `/api/`
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 };
