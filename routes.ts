@@ -12,7 +12,7 @@ export const publicRoutes = locales.flatMap((locale) => [
 
 /**
  * An array of routes that are used for authentication
- * These routes will redirect logged in users to /profile
+ * These routes will redirect logged in users to /dashboard
  * @type {string[]}
  */
 export const authRoutes = locales.flatMap((locale) => [
@@ -21,6 +21,20 @@ export const authRoutes = locales.flatMap((locale) => [
   `/${locale}/auth/error`,
   `/${locale}/auth/reset`,
   `/${locale}/auth/new-password`,
+]);
+
+/**
+ * An array of routes that require authentication
+ * These routes will redirect to login if not authenticated
+ * @type {string[]}
+ */
+export const protectedRoutes = locales.flatMap((locale) => [
+  `/${locale}/dashboard`,
+  `/${locale}/dashboard/profile`,
+  `/${locale}/dashboard/learning-paths`,
+  `/${locale}/dashboard/lesson-reports`,
+  `/${locale}/dashboard/payments`,
+  `/${locale}/dashboard/schedule`,
 ]);
 
 /**
@@ -34,5 +48,6 @@ export const apiAuthPrefix = '/api/auth';
  * The default redirect path after logging in
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT = '/en/profile';
-export const getDefaultLoginRedirect = (locale: string) => `/${locale}/profile`;
+export const DEFAULT_LOGIN_REDIRECT = '/en/dashboard';
+export const getDefaultLoginRedirect = (locale: string) =>
+  `/${locale}/dashboard`;
