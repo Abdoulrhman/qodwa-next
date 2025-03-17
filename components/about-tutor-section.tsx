@@ -3,8 +3,11 @@ import KnowAboutClassesIcon from '@/public/icons/KnowAboutClassesIcon';
 import ProfessionalEducatorsIcon from '@/public/icons/ProfessionalEducatorsIcon';
 import RealTimeSupportIcon from '@/public/icons/RealTimeSupportIcon';
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
 const AboutTutorSection = () => {
+  const t = useTranslations('Home.AboutTutor');
+
   return (
     <section className='tp-about-tutor-area pt-[110px] pb-[90px]' id='about-us'>
       {/* Container */}
@@ -20,12 +23,11 @@ const AboutTutorSection = () => {
                   <KnowAboutClassesIcon />
                 </span>
                 <p className='text-sm font-medium text-blue-600'>
-                  Know about classes
+                  {t('subtitle')}
                 </p>
               </div>
               <h3 className='tp-about-tutor-title text-3xl md:text-4xl font-bold leading-tight'>
-                We create unique <br />
-                digital media experiences.
+                {t('title')}
               </h3>
             </div>
           </div>
@@ -35,9 +37,7 @@ const AboutTutorSection = () => {
             <div className='tp-about-tutor-right flex lg:justify-end mb-[130px]'>
               <div className='tp-about-tutor-content'>
                 <p className='text-gray-600 leading-relaxed'>
-                  Online courses from the world&apos;s leading experts. <br />
-                  Lorem ipsum is simply dummy of the printing and <br />
-                  typesetting industry lorem
+                  {t('description')}
                 </p>
               </div>
             </div>
@@ -59,10 +59,10 @@ const AboutTutorSection = () => {
               </div>
               <div className='tp-tutor-content'>
                 <h4 className='tp-tutor-title text-lg font-semibold mb-2'>
-                  Professional Educators
+                  {t('features.professional.title')}
                 </h4>
                 <p className='text-gray-600'>
-                  Get one-on-one help from our subject matter experts.
+                  {t('features.professional.description')}
                 </p>
               </div>
             </div>
@@ -81,10 +81,10 @@ const AboutTutorSection = () => {
               </div>
               <div className='tp-tutor-content'>
                 <h4 className='tp-tutor-title text-lg font-semibold mb-2'>
-                  Real-Time Support
+                  {t('features.support.title')}
                 </h4>
                 <p className='text-gray-600'>
-                  Ask questions over live chat or schedule a virtual meeting.
+                  {t('features.support.description')}
                 </p>
               </div>
             </div>
@@ -103,10 +103,10 @@ const AboutTutorSection = () => {
               </div>
               <div className='tp-tutor-content'>
                 <h4 className='tp-tutor-title text-lg font-semibold mb-2'>
-                  Free Access
+                  {t('features.access.title')}
                 </h4>
                 <p className='text-gray-600'>
-                  Every course offers online tutoring at no additional charge.
+                  {t('features.access.description')}
                 </p>
               </div>
             </div>

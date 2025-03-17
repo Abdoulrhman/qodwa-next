@@ -21,7 +21,7 @@ const IntroHeader: React.FC<IntroHeaderProps> = ({
   navLinks,
   isTeacherPage = false,
 }) => {
-  const t = useTranslations('Home');
+  const t = useTranslations('Home.IntroHeader');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const locale = useLocale();
   const isMobile = useIsMobile();
@@ -38,20 +38,21 @@ const IntroHeader: React.FC<IntroHeaderProps> = ({
       {/* Add conditional class */}
       <div className='intro__header-content'>
         <div className='intro__header-logo'>
-          <Image
-            src={`/images/logo/${!isTeacherPage ? 'logo' : 'logo-white'}.png`}
-            alt='Logo'
-            width={120}
-            height={40}
-          />
+          <Link href='/' locale={locale}>
+            <Image
+              src={`/images/logo/${!isTeacherPage ? 'logo' : 'logo-white'}.png`}
+              alt={t('logo_alt')}
+              width={120}
+              height={40}
+            />
+          </Link>
         </div>
         {!isMobile && (
           <nav className='intro__header-navbar'>
             <ul className='intro__header-navbar-nav-list'>
               {navLinks.map((link, index) => (
                 <li key={index} className='intro__header-navbar-nav-item'>
-                  <Link href={link.href}>{link.label}</Link>{' '}
-                  {/* Dynamic link and label */}
+                  <Link href={link.href}>{t(`nav.${link.label}`)}</Link>
                 </li>
               ))}
             </ul>
@@ -66,6 +67,7 @@ const IntroHeader: React.FC<IntroHeaderProps> = ({
             style={{
               color: isTeacherPage ? '#fff' : '#000',
             }}
+            aria-label={t('menu_button_label')}
           >
             &#9776;
           </button>
@@ -85,17 +87,20 @@ const IntroHeader: React.FC<IntroHeaderProps> = ({
         isOpen={isSidebarOpen}
         toggleSidebar={toggleSidebar}
         position='right'
+        closeButtonLabel={t('close_menu')}
       >
         <ul className='intro__sidebar-nav'>
           {navLinks.map((link, index) => (
             <li key={index} className='intro__sidebar-nav-item'>
-              <Link href={link.href}>{link.label}</Link>
+              <Link href={link.href}>{t(`nav.${link.label}`)}</Link>
             </li>
           ))}
         </ul>
 
         <div className='intro__sidebar-user-actions'>
-          <Link href='/auth/login'>{t('login')}</Link>
+          <Link href='/auth/login' locale={locale}>
+            {t('login')}
+          </Link>
           <LanguageSwitcher />
         </div>
       </Sidebar>

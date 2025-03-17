@@ -129,6 +129,56 @@
       "view_details": "View Details",
       "enroll_now": "Enroll Now",
       "loading": "Loading"
+    },
+    "AboutTutor": {
+      "subtitle": "Know about classes",
+      "title": "We create unique digital media experiences",
+      "description": "Online courses from the world's leading experts. Our platform provides comprehensive learning solutions tailored to your needs.",
+      "features": {
+        "professional": {
+          "title": "Professional Educators",
+          "description": "Get one-on-one help from our subject matter experts"
+        },
+        "support": {
+          "title": "Real-Time Support",
+          "description": "Ask questions over live chat or schedule a virtual meeting"
+        },
+        "access": {
+          "title": "Free Access",
+          "description": "Every course offers online tutoring at no additional charge"
+        }
+      }
+    },
+    "ContactUs": {
+      "header": "Let us know how we can help",
+      "cards": {
+        "feedback": {
+          "title": "Feedback",
+          "description": "Speak to our Friendly Team"
+        },
+        "sales": {
+          "title": "Sales",
+          "description": "Get in touch with our Sales Team"
+        },
+        "technical": {
+          "title": "Technical Support",
+          "description": "Get help from our Technical Team"
+        }
+      }
+    },
+    "IntroHeader": {
+      "logo_alt": "Qodwa Logo",
+      "menu_button_label": "Open menu",
+      "close_menu": "Close menu",
+      "login": "Login",
+      "nav": {
+        "Apply as a Student": "Apply as a Student",
+        "Packages": "Packages",
+        "Guide": "Guide",
+        "About Us": "About Us",
+        "Services": "Services",
+        "Contact Us": "Contact Us"
+      }
     }
   },
   "PackageDetails": {

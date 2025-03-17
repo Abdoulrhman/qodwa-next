@@ -1,33 +1,46 @@
 import { useTranslations } from 'next-intl';
 
 const ContactUs: React.FC = () => {
-  const t = useTranslations('Home');
+  const t = useTranslations('Home.ContactUs');
+
+  const contactCards = [
+    {
+      icon: 'icon',
+      title: 'feedback',
+      description: 'friendly_team',
+      contactInfo: 'support@qodwa.com',
+    },
+    {
+      icon: 'icon',
+      title: 'sales',
+      description: 'sales_team',
+      contactInfo: 'sales@qodwa.com',
+    },
+    {
+      icon: 'icon',
+      title: 'technical',
+      description: 'technical_team',
+      contactInfo: 'tech@qodwa.com',
+    },
+  ];
 
   return (
     <section
       className='contact-us-wrapper tp-contact-area pt-[110px] pb-[90px]'
       id='contact-us'
     >
-      <p className='contact-us-header'>Let us know how we can help</p>
+      <p className='contact-us-header'>{t('header')}</p>
       <div className='contact-us-content'>
-        <div className='contact-card'>
-          <div className='icon'>icon</div>
-          <p className='title'>Feedbacks</p>
-          <p className='description'>Speak to our Friendly Team</p>
-          <p className='contact-info'>Support@gmail.com</p>
-        </div>
-        <div className='contact-card'>
-          <div className='icon'>icon</div>
-          <p className='title'>Feedbacks</p>
-          <p className='description'>Speak to our Friendly Team</p>
-          <p className='contact-info'>Support@gmail.com</p>
-        </div>
-        <div className='contact-card'>
-          <div className='icon'>icon</div>
-          <p className='title'>Feedbacks</p>
-          <p className='description'>Speak to our Friendly Team</p>
-          <p className='contact-info'>Support@gmail.com</p>
-        </div>
+        {contactCards.map((card, index) => (
+          <div key={index} className='contact-card'>
+            <div className='icon'>{card.icon}</div>
+            <p className='title'>{t(`cards.${card.title}.title`)}</p>
+            <p className='description'>
+              {t(`cards.${card.title}.description`)}
+            </p>
+            <p className='contact-info'>{card.contactInfo}</p>
+          </div>
+        ))}
       </div>
     </section>
   );

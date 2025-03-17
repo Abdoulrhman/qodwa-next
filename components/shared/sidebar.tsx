@@ -1,14 +1,21 @@
-"use client";
+'use client';
 import React, { useEffect } from 'react';
+
 interface SidebarProps {
   isOpen: boolean;
   toggleSidebar: () => void;
   children: React.ReactNode;
   position?: 'left' | 'right'; // Add position prop to determine sidebar side
+  closeButtonLabel?: string;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, children, position = 'left' }) => {
-
+const Sidebar: React.FC<SidebarProps> = ({
+  isOpen,
+  toggleSidebar,
+  children,
+  position = 'left',
+  closeButtonLabel = 'Close menu',
+}) => {
   useEffect(() => {
     if (isOpen) {
       // Add class to disable scrolling
@@ -25,14 +32,20 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, children, posi
   return (
     <>
       {/* Backdrop for the blur effect */}
-      {isOpen && <div className="sidebar-backdrop" onClick={toggleSidebar}></div>}
+      {isOpen && (
+        <div className='sidebar-backdrop' onClick={toggleSidebar}></div>
+      )}
 
       {/* Sidebar container */}
       <div className={`sidebar ${isOpen ? 'open' : 'closed'} ${position}`}>
-        <button className="sidebar-close-btn" onClick={toggleSidebar}>
+        <button
+          className='sidebar-close-btn'
+          onClick={toggleSidebar}
+          aria-label={closeButtonLabel}
+        >
           &times;
         </button>
-        <div className="sidebar-content">{children}</div>
+        <div className='sidebar-content'>{children}</div>
       </div>
     </>
   );
