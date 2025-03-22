@@ -20,6 +20,7 @@ model Package {
   currency               String  @default("USD") // Added to set the currency
   enrollment_action      String
   package_type           String
+  subscriptions          Subscription[]
 
   @@map("Package")
 }
@@ -41,8 +42,11 @@ model User {
   referralSource        String?
   subjects              String?
   teachingExperience    Int?
+  hasBookedDemo         Boolean                @default(false)
+  demoSessionDate       DateTime?
   accounts              Account[]
   twoFactorConfirmation TwoFactorConfirmation?
+  subscriptions         Subscription[]
 }
 
 model Account {
@@ -96,6 +100,19 @@ model TwoFactorConfirmation {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model Subscription {
+  id            String   @id @default(cuid())
+  userId        String
+  packageId     Int
+  startDate     DateTime @default(now())
+  endDate       DateTime?
+  status        SubscriptionStatus @default(ACTIVE)
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  package       Package  @relation(fields: [packageId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, packageId])
+}
+
 enum UserRole {
   ADMIN
   USER
@@ -105,4 +122,11 @@ enum UserRole {
 enum Gender {
   MALE
   FEMALE
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  EXPIRED
+  PENDING
 }

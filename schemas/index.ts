@@ -86,7 +86,12 @@ export const StudentFormSchema = z
     gender: z.enum(['MALE', 'FEMALE'], {
       required_error: 'Gender is required.',
     }),
-    birthDate: z.string().optional(),
+    birthDate: z
+      .string()
+      .optional()
+      .refine((date) => !date || !isNaN(Date.parse(date)), {
+        message: 'Invalid birth date format. Use YYYY-MM-DD.',
+      }),
     referralSource: z.string().optional(),
     isTeacher: z.boolean().optional(),
   })
