@@ -18,14 +18,16 @@ export async function GET(
 
     // Get the user ID and package ID from the session metadata
     const userId = session.metadata?.userId;
-    const packageId = parseInt(session.metadata?.packageId);
+    const packageIdStr = session.metadata?.packageId;
 
-    if (!userId || !packageId) {
+    if (!userId || !packageIdStr) {
       return NextResponse.json(
         { error: 'Missing user or package information' },
         { status: 400 }
       );
     }
+
+    const packageId = parseInt(packageIdStr);
 
     // Fetch the subscription details
     const subscription = await db.subscription.findUnique({
