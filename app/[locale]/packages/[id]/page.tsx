@@ -125,6 +125,7 @@ export default async function PackageDetails({
                       name: `Package #${packageData.package_id}`,
                       price: +packageData.price,
                       quantity: 1,
+                      packageId: packageData.id,
                     },
                   ]}
                   className='w-full bg-green-600 hover:bg-green-700 text-white 

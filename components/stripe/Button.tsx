@@ -11,11 +11,14 @@ const stripePromise: Promise<Stripe | null> = loadStripe(
 );
 
 interface CheckoutButtonProps {
-  items: { name: string; price: number; quantity: number }[];
+  items: { name: string; price: number; quantity: number; packageId: number }[];
   className?: string;
 }
 
-export default function CheckoutButton({ items, className }: CheckoutButtonProps) {
+export default function CheckoutButton({
+  items,
+  className,
+}: CheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
   const t = useTranslations('PackageDetails');
 
@@ -49,10 +52,7 @@ export default function CheckoutButton({ items, className }: CheckoutButtonProps
     <Button
       onClick={handleCheckout}
       disabled={loading}
-      className={cn(
-        "flex items-center justify-center gap-2",
-        className
-      )}
+      className={cn('flex items-center justify-center gap-2', className)}
     >
       {loading ? (
         <span>{t('loading')}</span>
