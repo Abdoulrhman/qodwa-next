@@ -42,7 +42,7 @@ export async function POST(req: Request) {
         quantity: item.quantity,
       })),
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/success`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/cancel`,
       metadata: {
         userId: session.user.id,
