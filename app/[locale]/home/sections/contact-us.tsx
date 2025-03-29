@@ -1,23 +1,24 @@
 import { useTranslations } from 'next-intl';
+import { BsChatSquareText, BsCartCheck, BsTools } from 'react-icons/bs';
 
 const ContactUs: React.FC = () => {
   const t = useTranslations('Home.ContactUs');
 
   const contactCards = [
     {
-      icon: 'icon',
+      icon: <BsChatSquareText className='text-4xl text-primary' />,
       title: 'feedback',
       description: 'friendly_team',
       contactInfo: 'support@qodwa.com',
     },
     {
-      icon: 'icon',
+      icon: <BsCartCheck className='text-4xl text-primary' />,
       title: 'sales',
       description: 'sales_team',
       contactInfo: 'sales@qodwa.com',
     },
     {
-      icon: 'icon',
+      icon: <BsTools className='text-4xl text-primary' />,
       title: 'technical',
       description: 'technical_team',
       contactInfo: 'tech@qodwa.com',
@@ -45,4 +46,5 @@ const ContactUs: React.FC = () => {
     </section>
   );
 };
+
 export default ContactUs;

@@ -12,8 +12,11 @@ import ContactUs from './home/sections/contact-us';
 export default function Home() {
   const t = useTranslations('Home');
   const navLinks = [
-    { label: 'Apply as a Student', href: '/student/register' },
-    { label: 'Packages', href: '/packages' },
+    { label: 'Packages', href: '#packages' },
+    { label: 'How to Start', href: '#how-to-start' },
+    { label: 'About Us', href: '#about-us' },
+    { label: 'Services', href: '#services' },
+    { label: 'Contact Us', href: '#contact-us' },
   ];
   return (
     <>

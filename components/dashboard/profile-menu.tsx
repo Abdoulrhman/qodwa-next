@@ -21,7 +21,7 @@ export const ProfileMenu = () => {
 
   const onLogout = async () => {
     await logout();
-    router.push(`/${locale}/auth/login`);
+    router.push(`/${locale}`);
   };
 
   return (

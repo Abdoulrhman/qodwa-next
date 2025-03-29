@@ -7,8 +7,8 @@
     "login": "Login",
     "our_packages": "Our Packages",
     "explore": "Explore",
-    "main_header_text": "Empower Your Quranic Journey",
-    "sub_header_text": "Learn Quran with Tajweed, Tafseer, and Arabic",
+    "main_header_text": "Start Learning Quran",
+    "sub_header_text": "Join our online Quran learning platform and start your journey today",
     "now": "Now",
     "student": "Student",
     "teacher": "Teacher",
@@ -26,15 +26,30 @@
       "off": "off"
     },
     "Packages": {
-      "error_loading_packages": "An error occurred while loading the packages",
+      "header": "Our Packages",
+      "error_loading_packages": "Error loading packages",
+      "loading": "Loading packages...",
+      "duration": {
+        "title": "Select Duration",
+        "30_minutes": "30 Minutes",
+        "60_minutes": "60 Minutes"
+      },
+      "frequency": {
+        "title": "Select Frequency",
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "half_year": "Half Year",
+        "yearly": "Yearly"
+      },
       "no_packages_available": "No packages available"
     },
     "Meta": {
-      "title": "Quranic Journey",
-      "description": "Empower Your Quranic Journey",
-      "keywords": "Quran, Tajweed, Tafseer, Arabic"
+      "title": "Qodwa - Online Quran Learning Platform",
+      "description": "Learn Quran online with qualified teachers",
+      "keywords": "quran, online learning, islamic studies"
     },
     "Services": {
+      "header": "Our Services",
       "title": "Enhance Your Quran Memorization with Our Expert Instructors",
       "any_quran_memorization_path": {
         "title": "Any Quran Memorization Path, Anytime",
@@ -59,6 +74,20 @@
       "faster_quran_memorization": {
         "title": "60% Faster Quran Memorization",
         "content": "Our proven techniques and experienced teachers help you memorize the Quran more efficiently, without compromising quality."
+      },
+      "items": {
+        "quran": {
+          "title": "Quran Learning",
+          "description": "Learn Quran with tajweed from qualified teachers"
+        },
+        "islamic": {
+          "title": "Islamic Studies",
+          "description": "Learn about Islamic principles and values"
+        },
+        "arabic": {
+          "title": "Arabic Language",
+          "description": "Learn Arabic language from native speakers"
+        }
       }
     },
     "SuccessPayment": {
@@ -150,35 +179,34 @@
       }
     },
     "ContactUs": {
-      "header": "Let us know how we can help",
+      "header": "Contact Us",
       "cards": {
         "feedback": {
-          "title": "Feedback",
-          "description": "Speak to our Friendly Team"
+          "title": "General Feedback",
+          "description": "Our friendly team is here to help"
         },
         "sales": {
-          "title": "Sales",
-          "description": "Get in touch with our Sales Team"
+          "title": "Sales Inquiries",
+          "description": "Connect with our sales team"
         },
         "technical": {
           "title": "Technical Support",
-          "description": "Get help from our Technical Team"
+          "description": "Get technical assistance"
         }
       }
     },
     "IntroHeader": {
       "logo_alt": "Qodwa Logo",
-      "menu_button_label": "Open menu",
-      "close_menu": "Close menu",
-      "login": "Login",
       "nav": {
-        "Apply as a Student": "Apply as a Student",
         "Packages": "Packages",
         "Guide": "Guide",
         "About Us": "About Us",
         "Services": "Services",
         "Contact Us": "Contact Us"
-      }
+      },
+      "login": "Login",
+      "menu_button_label": "Toggle menu",
+      "close_menu": "Close menu"
     }
   },
   "PackageDetails": {
@@ -205,5 +233,49 @@
     "buttons": {
       "enroll_now": "Enroll Now"
     }
+  },
+  "NotFound": {
+    "title": "Oops!",
+    "message": "We couldn't find the page you were looking for",
+    "goHome": "Go back home",
+    "logo_alt": "Qodwa Logo"
+  },
+  "Auth": {
+    "login": {
+      "title": "Welcome back",
+      "email_label": "Email",
+      "password_label": "Password",
+      "submit": "Login",
+      "forgot_password": "Forgot password?",
+      "no_account": "Don't have an account?",
+      "sign_up": "Sign up"
+    },
+    "register": {
+      "title": "Create an account",
+      "name_label": "Name",
+      "email_label": "Email",
+      "password_label": "Password",
+      "submit": "Register",
+      "has_account": "Already have an account?",
+      "sign_in": "Sign in"
+    }
+  },
+  "Dashboard": {
+    "profile": {
+      "title": "Profile Settings",
+      "description": "Manage your account settings and preferences"
+    },
+    "navigation": {
+      "home": "Home",
+      "profile": "Profile",
+      "settings": "Settings",
+      "logout": "Logout"
+    }
+  },
+  "NotAuthorized": {
+    "title": "Not Authorized",
+    "message": "You need to be logged in to access this page.",
+    "login": "Login",
+    "logo_alt": "Qodwa Logo"
   }
 }

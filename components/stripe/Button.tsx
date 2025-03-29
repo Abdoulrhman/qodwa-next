@@ -5,6 +5,9 @@ import { MouseEvent, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useLocale } from 'next-intl';
 
 const stripePromise: Promise<Stripe | null> = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
@@ -21,9 +24,18 @@ export default function CheckoutButton({
 }: CheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
   const t = useTranslations('PackageDetails');
+  const { status } = useSession();
+  const router = useRouter();
+  const locale = useLocale();
 
   const handleCheckout = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    if (status !== 'authenticated') {
+      router.push(`/${locale}/auth/login`);
+      return;
+    }
+
     setLoading(true);
 
     const stripe = await stripePromise;
@@ -34,10 +46,9 @@ export default function CheckoutButton({
       body: JSON.stringify({ items }),
     });
 
-    const { sessionId } = await response.json(); // Get the sessionId
+    const { sessionId } = await response.json();
 
     if (stripe && sessionId) {
-      // Redirect to Stripe Checkout with the sessionId
       const result = await stripe.redirectToCheckout({ sessionId });
 
       if (result.error) {
