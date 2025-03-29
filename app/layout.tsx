@@ -3,6 +3,7 @@ import '../styles/main.scss';
 import '../app/globals.css';
 import { useLocale } from 'next-intl';
 import { Providers } from '@/components/providers/providers';
+import { AuthProvider } from '@/contexts/auth-context';
 
 const inter = Inter({ subsets: ['latin'] });
 const almarai = Almarai({ subsets: ['arabic'], weight: ['400', '700'] });
@@ -27,7 +28,9 @@ export default function RootLayout({
         suppressHydrationWarning={true}
         className={locale !== 'ar' ? inter.className : almarai.className}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <AuthProvider>{children}</AuthProvider>
+        </Providers>
       </body>
     </html>
   );

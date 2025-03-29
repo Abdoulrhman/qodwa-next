@@ -6,9 +6,9 @@ import { useLocale, useTranslations } from 'next-intl';
 import Sidebar from '@/components/shared/sidebar';
 import LanguageSwitcher from '@/components/lang-switcher';
 import useIsMobile from '@/hooks/use-is-mobile'; // Import the custom hook
-import { useSession } from 'next-auth/react';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { ProfileMenu } from '@/components/dashboard/profile-menu';
+import { useAuth } from '@/contexts/auth-context';
 
 interface NavLink {
   label: string;
@@ -28,17 +28,7 @@ const IntroHeader: React.FC<IntroHeaderProps> = ({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const locale = useLocale();
   const isMobile = useIsMobile();
-  const { status } = useSession();
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    if (status === 'authenticated') {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, [status]);
+  const { isAuthenticated, isLoading } = useAuth();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -89,14 +79,18 @@ const IntroHeader: React.FC<IntroHeaderProps> = ({
 
         {!isMobile && (
           <div className='intro__header-user-actions'>
-            {isLoggedIn ? (
-              <ProfileMenu />
-            ) : (
-              <Link href='/auth/login' locale={locale}>
-                {t('login')}
-              </Link>
+            {!isLoading && (
+              <>
+                {isAuthenticated ? (
+                  <ProfileMenu />
+                ) : (
+                  <Link href='/auth/login' locale={locale}>
+                    {t('login')}
+                  </Link>
+                )}
+                <LanguageSwitcher />
+              </>
             )}
-            <LanguageSwitcher />
           </div>
         )}
       </div>
@@ -116,17 +110,21 @@ const IntroHeader: React.FC<IntroHeaderProps> = ({
         </ul>
 
         <div className='intro__sidebar-user-actions'>
-          {isLoggedIn ? (
-            <div className='flex items-center gap-2'>
-              <UserAvatar size={32} />
-              <ProfileMenu />
-            </div>
-          ) : (
-            <Link href='/auth/login' locale={locale}>
-              {t('login')}
-            </Link>
+          {!isLoading && (
+            <>
+              {isAuthenticated ? (
+                <div className='flex items-center gap-2'>
+                  <UserAvatar size={32} />
+                  <ProfileMenu />
+                </div>
+              ) : (
+                <Link href='/auth/login' locale={locale}>
+                  {t('login')}
+                </Link>
+              )}
+              <LanguageSwitcher />
+            </>
           )}
-          <LanguageSwitcher />
         </div>
       </Sidebar>
     </header>

@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import { LogOut, User } from 'lucide-react';
-
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -13,16 +12,12 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useLocale } from 'next-intl';
 import { UserAvatar } from '@/components/ui/user-avatar';
-import { logout } from '@/actions/logout';
+import { useAuth } from '@/contexts/auth-context';
 
 export const ProfileMenu = () => {
   const router = useRouter();
   const locale = useLocale();
-
-  const onLogout = async () => {
-    await logout();
-    router.push(`/${locale}`);
-  };
+  const { user, logout } = useAuth();
 
   return (
     <DropdownMenu>
@@ -41,12 +36,12 @@ export const ProfileMenu = () => {
           onClick={() => router.push(`/${locale}/dashboard/profile`)}
         >
           <User className='mr-2 h-4 w-4' />
-          View Profile
+          {user?.name || 'View Profile'}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className='cursor-pointer text-red-600 focus:text-red-600'
-          onClick={onLogout}
+          onClick={logout}
         >
           <LogOut className='mr-2 h-4 w-4' />
           Logout

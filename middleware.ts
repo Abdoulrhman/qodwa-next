@@ -7,7 +7,7 @@ import {
   authRoutes,
   publicRoutes,
   protectedRoutes,
-  DEFAULT_LOGIN_REDIRECT,
+  getDefaultLoginRedirect,
 } from '@/routes';
 import { routing } from './i18n/routing';
 
@@ -16,6 +16,7 @@ const localeMiddleware = createMiddleware(routing);
 
 export default async function middleware(request: any) {
   const { nextUrl } = request;
+  const locale = request.nextUrl.pathname.split('/')[1];
 
   // Apply locale middleware first
   const localeResponse = localeMiddleware(request);
@@ -59,7 +60,9 @@ export default async function middleware(request: any) {
   // If the route is an auth route and the user is logged in,
   // redirect to the default page
   if (isAuthRoute && isLoggedIn) {
-    return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+    return NextResponse.redirect(
+      new URL(getDefaultLoginRedirect(locale), nextUrl)
+    );
   }
 
   return NextResponse.next();

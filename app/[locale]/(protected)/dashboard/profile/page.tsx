@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import { Loader2, Camera } from 'lucide-react';
 
 import { DashboardLayout } from '@/components/layout/dashboard-layout';
@@ -16,16 +15,10 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { UserAvatar } from '@/components/ui/user-avatar';
+import { useAuth } from '@/contexts/auth-context';
 
 export default function ProfilePage() {
-  const { data: session, status } = useSession();
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    if (status !== 'loading') {
-      setIsLoading(false);
-    }
-  }, [status]);
+  const { user, isLoading } = useAuth();
 
   if (isLoading) {
     return (
@@ -83,7 +76,7 @@ export default function ProfilePage() {
               <Label htmlFor='name'>Name</Label>
               <Input
                 id='name'
-                defaultValue={session?.user?.name || ''}
+                defaultValue={user?.name || ''}
                 placeholder='Enter your name'
               />
             </div>
@@ -92,7 +85,7 @@ export default function ProfilePage() {
               <Input
                 id='email'
                 type='email'
-                defaultValue={session?.user?.email || ''}
+                defaultValue={user?.email || ''}
                 placeholder='Enter your email'
                 disabled
               />
