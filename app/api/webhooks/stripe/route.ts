@@ -7,6 +7,10 @@ export async function POST(req: Request) {
   const body = await req.text();
   const signature = headers().get('stripe-signature') as string;
 
+  if (!signature) {
+    return NextResponse.json({ error: 'No signature found' }, { status: 400 });
+  }
+
   let event;
 
   try {
@@ -33,7 +37,10 @@ export async function POST(req: Request) {
         const packageId = parseInt(session.metadata?.packageId);
 
         if (!userId || !packageId) {
-          throw new Error('Missing userId or packageId in session metadata');
+          return NextResponse.json(
+            { error: 'Missing userId or packageId in session metadata' },
+            { status: 200 } // Still return 200 to acknowledge receipt
+          );
         }
 
         // Create or update the subscription
@@ -70,32 +77,38 @@ export async function POST(req: Request) {
           });
         }
 
-        console.log('Subscription processed:', subscription);
-        break;
+        return NextResponse.json({ success: true }, { status: 200 });
+      }
+
+      case 'checkout.session.expired': {
+        const session = event.data.object as any;
+        console.log('Checkout session expired:', session.id);
+        return NextResponse.json({ success: true }, { status: 200 });
       }
 
       case 'payment_intent.succeeded': {
         const paymentIntent = event.data.object as any;
         console.log('Payment succeeded:', paymentIntent.id);
-        break;
+        return NextResponse.json({ success: true }, { status: 200 });
       }
 
       case 'payment_intent.payment_failed': {
         const paymentIntent = event.data.object as any;
         console.log('Payment failed:', paymentIntent.id);
-        break;
+        return NextResponse.json({ success: true }, { status: 200 });
       }
 
       default:
+        // Always acknowledge receipt of unknown event types
         console.log(`Unhandled event type: ${event.type}`);
+        return NextResponse.json({ success: true }, { status: 200 });
     }
-
-    return NextResponse.json({ received: true });
   } catch (error: any) {
     console.error('Error processing webhook:', error);
+    // Even in case of processing errors, return 200 to acknowledge receipt
     return NextResponse.json(
-      { error: 'Error processing webhook' },
-      { status: 500 }
+      { error: 'Error processing webhook', message: error.message },
+      { status: 200 }
     );
   }
 }
