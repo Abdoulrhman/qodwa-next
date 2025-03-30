@@ -1,68 +1,105 @@
 'use client';
 
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import SuccessAnimation from '@/components/shared/Animations/Success';
-import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { db } from '@/lib/db';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { Loader2 } from 'lucide-react';
 
-export default function SuccessPayment() {
-  const t = useTranslations('Home.SuccessPayment');
+interface SubscriptionDetails {
+  id: string;
+  status: string;
+  packageName: string;
+  price: number;
+  currency: string;
+  createdAt: string;
+}
+
+export default function SuccessPage() {
+  const t = useTranslations('Success');
   const searchParams = useSearchParams();
-  const [subscription, setSubscription] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [subscription, setSubscription] = useState<SubscriptionDetails | null>(
+    null
+  );
+  const [isLoading, setIsLoading] = useState(true);
+  const sessionId = searchParams.get('session_id');
 
   useEffect(() => {
-    const sessionId = searchParams.get('session_id');
-    if (sessionId) {
-      // Fetch subscription details
-      fetch(`/api/subscriptions/${sessionId}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setSubscription(data.subscription);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error fetching subscription:', error);
-          setLoading(false);
-        });
-    }
-  }, [searchParams]);
+    const fetchSubscriptionDetails = async () => {
+      if (!sessionId) return;
+
+      try {
+        const response = await fetch(`/api/subscriptions/${sessionId}`);
+        if (!response.ok) throw new Error('Failed to fetch subscription');
+        const data = await response.json();
+        setSubscription(data);
+      } catch (error) {
+        console.error('Error fetching subscription:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSubscriptionDetails();
+  }, [sessionId]);
 
   return (
-    <div className='min-h-screen flex flex-col justify-center items-center bg-gray-50'>
-      <div className='max-w-md w-full bg-white shadow-md rounded-lg p-6'>
-        <h1 className='text-2xl font-semibold text-center text-green-500'>
-          {t('title')}
-        </h1>
-        <p className='text-center text-gray-600 mt-4'>{t('content')}</p>
+    <div className='min-h-screen flex flex-col items-center justify-center p-4 bg-background'>
+      <div className='max-w-[600px] w-full text-center space-y-8'>
+        {/* Logo */}
+        <div className='mb-8'>
+          <Image
+            src='/images/logo/logo.png'
+            alt={t('logo_alt')}
+            width={150}
+            height={50}
+            className='mx-auto'
+          />
+        </div>
 
-        {loading ? (
-          <div className='mt-6 flex justify-center'>
-            <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900'></div>
+        {/* Success Message */}
+        <div className='space-y-4'>
+          <h1 className='text-4xl md:text-6xl font-bold text-primary'>
+            {t('title')}
+          </h1>
+          <p className='text-xl md:text-2xl text-muted-foreground'>
+            {t('message')}
+          </p>
+        </div>
+
+        {/* Subscription Details */}
+        {isLoading ? (
+          <div className='flex justify-center'>
+            <Loader2 className='h-8 w-8 animate-spin' />
           </div>
         ) : subscription ? (
-          <div className='mt-6 space-y-4'>
-            <div className='text-center'>
-              <h3 className='font-semibold'>{t('subscription_details')}</h3>
-              <p className='text-gray-600'>{subscription.package.name}</p>
-              <p className='text-gray-600'>
-                {t('subscription_status')}: {subscription.status}
-              </p>
-            </div>
-            <div className='mt-6 flex justify-center'>
-              <SuccessAnimation />
-            </div>
+          <div className='bg-muted p-6 rounded-lg space-y-2 text-left'>
+            <h3 className='font-semibold text-lg'>
+              {t('subscription_details')}
+            </h3>
+            <p>
+              <span className='font-medium'>{t('package')}:</span>{' '}
+              {subscription.packageName}
+            </p>
+            <p>
+              <span className='font-medium'>{t('price')}:</span>{' '}
+              {subscription.price} {subscription.currency}
+            </p>
+            <p>
+              <span className='font-medium'>{t('status')}:</span>{' '}
+              <span className='text-green-600 font-medium'>
+                {subscription.status}
+              </span>
+            </p>
           </div>
         ) : null}
 
-        <div className='mt-8 flex justify-center'>
-          <Link href='/'>
-            <Button variant='outline'>{t('goHome')}</Button>
-          </Link>
-        </div>
+        {/* Go Home Button */}
+        <Button asChild size='lg' className='mt-8'>
+          <Link href='/'>{t('go_home')}</Link>
+        </Button>
       </div>
     </div>
   );

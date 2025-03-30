@@ -270,12 +270,35 @@
       "profile": "Profile",
       "settings": "Settings",
       "logout": "Logout"
+    },
+    "Payments": {
+      "title": "Payments & Subscriptions",
+      "description": "View and manage your subscription history",
+      "subscriptions": "Your Subscriptions",
+      "subscriptions_description": "View all your active and past subscriptions",
+      "package": "Package",
+      "status": "Status",
+      "price": "Price",
+      "date": "Date",
+      "no_subscriptions": "No Subscriptions Found",
+      "no_subscriptions_description": "You haven't subscribed to any packages yet. Browse our available packages to get started.",
+      "view_packages": "View Packages"
     }
   },
   "NotAuthorized": {
     "title": "Not Authorized",
     "message": "You need to be logged in to access this page.",
     "login": "Login",
+    "logo_alt": "Qodwa Logo"
+  },
+  "Success": {
+    "title": "Payment Successful",
+    "message": "Your payment has been successfully processed. You will receive a confirmation email shortly.",
+    "subscription_details": "Subscription Details",
+    "package": "Package",
+    "price": "Price",
+    "status": "Status",
+    "go_home": "Go Home",
     "logo_alt": "Qodwa Logo"
   }
 }
