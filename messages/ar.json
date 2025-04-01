@@ -23,7 +23,22 @@
       "duration": "مدة الحصة",
       "classes": "الحصص في الشهر",
       "savings": "التوفير",
-      "off": "خصم"
+      "off": "خصم",
+      "popular": "الاكثر اشتراك",
+      "currency": "درهم",
+      "price_details": "تفاصيل السعر",
+      "view_details": "عرض التفاصيل",
+      "enroll_now": "سجل الآن",
+      "monthly": "شهري",
+      "quarterly": "ربع سنوي",
+      "semmi_annual": "نصف سنوي",
+      "yearly": "سنوي",
+      "class_duration": "مدة الدرس",
+      "minutes": "دقيقة",
+      "subscription_frequency": "مدة الاشتراك",
+      "package_type": "نوع الباقة",
+      "package_details_description": "تفاصيل مفصلة عن الباقة وميزاتها",
+      "discount": "خصم"
     },
     "Packages": {
       "error_loading_packages": "خطأ في تحميل الباقات",
@@ -222,7 +237,20 @@
       "duration": "مدة الحصة",
       "classes": "الحصص في الشهر",
       "savings": "التوفير",
-      "off": "خصم"
+      "off": "خصم",
+      "popular": "الاكثر اشتراك",
+      "currency": "درهم",
+      "price_details": "تفاصيل السعر",
+      "view_details": "عرض التفاصيل",
+      "enroll_now": "سجل الآن",
+      "monthly": "شهري",
+      "quarterly": "ربع سنوي",
+      "semmi_annual": "نصف سنوي",
+      "yearly": "سنوي",
+      "class_duration": "مدة الدرس",
+      "minutes": "دقيقة",
+      "subscription_frequency": "مدة الاشتراك",
+      "package_type": "نوع الباقة"
     },
     "benefits": {
       "title": "ما الذي ستحصل عليه",
@@ -279,7 +307,8 @@
       "package": "الباقة",
       "status": "الحالة",
       "price": "السعر",
-      "date": "التاريخ",
+      "date": "تاريخ البداية",
+      "endDate": "تاريخ النهاية",
       "no_subscriptions": "لا توجد اشتراكات",
       "no_subscriptions_description": "لم تشترك في أي باقة حتى الآن. تصفح الباقات المتاحة للبدء",
       "view_packages": "عرض الباقات"
@@ -294,5 +323,21 @@
     "status": "الحالة",
     "go_home": "العودة للرئيسية",
     "logo_alt": "شعار قدوة"
+  },
+  "Packages": {
+    "title": "باقاتنا",
+    "subtitle": "اختر الباقة المناسبة لرحلة تعلم القرآن",
+    "view_details": "عرض التفاصيل",
+    "details_description": "معلومات مفصلة عن الباقة وميزاتها",
+    "subscription_frequency": "مدة الاشتراك",
+    "class_duration": "مدة الدرس",
+    "minutes": "دقيقة",
+    "days_per_week": "{days} أيام في الأسبوع",
+    "price_details": "تفاصيل السعر",
+    "enroll_now": "اشترك الآن",
+    "monthly": "شهري",
+    "quarterly": "ربع سنوي",
+    "semmi_annual": "نصف سنوي",
+    "yearly": "سنوي"
   }
 }

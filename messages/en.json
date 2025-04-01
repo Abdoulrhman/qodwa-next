@@ -23,7 +23,22 @@
       "duration": "Class Duration",
       "classes": "Classes per Month",
       "savings": "Savings",
-      "off": "off"
+      "off": "off",
+      "popular": "Popular",
+      "currency": "USD",
+      "price_details": "Price Details",
+      "view_details": "View Details",
+      "enroll_now": "Enroll Now",
+      "monthly": "Monthly",
+      "quarterly": "Quarterly",
+      "semmi_annual": "Semi-Annual",
+      "yearly": "Yearly",
+      "class_duration": "Class Duration",
+      "minutes": "Minutes",
+      "subscription_frequency": "Subscription Frequency",
+      "package_type": "Package Type",
+      "package_details_description": "Detailed information about the package and its features",
+      "discount": "Discount"
     },
     "Packages": {
       "header": "Our Packages",
@@ -41,7 +56,21 @@
         "half_year": "Half Year",
         "yearly": "Yearly"
       },
-      "no_packages_available": "No packages available"
+      "no_packages_available": "No packages available",
+      "title": "Our Packages",
+      "subtitle": "Choose the perfect package for your Quran learning journey",
+      "view_details": "View Details",
+      "details_description": "Detailed information about the package and its features",
+      "subscription_frequency": "Subscription Frequency",
+      "class_duration": "Class Duration",
+      "minutes": "Minutes",
+      "days_per_week": "{days} Days per Week",
+      "price_details": "Price Details",
+      "enroll_now": "Enroll Now",
+      "monthly": "Monthly",
+      "quarterly": "Quarterly",
+      "semmi_annual": "Semi-Annual",
+      "yearly": "Yearly"
     },
     "Meta": {
       "title": "Qodwa - Online Quran Learning Platform",
@@ -279,7 +308,8 @@
       "package": "Package",
       "status": "Status",
       "price": "Price",
-      "date": "Date",
+      "date": "Start Date",
+      "endDate": "End Date",
       "no_subscriptions": "No Subscriptions Found",
       "no_subscriptions_description": "You haven't subscribed to any packages yet. Browse our available packages to get started.",
       "view_packages": "View Packages"

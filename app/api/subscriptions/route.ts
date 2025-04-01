@@ -23,14 +23,40 @@ export async function GET() {
     });
 
     // Transform the data to match the expected format
-    const formattedSubscriptions = subscriptions.map((sub) => ({
-      id: sub.id,
-      status: sub.status,
-      packageName: sub.package.package_type,
-      price: sub.package.current_price,
-      currency: sub.package.currency,
-      startDate: sub.startDate.toISOString(),
-    }));
+    const formattedSubscriptions = subscriptions.map((sub) => {
+      // Calculate end date based on subscription frequency
+      const startDate = new Date(sub.startDate);
+      let endDate = new Date(startDate);
+
+      switch (sub.package.subscription_frequency.toLowerCase()) {
+        case 'monthly':
+          endDate.setMonth(startDate.getMonth() + 1);
+          break;
+        case 'quarterly':
+          endDate.setMonth(startDate.getMonth() + 3);
+          break;
+        case 'semmi-annual':
+          endDate.setMonth(startDate.getMonth() + 6);
+          break;
+        case 'yearly':
+          endDate.setFullYear(startDate.getFullYear() + 1);
+          break;
+        default:
+          // Default to monthly if frequency is unknown
+          endDate.setMonth(startDate.getMonth() + 1);
+      }
+
+      return {
+        id: sub.id,
+        status: sub.status,
+        packageName: sub.package.package_type,
+        price: sub.package.current_price,
+        currency: sub.package.currency,
+        startDate: sub.startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        frequency: sub.package.subscription_frequency,
+      };
+    });
 
     return NextResponse.json(formattedSubscriptions);
   } catch (error) {

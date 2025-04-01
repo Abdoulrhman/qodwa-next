@@ -19,8 +19,8 @@ const HomePackages: React.FC = () => {
   const [packages, setPackages] = useState<PackagesResponse>(
     {} as PackagesResponse
   );
-  const [selectedDuration, setSelectedDuration] = useState('30 minutes');
-  const [selectedFrequency, setSelectedFrequency] = useState('monthly'); // Filter for subscription frequency
+  const [selectedDuration, setSelectedDuration] = useState('30');
+  const [selectedFrequency, setSelectedFrequency] = useState('monthly');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,11 +42,12 @@ const HomePackages: React.FC = () => {
     const filteredPackages =
       packages[selectedFrequency as keyof PackagesResponse] || [];
 
-    const filteredList = filteredPackages.filter((pkg) =>
-      selectedDuration === '30 minutes'
-        ? pkg.duration === 30
-        : pkg.duration === 60
-    );
+    const filteredList = filteredPackages.filter((pkg) => {
+      // Convert both to strings for comparison
+      const pkgDuration = pkg.class_duration.toString();
+      const selectedDurationStr = selectedDuration.toString();
+      return pkgDuration === selectedDurationStr;
+    });
 
     setSelectedList(filteredList);
   }, [selectedDuration, selectedFrequency, packages]);
@@ -107,8 +108,8 @@ const HomePackages: React.FC = () => {
             selected={selectedDuration}
             setSelected={setSelectedDuration}
             options={[
-              { value: '30 minutes', label: t('30Min') },
-              { value: '60 minutes', label: t('60Min') },
+              { value: '30', label: t('30Min') },
+              { value: '60', label: t('60Min') },
             ]}
             width='260px'
           />

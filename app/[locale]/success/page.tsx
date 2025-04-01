@@ -11,6 +11,12 @@ import { Loader2 } from 'lucide-react';
 interface SubscriptionDetails {
   id: string;
   status: string;
+  package: {
+    package_type: string;
+    package_id: string;
+    price: number;
+    currency: string;
+  };
   packageName: string;
   price: number;
   currency: string;
@@ -25,7 +31,6 @@ export default function SuccessPage() {
   );
   const [isLoading, setIsLoading] = useState(true);
   const sessionId = searchParams.get('session_id');
-
   useEffect(() => {
     const fetchSubscriptionDetails = async () => {
       if (!sessionId) return;
@@ -81,16 +86,16 @@ export default function SuccessPage() {
             </h3>
             <p>
               <span className='font-medium'>{t('package')}:</span>{' '}
-              {subscription.packageName}
+              {subscription?.package?.package_type}
             </p>
             <p>
               <span className='font-medium'>{t('price')}:</span>{' '}
-              {subscription.price} {subscription.currency}
+              {subscription?.package?.price} {subscription?.package?.currency}
             </p>
             <p>
               <span className='font-medium'>{t('status')}:</span>{' '}
               <span className='text-green-600 font-medium'>
-                {subscription.status}
+                {subscription?.status}
               </span>
             </p>
           </div>

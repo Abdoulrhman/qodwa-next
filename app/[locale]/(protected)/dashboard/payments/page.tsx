@@ -30,6 +30,7 @@ interface Subscription {
   price: number;
   currency: string;
   startDate: string;
+  endDate: string;
 }
 
 export default function PaymentsPage() {
@@ -99,6 +100,9 @@ export default function PaymentsPage() {
                     <TableHead className={cn(isRTL && 'text-right')}>
                       {t('date')}
                     </TableHead>
+                    <TableHead className={cn(isRTL && 'text-right')}>
+                      {t('endDate')}
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -125,6 +129,16 @@ export default function PaymentsPage() {
                       </TableCell>
                       <TableCell className={cn(isRTL && 'text-right')}>
                         {new Date(subscription.startDate).toLocaleDateString(
+                          locale,
+                          {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          }
+                        )}
+                      </TableCell>
+                      <TableCell className={cn(isRTL && 'text-right')}>
+                        {new Date(subscription.endDate).toLocaleDateString(
                           locale,
                           {
                             year: 'numeric',
