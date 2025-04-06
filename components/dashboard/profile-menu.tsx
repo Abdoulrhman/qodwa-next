@@ -10,13 +10,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { useAuth } from '@/contexts/auth-context';
+import { cn } from '@/lib/utils';
 
 export const ProfileMenu = () => {
   const router = useRouter();
   const locale = useLocale();
+  const t = useTranslations('Dashboard');
+  const isRTL = locale === 'ar';
   const { user, logout } = useAuth();
 
   return (
@@ -30,21 +33,24 @@ export const ProfileMenu = () => {
           <UserAvatar />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='end' className='w-56'>
+      <DropdownMenuContent align={isRTL ? 'start' : 'end'} className='w-56'>
         <DropdownMenuItem
-          className='cursor-pointer'
+          className={cn('cursor-pointer', isRTL && 'flex-row-reverse')}
           onClick={() => router.push(`/${locale}/dashboard/profile`)}
         >
-          <User className='mr-2 h-4 w-4' />
-          {user?.name || 'View Profile'}
+          <User className={cn('h-4 w-4', isRTL ? 'ml-2' : 'mr-2')} />
+          {user?.name || t('navigation.profile')}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className='cursor-pointer text-red-600 focus:text-red-600'
+          className={cn(
+            'cursor-pointer text-red-600 focus:text-red-600',
+            isRTL && 'flex-row-reverse'
+          )}
           onClick={logout}
         >
-          <LogOut className='mr-2 h-4 w-4' />
-          Logout
+          <LogOut className={cn('h-4 w-4', isRTL ? 'ml-2' : 'mr-2')} />
+          {t('navigation.logout')}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
