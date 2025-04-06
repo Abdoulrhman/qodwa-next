@@ -1,23 +1,23 @@
 "use client";
 import { useState, useEffect } from 'react';
 
-const useIsMobile = (breakpoint: number = 768) => {
+const useIsMobile = (): boolean => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.matchMedia(`(max-width: ${breakpoint}px)`).matches);
+    // Initial check
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
     };
-
-    // Initialize on component mount
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [breakpoint]);
+    
+    checkIsMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIsMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
 
   return isMobile;
 };

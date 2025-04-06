@@ -2,6 +2,7 @@
 
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { useLocale } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -10,9 +11,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { cn } from '@/lib/utils';
 
 export function ModeToggle() {
   const { setTheme } = useTheme();
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+
+  const themeLabels = {
+    light: isRTL ? 'فاتح' : 'Light',
+    dark: isRTL ? 'داكن' : 'Dark',
+    system: isRTL ? 'نظام' : 'System'
+  };
 
   return (
     <DropdownMenu>
@@ -23,15 +33,24 @@ export function ModeToggle() {
           <span className='sr-only'>Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='end'>
-        <DropdownMenuItem onClick={() => setTheme('light')}>
-          Light
+      <DropdownMenuContent align={isRTL ? 'start' : 'end'}>
+        <DropdownMenuItem 
+          onClick={() => setTheme('light')}
+          className={cn(isRTL && 'flex-row-reverse')}
+        >
+          {themeLabels.light}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')}>
-          Dark
+        <DropdownMenuItem 
+          onClick={() => setTheme('dark')}
+          className={cn(isRTL && 'flex-row-reverse')}
+        >
+          {themeLabels.dark}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}>
-          System
+        <DropdownMenuItem 
+          onClick={() => setTheme('system')}
+          className={cn(isRTL && 'flex-row-reverse')}
+        >
+          {themeLabels.system}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

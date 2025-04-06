@@ -271,6 +271,11 @@
       "settings": "Settings",
       "logout": "Logout"
     },
+    "home": {
+      "welcome_message": "Keep up the great work and continue your Quran & Arabic learning journey! Every step makes you closer to your goal.",
+      "discover_courses": "Discover Courses",
+      "todo_list": "To-do list"
+    },
     "Payments": {
       "title": "Payments & Subscriptions",
       "description": "View and manage your subscription history",
