@@ -155,5 +155,32 @@
     "buttons": {
       "enroll_now": "Enroll Now"
     }
+  },
+  "Dashboard": {
+    "welcome": "Salam Alikoum, {name}",
+    "welcome_message": "Keep up the great work and continue your Quran & Arabic learning journey! Every step makes you closer to your goal.",
+    "discover_courses": "Discover Courses",
+    "stats": {
+      "courses": "Courses",
+      "classes": "Classes",
+      "hours": "Hours"
+    },
+    "todo_list": "To-do list",
+    "todo_items": {
+      "save_surah": "Save Surat Al-Kareaa",
+      "repeat_surah": "Repeat Surat Al-Shams"
+    },
+    "learning_paths": {
+      "title": "Learning Paths",
+      "no_paths": "No Learning Paths Assigned To You",
+      "need_assignment": "You need to be assigned to a learning path in order to view them",
+      "view_paths": "View Paths"
+    }
+  },
+  "Layout": {
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
   }
 }
