@@ -4,6 +4,7 @@ import {
   FaRegArrowAltCircleLeft,
 } from 'react-icons/fa';
 import { useTranslations, useLocale } from 'next-intl'; // Import useLocale to detect language direction
+import { Link } from '@/i18n/routing'; // Import Link from next-intl routing
 
 const HowToStart: React.FC = () => {
   const t = useTranslations('Home.HowToStart');
@@ -116,7 +117,9 @@ const HowToStart: React.FC = () => {
           </div>
         </div>
       </div>
-      <button>{t('apply_button')}</button>
+      <Link href={`/student/register`}>
+        <button>{t('apply_button')}</button>
+      </Link>
     </div>
   );
 };
