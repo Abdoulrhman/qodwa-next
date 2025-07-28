@@ -4,25 +4,33 @@ import { ReactNode } from 'react';
 import { Bell } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useLocale } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/mode-toggle';
 import { ProfileMenu } from '@/components/dashboard/profile-menu';
 import { DashboardSidebar } from './sidebar';
 import { ThemeProvider } from 'next-themes';
+import { cn } from '@/lib/utils';
 
 interface DashboardLayoutProps {
   children: ReactNode;
 }
 
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+
   return (
     <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
       <div className='min-h-screen'>
         {/* Header */}
         <header className='fixed top-0 z-50 w-full border-b bg-background'>
-          <div className='flex h-16 items-center px-4 md:px-6'>
-            <Link href='/' className='flex items-center gap-2'>
+          <div className={cn(
+            'flex h-16 items-center px-4 md:px-6',
+            isRTL && 'flex-row-reverse'
+          )}>
+            <Link href={`/${locale}`} className='flex items-center gap-2'>
               <Image
                 src='/images/logo/logo.png'
                 alt='Qodwa'
@@ -31,7 +39,10 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                 className='dark:invert'
               />
             </Link>
-            <div className='ml-auto flex items-center gap-4'>
+            <div className={cn(
+              'ml-auto flex items-center gap-4',
+              isRTL && 'ml-0 mr-auto'
+            )}>
               <ModeToggle />
               <Button variant='ghost' size='icon'>
                 <Bell className='h-5 w-5' />
@@ -44,7 +55,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         {/* Main Content */}
         <div className='flex pt-16'>
           <DashboardSidebar />
-          <main className='flex-1 overflow-y-auto p-8'>{children}</main>
+          <main className='flex-1 overflow-y-auto p-4 md:p-8'>{children}</main>
         </div>
       </div>
     </ThemeProvider>

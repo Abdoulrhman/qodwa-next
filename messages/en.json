@@ -300,6 +300,11 @@
       "settings": "Settings",
       "logout": "Logout"
     },
+    "home": {
+      "welcome_message": "Keep up the great work and continue your Quran & Arabic learning journey! Every step makes you closer to your goal.",
+      "discover_courses": "Discover Courses",
+      "todo_list": "To-do list"
+    },
     "Payments": {
       "title": "Payments & Subscriptions",
       "description": "View and manage your subscription history",
@@ -330,5 +335,52 @@
     "status": "Status",
     "go_home": "Go Home",
     "logo_alt": "Qodwa Logo"
+  },
+  "Student": {
+    "Register": {
+      "platformName": "Qodwa Platform",
+      "testimonialQuote": "Join our online Quran learning platform and start your journey today",
+      "testimonialAuthor": "Qodwa Team"
+    },
+    "Form": {
+      "title": "Student Registration",
+      "successMessage": "Registration successful! Please check your email for verification.",
+      "errors": {
+        "invalidData": "Invalid form data. Please check your inputs.",
+        "emailExists": "A user with this email already exists.",
+        "unexpected": "An unexpected error occurred. Please try again later."
+      },
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "password": "Password",
+        "retypePassword": "Retype Password",
+        "phone": "Phone",
+        "gender": "Gender",
+        "birthDate": "Birth Date",
+        "referralSource": "Referral Source"
+      },
+      "placeholders": {
+        "name": "Enter your name",
+        "email": "Enter your email",
+        "password": "Enter your password",
+        "retypePassword": "Retype your password",
+        "phone": "+1-234-567-8900",
+        "gender": "Select gender",
+        "referralSource": "Select referral source"
+      },
+      "options": {
+        "male": "Male",
+        "female": "Female",
+        "facebook": "Facebook",
+        "google": "Google",
+        "friend": "Friend",
+        "others": "Others"
+      },
+      "buttons": {
+        "submitting": "Submitting...",
+        "register": "Register"
+      }
+    }
   }
 }

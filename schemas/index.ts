@@ -80,7 +80,7 @@ export const StudentFormSchema = z
     email: z.string().email({ message: 'Invalid email address.' }),
     password: z
       .string()
-      .min(6, { message: 'Password must be at least 6 characters.' }),
+      .min(8, { message: 'Password must be at least 8 characters.' }),
     retypePassword: z.string().nonempty('Retype Password is required'),
     phone: z.string().optional(),
     gender: z.enum(['MALE', 'FEMALE'], {

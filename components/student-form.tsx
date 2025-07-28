@@ -26,10 +26,19 @@ import { StudentFormSchema } from '@/schemas';
 import axiosInstance from '@/services/axiosInstance';
 import { FormError } from '@/components/form-error';
 import { FormSuccess } from '@/components/form-success';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useTranslations, useLocale } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 type StudentFormValues = z.infer<typeof StudentFormSchema>;
 
 const StudentForm: React.FC = () => {
+  const t = useTranslations('Student.Form');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+
   const methods = useForm<StudentFormValues>({
     resolver: zodResolver(StudentFormSchema),
     defaultValues: {
@@ -61,10 +70,20 @@ const StudentForm: React.FC = () => {
 
     try {
       const response = await axiosInstance.post('register', data);
-      setSuccess('Form submitted successfully!');
+      setSuccess(t('successMessage'));
       methods.reset(); // Reset the form after successful submission
-    } catch (error) {
-      setError((error as any).response?.data?.error || (error as any).message);
+    } catch (error: any) {
+      // Handle API validation errors
+      if (error.response?.data?.error) {
+        setError(error.response.data.error);
+      } else if (error.response?.status === 400) {
+        setError(t('errors.invalidData'));
+      } else if (error.response?.status === 409) {
+        setError(t('errors.emailExists'));
+      } else {
+        setError(t('errors.unexpected'));
+      }
+      console.error('Registration error:', error);
     } finally {
       setIsLoading(false);
     }
@@ -75,7 +94,32 @@ const StudentForm: React.FC = () => {
   }, [errors]);
 
   return (
-    <div className='w-full max-w-md mx-auto'>
+    <div className={cn('w-full max-w-md py-8', isRTL && 'text-right')}>
+      {/* Header with Logo and Back Button */}
+      <div className={cn("flex items-center justify-between mb-6 sticky top-0 bg-white z-10", isRTL && 'flex-row-reverse')}>
+        <Link href="/" className="flex items-center">
+          <Button variant="ghost" size="icon" className={cn("mr-2", isRTL && "ml-2 mr-0")}>
+              <ArrowLeft className="h-5 w-5" />
+          </Button>
+        </Link>
+        
+        <div className="flex items-center">
+          <Link href="/" className="flex items-center">
+            <div className="relative w-[100px] h-[40px]">
+              <Image 
+                src="/images/logo/logo.png" 
+                alt="Qodwa Logo" 
+                fill
+                className="object-contain dark:invert"
+                priority
+              />
+            </div>
+          </Link>
+        </div>
+      </div>
+      
+      <h1 className="text-2xl font-bold text-center mb-6 mt-6">{t('title')}</h1>
+      
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
           {/* Display error and success messages */}
@@ -95,8 +139,8 @@ const StudentForm: React.FC = () => {
             name='name'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
-                <Input placeholder='Enter your name' {...field} />
+                <FormLabel>{t('fields.name')}</FormLabel>
+                <Input placeholder={t('placeholders.name')} {...field} />
                 {errors.name && (
                   <FormMessage>{errors.name.message}</FormMessage>
                 )}
@@ -110,8 +154,8 @@ const StudentForm: React.FC = () => {
             name='email'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
-                <Input type='email' placeholder='Enter your email' {...field} />
+                <FormLabel>{t('fields.email')}</FormLabel>
+                <Input type='email' placeholder={t('placeholders.email')} {...field} />
                 {errors.email && (
                   <FormMessage>{errors.email.message}</FormMessage>
                 )}
@@ -125,10 +169,10 @@ const StudentForm: React.FC = () => {
             name='password'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t('fields.password')}</FormLabel>
                 <Input
                   type='password'
-                  placeholder='Enter your password'
+                  placeholder={t('placeholders.password')}
                   {...field}
                 />
                 {errors.password && (
@@ -144,10 +188,10 @@ const StudentForm: React.FC = () => {
             name='retypePassword'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Retype Password</FormLabel>
+                <FormLabel>{t('fields.retypePassword')}</FormLabel>
                 <Input
                   type='password'
-                  placeholder='Retype your password'
+                  placeholder={t('placeholders.retypePassword')}
                   {...field}
                 />
                 {errors.retypePassword && (
@@ -163,8 +207,8 @@ const StudentForm: React.FC = () => {
             name='phone'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone</FormLabel>
-                <Input type='text' placeholder='+1-234-567-8900' {...field} />
+                <FormLabel>{t('fields.phone')}</FormLabel>
+                <Input type='text' placeholder={t('placeholders.phone')} {...field} />
                 {errors.phone && (
                   <FormMessage>{errors.phone.message}</FormMessage>
                 )}
@@ -179,7 +223,7 @@ const StudentForm: React.FC = () => {
               name='gender'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Gender</FormLabel>
+                  <FormLabel>{t('fields.gender')}</FormLabel>
                   <Controller
                     control={control}
                     name='gender'
@@ -189,13 +233,13 @@ const StudentForm: React.FC = () => {
                         onValueChange={field.onChange}
                       >
                         <SelectTrigger className='w-full'>
-                          <SelectValue placeholder='Select gender' />
+                          <SelectValue placeholder={t('placeholders.gender')} />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectLabel>Gender</SelectLabel>
-                            <SelectItem value='MALE'>Male</SelectItem>
-                            <SelectItem value='FEMALE'>Female</SelectItem>
+                            <SelectLabel>{t('fields.gender')}</SelectLabel>
+                            <SelectItem value='MALE'>{t('options.male')}</SelectItem>
+                            <SelectItem value='FEMALE'>{t('options.female')}</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
@@ -214,7 +258,7 @@ const StudentForm: React.FC = () => {
               name='birthDate'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Birth Date</FormLabel>
+                  <FormLabel>{t('fields.birthDate')}</FormLabel>
                   <Input type='date' {...field} />
                   {errors.birthDate && (
                     <FormMessage>{errors.birthDate.message}</FormMessage>
@@ -230,22 +274,22 @@ const StudentForm: React.FC = () => {
             name='referralSource'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Referral Source</FormLabel>
+                <FormLabel>{t('fields.referralSource')}</FormLabel>
                 <Controller
                   control={control}
                   name='referralSource'
                   render={({ field }) => (
                     <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger className='w-full'>
-                        <SelectValue placeholder='Select referral source' />
+                        <SelectValue placeholder={t('placeholders.referralSource')} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          <SelectLabel>Referral Source</SelectLabel>
-                          <SelectItem value='Facebook'>Facebook</SelectItem>
-                          <SelectItem value='Google'>Google</SelectItem>
-                          <SelectItem value='Friend'>Friend</SelectItem>
-                          <SelectItem value='Others'>Others</SelectItem>
+                          <SelectLabel>{t('fields.referralSource')}</SelectLabel>
+                          <SelectItem value='Facebook'>{t('options.facebook')}</SelectItem>
+                          <SelectItem value='Google'>{t('options.google')}</SelectItem>
+                          <SelectItem value='Friend'>{t('options.friend')}</SelectItem>
+                          <SelectItem value='Others'>{t('options.others')}</SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -264,7 +308,7 @@ const StudentForm: React.FC = () => {
             className='w-full bg-blue-500 text-white mt-4'
             disabled={isLoading}
           >
-            {isLoading ? 'Submitting...' : 'Register'}
+            {isLoading ? t('buttons.submitting') : t('buttons.register')}
           </Button>
         </form>
       </FormProvider>
