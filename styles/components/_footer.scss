@@ -5,6 +5,11 @@
     background-color: #dcd2f0;
     color: black;
   }
+
+  .footer-content {
+    @include max-width(1200px);
+  }
+
   .footer-main {
     padding: 70px 40px;
     display: flex;
@@ -65,7 +70,6 @@
   }
   .footer-bottom {
     text-align: center;
-    background-color: #392481;
     padding: 10px 0;
     &.teacher-version {
       background-color: #fff;
@@ -75,18 +79,20 @@
 
 @media screen and (max-width: 1024px) {
   .footer-wrapper {
-    .footer-main {
-      padding: 70px 20px;
-      justify-content: space-between;
-      .footer-about {
-        width: 33%;
-      }
-      .footer-quick-links {
-        width: 33%;
-      }
-      .footer-communication {
-        width: 33%;
-        justify-content: center;
+    .footer-content {
+      .footer-main {
+        padding: 70px 20px;
+        justify-content: space-between;
+        .footer-about {
+          width: 33%;
+        }
+        .footer-quick-links {
+          width: 33%;
+        }
+        .footer-communication {
+          width: 33%;
+          justify-content: center;
+        }
       }
     }
   }
@@ -94,21 +100,23 @@
 
 @media screen and (max-width: 768px) {
   .footer-wrapper {
-    .footer-main {
-      justify-content: space-between;
-      flex-wrap: wrap;
-      .footer-about {
-        width: 100%;
-        .footer-about-txt {
-          max-width: 100%;
+    .footer-content {
+      .footer-main {
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .footer-about {
+          width: 100%;
+          .footer-about-txt {
+            max-width: 100%;
+          }
         }
-      }
-      .footer-quick-links {
-        width: 100%;
-      }
-      .footer-communication {
-        justify-content: flex-start;
-        width: 100%;
+        .footer-quick-links {
+          width: 100%;
+        }
+        .footer-communication {
+          justify-content: flex-start;
+          width: 100%;
+        }
       }
     }
   }

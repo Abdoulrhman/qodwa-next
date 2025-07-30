@@ -26,9 +26,7 @@ import { StudentFormSchema } from '@/schemas';
 import axiosInstance from '@/services/axiosInstance';
 import { FormError } from '@/components/form-error';
 import { FormSuccess } from '@/components/form-success';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
+import NavigationHeader from '@/components/auth/nav-header';
 import { useTranslations, useLocale } from 'next-intl';
 import { cn } from '@/lib/utils';
 
@@ -96,30 +94,10 @@ const StudentForm: React.FC = () => {
   return (
     <div className={cn('w-full max-w-md py-8', isRTL && 'text-right')}>
       {/* Header with Logo and Back Button */}
-      <div className={cn("flex items-center justify-between mb-6 sticky top-0 bg-white z-10", isRTL && 'flex-row-reverse')}>
-        <Link href="/" className="flex items-center">
-          <Button variant="ghost" size="icon" className={cn("mr-2", isRTL && "ml-2 mr-0")}>
-              <ArrowLeft className="h-5 w-5" />
-          </Button>
-        </Link>
-        
-        <div className="flex items-center">
-          <Link href="/" className="flex items-center">
-            <div className="relative w-[100px] h-[40px]">
-              <Image 
-                src="/images/logo/logo.png" 
-                alt="Qodwa Logo" 
-                fill
-                className="object-contain dark:invert"
-                priority
-              />
-            </div>
-          </Link>
-        </div>
-      </div>
-      
-      <h1 className="text-2xl font-bold text-center mb-6 mt-6">{t('title')}</h1>
-      
+      <NavigationHeader />
+
+      <h1 className='text-2xl font-bold text-center mb-6 mt-6'>{t('title')}</h1>
+
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
           {/* Display error and success messages */}
@@ -155,7 +133,11 @@ const StudentForm: React.FC = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{t('fields.email')}</FormLabel>
-                <Input type='email' placeholder={t('placeholders.email')} {...field} />
+                <Input
+                  type='email'
+                  placeholder={t('placeholders.email')}
+                  {...field}
+                />
                 {errors.email && (
                   <FormMessage>{errors.email.message}</FormMessage>
                 )}
@@ -208,7 +190,11 @@ const StudentForm: React.FC = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{t('fields.phone')}</FormLabel>
-                <Input type='text' placeholder={t('placeholders.phone')} {...field} />
+                <Input
+                  type='text'
+                  placeholder={t('placeholders.phone')}
+                  {...field}
+                />
                 {errors.phone && (
                   <FormMessage>{errors.phone.message}</FormMessage>
                 )}
@@ -238,8 +224,12 @@ const StudentForm: React.FC = () => {
                         <SelectContent>
                           <SelectGroup>
                             <SelectLabel>{t('fields.gender')}</SelectLabel>
-                            <SelectItem value='MALE'>{t('options.male')}</SelectItem>
-                            <SelectItem value='FEMALE'>{t('options.female')}</SelectItem>
+                            <SelectItem value='MALE'>
+                              {t('options.male')}
+                            </SelectItem>
+                            <SelectItem value='FEMALE'>
+                              {t('options.female')}
+                            </SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
@@ -281,15 +271,27 @@ const StudentForm: React.FC = () => {
                   render={({ field }) => (
                     <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger className='w-full'>
-                        <SelectValue placeholder={t('placeholders.referralSource')} />
+                        <SelectValue
+                          placeholder={t('placeholders.referralSource')}
+                        />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          <SelectLabel>{t('fields.referralSource')}</SelectLabel>
-                          <SelectItem value='Facebook'>{t('options.facebook')}</SelectItem>
-                          <SelectItem value='Google'>{t('options.google')}</SelectItem>
-                          <SelectItem value='Friend'>{t('options.friend')}</SelectItem>
-                          <SelectItem value='Others'>{t('options.others')}</SelectItem>
+                          <SelectLabel>
+                            {t('fields.referralSource')}
+                          </SelectLabel>
+                          <SelectItem value='Facebook'>
+                            {t('options.facebook')}
+                          </SelectItem>
+                          <SelectItem value='Google'>
+                            {t('options.google')}
+                          </SelectItem>
+                          <SelectItem value='Friend'>
+                            {t('options.friend')}
+                          </SelectItem>
+                          <SelectItem value='Others'>
+                            {t('options.others')}
+                          </SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>

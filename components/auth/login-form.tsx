@@ -77,6 +77,15 @@ export const LoginForm = () => {
       backButtonLabel="Don't have an account?"
       backButtonHref='register'
       showSocial
+      useAuthHeader={true}
+      authHeaderProps={{
+        variant: 'full',
+        logoSrc: '/images/logo/logo.png',
+        logoAlt: 'Qodwa Logo',
+        logoWidth: 100,
+        logoHeight: 40,
+        title: 'Qodwa Platform',
+      }}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>

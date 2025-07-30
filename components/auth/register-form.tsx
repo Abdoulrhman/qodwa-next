@@ -70,6 +70,15 @@ export const RegisterForm = () => {
       backButtonLabel='Already have an account?'
       backButtonHref='login'
       showSocial
+      useAuthHeader={true}
+      authHeaderProps={{
+        variant: 'full',
+        logoSrc: '/images/logo/logo.png',
+        logoAlt: 'Qodwa Logo',
+        logoWidth: 100,
+        logoHeight: 40,
+        title: 'Qodwa Platform',
+      }}
     >
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className='space-y-6'>
