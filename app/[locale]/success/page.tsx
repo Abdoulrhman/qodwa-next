@@ -30,18 +30,35 @@ export default function SuccessPage() {
     null
   );
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const sessionId = searchParams.get('session_id');
   useEffect(() => {
     const fetchSubscriptionDetails = async () => {
-      if (!sessionId) return;
+      if (!sessionId) {
+        console.log('No session ID found');
+        setIsLoading(false);
+        return;
+      }
 
       try {
+        console.log('Fetching subscription for session:', sessionId);
         const response = await fetch(`/api/subscriptions/${sessionId}`);
-        if (!response.ok) throw new Error('Failed to fetch subscription');
+
+        if (!response.ok) {
+          const errorData = await response.text();
+          console.error('API Error:', response.status, errorData);
+          throw new Error(`Failed to fetch subscription: ${response.status}`);
+        }
+
         const data = await response.json();
+        console.log('Received subscription data:', data);
         setSubscription(data);
+        setError(null);
       } catch (error) {
         console.error('Error fetching subscription:', error);
+        setError(
+          error instanceof Error ? error.message : 'Unknown error occurred'
+        );
       } finally {
         setIsLoading(false);
       }
@@ -79,6 +96,14 @@ export default function SuccessPage() {
           <div className='flex justify-center'>
             <Loader2 className='h-8 w-8 animate-spin' />
           </div>
+        ) : error ? (
+          <div className='bg-red-50 border border-red-200 p-6 rounded-lg'>
+            <h3 className='font-semibold text-lg text-red-800'>
+              Error Loading Subscription Details
+            </h3>
+            <p className='text-red-600'>{error}</p>
+            <p className='text-sm text-red-500 mt-2'>Session ID: {sessionId}</p>
+          </div>
         ) : subscription ? (
           <div className='bg-muted p-6 rounded-lg space-y-2 text-left'>
             <h3 className='font-semibold text-lg'>
@@ -99,7 +124,20 @@ export default function SuccessPage() {
               </span>
             </p>
           </div>
-        ) : null}
+        ) : (
+          <div className='bg-yellow-50 border border-yellow-200 p-6 rounded-lg'>
+            <h3 className='font-semibold text-lg text-yellow-800'>
+              Subscription Details Unavailable
+            </h3>
+            <p className='text-yellow-600'>
+              Your payment was successful, but we couldn&apos;t load the
+              subscription details.
+            </p>
+            <p className='text-sm text-yellow-500 mt-2'>
+              Session ID: {sessionId}
+            </p>
+          </div>
+        )}
 
         {/* Go Home Button */}
         <Button asChild size='lg' className='mt-8'>

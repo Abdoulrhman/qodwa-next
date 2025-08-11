@@ -441,34 +441,182 @@ The application uses NextAuth.js middleware to:
 
 ```prisma
 model User {
-  id                    String    @id @default(cuid())
+  id                    String                 @id @default(cuid())
   name                  String?
-  email                 String    @unique
+  email                 String?                @unique
   emailVerified         DateTime?
+  image                 String?
   password              String?
-  phone                 String?
-  gender                Gender?
+  role                  UserRole               @default(USER)
+  isTwoFactorEnabled    Boolean                @default(false)
   birthDate             DateTime?
+  gender                Gender?
+  isTeacher             Boolean?               @default(false)
+  phone                 String?
+  qualifications        String?               // Teacher-specific field
   referralSource        String?
-  isTeacher             Boolean   @default(false)
-  role                  UserRole  @default(USER)
-  isTwoFactorEnabled    Boolean   @default(false)
+  subjects              String?               // Teacher-specific field
+  teachingExperience    Int?                  // Teacher-specific field (years)
+  hasBookedDemo         Boolean                @default(false)
+  demoSessionDate       DateTime?
 
-  // Relationships
+  // Teacher-Student Relations (Self-Relations)
+  assignedTeacherId     String?               // Foreign key for assigned teacher
+  assignedTeacher       User?                 @relation("TeacherStudents", fields: [assignedTeacherId], references: [id])
+  assignedStudents      User[]                @relation("TeacherStudents")
+  teacherConnections    TeacherStudent[]      @relation("StudentConnections")
+  studentConnections    TeacherStudent[]      @relation("TeacherConnections")
+
+  // Original Relationships
   accounts              Account[]
   twoFactorConfirmation TwoFactorConfirmation?
-
-  @@map("users")
+  subscriptions         Subscription[]
 }
 ```
 
-### Supporting Models
+### TeacherStudent Relationship Model
 
-- **Account**: OAuth account linking
-- **VerificationToken**: Email verification
-- **PasswordResetToken**: Password reset
-- **TwoFactorToken**: 2FA codes
-- **TwoFactorConfirmation**: 2FA session tracking
+````prisma
+model TeacherStudent {
+  id            String   @id @default(cuid())
+  teacherId     String
+  studentId     String
+  assignedAt    DateTime @default(now())
+  isActive      Boolean  @default(true)
+  notes         String?  // Optional notes about the teacher-student relationship
+
+  // Relations
+  teacher       User     @relation("TeacherConnections", fields: [teacherId], references: [id], onDelete: Cascade)
+  student       User     @relation("StudentConnections", fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([teacherId, studentId])
+  @@map("teacher_students")
+}
+```### Package Model
+
+```prisma
+model Package {
+  id                     Int    @id @default(autoincrement())
+  package_id             Int    @unique
+  current_price          String
+  original_price         String
+  discount               String
+  subscription_frequency String // "monthly", "quarterly", "half-year", "yearly"
+  days                   Int    // Number of days per week
+  class_duration         Int    // Duration (30 or 60 minutes)
+  is_popular             Boolean @default(false)
+  currency               String  @default("USD")
+  enrollment_action      String
+  package_type           String
+
+  // Relationships
+  subscriptions          Subscription[]
+}
+````
+
+### Subscription Model
+
+```prisma
+model Subscription {
+  id            String   @id @default(cuid())
+  userId        String
+  packageId     Int
+  startDate     DateTime @default(now())
+  endDate       DateTime?
+  status        SubscriptionStatus @default(ACTIVE)
+
+  // Relationships
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  package       Package  @relation(fields: [packageId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, packageId])
+}
+```
+
+### Supporting Authentication Models
+
+#### Account (OAuth Integration)
+
+```prisma
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  // Relationships
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+```
+
+#### Verification Tokens
+
+```prisma
+model VerificationToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorConfirmation {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+```
+
+### Enums
+
+```prisma
+enum UserRole {
+  ADMIN
+  USER
+  TEACHER
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  EXPIRED
+  PENDING
+}
+```
 
 ## Error Handling
 

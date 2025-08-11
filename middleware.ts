@@ -18,10 +18,6 @@ export default async function middleware(request: any) {
   const { nextUrl } = request;
   const locale = request.nextUrl.pathname.split('/')[1];
 
-  // Apply locale middleware first
-  const localeResponse = localeMiddleware(request);
-  if (localeResponse) return localeResponse;
-
   // Get the pathname of the request
   const pathname = nextUrl.pathname;
 
@@ -34,10 +30,8 @@ export default async function middleware(request: any) {
   const session = await auth();
   const isLoggedIn = !!session;
 
-  // Check if the route is protected
-  const isProtectedRoute = protectedRoutes.some(
-    (route) => pathname.startsWith(route) || pathname === route
-  );
+  // Check if the route is protected (any dashboard route)
+  const isProtectedRoute = pathname.match(/^\/[a-z]{2}\/dashboard/) !== null;
 
   // Check if the route is a public route
   const isPublicRoute = publicRoutes.some(
@@ -52,7 +46,7 @@ export default async function middleware(request: any) {
   // If the route is protected and the user isn't logged in,
   // redirect to the login page
   if (isProtectedRoute && !isLoggedIn) {
-    const redirectUrl = new URL('/auth/login', nextUrl);
+    const redirectUrl = new URL(`/${locale}/auth/login`, nextUrl);
     redirectUrl.searchParams.set('callbackUrl', pathname);
     return NextResponse.redirect(redirectUrl);
   }
@@ -65,7 +59,8 @@ export default async function middleware(request: any) {
     );
   }
 
-  return NextResponse.next();
+  console.log('✅ Middleware allowing request - applying locale middleware');
+  return localeMiddleware(request);
 }
 
 export const config = {

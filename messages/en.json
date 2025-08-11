@@ -72,6 +72,69 @@
       "semmi_annual": "Semi-Annual",
       "yearly": "Yearly"
     },
+    "PackageContent": {
+      "8_classes": {
+        "title": "8 Classes",
+        "description": "We are just warming up",
+        "features": {
+          "days_per_week": "2 days / week",
+          "duration": "30 minutes / day",
+          "per_class": "/ class"
+        }
+      },
+      "12_classes": {
+        "title": "12 Classes", 
+        "description": "We are just getting started",
+        "features": {
+          "days_per_week": "3 days / week",
+          "duration": "30 minutes / day",
+          "per_class": "/ class"
+        }
+      },
+      "16_classes": {
+        "title": "16 Classes",
+        "description": "The most popular plan",
+        "features": {
+          "days_per_week": "4 days / week", 
+          "duration": "30 minutes / day",
+          "per_class": "/ class"
+        }
+      },
+      "20_classes": {
+        "title": "20 Classes",
+        "description": "We mean serious business!",
+        "features": {
+          "days_per_week": "5 days / week",
+          "duration": "30 minutes / day", 
+          "per_class": "/ class"
+        }
+      },
+      "24_classes": {
+        "title": "24 Classes",
+        "description": "We're on the fast track!",
+        "features": {
+          "days_per_week": "6 days / week",
+          "duration": "30 minutes / day",
+          "per_class": "/ class"
+        }
+      },
+      "28_classes": {
+        "title": "28 Classes",
+        "description": "Welcome to the ultimate experience!",
+        "features": {
+          "days_per_week": "7 days / week",
+          "duration": "30 minutes / day",
+          "per_class": "/ class"
+        }
+      },
+      "save_discount": "Save {discount}",
+      "subject": "Quran",
+      "levels": {
+        "Beginner": "Beginner",
+        "Intermediate": "Intermediate", 
+        "Advanced": "Advanced"
+      }
+    },
     "Meta": {
       "title": "Qodwa - Online Quran Learning Platform",
       "description": "Learn Quran online with qualified teachers",

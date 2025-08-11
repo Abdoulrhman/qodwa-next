@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { UserRole } from '@prisma/client';
 
-import { useCurrentRole } from '@/hooks/use-current-role';
+import { useCurrentUserRole } from '@/hooks/use-current-user-role';
 import { FormError } from '@/components/form-error';
 
 interface RoleGateProps {
@@ -12,20 +11,7 @@ interface RoleGateProps {
 }
 
 export const RoleGate = ({ children, allowedRole }: RoleGateProps) => {
-  const rolePromise = useCurrentRole(); // Call the hook here
-  const [role, setRole] = useState<UserRole | undefined>();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    rolePromise
-      .then((currentRole) => {
-        setRole(currentRole);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  }, [rolePromise]);
+  const { role, loading } = useCurrentUserRole();
 
   if (loading) {
     return <div>Loading...</div>; // Show a loading state

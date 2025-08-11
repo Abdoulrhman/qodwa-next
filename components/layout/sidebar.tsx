@@ -6,26 +6,72 @@ import {
   Home,
   DollarSign,
   Menu,
+  GraduationCap,
+  Calendar,
+  BookOpen,
+  MessageCircle,
+  BarChart3,
+  Settings,
+  Shield,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
+import { useCurrentUserRole } from '@/hooks/use-current-user-role';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import useIsMobile from '@/hooks/use-is-mobile';
 
-const getRoutes = (locale: string, t: any) => [
-  {
-    label: t('navigation.home'),
-    icon: Home,
-    href: `/${locale}/dashboard`,
-  },
-  {
-    label: t('Payments.title'),
-    icon: DollarSign,
-    href: `/${locale}/dashboard/payments`,
-  },
-];
+const getRoutes = (locale: string, t: any, role: string | undefined) => {
+  const baseRoutes = [
+    {
+      label: t('navigation.home'),
+      icon: Home,
+      href: `/${locale}/dashboard`,
+    },
+    {
+      label: 'My Teacher',
+      icon: GraduationCap,
+      href: `/${locale}/dashboard/teacher`,
+    },
+    {
+      label: 'My Packages',
+      icon: BookOpen,
+      href: `/${locale}/dashboard/packages`,
+    },
+    {
+      label: 'Schedule',
+      icon: Calendar,
+      href: `/${locale}/dashboard/schedule`,
+    },
+    {
+      label: 'Progress',
+      icon: BarChart3,
+      href: `/${locale}/dashboard/progress`,
+    },
+    {
+      label: 'Messages',
+      icon: MessageCircle,
+      href: `/${locale}/dashboard/messages`,
+    },
+    {
+      label: t('Payments.title'),
+      icon: DollarSign,
+      href: `/${locale}/dashboard/payments`,
+    },
+  ];
+
+  // Add admin routes if user is admin
+  if (role === 'ADMIN') {
+    baseRoutes.push({
+      label: 'Admin Dashboard',
+      icon: Shield,
+      href: `/${locale}/dashboard/admin`,
+    });
+  }
+
+  return baseRoutes;
+};
 
 export const DashboardSidebar = () => {
   const pathname = usePathname();
@@ -34,7 +80,11 @@ export const DashboardSidebar = () => {
   const isRTL = locale === 'ar';
   const isMobile = useIsMobile();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const routes = getRoutes(locale, t);
+
+  // Get user role using the proper hook
+  const { role } = useCurrentUserRole();
+
+  const routes = getRoutes(locale, t, role);
 
   // Close sidebar on route change
   useEffect(() => {
@@ -45,7 +95,12 @@ export const DashboardSidebar = () => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const sidebar = document.getElementById('dashboard-sidebar');
-      if (isMobile && isSidebarOpen && sidebar && !sidebar.contains(event.target as Node)) {
+      if (
+        isMobile &&
+        isSidebarOpen &&
+        sidebar &&
+        !sidebar.contains(event.target as Node)
+      ) {
         setIsSidebarOpen(false);
       }
     };
@@ -73,40 +128,42 @@ export const DashboardSidebar = () => {
     <>
       {/* Mobile toggle button */}
       {isMobile && (
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="fixed top-20 left-4 z-50"
+        <Button
+          variant='ghost'
+          size='icon'
+          className='fixed top-20 left-4 z-50'
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         >
-          <Menu className="h-5 w-5" />
+          <Menu className='h-5 w-5' />
         </Button>
       )}
 
       {/* Backdrop overlay for mobile */}
       {isMobile && isSidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-black/30 z-40"
+        <div
+          className='fixed inset-0 bg-black/30 z-40'
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
-      <div 
-        id="dashboard-sidebar"
+      <div
+        id='dashboard-sidebar'
         className={cn(
           'fixed h-full bg-background border-r z-50 transition-all duration-300',
-          isMobile ? (
-            isSidebarOpen 
-              ? 'translate-x-0' 
-              : isRTL ? 'translate-x-56' : '-translate-x-56'
-          ) : 'translate-x-0',
+          isMobile
+            ? isSidebarOpen
+              ? 'translate-x-0'
+              : isRTL
+              ? 'translate-x-56'
+              : '-translate-x-56'
+            : 'translate-x-0',
           isRTL ? 'right-0 border-l border-r-0' : 'left-0',
           'w-56'
         )}
         dir={isRTL ? 'rtl' : 'ltr'}
       >
-        <div className="flex flex-1 flex-col gap-2 p-4 pt-20">
+        <div className='flex flex-1 flex-col gap-2 p-4 pt-20'>
           {routes.map((route) => (
             <Link
               key={route.href}
@@ -119,17 +176,15 @@ export const DashboardSidebar = () => {
                 isRTL && 'flex-row-reverse text-right'
               )}
             >
-              <route.icon className="h-4 w-4" />
+              <route.icon className='h-4 w-4' />
               {route.label}
             </Link>
           ))}
         </div>
       </div>
-      
+
       {/* Main content spacer for desktop */}
-      {!isMobile && (
-        <div className="w-56" />
-      )}
+      {!isMobile && <div className='w-56' />}
     </>
   );
 };

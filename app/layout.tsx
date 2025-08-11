@@ -1,7 +1,6 @@
 import { Inter, Almarai } from 'next/font/google';
 import '../styles/main.scss';
 import '../app/globals.css';
-import { useLocale } from 'next-intl';
 import { Providers } from '@/components/providers/providers';
 import { AuthProvider } from '@/contexts/auth-context';
 
@@ -12,21 +11,15 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-  params?: { locale: string };
 }>) {
-  const locale = useLocale();
   return (
-    <html
-      suppressHydrationWarning={true}
-      lang={locale}
-      dir={locale === 'ar' ? 'rtl' : 'ltr'}
-    >
+    <html suppressHydrationWarning={true}>
       <head>
         <link rel='icon' href='/favicon.ico' />
       </head>
       <body
         suppressHydrationWarning={true}
-        className={locale !== 'ar' ? inter.className : almarai.className}
+        className={inter.className}
       >
         <Providers>
           <AuthProvider>{children}</AuthProvider>

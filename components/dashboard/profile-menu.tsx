@@ -34,14 +34,25 @@ export const ProfileMenu = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align={isRTL ? 'start' : 'end'} className='w-56'>
+        {user && (
+          <>
+            <div className='px-3 py-2 text-sm'>
+              <div className='font-medium'>{user.name || 'User'}</div>
+              <div className='text-gray-500 dark:text-gray-400 text-xs'>
+                {user.email}
+              </div>
+            </div>
+            <hr className='my-1' />
+          </>
+        )}
         <DropdownMenuItem
           className={cn('cursor-pointer', isRTL && 'flex-row-reverse')}
           onClick={() => router.push(`/${locale}/dashboard/profile`)}
         >
           <User className={cn('h-4 w-4', isRTL ? 'ml-2' : 'mr-2')} />
-          {user?.name || t('navigation.profile')}
+          {t('navigation.profile')}
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        <hr className='my-1' />
         <DropdownMenuItem
           className={cn(
             'cursor-pointer text-red-600 focus:text-red-600',

@@ -14,13 +14,21 @@ export async function GET() {
       original_price: pkg.original_price,
       discount: pkg.discount,
       subscription_frequency: pkg.subscription_frequency,
-      days_per_week: pkg.days_per_week,
-      classes_per_month: pkg.classes_per_month,
+      days: pkg.days,
       class_duration: pkg.class_duration,
+      total_classes: pkg.total_classes,
+      duration_weeks: pkg.duration_weeks,
+      subject: pkg.subject,
+      level: pkg.level,
+      features: pkg.features || [],
+      title: pkg.title,
+      description: pkg.description,
       enrollment_action: pkg.enrollment_action,
       package_type: pkg.package_type,
       currency: pkg.currency || 'USD',
       is_popular: pkg.is_popular || false,
+      is_active: pkg.is_active || true,
+      sort_order: pkg.sort_order,
     });
 
     // Group packages based on subscription frequency

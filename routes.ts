@@ -31,10 +31,14 @@ export const authRoutes = locales.flatMap((locale) => [
 export const protectedRoutes = locales.flatMap((locale) => [
   `/${locale}/dashboard`,
   `/${locale}/dashboard/profile`,
+  `/${locale}/dashboard/teacher`,
+  `/${locale}/dashboard/packages`,
+  `/${locale}/dashboard/schedule`,
+  `/${locale}/dashboard/progress`,
+  `/${locale}/dashboard/messages`,
+  `/${locale}/dashboard/payments`,
   `/${locale}/dashboard/learning-paths`,
   `/${locale}/dashboard/lesson-reports`,
-  `/${locale}/dashboard/payments`,
-  `/${locale}/dashboard/schedule`,
 ]);
 
 /**

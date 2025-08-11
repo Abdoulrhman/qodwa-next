@@ -58,6 +58,69 @@
         "yearly": "سنوي"
       }
     },
+    "PackageContent": {
+      "8_classes": {
+        "title": "8 حصص",
+        "description": "نحن فقط نبدأ بالإحماء",
+        "features": {
+          "days_per_week": "يومان / أسبوع",
+          "duration": "30 دقيقة / يوم",
+          "per_class": "/ حصة"
+        }
+      },
+      "12_classes": {
+        "title": "12 حصة", 
+        "description": "نحن فقط نبدأ",
+        "features": {
+          "days_per_week": "3 أيام / أسبوع",
+          "duration": "30 دقيقة / يوم",
+          "per_class": "/ حصة"
+        }
+      },
+      "16_classes": {
+        "title": "16 حصة",
+        "description": "الخطة الأكثر شعبية",
+        "features": {
+          "days_per_week": "4 أيام / أسبوع", 
+          "duration": "30 دقيقة / يوم",
+          "per_class": "/ حصة"
+        }
+      },
+      "20_classes": {
+        "title": "20 حصة",
+        "description": "نحن نعني العمل الجاد!",
+        "features": {
+          "days_per_week": "5 أيام / أسبوع",
+          "duration": "30 دقيقة / يوم", 
+          "per_class": "/ حصة"
+        }
+      },
+      "24_classes": {
+        "title": "24 حصة",
+        "description": "نحن في المسار السريع!",
+        "features": {
+          "days_per_week": "6 أيام / أسبوع",
+          "duration": "30 دقيقة / يوم",
+          "per_class": "/ حصة"
+        }
+      },
+      "28_classes": {
+        "title": "28 حصة",
+        "description": "مرحباً بك في التجربة النهائية!",
+        "features": {
+          "days_per_week": "7 أيام / أسبوع",
+          "duration": "30 دقيقة / يوم",
+          "per_class": "/ حصة"
+        }
+      },
+      "save_discount": "وفر {discount}",
+      "subject": "القرآن الكريم",
+      "levels": {
+        "Beginner": "مبتدئ",
+        "Intermediate": "متوسط", 
+        "Advanced": "متقدم"
+      }
+    },
     "Meta": {
       "title": "قدوة - منصة تعلم القرآن عبر الإنترنت",
       "description": "تعلم القرآن عبر الإنترنت مع معلمين مؤهلين",

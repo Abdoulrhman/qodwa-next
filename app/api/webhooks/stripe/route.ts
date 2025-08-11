@@ -47,8 +47,8 @@ export async function POST(req: Request) {
         const subscription = await db.subscription.upsert({
           where: {
             userId_packageId: {
-              userId,
-              packageId,
+              userId: userId,
+              packageId: packageId,
             },
           },
           update: {
@@ -57,8 +57,8 @@ export async function POST(req: Request) {
             endDate: null,
           },
           create: {
-            userId,
-            packageId,
+            userId: userId,
+            packageId: packageId,
             status: 'ACTIVE',
             startDate: new Date(),
           },

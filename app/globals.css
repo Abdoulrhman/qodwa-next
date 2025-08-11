@@ -90,6 +90,20 @@ html{
   }
 }
 
+/* RTL Support for Swiper */
+[dir="rtl"] .swiper {
+  direction: rtl;
+}
+
+[dir="rtl"] .swiper-slide {
+  direction: ltr;
+}
+
+/* General RTL body support */
+[dir="rtl"] body {
+  direction: rtl;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

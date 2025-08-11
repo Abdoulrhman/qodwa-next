@@ -26,7 +26,7 @@ export async function GET(
     // Transform the package data to match the expected response format
     const response = {
       id: pkg.id,
-      package_id: pkg.package_id,
+      package_id: pkg.id, // Using id since package_id was removed
       price: pkg.current_price,
       currency: 'USD',
       days: pkg.days,

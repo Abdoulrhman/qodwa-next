@@ -9,17 +9,32 @@ datasource db {
 
 model Package {
   id                     Int    @id @default(autoincrement())
-  package_id             Int    @unique  // Added to match expected response format
   current_price          String // This is used as "price"
   original_price         String
   discount               String
   subscription_frequency String // "monthly", "quarterly", "half-year", "yearly"
-  days                   Int    // Added to store the number of days per week
+  days                   Int    // Number of days per week
+  classes_per_month      Int?   // Optional: classes per month for additional tracking
   class_duration         Int    // This will store duration (30 or 60 minutes)
   is_popular             Boolean @default(false) // Added to track popular packages
   currency               String  @default("USD") // Added to set the currency
   enrollment_action      String
   package_type           String
+  
+  // New fields for better UI support
+  title                  String? // Display name for the package (e.g., "30 Minutes", "60 Minutes")
+  description            String? // Package description (e.g., "Comprehensive learning package")
+  total_classes          Int?    // Total number of classes in the package
+  duration_weeks         Int?    // How many weeks the package lasts
+  subject                String? // Subject/topic covered
+  level                  String? // Beginner, Intermediate, Advanced
+  features               String[] // Array of package features/benefits
+  image_url              String? // Package image/icon URL
+  is_active              Boolean @default(true) // Whether package is available for purchase
+  sort_order             Int?    // For ordering packages in the UI
+  created_at             DateTime @default(now())
+  updated_at             DateTime @default(now()) @updatedAt
+  
   subscriptions          Subscription[]
 
   @@map("Package")
@@ -44,6 +59,17 @@ model User {
   teachingExperience    Int?
   hasBookedDemo         Boolean                @default(false)
   demoSessionDate       DateTime?
+  
+  // Teacher-Student Relations
+  assignedTeacherId     String?               // Foreign key for assigned teacher
+  assignedTeacher       User?                 @relation("TeacherStudents", fields: [assignedTeacherId], references: [id])
+  assignedStudents      User[]                @relation("TeacherStudents")
+  
+  // Many-to-many relationship for multiple teachers per student (optional)
+  teacherConnections    TeacherStudent[]      @relation("StudentConnections")
+  studentConnections    TeacherStudent[]      @relation("TeacherConnections")
+  
+  // Original relationships
   accounts              Account[]
   twoFactorConfirmation TwoFactorConfirmation?
   subscriptions         Subscription[]
@@ -101,16 +127,43 @@ model TwoFactorConfirmation {
 }
 
 model Subscription {
-  id            String   @id @default(cuid())
-  userId        String
-  packageId     Int
-  startDate     DateTime @default(now())
-  endDate       DateTime?
-  status        SubscriptionStatus @default(ACTIVE)
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  package       Package  @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  id                String   @id @default(cuid())
+  userId            String
+  packageId         Int
+  startDate         DateTime @default(now())
+  endDate           DateTime?
+  status            SubscriptionStatus @default(ACTIVE)
+  
+  // New fields for better tracking
+  classes_completed Int      @default(0) // Number of classes completed
+  classes_remaining Int?     // Calculated or stored remaining classes
+  next_class_date   DateTime? // Next scheduled class
+  auto_renew        Boolean  @default(false) // Auto-renewal setting
+  payment_method    String?  // Payment method used
+  stripe_session_id String?  // Stripe session ID for reference
+  cancellation_reason String? // Reason for cancellation (if cancelled)
+  notes             String?  // Admin notes about the subscription
+  
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  package           Package  @relation(fields: [packageId], references: [id], onDelete: Cascade)
 
   @@unique([userId, packageId])
+}
+
+model TeacherStudent {
+  id            String   @id @default(cuid())
+  teacherId     String
+  studentId     String
+  assignedAt    DateTime @default(now())
+  isActive      Boolean  @default(true)
+  notes         String?  // Optional notes about the teacher-student relationship
+  
+  // Relations
+  teacher       User     @relation("TeacherConnections", fields: [teacherId], references: [id], onDelete: Cascade)
+  student       User     @relation("StudentConnections", fields: [studentId], references: [id], onDelete: Cascade)
+  
+  @@unique([teacherId, studentId])
+  @@map("teacher_students")
 }
 
 enum UserRole {

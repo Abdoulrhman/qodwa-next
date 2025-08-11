@@ -1,5 +1,6 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import BodyDirection from '@/components/body-direction';
 import '../../styles/main.scss';
 
 export default async function LocaleLayout({
@@ -14,8 +15,9 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <body>
+        <BodyDirection />
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

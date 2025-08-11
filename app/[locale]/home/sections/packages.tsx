@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import SwitchButton from '@/components/shared/SwitchButton';
 import axiosInstance from '@/services/axiosInstance';
 import { Package, PackagesResponse } from '@/APISchema';
@@ -14,12 +14,13 @@ import PackageCard from '@/components/shared/PackageCard';
 
 const HomePackages: React.FC = () => {
   const t = useTranslations('Home');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
 
   const [selectedList, setSelectedList] = useState<Package[]>([]);
   const [packages, setPackages] = useState<PackagesResponse>(
     {} as PackagesResponse
   );
-  const [selectedDuration, setSelectedDuration] = useState('30');
   const [selectedFrequency, setSelectedFrequency] = useState('monthly');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,19 +39,12 @@ const HomePackages: React.FC = () => {
   }, [t]);
 
   useEffect(() => {
-    // Selecting packages based on duration and subscription frequency
+    // Selecting packages based on subscription frequency only
     const filteredPackages =
       packages[selectedFrequency as keyof PackagesResponse] || [];
 
-    const filteredList = filteredPackages.filter((pkg) => {
-      // Convert both to strings for comparison
-      const pkgDuration = pkg.class_duration.toString();
-      const selectedDurationStr = selectedDuration.toString();
-      return pkgDuration === selectedDurationStr;
-    });
-
-    setSelectedList(filteredList);
-  }, [selectedDuration, selectedFrequency, packages]);
+    setSelectedList(filteredPackages);
+  }, [selectedFrequency, packages]);
 
   const renderSkeletons = () => (
     <Swiper
@@ -102,17 +96,6 @@ const HomePackages: React.FC = () => {
             ]}
             width='700px'
           />
-
-          {/* 30 / 60 Minutes Filter */}
-          <SwitchButton
-            selected={selectedDuration}
-            setSelected={setSelectedDuration}
-            options={[
-              { value: '30', label: t('30Min') },
-              { value: '60', label: t('60Min') },
-            ]}
-            width='260px'
-          />
         </div>
       </div>
 
@@ -120,6 +103,8 @@ const HomePackages: React.FC = () => {
         renderSkeletons()
       ) : (
         <Swiper
+          dir={isRTL ? 'rtl' : 'ltr'}
+          key={`swiper-${isRTL}`} // Force re-render when direction changes
           spaceBetween={50}
           slidesPerView={3}
           breakpoints={{

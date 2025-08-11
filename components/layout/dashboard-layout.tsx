@@ -26,10 +26,12 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
       <div className='min-h-screen'>
         {/* Header */}
         <header className='fixed top-0 z-50 w-full border-b bg-background'>
-          <div className={cn(
-            'flex h-16 items-center px-4 md:px-6',
-            isRTL && 'flex-row-reverse'
-          )}>
+          <div
+            className={cn(
+              'flex h-16 items-center px-4 md:px-6',
+              isRTL && 'flex-row-reverse'
+            )}
+          >
             <Link href={`/${locale}`} className='flex items-center gap-2'>
               <Image
                 src='/images/logo/logo.png'
@@ -39,10 +41,12 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                 className='dark:invert'
               />
             </Link>
-            <div className={cn(
-              'ml-auto flex items-center gap-4',
-              isRTL && 'ml-0 mr-auto'
-            )}>
+            <div
+              className={cn(
+                'ml-auto flex items-center gap-4',
+                isRTL && 'ml-0 mr-auto'
+              )}
+            >
               <ModeToggle />
               <Button variant='ghost' size='icon'>
                 <Bell className='h-5 w-5' />

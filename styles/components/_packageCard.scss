@@ -38,62 +38,123 @@
       }
     }
 
+    &__header {
+      margin-bottom: 16px;
+      text-align: center;
+      padding: 0 1rem;
+
+      .package-card__title {
+        font-size: 20px;
+        font-weight: 600;
+        color: $color-primary;
+        margin-bottom: 8px;
+      }
+
+      .package-card__description {
+        font-size: 14px;
+        color: #666;
+        font-style: italic;
+      }
+    }
+
     &__price {
       display: flex;
       flex-direction: column;
-      margin-inline-start: 2rem;
+      align-items: center;
       margin-bottom: 16px;
-      gap: 3px;
+      gap: 8px;
 
       &-wrapper {
+        text-align: center;
+
         .package-card__price--discounted {
           font-size: 36px;
-          font-weight: 400;
-          color: black;
+          font-weight: 600;
+          color: $color-primary;
           display: block;
         }
 
-        .package-card__subscription-frequency {
-          font-size: 14px;
-          margin-inline-start: 5px;
+        .package-card__price--original {
+          text-decoration: line-through;
+          color: #999;
+          font-size: 20px;
           font-weight: 300;
+          margin-top: 4px;
+          display: block;
         }
       }
+    }
 
-      &--original {
-        text-decoration: line-through;
-        color: #000;
-        font-size: 24px;
-        font-weight: 300;
+    &__stats {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+
+      .package-card__stat {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        color: #666;
+        background: #f8f9fa;
+        padding: 4px 8px;
+        border-radius: 12px;
+
+        svg {
+          color: $color-primary;
+        }
       }
     }
 
     &__course-details {
       margin-bottom: 16px;
 
-      .package-card__time-per-week {
-        background-color: #ffc62994;
-        font-size: 16px;
-        margin-bottom: 8px;
-        padding: 10px;
-        text-transform: capitalize;
-        text-align: center;
-      }
-
       .package-card__info-list {
         list-style: none;
-        padding: 0 2rem;
-        margin: 0;
+        padding: 0 1rem;
+        margin: 0 0 12px 0;
 
         .package-card__info-item {
-          margin-bottom: 10px;
+          margin-bottom: 8px;
           display: flex;
-          justify-content: start;
           align-items: center;
           gap: 8px;
-          font-size: 14px;
-          text-transform: capitalize;
+          font-size: 13px;
+          color: #333;
+
+          svg {
+            color: $color-primary;
+            flex-shrink: 0;
+          }
         }
+      }
+    }
+
+    &__features-preview {
+      padding: 0 1rem;
+      margin-top: 12px;
+
+      .package-card__feature {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: #555;
+        margin-bottom: 4px;
+
+        svg {
+          color: #10b981;
+          flex-shrink: 0;
+        }
+      }
+
+      .package-card__more-features {
+        font-size: 11px;
+        color: #666;
+        font-style: italic;
+        margin-left: 18px;
       }
     }
 
