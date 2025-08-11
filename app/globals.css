@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html{
+html {
   scroll-behavior: smooth;
 }
 @layer base {
@@ -71,7 +71,8 @@ html{
 
 @layer utilities {
   .pattern-grid-lg {
-    background-image: linear-gradient(currentColor 1px, transparent 1px),
+    background-image:
+      linear-gradient(currentColor 1px, transparent 1px),
       linear-gradient(to right, currentColor 1px, transparent 1px);
     background-size: 48px 48px;
   }
@@ -91,16 +92,16 @@ html{
 }
 
 /* RTL Support for Swiper */
-[dir="rtl"] .swiper {
+[dir='rtl'] .swiper {
   direction: rtl;
 }
 
-[dir="rtl"] .swiper-slide {
+[dir='rtl'] .swiper-slide {
   direction: ltr;
 }
 
 /* General RTL body support */
-[dir="rtl"] body {
+[dir='rtl'] body {
   direction: rtl;
 }
 

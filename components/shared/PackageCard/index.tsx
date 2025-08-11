@@ -68,21 +68,29 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
 
   // Helper function to get translated features
   const getTranslatedFeatures = (features: string[]) => {
-    return features.map(feature => {
+    return features.map((feature) => {
       try {
         if (feature.includes('days / week')) {
-          const translated = tPackage(`${cardInfo.total_classes}_classes.features.days_per_week`);
+          const translated = tPackage(
+            `${cardInfo.total_classes}_classes.features.days_per_week`
+          );
           return translated.includes('PackageContent') ? feature : translated;
         }
         if (feature.includes('minutes / day')) {
-          const translated = tPackage(`${cardInfo.total_classes}_classes.features.duration`);
+          const translated = tPackage(
+            `${cardInfo.total_classes}_classes.features.duration`
+          );
           return translated.includes('PackageContent') ? feature : translated;
         }
         if (feature.includes('/ class')) {
           const priceMatch = feature.match(/\$[\d.]+/);
           const price = priceMatch ? priceMatch[0] : '';
-          const translated = tPackage(`${cardInfo.total_classes}_classes.features.per_class`);
-          return translated.includes('PackageContent') ? feature : `${price}${translated}`;
+          const translated = tPackage(
+            `${cardInfo.total_classes}_classes.features.per_class`
+          );
+          return translated.includes('PackageContent')
+            ? feature
+            : `${price}${translated}`;
         }
         if (feature.includes('Save')) {
           const discountMatch = feature.match(/Save (\d+%)/);
@@ -98,12 +106,20 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
   };
 
   // Get translated content
-  const translatedTitle = getTranslatedContent('title', cardInfo.title || `${cardInfo.class_duration} Minutes`);
-  const translatedDescription = getTranslatedContent('description', cardInfo.description || '');
+  const translatedTitle = getTranslatedContent(
+    'title',
+    cardInfo.title || `${cardInfo.class_duration} Minutes`
+  );
+  const translatedDescription = getTranslatedContent(
+    'description',
+    cardInfo.description || ''
+  );
   const translatedSubject = (() => {
     try {
       const translated = tPackage('subject');
-      return translated.includes('PackageContent') ? cardInfo.subject : translated;
+      return translated.includes('PackageContent')
+        ? cardInfo.subject
+        : translated;
     } catch {
       return cardInfo.subject;
     }
@@ -112,7 +128,9 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
     if (!cardInfo.level) return 'All Levels';
     try {
       const translated = tPackage(`levels.${cardInfo.level}`);
-      return translated.includes('PackageContent') ? cardInfo.level : translated;
+      return translated.includes('PackageContent')
+        ? cardInfo.level
+        : translated;
     } catch {
       return cardInfo.level;
     }
@@ -143,9 +161,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
 
         {/* Package Header */}
         <div className='package-card__header'>
-          <h3 className='package-card__title'>
-            {translatedTitle}
-          </h3>
+          <h3 className='package-card__title'>{translatedTitle}</h3>
           {translatedDescription && (
             <p className='package-card__description'>{translatedDescription}</p>
           )}
@@ -224,9 +240,9 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
               ))}
               {translatedFeatures.length > 3 && (
                 <span className='package-card__more-features'>
-                                  <span className='package-card__features-count'>
-                  +{translatedFeatures.length - 3} more
-                </span>
+                  <span className='package-card__features-count'>
+                    +{translatedFeatures.length - 3} more
+                  </span>
                 </span>
               )}
             </div>

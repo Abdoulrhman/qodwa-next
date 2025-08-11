@@ -17,10 +17,7 @@ export default function RootLayout({
       <head>
         <link rel='icon' href='/favicon.ico' />
       </head>
-      <body
-        suppressHydrationWarning={true}
-        className={inter.className}
-      >
+      <body suppressHydrationWarning={true} className={inter.className}>
         <Providers>
           <AuthProvider>{children}</AuthProvider>
         </Providers>

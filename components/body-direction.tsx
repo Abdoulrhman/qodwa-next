@@ -15,11 +15,11 @@ export default function BodyDirection() {
     const isRTL = locale === 'ar';
     const direction = isRTL ? 'rtl' : 'ltr';
     setDir(direction);
-    
+
     // Update document direction
     document.documentElement.dir = direction;
     document.documentElement.lang = locale;
-    
+
     // Update body direction and font
     document.body.dir = direction;
     document.body.className = isRTL ? almarai.className : inter.className;

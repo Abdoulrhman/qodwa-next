@@ -83,7 +83,7 @@
         }
       },
       "12_classes": {
-        "title": "12 Classes", 
+        "title": "12 Classes",
         "description": "We are just getting started",
         "features": {
           "days_per_week": "3 days / week",
@@ -95,7 +95,7 @@
         "title": "16 Classes",
         "description": "The most popular plan",
         "features": {
-          "days_per_week": "4 days / week", 
+          "days_per_week": "4 days / week",
           "duration": "30 minutes / day",
           "per_class": "/ class"
         }
@@ -105,7 +105,7 @@
         "description": "We mean serious business!",
         "features": {
           "days_per_week": "5 days / week",
-          "duration": "30 minutes / day", 
+          "duration": "30 minutes / day",
           "per_class": "/ class"
         }
       },
@@ -131,7 +131,7 @@
       "subject": "Quran",
       "levels": {
         "Beginner": "Beginner",
-        "Intermediate": "Intermediate", 
+        "Intermediate": "Intermediate",
         "Advanced": "Advanced"
       }
     },

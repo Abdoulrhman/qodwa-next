@@ -69,7 +69,7 @@
         }
       },
       "12_classes": {
-        "title": "12 حصة", 
+        "title": "12 حصة",
         "description": "نحن فقط نبدأ",
         "features": {
           "days_per_week": "3 أيام / أسبوع",
@@ -81,7 +81,7 @@
         "title": "16 حصة",
         "description": "الخطة الأكثر شعبية",
         "features": {
-          "days_per_week": "4 أيام / أسبوع", 
+          "days_per_week": "4 أيام / أسبوع",
           "duration": "30 دقيقة / يوم",
           "per_class": "/ حصة"
         }
@@ -91,7 +91,7 @@
         "description": "نحن نعني العمل الجاد!",
         "features": {
           "days_per_week": "5 أيام / أسبوع",
-          "duration": "30 دقيقة / يوم", 
+          "duration": "30 دقيقة / يوم",
           "per_class": "/ حصة"
         }
       },
@@ -117,7 +117,7 @@
       "subject": "القرآن الكريم",
       "levels": {
         "Beginner": "مبتدئ",
-        "Intermediate": "متوسط", 
+        "Intermediate": "متوسط",
         "Advanced": "متقدم"
       }
     },
