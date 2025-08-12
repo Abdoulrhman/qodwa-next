@@ -17,10 +17,41 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*", "./*"],
+      "@/components/*": ["./src/shared/components/*"],
+      "@/components/ui/*": ["./src/shared/components/ui/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/hooks/*": ["./src/shared/hooks/*"],
+      "@/contexts/*": ["./contexts/*"],
+      "@/services/*": ["./services/*"],
+      "@/schemas/*": ["./src/shared/schemas/*"],
+      "@/data/*": ["./data/*"],
+      "@/actions/*": [
+        "./src/features/auth/actions/*",
+        "./src/features/admin/actions/*"
+      ],
+      "@/messages/*": ["./messages/*"],
+      "@/i18n/*": ["./i18n/*"],
+      "@/config/*": ["./config/*"],
+      "@/types/*": ["./src/shared/types/*"],
+      "@/utils/*": ["./src/shared/utils/*"],
+      "@/constants/*": ["./src/shared/constants/*"],
+      "@/auth": ["./auth.ts"],
+      "@/auth.config": ["./config/auth.config.ts"],
+      "@/routes": ["./routes.ts"],
+      "@/public/*": ["./public/*"],
+      "@/features/*": ["./src/features/*"],
+      "@/shared/*": ["./src/shared/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "prisma/seed/packages.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "prisma/seed/packages.js"
+  ],
   "exclude": ["node_modules"]
 }
