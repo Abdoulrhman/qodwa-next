@@ -30,7 +30,8 @@
       "@/data/*": ["./data/*"],
       "@/actions/*": [
         "./src/features/auth/actions/*",
-        "./src/features/admin/actions/*"
+        "./src/features/admin/actions/*",
+        "./src/features/teacher/actions/*"
       ],
       "@/messages/*": ["./messages/*"],
       "@/i18n/*": ["./i18n/*"],

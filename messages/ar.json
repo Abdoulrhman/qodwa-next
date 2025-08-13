@@ -407,5 +407,19 @@
     "quarterly": "ربع سنوي",
     "semmi_annual": "نصف سنوي",
     "yearly": "سنوي"
+  },
+  "Student": {
+    "Register": {
+      "platformName": "منصة قدوة",
+      "testimonialQuote": "انضم إلى منصتنا لتعلم القرآن عبر الإنترنت وابدأ رحلتك اليوم",
+      "testimonialAuthor": "فريق قدوة"
+    }
+  },
+  "Teacher": {
+    "Register": {
+      "platformName": "منصة قدوة",
+      "testimonialQuote": "انضم إلى مجتمعنا التعليمي وألهم الطلاب حول العالم بمعرفتك",
+      "testimonialAuthor": "فريق التدريس في قدوة"
+    }
   }
 }

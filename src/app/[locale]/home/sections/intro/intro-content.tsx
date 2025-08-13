@@ -17,7 +17,7 @@ const IntroContent: React.FC<IntroContentProps> = ({ isTeacherPage }) => {
   };
   const handleGetStarted = () => {
     const path = isTeacherPage
-      ? `/${locale}/auth/register`
+      ? `/${locale}/teacher/register`
       : `/${locale}/student/register`;
     router.push(path);
   };

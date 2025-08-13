@@ -68,12 +68,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.name = token.name;
         session.user.email = token.email!;
         (session.user as any).isOAuth = token.isOAuth as boolean;
+        (session.user as any).isTeacher = token.isTeacher as boolean;
+        (session.user as any).subjects = token.subjects as string;
+        (session.user as any).teachingExperience =
+          token.teachingExperience as number;
+        (session.user as any).qualifications = token.qualifications as string;
+        (session.user as any).phone = token.phone as string;
       }
 
       return session;
     },
     // @ts-ignore
-    async jwt({ token }) {
+    async jwt({ token, trigger }) {
       if (!token.sub) return token;
 
       const existingUser = await getUserById(token.sub);
@@ -87,12 +93,26 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       token.email = existingUser.email;
       token.role = existingUser.role;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
+      token.isTeacher = existingUser.isTeacher;
+      token.subjects = existingUser.subjects;
+      token.teachingExperience = existingUser.teachingExperience;
+      token.qualifications = existingUser.qualifications;
+      token.phone = existingUser.phone;
+
+      // Force token refresh timestamp for debugging
+      token.lastUpdated = Date.now();
 
       return token;
     },
   },
   adapter: PrismaAdapter(db),
-  session: { strategy: 'jwt' },
+  session: {
+    strategy: 'jwt',
+    maxAge: 30 * 60, // 30 minutes for development testing
+  },
+  jwt: {
+    maxAge: 30 * 60, // 30 minutes for development testing
+  },
   ...authConfig,
 });
 

@@ -104,3 +104,52 @@ export const StudentFormSchema = z
       });
     }
   });
+
+export const TeacherRegistrationSchema = z
+  .object({
+    name: z
+      .string()
+      .min(2, { message: 'Name must be at least 2 characters.' })
+      .max(50, { message: 'Name must be less than 50 characters.' }),
+    email: z.string().email({ message: 'Invalid email address.' }),
+    password: z
+      .string()
+      .min(8, { message: 'Password must be at least 8 characters.' }),
+    retypePassword: z.string().nonempty('Retype Password is required'),
+    phone: z
+      .string()
+      .min(10, { message: 'Phone number must be at least 10 digits.' }),
+    gender: z.enum(['MALE', 'FEMALE'], {
+      required_error: 'Gender is required.',
+    }),
+    birthDate: z
+      .string()
+      .optional()
+      .refine((date) => !date || !isNaN(Date.parse(date)), {
+        message: 'Invalid birth date format. Use YYYY-MM-DD.',
+      }),
+    qualifications: z
+      .string()
+      .min(10, {
+        message:
+          'Please provide detailed qualifications (minimum 10 characters).',
+      }),
+    subjects: z
+      .string()
+      .min(3, { message: 'Please specify subjects you can teach.' }),
+    teachingExperience: z
+      .number()
+      .min(0, { message: 'Teaching experience cannot be negative.' })
+      .max(50, { message: 'Please enter a realistic number of years.' }),
+    referralSource: z.string().optional(),
+    isTeacher: z.boolean().default(true),
+  })
+  .superRefine(({ password, retypePassword }, ctx) => {
+    if (password !== retypePassword) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Passwords do not match',
+        path: ['retypePassword'],
+      });
+    }
+  });

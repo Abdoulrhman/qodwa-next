@@ -3,8 +3,9 @@
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { useState, useTransition } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSession, signIn } from 'next-auth/react';
 import Link from 'next/link';
 
 import { LoginSchema } from '@/shared/schemas';
@@ -26,6 +27,8 @@ import { useLocale } from 'next-intl';
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const { update } = useSession();
   const callbackUrl = searchParams.get('callbackUrl');
   const urlError =
     searchParams.get('error') === 'OAuthAccountNotLinked'
@@ -53,7 +56,7 @@ export const LoginForm = () => {
 
     startTransition(() => {
       login(values, callbackUrl, locale)
-        .then((data) => {
+        .then(async (data) => {
           if (data?.error) {
             form.reset();
             setError(data.error);
@@ -62,6 +65,12 @@ export const LoginForm = () => {
           if (data?.success) {
             form.reset();
             setSuccess(data.success);
+            
+            // Force session update after successful login
+            setTimeout(async () => {
+              await update();
+              router.refresh();
+            }, 100);
           }
 
           if (data?.twoFactor) {

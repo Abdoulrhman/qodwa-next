@@ -13,42 +13,71 @@ import {
   BarChart3,
   Settings,
   Shield,
+  Users,
+  BookText,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
+import { useSession } from 'next-auth/react';
 import { useCurrentUserRole } from '@/features/auth/hooks/use-current-user-role';
+import { useCurrentUser } from '@/features/auth/hooks/use-current-user';
+import { hasTeacherAccess } from '@/src/shared/utils/teacher-utils';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import useIsMobile from '@/shared/hooks/use-is-mobile';
 
-const getRoutes = (locale: string, t: any, role: string | undefined) => {
+const getRoutes = (locale: string, t: any, role: string | undefined, isTeacher: boolean) => {
   const baseRoutes = [
     {
       label: t('navigation.home'),
       icon: Home,
       href: `/${locale}/dashboard`,
     },
-    {
-      label: 'My Teacher',
-      icon: GraduationCap,
-      href: `/${locale}/dashboard/teacher`,
-    },
-    {
-      label: 'My Packages',
-      icon: BookOpen,
-      href: `/${locale}/dashboard/packages`,
-    },
-    {
-      label: 'Schedule',
-      icon: Calendar,
-      href: `/${locale}/dashboard/schedule`,
-    },
-    {
-      label: 'Progress',
-      icon: BarChart3,
-      href: `/${locale}/dashboard/progress`,
-    },
+  ];
+
+  // Add teacher routes if user is a teacher
+  if (isTeacher) {
+    baseRoutes.push(
+      {
+        label: 'Teacher Dashboard',
+        icon: BookText,
+        href: `/${locale}/dashboard/teacher/main`,
+      },
+      {
+        label: 'My Students',
+        icon: Users,
+        href: `/${locale}/dashboard/teacher/students`,
+      }
+    );
+  } else {
+    // Add student routes
+    baseRoutes.push(
+      {
+        label: 'My Teacher',
+        icon: GraduationCap,
+        href: `/${locale}/dashboard/teacher`,
+      },
+      {
+        label: 'My Packages',
+        icon: BookOpen,
+        href: `/${locale}/dashboard/packages`,
+      },
+      {
+        label: 'Schedule',
+        icon: Calendar,
+        href: `/${locale}/dashboard/schedule`,
+      },
+      {
+        label: 'Progress',
+        icon: BarChart3,
+        href: `/${locale}/dashboard/progress`,
+      }
+    );
+  }
+
+  // Common routes for both teachers and students
+  baseRoutes.push(
     {
       label: 'Messages',
       icon: MessageCircle,
@@ -58,8 +87,8 @@ const getRoutes = (locale: string, t: any, role: string | undefined) => {
       label: t('Payments.title'),
       icon: DollarSign,
       href: `/${locale}/dashboard/payments`,
-    },
-  ];
+    }
+  );
 
   // Add admin routes if user is admin
   if (role === 'ADMIN') {
@@ -81,10 +110,40 @@ export const DashboardSidebar = () => {
   const isMobile = useIsMobile();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Get user role using the proper hook
+  // Get user role and user data
   const { role } = useCurrentUserRole();
+  const user = useCurrentUser();
+  const { data: session, status, update } = useSession();
+  
+  // Use session user if useCurrentUser returns undefined (fallback)
+  const currentUser = user || session?.user;
+  const isTeacher = hasTeacherAccess(currentUser);
 
-  const routes = getRoutes(locale, t, role);
+  // Handle loading state
+  const isLoading = status === 'loading';
+
+  // Force session refresh if authenticated but user data is missing
+  useEffect(() => {
+    if (status === 'authenticated' && !user && session?.user) {
+      console.log('🔄 Forcing session refresh due to missing user data');
+      update();
+    }
+  }, [status, user, session?.user, update]);
+
+  console.log('🔍 CORRECT SIDEBAR DEBUG:', {
+    user: user,
+    currentUser: currentUser,
+    session: session,
+    role: role,
+    isTeacher: isTeacher,
+    status: status,
+    isLoading: isLoading,
+    userIsTeacherFlag: (currentUser as any)?.isTeacher,
+    userRoleFlag: (currentUser as any)?.role,
+    sessionUser: session?.user
+  });
+
+  const routes = getRoutes(locale, t, role, isTeacher);
 
   // Close sidebar on route change
   useEffect(() => {
@@ -116,13 +175,29 @@ export const DashboardSidebar = () => {
     if (isMobile && isSidebarOpen) {
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = 'unset';
     }
 
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = 'unset';
     };
   }, [isMobile, isSidebarOpen]);
+
+  // Show loading skeleton while session is loading
+  if (isLoading) {
+    console.log('🔍 SIDEBAR LOADING STATE');
+    return (
+      <aside className='w-64 h-full bg-background border-r'>
+        <div className='p-4'>
+          <div className='space-y-2'>
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className='h-10 bg-muted animate-pulse rounded' />
+            ))}
+          </div>
+        </div>
+      </aside>
+    );
+  }
 
   return (
     <>
