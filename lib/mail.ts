@@ -8,14 +8,24 @@ import {
   emailVerificationSubject,
   welcomeEmailTemplate,
   welcomeEmailSubject,
+  teacherAssignmentEmailTemplate,
+  teacherAssignmentEmailSubject,
+  classReminderEmailTemplate,
+  classReminderEmailSubject,
 } from './email-templates';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const domain = process.env.NEXT_PUBLIC_APP_URL;
+const defaultLocale = 'en'; // Default locale for email links
 
 // Email sender configuration
 const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+
+// Helper function to create localized URLs
+const createLocalizedUrl = (path: string, locale: string = defaultLocale) => {
+  return `${domain}/${locale}${path}`;
+};
 
 export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
   await resend.emails.send({
@@ -26,8 +36,15 @@ export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
   });
 };
 
-export const sendPasswordResetEmail = async (email: string, token: string) => {
-  const resetLink = `${domain}/auth/new-password?token=${token}`;
+export const sendPasswordResetEmail = async (
+  email: string,
+  token: string,
+  locale: string = defaultLocale
+) => {
+  const resetLink = createLocalizedUrl(
+    `/auth/new-password?token=${token}`,
+    locale
+  );
 
   await resend.emails.send({
     from: fromEmail,
@@ -37,8 +54,15 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
   });
 };
 
-export const sendVerificationEmail = async (email: string, token: string) => {
-  const confirmLink = `${domain}/auth/new-verification?token=${token}`;
+export const sendVerificationEmail = async (
+  email: string,
+  token: string,
+  locale: string = defaultLocale
+) => {
+  const confirmLink = createLocalizedUrl(
+    `/auth/new-verification?token=${token}`,
+    locale
+  );
 
   await resend.emails.send({
     from: fromEmail,
@@ -52,31 +76,16 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 export const sendWelcomeEmailToStudent = async (
   studentEmail: string,
   studentName: string,
-  teacherName?: string
+  teacherName?: string,
+  locale: string = defaultLocale
 ) => {
-  const html = `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <h2 style="color: #2563eb;">Welcome to Qodwa!</h2>
-      <p>Dear ${studentName},</p>
-      <p>Welcome to Qodwa! We're excited to have you join our learning community.</p>
-      ${teacherName ? `<p>You have been assigned to <strong>${teacherName}</strong> as your primary teacher.</p>` : ''}
-      <p>Your learning journey begins now. Here's what you can expect:</p>
-      <ul>
-        <li>Personalized learning experience</li>
-        <li>Regular feedback and progress tracking</li>
-        <li>Direct communication with your teacher</li>
-        <li>Access to learning materials and resources</li>
-      </ul>
-      <p>If you have any questions, feel free to contact your teacher or our support team.</p>
-      <p>Best regards,<br>The Qodwa Team</p>
-    </div>
-  `;
+  const dashboardLink = createLocalizedUrl('/dashboard', locale);
 
   await resend.emails.send({
     from: fromEmail,
     to: studentEmail,
-    subject: 'Welcome to Qodwa - Your Learning Journey Begins!',
-    html,
+    subject: welcomeEmailSubject('student'),
+    html: welcomeEmailTemplate(studentName, 'student', dashboardLink),
   });
 };
 
@@ -87,24 +96,16 @@ export const sendTeacherAssignmentEmailToStudent = async (
   teacherEmail: string,
   subjects?: string
 ) => {
-  const html = `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <h2 style="color: #2563eb;">New Teacher Assignment</h2>
-      <p>Dear ${studentName},</p>
-      <p>We're pleased to inform you that <strong>${teacherName}</strong> has been assigned as your teacher.</p>
-      ${subjects ? `<p><strong>Subjects:</strong> ${subjects}</p>` : ''}
-      <p><strong>Teacher Contact:</strong> ${teacherEmail}</p>
-      <p>Your teacher will be in touch soon to discuss your learning plan and schedule your first session.</p>
-      <p>We wish you all the best in your learning journey!</p>
-      <p>Best regards,<br>The Qodwa Team</p>
-    </div>
-  `;
-
   await resend.emails.send({
     from: fromEmail,
     to: studentEmail,
-    subject: 'Teacher Assignment - Qodwa',
-    html,
+    subject: teacherAssignmentEmailSubject,
+    html: teacherAssignmentEmailTemplate(
+      studentName,
+      teacherName,
+      teacherEmail,
+      subjects
+    ),
   });
 };
 
@@ -123,27 +124,17 @@ export const sendClassReminderToStudent = async (
     day: 'numeric',
   });
 
-  const html = `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <h2 style="color: #2563eb;">Class Reminder</h2>
-      <p>Dear ${studentName},</p>
-      <p>This is a friendly reminder about your upcoming class:</p>
-      <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-        <p><strong>Teacher:</strong> ${teacherName}</p>
-        <p><strong>Date:</strong> ${formattedDate}</p>
-        <p><strong>Time:</strong> ${classTime}</p>
-        ${subjects ? `<p><strong>Subject:</strong> ${subjects}</p>` : ''}
-      </div>
-      <p>Please make sure you're prepared and ready for your session. If you need to reschedule, please contact your teacher in advance.</p>
-      <p>Best regards,<br>The Qodwa Team</p>
-    </div>
-  `;
-
   await resend.emails.send({
     from: fromEmail,
     to: studentEmail,
-    subject: `Class Reminder - ${formattedDate}`,
-    html,
+    subject: classReminderEmailSubject(formattedDate),
+    html: classReminderEmailTemplate(
+      studentName,
+      teacherName,
+      formattedDate,
+      classTime,
+      subjects
+    ),
   });
 };
 
@@ -187,43 +178,16 @@ export const sendProgressUpdateToStudent = async (
 export const sendWelcomeEmailToTeacher = async (
   teacherEmail: string,
   teacherName: string,
-  approvalStatus?: 'APPROVED' | 'PENDING'
+  approvalStatus?: 'APPROVED' | 'PENDING',
+  locale: string = defaultLocale
 ) => {
-  const html = `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <h2 style="color: #2563eb;">Welcome to Qodwa Teacher Platform!</h2>
-      <p>Dear ${teacherName},</p>
-      <p>Welcome to the Qodwa teaching platform! We're thrilled to have you join our community of dedicated educators.</p>
-      
-      ${
-        approvalStatus === 'APPROVED'
-          ? `<div style="background-color: #d1fae5; border: 1px solid #10b981; padding: 15px; border-radius: 8px; margin: 20px 0;">
-             <p style="color: #065f46; margin: 0;"><strong>✅ Your account has been approved!</strong> You can now start accepting students and managing your classes.</p>
-           </div>`
-          : `<div style="background-color: #fef3c7; border: 1px solid #f59e0b; padding: 15px; border-radius: 8px; margin: 20px 0;">
-             <p style="color: #92400e; margin: 0;"><strong>⏳ Your account is under review.</strong> We'll notify you once your application has been approved.</p>
-           </div>`
-      }
-      
-      <p>As a Qodwa teacher, you'll have access to:</p>
-      <ul>
-        <li>Student management dashboard</li>
-        <li>Progress tracking tools</li>
-        <li>Direct communication with students and parents</li>
-        <li>Lesson planning resources</li>
-        <li>Performance analytics</li>
-      </ul>
-      
-      <p>If you have any questions about the platform or need assistance, our support team is here to help.</p>
-      <p>Best regards,<br>The Qodwa Team</p>
-    </div>
-  `;
+  const dashboardLink = createLocalizedUrl('/dashboard/teacher', locale);
 
   await resend.emails.send({
     from: fromEmail,
     to: teacherEmail,
-    subject: 'Welcome to Qodwa Teacher Platform!',
-    html,
+    subject: welcomeEmailSubject('teacher'),
+    html: welcomeEmailTemplate(teacherName, 'teacher', dashboardLink),
   });
 };
 

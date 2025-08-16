@@ -13,6 +13,14 @@ export {
   emailVerificationSubject,
 } from './email-verification';
 export { welcomeEmailTemplate, welcomeEmailSubject } from './welcome-email';
+export {
+  teacherAssignmentEmailTemplate,
+  teacherAssignmentEmailSubject,
+} from './teacher-assignment-email';
+export {
+  classReminderEmailTemplate,
+  classReminderEmailSubject,
+} from './class-reminder-email';
 
 // Template types for better type safety
 export interface EmailTemplateData {
