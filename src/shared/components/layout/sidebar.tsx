@@ -14,7 +14,10 @@ import {
   Settings,
   Shield,
   Users,
+  UserPlus,
   BookText,
+  ChevronDown,
+  ChevronRight,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
@@ -27,8 +30,20 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import useIsMobile from '@/shared/hooks/use-is-mobile';
 
-const getRoutes = (locale: string, t: any, role: string | undefined, isTeacher: boolean) => {
-  const baseRoutes = [
+interface RouteItem {
+  label: string;
+  icon: React.ComponentType<any>;
+  href?: string;
+  children?: RouteItem[];
+}
+
+const getRoutes = (
+  locale: string,
+  t: any,
+  role: string | undefined,
+  isTeacher: boolean
+): RouteItem[] => {
+  const baseRoutes: RouteItem[] = [
     {
       label: t('navigation.home'),
       icon: Home,
@@ -38,18 +53,11 @@ const getRoutes = (locale: string, t: any, role: string | undefined, isTeacher: 
 
   // Add teacher routes if user is a teacher
   if (isTeacher) {
-    baseRoutes.push(
-      {
-        label: 'Teacher Dashboard',
-        icon: BookText,
-        href: `/${locale}/dashboard/teacher/main`,
-      },
-      {
-        label: 'My Students',
-        icon: Users,
-        href: `/${locale}/dashboard/teacher/students`,
-      }
-    );
+    baseRoutes.push({
+      label: 'My Students',
+      icon: Users,
+      href: `/${locale}/dashboard/teacher/students`,
+    });
   } else {
     // Add student routes
     baseRoutes.push(
@@ -90,12 +98,28 @@ const getRoutes = (locale: string, t: any, role: string | undefined, isTeacher: 
     }
   );
 
-  // Add admin routes if user is admin
+  // Add admin dropdown if user is admin
   if (role === 'ADMIN') {
     baseRoutes.push({
-      label: 'Admin Dashboard',
+      label: 'Admin',
       icon: Shield,
-      href: `/${locale}/dashboard/admin`,
+      children: [
+        {
+          label: 'Dashboard',
+          icon: Home,
+          href: `/${locale}/dashboard/admin`,
+        },
+        {
+          label: 'Teacher Management',
+          icon: Users,
+          href: `/${locale}/dashboard/admin/teachers`,
+        },
+        {
+          label: 'Teacher Assignment',
+          icon: UserPlus,
+          href: `/${locale}/dashboard/admin/assign-teacher`,
+        },
+      ],
     });
   }
 
@@ -109,12 +133,15 @@ export const DashboardSidebar = () => {
   const isRTL = locale === 'ar';
   const isMobile = useIsMobile();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>(
+    {}
+  );
 
   // Get user role and user data
   const { role } = useCurrentUserRole();
   const user = useCurrentUser();
   const { data: session, status, update } = useSession();
-  
+
   // Use session user if useCurrentUser returns undefined (fallback)
   const currentUser = user || session?.user;
   const isTeacher = hasTeacherAccess(currentUser);
@@ -130,6 +157,19 @@ export const DashboardSidebar = () => {
     }
   }, [status, user, session?.user, update]);
 
+  // Additional effect to handle session state changes
+  useEffect(() => {
+    if (status === 'authenticated' && session?.user && !user) {
+      console.log(
+        '🔄 Session authenticated but useCurrentUser hook not updated, forcing refresh...'
+      );
+      // Small delay then force update
+      setTimeout(() => {
+        update();
+      }, 100);
+    }
+  }, [status, session, user, update]);
+
   console.log('🔍 CORRECT SIDEBAR DEBUG:', {
     user: user,
     currentUser: currentUser,
@@ -140,10 +180,30 @@ export const DashboardSidebar = () => {
     isLoading: isLoading,
     userIsTeacherFlag: (currentUser as any)?.isTeacher,
     userRoleFlag: (currentUser as any)?.role,
-    sessionUser: session?.user
+    sessionUser: session?.user,
   });
 
   const routes = getRoutes(locale, t, role, isTeacher);
+
+  // Toggle dropdown function
+  const toggleDropdown = (label: string) => {
+    setOpenDropdowns((prev) => ({
+      ...prev,
+      [label]: !prev[label],
+    }));
+  };
+
+  // Initialize admin dropdown as open if on admin page
+  useEffect(() => {
+    if (pathname.includes('/dashboard/admin')) {
+      setOpenDropdowns((prev) => ({ ...prev, Admin: true }));
+    }
+  }, [pathname]);
+
+  // Check if any admin route is active
+  const isAdminRouteActive = (children: any[]) => {
+    return children.some((child: any) => pathname === child.href);
+  };
 
   // Close sidebar on route change
   useEffect(() => {
@@ -239,22 +299,89 @@ export const DashboardSidebar = () => {
         dir={isRTL ? 'rtl' : 'ltr'}
       >
         <div className='flex flex-1 flex-col gap-2 p-4 pt-20'>
-          {routes.map((route) => (
-            <Link
-              key={route.href}
-              href={route.href}
-              className={cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all hover:bg-secondary',
-                pathname === route.href
-                  ? 'bg-secondary text-secondary-foreground'
-                  : 'text-muted-foreground',
-                isRTL && 'flex-row-reverse text-right'
-              )}
-            >
-              <route.icon className='h-4 w-4' />
-              {route.label}
-            </Link>
-          ))}
+          {routes.map((route: any) => {
+            // Handle dropdown routes
+            if (route.children) {
+              const isOpen = openDropdowns[route.label];
+              const hasActiveChild = isAdminRouteActive(route.children);
+
+              return (
+                <div key={route.label}>
+                  {/* Dropdown trigger */}
+                  <button
+                    onClick={() => toggleDropdown(route.label)}
+                    className={cn(
+                      'flex items-center justify-between w-full gap-3 rounded-lg px-3 py-2 text-sm transition-all hover:bg-secondary',
+                      hasActiveChild
+                        ? 'bg-secondary text-secondary-foreground'
+                        : 'text-muted-foreground',
+                      isRTL && 'flex-row-reverse text-right'
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        'flex items-center gap-3',
+                        isRTL && 'flex-row-reverse'
+                      )}
+                    >
+                      <route.icon className='h-4 w-4' />
+                      {route.label}
+                    </div>
+                    {isOpen ? (
+                      <ChevronDown className='h-4 w-4' />
+                    ) : (
+                      <ChevronRight className='h-4 w-4' />
+                    )}
+                  </button>
+
+                  {/* Dropdown content */}
+                  {isOpen && (
+                    <div
+                      className={cn(
+                        'ml-4 mt-1 space-y-1',
+                        isRTL && 'mr-4 ml-0'
+                      )}
+                    >
+                      {route.children.map((child: any) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className={cn(
+                            'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all hover:bg-secondary',
+                            pathname === child.href
+                              ? 'bg-secondary text-secondary-foreground'
+                              : 'text-muted-foreground',
+                            isRTL && 'flex-row-reverse text-right'
+                          )}
+                        >
+                          <child.icon className='h-4 w-4' />
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
+            // Handle regular routes
+            return (
+              <Link
+                key={route.href}
+                href={route.href}
+                className={cn(
+                  'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all hover:bg-secondary',
+                  pathname === route.href
+                    ? 'bg-secondary text-secondary-foreground'
+                    : 'text-muted-foreground',
+                  isRTL && 'flex-row-reverse text-right'
+                )}
+              >
+                <route.icon className='h-4 w-4' />
+                {route.label}
+              </Link>
+            );
+          })}
         </div>
       </div>
 

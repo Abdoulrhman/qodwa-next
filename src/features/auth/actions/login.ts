@@ -96,17 +96,12 @@ export const login = async (
     await signIn('credentials', {
       email,
       password,
-      redirectTo: callbackUrl || getDefaultLoginRedirect(locale),
+      redirect: false, // Don't redirect automatically
     });
   } catch (error: any) {
     // Handle NextAuth errors
     if (error?.type === 'CredentialsSignin') {
       return { error: 'Invalid credentials!' };
-    }
-
-    // Don't catch NEXT_REDIRECT errors - these are successful redirects
-    if (error?.message?.includes('NEXT_REDIRECT')) {
-      throw error;
     }
 
     if (error?.message) {

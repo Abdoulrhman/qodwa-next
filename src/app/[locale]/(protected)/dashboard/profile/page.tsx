@@ -1,7 +1,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Loader2, Camera, User, Mail, Lock, Check } from 'lucide-react';
+import {
+  Loader2,
+  Camera,
+  User,
+  Mail,
+  Lock,
+  Check,
+  GraduationCap,
+  Phone,
+  BookOpen,
+} from 'lucide-react';
 
 import { DashboardLayout } from '@/shared/components/layout/dashboard-layout';
 import {
@@ -16,16 +26,30 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { Textarea } from '@/components/ui/textarea';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import { useAuth } from '@/contexts/auth-context';
+import { useCurrentUser } from '@/features/auth/hooks/use-current-user';
+import { hasTeacherAccess } from '@/shared/utils/teacher-utils';
 import { cn } from '@/lib/utils';
 
 export default function ProfilePage() {
   const { user, isLoading } = useAuth();
+  const currentUser = useCurrentUser();
+  const isTeacher = hasTeacherAccess(currentUser);
+
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState({
     name: '',
     email: '',
+  });
+
+  // Teacher-specific state
+  const [teacherData, setTeacherData] = useState({
+    qualifications: '',
+    subjects: '',
+    teachingExperience: '',
+    phone: '',
   });
 
   useEffect(() => {
@@ -34,8 +58,19 @@ export default function ProfilePage() {
         name: user.name || '',
         email: user.email || '',
       });
+
+      // Populate teacher-specific data if user is a teacher
+      if (isTeacher) {
+        setTeacherData({
+          qualifications: (user as any)?.qualifications || '',
+          subjects: (user as any)?.subjects || '',
+          teachingExperience:
+            (user as any)?.teachingExperience?.toString() || '',
+          phone: (user as any)?.phone || '',
+        });
+      }
     }
-  }, [user]);
+  }, [user, isTeacher]);
 
   if (isLoading) {
     return (
@@ -208,6 +243,139 @@ export default function ProfilePage() {
             </CardContent>
           </Card>
         </div>
+
+        {/* Teacher Profile Section - Only shown for teachers */}
+        {isTeacher && (
+          <div className='grid gap-8 md:grid-cols-2'>
+            {/* Teaching Profile */}
+            <Card className='shadow-md border-orange-200 dark:border-orange-800'>
+              <CardHeader className='pb-4'>
+                <div className='flex items-center gap-2'>
+                  <GraduationCap className='h-5 w-5 text-orange-600' />
+                  <CardTitle>Teaching Profile</CardTitle>
+                </div>
+                <CardDescription>
+                  Manage your teaching credentials and experience
+                </CardDescription>
+              </CardHeader>
+              <CardContent className='space-y-4'>
+                <div className='space-y-2'>
+                  <Label htmlFor='subjects' className='text-sm font-medium'>
+                    Subjects
+                  </Label>
+                  <Input
+                    id='subjects'
+                    value={teacherData.subjects}
+                    onChange={(e) =>
+                      setTeacherData({
+                        ...teacherData,
+                        subjects: e.target.value,
+                      })
+                    }
+                    placeholder='e.g., Mathematics, Physics, Arabic'
+                    className='h-11'
+                  />
+                  <p className='text-xs text-muted-foreground'>
+                    Separate multiple subjects with commas
+                  </p>
+                </div>
+                <div className='space-y-2'>
+                  <Label htmlFor='experience' className='text-sm font-medium'>
+                    Teaching Experience (Years)
+                  </Label>
+                  <Input
+                    id='experience'
+                    type='number'
+                    value={teacherData.teachingExperience}
+                    onChange={(e) =>
+                      setTeacherData({
+                        ...teacherData,
+                        teachingExperience: e.target.value,
+                      })
+                    }
+                    placeholder='Enter years of experience'
+                    className='h-11'
+                    min='0'
+                  />
+                </div>
+                <div className='space-y-2'>
+                  <Label htmlFor='phone' className='text-sm font-medium'>
+                    Phone Number
+                  </Label>
+                  <Input
+                    id='phone'
+                    type='tel'
+                    value={teacherData.phone}
+                    onChange={(e) =>
+                      setTeacherData({ ...teacherData, phone: e.target.value })
+                    }
+                    placeholder='Enter your phone number'
+                    className='h-11'
+                  />
+                </div>
+                <Separator />
+                <Button className='w-full h-11 font-medium bg-orange-600 hover:bg-orange-700'>
+                  <GraduationCap className='mr-2 h-4 w-4' />
+                  Update Teaching Profile
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Qualifications */}
+            <Card className='shadow-md border-purple-200 dark:border-purple-800'>
+              <CardHeader className='pb-4'>
+                <div className='flex items-center gap-2'>
+                  <BookOpen className='h-5 w-5 text-purple-600' />
+                  <CardTitle>Qualifications</CardTitle>
+                </div>
+                <CardDescription>
+                  List your educational background and certifications
+                </CardDescription>
+              </CardHeader>
+              <CardContent className='space-y-4'>
+                <div className='space-y-2'>
+                  <Label
+                    htmlFor='qualifications'
+                    className='text-sm font-medium'
+                  >
+                    Education & Certifications
+                  </Label>
+                  <Textarea
+                    id='qualifications'
+                    value={teacherData.qualifications}
+                    onChange={(e) =>
+                      setTeacherData({
+                        ...teacherData,
+                        qualifications: e.target.value,
+                      })
+                    }
+                    placeholder='e.g., MSc Mathematics, Teaching Certificate, TESOL Certification'
+                    className='min-h-[120px] resize-none'
+                    rows={5}
+                  />
+                  <p className='text-xs text-muted-foreground'>
+                    List your degrees, certifications, and relevant
+                    qualifications
+                  </p>
+                </div>
+                <div className='bg-purple-50 dark:bg-purple-950/20 p-3 rounded-lg'>
+                  <p className='text-xs text-purple-700 dark:text-purple-300'>
+                    💡 Tip: Include university degrees, teaching certificates,
+                    language proficiency, and any specialized training.
+                  </p>
+                </div>
+                <Separator />
+                <Button
+                  variant='outline'
+                  className='w-full h-11 font-medium border-purple-600 text-purple-600 hover:bg-purple-50'
+                >
+                  <BookOpen className='mr-2 h-4 w-4' />
+                  Save Qualifications
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        )}
 
         {/* Account Statistics */}
         <Card className='shadow-md'>

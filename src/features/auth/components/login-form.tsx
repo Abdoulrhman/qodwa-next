@@ -65,12 +65,13 @@ export const LoginForm = () => {
           if (data?.success) {
             form.reset();
             setSuccess(data.success);
-            
-            // Force session update after successful login
-            setTimeout(async () => {
-              await update();
-              router.refresh();
-            }, 100);
+
+            // Show success message briefly, then redirect with full page reload
+            setTimeout(() => {
+              const redirectUrl = callbackUrl || `/${locale}/dashboard`;
+              // Use window.location for a complete page reload to ensure fresh session
+              window.location.href = redirectUrl;
+            }, 1000);
           }
 
           if (data?.twoFactor) {

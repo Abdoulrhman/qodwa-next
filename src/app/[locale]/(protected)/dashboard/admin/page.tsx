@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { RoleGate } from '@/features/auth/components/role-gate';
+import QuickEmailManager from '@/shared/components/quick-email-manager';
+import EmailTestPanel from '@/shared/components/email-test-panel';
+import EmailStatsCard from '@/shared/components/email-stats-card';
 import {
   Package,
   Users,
@@ -11,6 +14,7 @@ import {
   TrendingUp,
   Settings,
   Database,
+  Mail,
 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 
@@ -139,6 +143,59 @@ export default function AdminDashboard() {
             <CardHeader>
               <CardTitle className='flex items-center gap-2'>
                 <Users className='h-5 w-5' />
+                Teacher Management
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className='text-sm text-muted-foreground mb-4'>
+                Review teacher applications and manage approvals
+              </p>
+              <Button asChild className='w-full'>
+                <Link href='/dashboard/admin/teachers'>Manage Teachers</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className='flex items-center gap-2'>
+                <Users className='h-5 w-5' />
+                Teacher Assignment
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className='text-sm text-muted-foreground mb-4'>
+                Assign teachers to students and manage relationships
+              </p>
+              <Button asChild className='w-full'>
+                <Link href='/dashboard/admin/assign-teacher'>
+                  Assign Teachers
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className='flex items-center gap-2'>
+                <Mail className='h-5 w-5' />
+                Email Management
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className='text-sm text-muted-foreground mb-4'>
+                Send emails to students and teachers
+              </p>
+              <Button asChild className='w-full'>
+                <Link href='/dashboard/admin/emails'>Manage Emails</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className='flex items-center gap-2'>
+                <Users className='h-5 w-5' />
                 User Management
               </CardTitle>
             </CardHeader>
@@ -168,6 +225,22 @@ export default function AdminDashboard() {
               </Button>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Email Management Section */}
+        <div className='mt-8'>
+          <div className='flex items-center justify-between mb-6'>
+            <h2 className='text-2xl font-bold'>Email Management</h2>
+            <Button asChild variant='outline'>
+              <Link href='/dashboard/admin/emails'>Advanced Email Manager</Link>
+            </Button>
+          </div>
+
+          <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+            <QuickEmailManager />
+            <EmailTestPanel />
+            <EmailStatsCard />
+          </div>
         </div>
       </div>
     </RoleGate>

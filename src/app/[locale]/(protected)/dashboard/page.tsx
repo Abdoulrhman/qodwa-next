@@ -33,8 +33,11 @@ import { Progress } from '@/components/ui/progress';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { DashboardLayout } from '@/shared/components/layout/dashboard-layout';
 import { TodoList } from '@/features/dashboard/components/todo-list';
+import { TeacherDashboardOverview } from '@/features/teacher/components/teacher-dashboard-overview';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/auth-context';
+import { useCurrentUser } from '@/features/auth/hooks/use-current-user';
+import { hasTeacherAccess } from '@/shared/utils/teacher-utils';
 
 interface DashboardData {
   stats: {
@@ -80,6 +83,10 @@ export default function DashboardPage() {
   const isRTL = locale === 'ar';
   const { user } = useAuth();
   const userName = user?.name || '';
+
+  // Add teacher/student detection
+  const currentUser = useCurrentUser();
+  const isTeacher = hasTeacherAccess(currentUser);
 
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(
     null
@@ -212,6 +219,33 @@ export default function DashboardPage() {
     );
   }
 
+  // Render teacher dashboard if user is a teacher
+  if (isTeacher) {
+    return (
+      <DashboardLayout>
+        <div className='space-y-6' dir={isRTL ? 'rtl' : 'ltr'}>
+          {/* Welcome Header for Teacher */}
+          <div className={cn('space-y-4', isRTL && 'text-right')}>
+            <div className='flex items-center justify-between flex-wrap gap-4'>
+              <div className={cn('space-y-2', isRTL && 'text-right')}>
+                <h1 className='text-3xl font-bold'>
+                  Welcome back, {userName.split(' ')[0] || 'Teacher'} 👨‍🏫
+                </h1>
+                <p className='text-lg text-muted-foreground'>
+                  Here&apos;s an overview of your teaching activity
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Teacher Dashboard Content */}
+          <TeacherDashboardOverview />
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  // Render student dashboard if user is a student
   return (
     <DashboardLayout>
       <div className='space-y-6' dir={isRTL ? 'rtl' : 'ltr'}>

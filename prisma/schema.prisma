@@ -52,6 +52,10 @@ model User {
   birthDate             DateTime?
   gender                Gender?
   isTeacher             Boolean?               @default(false)
+  teacherApprovalStatus TeacherApprovalStatus? @default(PENDING)
+  teacherApprovedAt     DateTime?
+  teacherApprovedBy     String?               // ID of admin who approved
+  teacherRejectedReason String?               // Reason for rejection if any
   phone                 String?
   qualifications        String?
   referralSource        String?
@@ -175,6 +179,12 @@ enum UserRole {
 enum Gender {
   MALE
   FEMALE
+}
+
+enum TeacherApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }
 
 enum SubscriptionStatus {

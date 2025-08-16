@@ -1,7 +1,7 @@
 'use client';
 import { useLocale } from 'next-intl';
 import { useRouter, usePathname } from '@/i18n/routing';
-import { useCallback } from 'react';
+import { use, useCallback, useEffect } from 'react';
 
 const LanguageSwitcher: React.FC = () => {
   const locale = useLocale();
@@ -12,6 +12,10 @@ const LanguageSwitcher: React.FC = () => {
     const targetLocale = locale === 'ar' ? 'en' : 'ar';
     router.replace(pathname, { locale: targetLocale });
   }, [locale, router, pathname]);
+
+  useEffect(() => {
+    console.log(`Current locale: ${locale}`);
+  }, [locale]);
 
   return (
     <p

@@ -6,10 +6,10 @@ const prisma = new PrismaClient();
 async function createTeacher() {
   try {
     console.log('🧑‍🏫 Creating teacher user...');
-    
+
     // Hash the password
     const hashedPassword = await bcrypt.hash('password123', 12);
-    
+
     // Create the teacher user
     const teacher = await prisma.user.create({
       data: {
@@ -31,7 +31,6 @@ async function createTeacher() {
     console.log('👤 Name:', teacher.name);
     console.log('🎓 Role:', teacher.role);
     console.log('📚 Subjects:', teacher.subjects);
-    
   } catch (error) {
     if (error.code === 'P2002') {
       console.log('ℹ️  Teacher already exists with this email');
