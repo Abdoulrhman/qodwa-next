@@ -228,25 +228,6 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
               </li>
             )}
           </ul>
-
-          {/* Features Preview */}
-          {translatedFeatures && translatedFeatures.length > 0 && (
-            <div className='package-card__features-preview'>
-              {translatedFeatures.slice(0, 3).map((feature, index) => (
-                <div key={index} className='package-card__feature'>
-                  <BsCheckCircle size={12} />
-                  <span>{feature}</span>
-                </div>
-              ))}
-              {translatedFeatures.length > 3 && (
-                <span className='package-card__more-features'>
-                  <span className='package-card__features-count'>
-                    +{translatedFeatures.length - 3} more
-                  </span>
-                </span>
-              )}
-            </div>
-          )}
         </div>
 
         <div className='package-card__btn-wrapper'>
