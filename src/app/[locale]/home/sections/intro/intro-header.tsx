@@ -104,7 +104,9 @@ const IntroHeader: React.FC<IntroHeaderProps> = ({
         <ul className='intro__sidebar-nav'>
           {navLinks.map((link, index) => (
             <li key={index} className='intro__sidebar-nav-item'>
-              <Link href={link.href}>{t(`nav.${link.label}`)}</Link>
+              <Link href={link.href} onClick={() => setIsSidebarOpen(false)}>
+                {t(`nav.${link.label}`)}
+              </Link>
             </li>
           ))}
         </ul>
@@ -114,11 +116,14 @@ const IntroHeader: React.FC<IntroHeaderProps> = ({
             <>
               {isAuthenticated ? (
                 <div className='flex items-center gap-2'>
-                  <UserAvatar size={32} />
                   <ProfileMenu />
                 </div>
               ) : (
-                <Link href='/auth/login' locale={locale}>
+                <Link
+                  href='/auth/login'
+                  locale={locale}
+                  onClick={() => setIsSidebarOpen(false)}
+                >
                   {t('login')}
                 </Link>
               )}

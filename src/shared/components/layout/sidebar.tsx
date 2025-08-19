@@ -35,6 +35,7 @@ interface RouteItem {
   icon: React.ComponentType<any>;
   href?: string;
   children?: RouteItem[];
+  isActive?: boolean;
 }
 
 const getRoutes = (
@@ -43,87 +44,142 @@ const getRoutes = (
   role: string | undefined,
   isTeacher: boolean
 ): RouteItem[] => {
+  // Base routes available to all users
   const baseRoutes: RouteItem[] = [
     {
       label: t('navigation.home'),
       icon: Home,
       href: `/${locale}/dashboard`,
+      isActive: true,
     },
-  ];
+  ].filter((route) => route.isActive);
 
-  // Add teacher routes if user is a teacher
-  if (isTeacher) {
-    baseRoutes.push({
+  // Teacher-specific routes
+  const teacherRoutes: RouteItem[] = [
+    {
       label: 'My Students',
       icon: Users,
       href: `/${locale}/dashboard/teacher/students`,
-    });
-  } else {
-    // Add student routes
-    baseRoutes.push(
-      {
-        label: 'My Teacher',
-        icon: GraduationCap,
-        href: `/${locale}/dashboard/teacher`,
-      },
-      {
-        label: 'My Packages',
-        icon: BookOpen,
-        href: `/${locale}/dashboard/packages`,
-      },
-      {
-        label: 'Schedule',
-        icon: Calendar,
-        href: `/${locale}/dashboard/schedule`,
-      },
-      {
-        label: 'Progress',
-        icon: BarChart3,
-        href: `/${locale}/dashboard/progress`,
-      }
-    );
-  }
+      isActive: true,
+    },
+  ].filter((route) => route.isActive);
 
-  // Common routes for both teachers and students
-  baseRoutes.push(
+  // Student-specific routes
+  const studentRoutes: RouteItem[] = [
+    {
+      label: 'My Teacher',
+      icon: GraduationCap,
+      href: `/${locale}/dashboard/teacher`,
+      isActive: true,
+    },
+    {
+      label: 'My Packages',
+      icon: BookOpen,
+      href: `/${locale}/dashboard/packages`,
+      isActive: true,
+    },
+    {
+      label: 'Schedule',
+      icon: Calendar,
+      href: `/${locale}/dashboard/schedule`,
+      isActive: false,
+    },
+    {
+      label: 'Progress',
+      icon: BarChart3,
+      href: `/${locale}/dashboard/progress`,
+      isActive: false,
+    },
+  ].filter((route) => route.isActive);
+
+  // Admin-specific routes
+  const adminRoutes: RouteItem[] = [
+    {
+      label: t('navigation.admin.title'),
+      icon: Shield,
+      children: [
+        {
+          label: t('navigation.admin.dashboard'),
+          icon: Home,
+          href: `/${locale}/dashboard/admin`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.users'),
+          icon: Users,
+          href: `/${locale}/dashboard/admin/users`,
+          isActive: false,
+        },
+        {
+          label: t('navigation.admin.teachers'),
+          icon: GraduationCap,
+          href: `/${locale}/dashboard/admin/teachers`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.packages'),
+          icon: BookText,
+          href: `/${locale}/dashboard/admin/packages`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.subscriptions'),
+          icon: DollarSign,
+          href: `/${locale}/dashboard/admin/subscriptions`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.analytics'),
+          icon: BarChart3,
+          href: `/${locale}/dashboard/admin/analytics`,
+          isActive: false,
+        },
+        {
+          label: t('navigation.admin.settings'),
+          icon: Settings,
+          href: `/${locale}/dashboard/admin/settings`,
+          isActive: false,
+        },
+      ].filter((route) => route.isActive), // Filter out inactive routes
+    },
+  ];
+
+  // Common routes for teachers and students (not admins)
+  const commonRoutes: RouteItem[] = [
     {
       label: 'Messages',
       icon: MessageCircle,
       href: `/${locale}/dashboard/messages`,
+      isActive: false,
     },
     {
       label: t('Payments.title'),
       icon: DollarSign,
       href: `/${locale}/dashboard/payments`,
-    }
-  );
+      isActive: role === 'USER',
+    },
+  ].filter((route) => route.isActive);
 
-  // Add admin dropdown if user is admin
+  // Determine user type and build routes accordingly
+  let userType: 'admin' | 'teacher' | 'student' = 'student';
+
   if (role === 'ADMIN') {
-    baseRoutes.push({
-      label: 'Admin',
-      icon: Shield,
-      children: [
-        {
-          label: 'Dashboard',
-          icon: Home,
-          href: `/${locale}/dashboard/admin`,
-        },
-        {
-          label: 'Teacher Management',
-          icon: Users,
-          href: `/${locale}/dashboard/admin/teachers`,
-        },
-        {
-          label: 'Teacher Assignment',
-          icon: UserPlus,
-          href: `/${locale}/dashboard/admin/assign-teacher`,
-        },
-      ],
-    });
+    userType = 'admin';
+  } else if (isTeacher) {
+    userType = 'teacher';
   }
 
-  return baseRoutes;
+  switch (userType) {
+    case 'admin':
+      return [...baseRoutes, ...adminRoutes];
+
+    case 'teacher':
+      return [...baseRoutes, ...teacherRoutes, ...commonRoutes];
+
+    case 'student':
+    default:
+      return [...baseRoutes, ...studentRoutes, ...commonRoutes];
+  }
 };
 
 export const DashboardSidebar = () => {

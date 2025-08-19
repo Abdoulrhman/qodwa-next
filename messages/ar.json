@@ -285,7 +285,9 @@
         "Guide": "الدليل",
         "About Us": "من نحن",
         "Services": "خدماتنا",
-        "Contact Us": "اتصل بنا"
+        "Contact Us": "اتصل بنا",
+        "Apply as a Teacher": "التقدم كمعلم",
+        "Home": "الرئيسية"
       }
     }
   },
@@ -362,7 +364,17 @@
       "home": "الرئيسية",
       "profile": "الملف الشخصي",
       "settings": "الإعدادات",
-      "logout": "تسجيل الخروج"
+      "logout": "تسجيل الخروج",
+      "admin": {
+        "title": "الإدارة",
+        "dashboard": "لوحة التحكم",
+        "users": "إدارة المستخدمين",
+        "teachers": "إدارة المعلمين",
+        "packages": "إدارة الباقات",
+        "subscriptions": "الاشتراكات",
+        "analytics": "التحليلات",
+        "settings": "إعدادات النظام"
+      }
     },
     "home": {
       "welcome_message": "استمر في العمل الجيد ومواصلة رحلتك في تعلم القرآن واللغة العربية! كل خطوة تقربك من هدفك.",
@@ -382,6 +394,57 @@
       "no_subscriptions": "لا توجد اشتراكات",
       "no_subscriptions_description": "لم تشترك في أي باقة حتى الآن. تصفح الباقات المتاحة للبدء",
       "view_packages": "عرض الباقات"
+    },
+    "admin": {
+      "title": "لوحة تحكم الإدارة",
+      "welcome": "مساء الخير، المدير",
+      "subtitle": "استمر في العمل الجيد ومواصلة رحلة تعلم القرآن واللغة العربية! كل خطوة تقربك من هدفك.",
+      "discover_courses": "استكشف الدورات",
+      "stats": {
+        "enrolled_courses": "الدورات المسجلة",
+        "classes_completed": "الحصص المكتملة",
+        "study_hours": "ساعات الدراسة",
+        "current_streak": "المتتالية الحالية",
+        "days": "أيام"
+      },
+      "sections": {
+        "progress_overview": "نظرة عامة على التقدم",
+        "upcoming_classes": "الحصص القادمة",
+        "recent_activity": "النشاط الحديث",
+        "recent_achievements": "الإنجازات الحديثة",
+        "todo_list": "قائمة المهام",
+        "quick_actions": "الإجراءات السريعة"
+      },
+      "activities": {
+        "quran_memorization": "حصة حفظ القرآن",
+        "perfect_attendance": "أسبوع الحضور المثالي",
+        "tajweed_practice": "ممارسة التجويد"
+      },
+      "achievements": {
+        "first_surah_completed": "إكمال أول سورة",
+        "consistent_learner": "متعلم منتظم"
+      },
+      "quick_actions": {
+        "contact_teacher": "اتصال بالمعلم",
+        "my_packages": "باقاتي",
+        "messages": "الرسائل"
+      },
+      "management": {
+        "users": "إدارة المستخدمين",
+        "teachers": "إدارة المعلمين",
+        "packages": "إدارة الباقات",
+        "subscriptions": "إدارة الاشتراكات",
+        "analytics": "التحليلات والتقارير",
+        "settings": "إعدادات النظام"
+      },
+      "cards": {
+        "total_users": "إجمالي المستخدمين",
+        "total_teachers": "إجمالي المعلمين",
+        "active_subscriptions": "الاشتراكات النشطة",
+        "total_revenue": "إجمالي الإيرادات",
+        "pending_approvals": "الموافقات المعلقة",
+        "monthly_growth": "النمو الشهري"
+      }
     }
   },
   "Success": {

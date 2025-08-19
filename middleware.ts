@@ -16,15 +16,23 @@ const localeMiddleware = createMiddleware(routing);
 
 export default async function middleware(request: any) {
   const { nextUrl } = request;
-  const locale = request.nextUrl.pathname.split('/')[1];
 
-  // Get the pathname of the request
-  const pathname = nextUrl.pathname;
-
-  // Check if the pathname is an API auth route
-  if (pathname.startsWith(apiAuthPrefix)) {
+  // Check if the pathname is an API auth route - handle these first
+  if (nextUrl.pathname.startsWith(apiAuthPrefix)) {
     return NextResponse.next();
   }
+
+  // Apply locale middleware first to ensure proper locale detection
+  const localeResponse = localeMiddleware(request);
+  
+  // If the locale middleware returns a redirect, use it
+  if (localeResponse && localeResponse.status >= 300 && localeResponse.status < 400) {
+    return localeResponse;
+  }
+
+  // Now apply authentication logic
+  const locale = request.nextUrl.pathname.split('/')[1];
+  const pathname = nextUrl.pathname;
 
   // Get the token from the session
   const session = await auth();
@@ -59,8 +67,8 @@ export default async function middleware(request: any) {
     );
   }
 
-  console.log('✅ Middleware allowing request - applying locale middleware');
-  return localeMiddleware(request);
+  console.log('✅ Middleware allowing request with locale:', locale);
+  return localeResponse || NextResponse.next();
 }
 
 export const config = {

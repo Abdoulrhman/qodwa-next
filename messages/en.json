@@ -296,7 +296,9 @@
         "Guide": "Guide",
         "About Us": "About Us",
         "Services": "Services",
-        "Contact Us": "Contact Us"
+        "Contact Us": "Contact Us",
+        "Apply as a Teacher": "Apply as a Teacher",
+        "Home": "Home"
       },
       "login": "Login",
       "menu_button_label": "Toggle menu",
@@ -363,7 +365,17 @@
       "home": "Home",
       "profile": "Profile",
       "settings": "Settings",
-      "logout": "Logout"
+      "logout": "Logout",
+      "admin": {
+        "title": "Admin",
+        "dashboard": "Dashboard",
+        "users": "User Management",
+        "teachers": "Teacher Management",
+        "packages": "Package Management",
+        "subscriptions": "Subscriptions",
+        "analytics": "Analytics",
+        "settings": "System Settings"
+      }
     },
     "home": {
       "welcome_message": "Keep up the great work and continue your Quran & Arabic learning journey! Every step makes you closer to your goal.",
@@ -383,6 +395,57 @@
       "no_subscriptions": "No Subscriptions Found",
       "no_subscriptions_description": "You haven't subscribed to any packages yet. Browse our available packages to get started.",
       "view_packages": "View Packages"
+    },
+    "admin": {
+      "title": "Admin Dashboard",
+      "welcome": "Good Afternoon, Admin",
+      "subtitle": "Keep up the great work and continue your Quran & Arabic learning journey! Every step makes you closer to your goal.",
+      "discover_courses": "Discover Courses",
+      "stats": {
+        "enrolled_courses": "Enrolled Courses",
+        "classes_completed": "Classes Completed",
+        "study_hours": "Study Hours",
+        "current_streak": "Current Streak",
+        "days": "days"
+      },
+      "sections": {
+        "progress_overview": "Progress Overview",
+        "upcoming_classes": "Upcoming Classes",
+        "recent_activity": "Recent Activity",
+        "recent_achievements": "Recent Achievements",
+        "todo_list": "To-do List",
+        "quick_actions": "Quick Actions"
+      },
+      "activities": {
+        "quran_memorization": "Quran Memorization Class",
+        "perfect_attendance": "Perfect Attendance Week",
+        "tajweed_practice": "Tajweed Practice"
+      },
+      "achievements": {
+        "first_surah_completed": "First Surah Completed",
+        "consistent_learner": "Consistent Learner"
+      },
+      "quick_actions": {
+        "contact_teacher": "Contact Teacher",
+        "my_packages": "My Packages",
+        "messages": "Messages"
+      },
+      "management": {
+        "users": "User Management",
+        "teachers": "Teacher Management",
+        "packages": "Package Management",
+        "subscriptions": "Subscription Management",
+        "analytics": "Analytics & Reports",
+        "settings": "System Settings"
+      },
+      "cards": {
+        "total_users": "Total Users",
+        "total_teachers": "Total Teachers",
+        "active_subscriptions": "Active Subscriptions",
+        "total_revenue": "Total Revenue",
+        "pending_approvals": "Pending Approvals",
+        "monthly_growth": "Monthly Growth"
+      }
     }
   },
   "NotAuthorized": {

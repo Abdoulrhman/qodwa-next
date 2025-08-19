@@ -28,6 +28,7 @@ import {
 import { FormError } from '@/shared/components/form-error';
 import { FormSuccess } from '@/shared/components/form-success';
 import { registerTeacher } from '../actions/register';
+import NavigationHeader from '@/features/auth/components/nav-header';
 
 export const TeacherRegistrationForm = () => {
   const t = useTranslations();
@@ -71,6 +72,9 @@ export const TeacherRegistrationForm = () => {
 
   return (
     <div className='w-full max-w-2xl mx-auto'>
+      {/* Header with Logo and Back Button */}
+      <NavigationHeader />
+      
       <div className='text-center mb-8'>
         <h1 className='text-3xl font-bold text-foreground'>
           {t('teacherRegistration.title', { default: 'Join as a Teacher' })}
