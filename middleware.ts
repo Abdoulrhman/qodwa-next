@@ -24,9 +24,13 @@ export default async function middleware(request: any) {
 
   // Apply locale middleware first to ensure proper locale detection
   const localeResponse = localeMiddleware(request);
-  
+
   // If the locale middleware returns a redirect, use it
-  if (localeResponse && localeResponse.status >= 300 && localeResponse.status < 400) {
+  if (
+    localeResponse &&
+    localeResponse.status >= 300 &&
+    localeResponse.status < 400
+  ) {
     return localeResponse;
   }
 

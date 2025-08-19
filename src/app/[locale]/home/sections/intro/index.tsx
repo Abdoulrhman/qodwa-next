@@ -25,10 +25,8 @@ const HomeIntro: React.FC<HomeIntroProps> = ({
   // Dynamic navigation links based on page type
   const navLinks = isTeacherPage
     ? [
-        { label: 'Apply as a Teacher', href: '/teacher/register' },
         { label: 'Home', href: '/' },
-        { label: 'About Us', href: '#about-us' },
-        { label: 'Contact Us', href: '#contact-us' },
+        { label: 'Apply as a Teacher', href: '/teacher/register' },
       ]
     : [
         { label: 'Packages', href: '#packages' },

@@ -23,17 +23,13 @@ import { Button } from '@/components/ui/button';
 import { FormError } from '@/shared/components/form-error';
 import { FormSuccess } from '@/shared/components/form-success';
 import { login } from '@/features/auth/actions/login';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { update } = useSession();
   const callbackUrl = searchParams.get('callbackUrl');
-  const urlError =
-    searchParams.get('error') === 'OAuthAccountNotLinked'
-      ? 'Email already in use with different provider!'
-      : '';
 
   const [showTwoFactor, setShowTwoFactor] = useState(false);
   const [error, setError] = useState<string | undefined>('');
@@ -41,6 +37,12 @@ export const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
 
   const locale = useLocale();
+  const t = useTranslations('Auth.login');
+
+  const urlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? t('email_in_use_error')
+      : '';
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -83,8 +85,8 @@ export const LoginForm = () => {
   };
   return (
     <CardWrapper
-      headerLabel='🔐 Welcome back '
-      backButtonLabel="Don't have an account?"
+      headerLabel={t('title')}
+      backButtonLabel={t('no_account')}
       backButtonHref='register'
       showSocial
       useAuthHeader={true}
@@ -126,7 +128,7 @@ export const LoginForm = () => {
                   name='email'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>{t('email_label')}</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
@@ -144,7 +146,7 @@ export const LoginForm = () => {
                   name='password'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>{t('password_label')}</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
@@ -159,7 +161,7 @@ export const LoginForm = () => {
                         asChild
                         className='px-0 font-normal'
                       >
-                        <Link href='/auth/reset'>Forgot password?</Link>
+                        <Link href='/auth/reset'>{t('forgot_password')}</Link>
                       </Button>
                       <FormMessage />
                     </FormItem>
@@ -171,7 +173,7 @@ export const LoginForm = () => {
           <FormError message={error || urlError} />
           <FormSuccess message={success} />
           <Button disabled={isPending} type='submit' className='w-full'>
-            {showTwoFactor ? 'Confirm' : 'Login'}
+            {showTwoFactor ? 'Confirm' : t('submit')}
           </Button>
         </form>
       </Form>

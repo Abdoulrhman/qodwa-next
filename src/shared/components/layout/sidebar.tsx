@@ -57,7 +57,7 @@ const getRoutes = (
   // Teacher-specific routes
   const teacherRoutes: RouteItem[] = [
     {
-      label: 'My Students',
+      label: t('teacherStudents.title'),
       icon: Users,
       href: `/${locale}/dashboard/teacher/students`,
       isActive: true,
@@ -67,25 +67,25 @@ const getRoutes = (
   // Student-specific routes
   const studentRoutes: RouteItem[] = [
     {
-      label: 'My Teacher',
+      label: t('navigation.my_teacher'),
       icon: GraduationCap,
       href: `/${locale}/dashboard/teacher`,
       isActive: true,
     },
     {
-      label: 'My Packages',
+      label: t('navigation.my_packages'),
       icon: BookOpen,
       href: `/${locale}/dashboard/packages`,
       isActive: true,
     },
     {
-      label: 'Schedule',
+      label: t('navigation.schedule'),
       icon: Calendar,
       href: `/${locale}/dashboard/schedule`,
       isActive: false,
     },
     {
-      label: 'Progress',
+      label: t('navigation.progress'),
       icon: BarChart3,
       href: `/${locale}/dashboard/progress`,
       isActive: false,

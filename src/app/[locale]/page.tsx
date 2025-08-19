@@ -13,7 +13,7 @@ export default function Home() {
   const t = useTranslations('Home');
   const navLinks = [
     { label: 'Packages', href: '#packages' },
-    { label: 'How to Start', href: '#how-to-start' },
+    { label: 'Guide', href: '#how-to-start' },
     { label: 'About Us', href: '#about-us' },
     { label: 'Services', href: '#services' },
     { label: 'Contact Us', href: '#contact-us' },

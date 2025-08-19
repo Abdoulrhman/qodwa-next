@@ -33,8 +33,8 @@ export const ProfileMenu = () => {
           <UserAvatar />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent 
-        align={isRTL ? 'start' : 'end'} 
+      <DropdownMenuContent
+        align={isRTL ? 'start' : 'end'}
         className='w-56 z-[99999] relative'
         sideOffset={5}
       >

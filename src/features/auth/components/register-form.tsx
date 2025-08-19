@@ -4,6 +4,7 @@ import * as z from 'zod';
 import { useState, useTransition } from 'react';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 
 import { StudentFormSchema } from '@/shared/schemas';
 import { Input } from '@/components/ui/input';
@@ -32,6 +33,7 @@ import { register } from '@/features/auth/actions/register';
 type StudentFormValues = z.infer<typeof StudentFormSchema>;
 
 export const RegisterForm = () => {
+  const t = useTranslations('Auth.register');
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
@@ -66,8 +68,8 @@ export const RegisterForm = () => {
 
   return (
     <CardWrapper
-      headerLabel='Create an account'
-      backButtonLabel='Already have an account?'
+      headerLabel={t('title')}
+      backButtonLabel={t('has_account')}
       backButtonHref='login'
       showSocial
       useAuthHeader={true}
@@ -93,8 +95,12 @@ export const RegisterForm = () => {
             name='name'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
-                <Input {...field} disabled={isPending} placeholder='John Doe' />
+                <FormLabel>{t('name_label')}</FormLabel>
+                <Input
+                  {...field}
+                  disabled={isPending}
+                  placeholder={t('name_placeholder')}
+                />
                 <FormMessage />
               </FormItem>
             )}
@@ -105,11 +111,11 @@ export const RegisterForm = () => {
             name='email'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t('email_label')}</FormLabel>
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder='john.doe@example.com'
+                  placeholder={t('email_placeholder')}
                   type='email'
                 />
                 <FormMessage />
@@ -122,11 +128,11 @@ export const RegisterForm = () => {
             name='password'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t('password_label')}</FormLabel>
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder='******'
+                  placeholder={t('password_placeholder')}
                   type='password'
                 />
                 <FormMessage />
@@ -139,11 +145,11 @@ export const RegisterForm = () => {
             name='retypePassword'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Retype Password</FormLabel>
+                <FormLabel>{t('retype_password_label')}</FormLabel>
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder='******'
+                  placeholder={t('retype_password_placeholder')}
                   type='password'
                 />
                 <FormMessage />
@@ -156,11 +162,11 @@ export const RegisterForm = () => {
             name='phone'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone</FormLabel>
+                <FormLabel>{t('phone_label')}</FormLabel>
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder='+1-234-567-8900'
+                  placeholder={t('phone_placeholder')}
                 />
                 <FormMessage />
               </FormItem>
@@ -173,7 +179,7 @@ export const RegisterForm = () => {
               name='gender'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Gender</FormLabel>
+                  <FormLabel>{t('gender_label')}</FormLabel>
                   <Controller
                     control={methods.control}
                     name='gender'
@@ -183,13 +189,17 @@ export const RegisterForm = () => {
                         onValueChange={field.onChange}
                       >
                         <SelectTrigger className='w-full'>
-                          <SelectValue placeholder='Select gender' />
+                          <SelectValue placeholder={t('gender_placeholder')} />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectLabel>Gender</SelectLabel>
-                            <SelectItem value='MALE'>Male</SelectItem>
-                            <SelectItem value='FEMALE'>Female</SelectItem>
+                            <SelectLabel>{t('gender_label')}</SelectLabel>
+                            <SelectItem value='MALE'>
+                              {t('gender_male')}
+                            </SelectItem>
+                            <SelectItem value='FEMALE'>
+                              {t('gender_female')}
+                            </SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
@@ -205,7 +215,7 @@ export const RegisterForm = () => {
               name='birthDate'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Birth Date</FormLabel>
+                  <FormLabel>{t('birth_date_label')}</FormLabel>
                   <Input {...field} disabled={isPending} type='date' />
                   <FormMessage />
                 </FormItem>
@@ -218,22 +228,34 @@ export const RegisterForm = () => {
             name='referralSource'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Referral Source</FormLabel>
+                <FormLabel>{t('referral_source_label')}</FormLabel>
                 <Controller
                   control={methods.control}
                   name='referralSource'
                   render={({ field }) => (
                     <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger className='w-full'>
-                        <SelectValue placeholder='Select referral source' />
+                        <SelectValue
+                          placeholder={t('referral_source_placeholder')}
+                        />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          <SelectLabel>Referral Source</SelectLabel>
-                          <SelectItem value='Facebook'>Facebook</SelectItem>
-                          <SelectItem value='Google'>Google</SelectItem>
-                          <SelectItem value='Friend'>Friend</SelectItem>
-                          <SelectItem value='Others'>Others</SelectItem>
+                          <SelectLabel>
+                            {t('referral_source_label')}
+                          </SelectLabel>
+                          <SelectItem value='Facebook'>
+                            {t('referral_facebook')}
+                          </SelectItem>
+                          <SelectItem value='Google'>
+                            {t('referral_google')}
+                          </SelectItem>
+                          <SelectItem value='Friend'>
+                            {t('referral_friend')}
+                          </SelectItem>
+                          <SelectItem value='Others'>
+                            {t('referral_others')}
+                          </SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -247,7 +269,7 @@ export const RegisterForm = () => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button disabled={isPending} type='submit' className='w-full'>
-            Create an account
+            {t('submit')}
           </Button>
         </form>
       </FormProvider>

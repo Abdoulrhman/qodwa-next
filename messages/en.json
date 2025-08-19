@@ -142,48 +142,6 @@
       "description": "Learn Quran online with qualified teachers",
       "keywords": "quran, online learning, islamic studies"
     },
-    "Services": {
-      "header": "Our Services",
-      "title": "Enhance Your Quran Memorization with Our Expert Instructors",
-      "any_quran_memorization_path": {
-        "title": "Any Quran Memorization Path, Anytime",
-        "content": "Access and manage personalized Quran memorization plans. Your dedicated teachers and a structured curriculum are available at your convenience."
-      },
-      "browse_teacher_profiles": {
-        "title": "Browse Teacher Profiles",
-        "content": "Find certified Quran and Arabic teachers by reviewing their experience, qualifications, and student feedback before joining their classes."
-      },
-      "achieve_quran_goals_faster": {
-        "title": "Achieve Your Quran Goals Faster",
-        "content": "Accelerate your Quran memorization with personalized learning paths and on-demand sessions tailored to fit your schedule and progress."
-      },
-      "comprehensive_support": {
-        "title": "Comprehensive Support",
-        "content": "Our platform handles everything, from progress tracking to managing lessons and assignments, so you can focus solely on learning."
-      },
-      "teacher_flexibility": {
-        "title": "Teacher Flexibility",
-        "content": "Not satisfied with your current teacher? You can easily switch to another certified instructor who better matches your learning style."
-      },
-      "faster_quran_memorization": {
-        "title": "60% Faster Quran Memorization",
-        "content": "Our proven techniques and experienced teachers help you memorize the Quran more efficiently, without compromising quality."
-      },
-      "items": {
-        "quran": {
-          "title": "Quran Learning",
-          "description": "Learn Quran with tajweed from qualified teachers"
-        },
-        "islamic": {
-          "title": "Islamic Studies",
-          "description": "Learn about Islamic principles and values"
-        },
-        "arabic": {
-          "title": "Arabic Language",
-          "description": "Learn Arabic language from native speakers"
-        }
-      }
-    },
     "SuccessPayment": {
       "title": "Payment Successful",
       "content": "Your payment has been successfully processed. You will receive a confirmation email shortly.",
@@ -193,33 +151,6 @@
       "title": "Payment Canceled",
       "content": "Your payment has been canceled. You can return to the homepage to try again.",
       "goHome": "Go Home"
-    },
-    "TeacherServices": {
-      "title": "Enhance Your Teaching Skills with Our Expert Tools",
-      "guided_teaching_path": {
-        "title": "Guided Teaching Path",
-        "content": "Receive personalized guidance on structuring your Quran and Arabic lessons to best fit the students' learning paths."
-      },
-      "teacher_training": {
-        "title": "Teacher Training & Certification",
-        "content": "Participate in training programs to enhance your teaching methods and earn certifications recognized by the community."
-      },
-      "feedback_improvement": {
-        "title": "Receive and Improve Through Feedback",
-        "content": "Collect feedback from students and improve your teaching techniques to provide the best learning experience."
-      },
-      "efficient_scheduling": {
-        "title": "Efficient Scheduling",
-        "content": "Manage your class schedules effectively and efficiently with our built-in tools designed for Quran and Arabic teachers."
-      },
-      "performance_tracking": {
-        "title": "Performance Tracking",
-        "content": "Track student performance and adjust your teaching strategies to optimize their learning experience."
-      },
-      "collaborative_learning": {
-        "title": "Collaborative Learning Environment",
-        "content": "Work with other instructors to create a collaborative and supportive learning environment for all students."
-      }
     },
     "HowToStart": {
       "title": "How to get Started as a Student",
@@ -254,21 +185,21 @@
       "loading": "Loading"
     },
     "AboutTutor": {
-      "subtitle": "Know about classes",
-      "title": "We create unique digital media experiences",
-      "description": "Online courses from the world's leading experts. Our platform provides comprehensive learning solutions tailored to your needs.",
+      "subtitle": "Discover Quranic Learning",
+      "title": "We provide exceptional Quran and Arabic learning experiences",
+      "description": "Learn the Holy Quran and Arabic language with certified teachers. Our platform offers personalized learning paths designed specifically for Quranic memorization and Arabic mastery.",
       "features": {
         "professional": {
-          "title": "Professional Educators",
-          "description": "Get one-on-one help from our subject matter experts"
+          "title": "Certified Quran Teachers",
+          "description": "Learn from qualified instructors specialized in Quranic recitation and Arabic linguistics"
         },
         "support": {
-          "title": "Real-Time Support",
-          "description": "Ask questions over live chat or schedule a virtual meeting"
+          "title": "Personalized Guidance",
+          "description": "Receive individual attention and progress tracking for your memorization journey"
         },
         "access": {
-          "title": "Free Access",
-          "description": "Every course offers online tutoring at no additional charge"
+          "title": "Flexible Learning",
+          "description": "Study at your own pace with scheduled sessions that fit your lifestyle"
         }
       }
     },
@@ -276,16 +207,16 @@
       "header": "Contact Us",
       "cards": {
         "feedback": {
-          "title": "General Feedback",
-          "description": "Our friendly team is here to help"
+          "title": "Learning Support",
+          "description": "Get guidance on your Quran memorization journey"
         },
         "sales": {
-          "title": "Sales Inquiries",
-          "description": "Connect with our sales team"
+          "title": "Enrollment Inquiries",
+          "description": "Learn about our Quran and Arabic learning packages"
         },
         "technical": {
           "title": "Technical Support",
-          "description": "Get technical assistance"
+          "description": "Get help with platform features and technical issues"
         }
       }
     },
@@ -303,6 +234,34 @@
       "login": "Login",
       "menu_button_label": "Toggle menu",
       "close_menu": "Close menu"
+    },
+    "Services": {
+      "header": "Our Services",
+      "title": "Enhance Your Quran Memorization with Our Expert Instructors",
+      "any_quran_memorization_path": {
+        "title": "Any Quran Memorization Path, Anytime",
+        "content": "Access and manage personalized Quran memorization plans. Your dedicated teachers and a structured curriculum are available at your convenience."
+      },
+      "browse_teacher_profiles": {
+        "title": "Browse Teacher Profiles",
+        "content": "Find certified Quran and Arabic teachers by reviewing their experience, qualifications, and student feedback before joining their classes."
+      },
+      "achieve_quran_goals_faster": {
+        "title": "Achieve Your Quran Goals Faster",
+        "content": "Accelerate your Quran memorization with personalized learning paths and on-demand sessions tailored to fit your schedule and progress."
+      },
+      "comprehensive_support": {
+        "title": "Comprehensive Support",
+        "content": "Our platform handles everything, from progress tracking to managing lessons and assignments, so you can focus solely on learning."
+      },
+      "teacher_flexibility": {
+        "title": "Teacher Flexibility",
+        "content": "Choose from a variety of qualified teachers and switch between them based on your schedule and learning preferences."
+      },
+      "faster_quran_memorization": {
+        "title": "Faster Quran Memorization",
+        "content": "Achieve faster Quran memorization through structured lessons, regular practice sessions, and continuous teacher feedback."
+      }
     }
   },
   "PackageDetails": {
@@ -344,16 +303,49 @@
       "submit": "Login",
       "forgot_password": "Forgot password?",
       "no_account": "Don't have an account?",
-      "sign_up": "Sign up"
+      "sign_up": "Sign up",
+      "email_in_use_error": "Email already in use with different provider!"
     },
     "register": {
       "title": "Create an account",
       "name_label": "Name",
+      "name_placeholder": "John Doe",
       "email_label": "Email",
+      "email_placeholder": "john.doe@example.com",
       "password_label": "Password",
-      "submit": "Register",
+      "password_placeholder": "******",
+      "retype_password_label": "Retype Password",
+      "retype_password_placeholder": "******",
+      "phone_label": "Phone",
+      "phone_placeholder": "+1-234-567-8900",
+      "gender_label": "Gender",
+      "gender_placeholder": "Select gender",
+      "gender_male": "Male",
+      "gender_female": "Female",
+      "birth_date_label": "Birth Date",
+      "referral_source_label": "Referral Source",
+      "referral_source_placeholder": "Select referral source",
+      "referral_facebook": "Facebook",
+      "referral_google": "Google",
+      "referral_friend": "Friend",
+      "referral_others": "Others",
+      "submit": "Create an account",
       "has_account": "Already have an account?",
       "sign_in": "Sign in"
+    },
+    "reset": {
+      "title": "Forgot your password?",
+      "email_label": "Email",
+      "email_placeholder": "john.doe@example.com",
+      "submit": "Send reset email",
+      "back_to_login": "Back to login"
+    },
+    "new_password": {
+      "title": "Enter a new password",
+      "password_label": "Password",
+      "password_placeholder": "******",
+      "submit": "Reset password",
+      "back_to_login": "Back to login"
     }
   },
   "Dashboard": {
@@ -366,6 +358,11 @@
       "profile": "Profile",
       "settings": "Settings",
       "logout": "Logout",
+      "my_teacher": "My Teacher",
+      "my_packages": "My Packages",
+      "schedule": "Schedule",
+      "progress": "Progress",
+      "messages": "Messages",
       "admin": {
         "title": "Admin",
         "dashboard": "Dashboard",
@@ -591,5 +588,37 @@
     "nextClass": "Next class",
     "viewProgress": "View Progress",
     "message": "Message"
+  },
+  "Footer": {
+    "description": "Join our online Quran learning platform with certified teachers providing personalized instruction to help you achieve your spiritual goals.",
+    "quick_links": "Quick Links",
+    "all_rights_reserved": "All rights reserved"
+  },
+  "TeacherServices": {
+    "title": "Enhance Your Teaching Skills with Our Expert Tools",
+    "guided_teaching_path": {
+      "title": "Guided Teaching Path",
+      "content": "Receive personalized guidance on structuring your Quran and Arabic lessons to best fit the students' learning paths."
+    },
+    "teacher_training": {
+      "title": "Teacher Training & Certification",
+      "content": "Participate in training programs to enhance your teaching methods and earn certifications recognized by the community."
+    },
+    "feedback_improvement": {
+      "title": "Receive and Improve Through Feedback",
+      "content": "Collect feedback from students and improve your teaching techniques to provide the best learning experience."
+    },
+    "efficient_scheduling": {
+      "title": "Efficient Scheduling",
+      "content": "Manage your class schedules effectively and efficiently with our built-in tools designed for Quran and Arabic teachers."
+    },
+    "performance_tracking": {
+      "title": "Performance Tracking",
+      "content": "Track student performance and adjust your teaching strategies to optimize their learning experience."
+    },
+    "collaborative_learning": {
+      "title": "Collaborative Learning Environment",
+      "content": "Work with other instructors to create a collaborative and supportive learning environment for all students."
+    }
   }
 }

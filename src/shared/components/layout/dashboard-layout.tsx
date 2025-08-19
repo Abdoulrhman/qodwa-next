@@ -8,6 +8,7 @@ import { useLocale } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/shared/components/mode-toggle';
+import LanguageSwitcher from '@/shared/components/lang-switcher';
 import { ProfileMenu } from '@/features/dashboard/components/profile-menu';
 import { DashboardSidebar } from './sidebar';
 import { ThemeProvider } from 'next-themes';
@@ -48,6 +49,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               )}
             >
               <ModeToggle />
+              <LanguageSwitcher />
               <Button variant='ghost' size='icon'>
                 <Bell className='h-5 w-5' />
               </Button>

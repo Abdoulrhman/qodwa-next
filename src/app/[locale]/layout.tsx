@@ -23,11 +23,15 @@ export default async function LocaleLayout({
   const isRTL = locale === 'ar';
 
   return (
-    <html lang={locale} dir={isRTL ? 'rtl' : 'ltr'} suppressHydrationWarning={true}>
+    <html
+      lang={locale}
+      dir={isRTL ? 'rtl' : 'ltr'}
+      suppressHydrationWarning={true}
+    >
       <head>
         <link rel='icon' href='/favicon.ico' />
       </head>
-      <body 
+      <body
         className={`${inter.className} ${isRTL ? almarai.className : ''}`}
         suppressHydrationWarning={true}
       >

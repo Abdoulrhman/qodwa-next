@@ -5,10 +5,8 @@ import Footer from '@/shared/components/footer';
 
 const TeacherPage: React.FC = () => {
   const navLinks = [
-    { label: 'Apply as a Teacher', href: '/teacher/register' },
     { label: 'Home', href: '/' },
-    { label: 'About Us', href: '/about' },
-    { label: 'Contact', href: '/contact' },
+    { label: 'Apply as a Teacher', href: '/teacher/register' },
   ];
 
   return (

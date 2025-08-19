@@ -120,7 +120,7 @@ html {
 @media (max-width: 768px) {
   [data-radix-dropdown-menu-content],
   [data-radix-popper-content-wrapper],
-  [data-radix-portal] [role="menu"] {
+  [data-radix-portal] [role='menu'] {
     z-index: 99999 !important;
   }
 }
