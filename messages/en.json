@@ -358,6 +358,7 @@
       "profile": "Profile",
       "settings": "Settings",
       "logout": "Logout",
+      "free_session": "Free Session",
       "my_teacher": "My Teacher",
       "my_packages": "My Packages",
       "schedule": "Schedule",
@@ -369,6 +370,7 @@
         "users": "User Management",
         "teachers": "Teacher Management",
         "packages": "Package Management",
+        "freeSessions": "Free Sessions",
         "subscriptions": "Subscriptions",
         "analytics": "Analytics",
         "settings": "System Settings"
@@ -442,6 +444,59 @@
         "total_revenue": "Total Revenue",
         "pending_approvals": "Pending Approvals",
         "monthly_growth": "Monthly Growth"
+      },
+      "freeSessions": {
+        "title": "Free Sessions Management",
+        "description": "Manage all free session bookings and assignments",
+        "stats": {
+          "total": "Total Sessions",
+          "pending": "Pending",
+          "scheduled": "Scheduled",
+          "completed": "Completed",
+          "cancelled": "Cancelled"
+        },
+        "status": {
+          "pending": "Pending",
+          "scheduled": "Scheduled",
+          "completed": "Completed",
+          "cancelled": "Cancelled",
+          "noShow": "No Show"
+        },
+        "filters": {
+          "title": "Filters & Search",
+          "description": "Filter and search through free session bookings",
+          "searchPlaceholder": "Search by student name, email, or subject...",
+          "statusPlaceholder": "Filter by status",
+          "allStatuses": "All Statuses"
+        },
+        "table": {
+          "title": "Free Session Bookings",
+          "description": "Overview of all free session bookings",
+          "student": "Student",
+          "sessionDate": "Session Date",
+          "subject": "Subject",
+          "status": "Status",
+          "teacher": "Teacher",
+          "createdAt": "Created",
+          "actions": "Actions",
+          "noBookings": "No free sessions found",
+          "noBookingsDescription": "There are no free session bookings matching your criteria.",
+          "unassigned": "Unassigned"
+        },
+        "details": {
+          "title": "Session Details",
+          "description": "Complete information about the free session booking",
+          "student": "Student Information",
+          "session": "Session Information",
+          "teacher": "Teacher Information",
+          "studentNotes": "Student Notes"
+        },
+        "actions": {
+          "export": "Export",
+          "assign": "Assign Teacher",
+          "edit": "Edit",
+          "view": "View Details"
+        }
       }
     }
   },
@@ -619,6 +674,66 @@
     "collaborative_learning": {
       "title": "Collaborative Learning Environment",
       "content": "Work with other instructors to create a collaborative and supportive learning environment for all students."
+    }
+  },
+  "FreeSession": {
+    "title": "Free Session Booking",
+    "description": "Schedule your free trial session",
+    "bookingSuccess": "Your free session has been booked successfully! We will contact you soon to confirm the details.",
+    "form": {
+      "sessionDate": "Session Date",
+      "sessionTime": "Session Time",
+      "duration": "Duration",
+      "subject": "Subject",
+      "studentNotes": "Additional Notes",
+      "timezone": "Timezone",
+      "selectTime": "Select time",
+      "selectSubject": "Select subject",
+      "submitButton": "Book Free Session",
+      "submitting": "Booking...",
+      "timezoneDescription": "Your timezone is automatically detected based on your location",
+      "notesDescription": "Share your learning goals so we can customize the session to your needs",
+      "notesPlaceholder": "Tell us about your learning goals or any special requirements..."
+    },
+    "subjects": {
+      "quran-memorization": "Quran Memorization",
+      "quran-recitation": "Quran Recitation",
+      "tajweed": "Tajweed",
+      "arabic-language": "Arabic Language",
+      "islamic-studies": "Islamic Studies"
+    },
+    "status": {
+      "pending": "Pending",
+      "scheduled": "Scheduled",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "no_show": "No Show"
+    },
+    "dashboard": {
+      "title": "Free Sessions",
+      "description": "Manage and track your free sessions",
+      "bookNewSession": "Book New Session",
+      "welcome": "Welcome to Qodwa Platform!",
+      "welcomeDescription": "Book your first free session to evaluate your learning needs and start your Quran & Arabic learning journey",
+      "noBookings": "No Bookings Yet",
+      "noBookingsDescription": "Book your first free session to start your learning journey"
+    },
+    "tabs": {
+      "all": "All",
+      "pending": "Pending",
+      "scheduled": "Scheduled",
+      "completed": "Completed"
+    },
+    "booking": {
+      "sessionDetails": "Session Details",
+      "timeAndDuration": "Time & Duration",
+      "subject": "Subject",
+      "assignedTeacher": "Assigned Teacher",
+      "yourNotes": "Your Notes",
+      "teacherNotes": "Teacher Notes",
+      "joinSession": "Join Session",
+      "cancellationReason": "Cancellation Reason",
+      "minutes": "min"
     }
   }
 }

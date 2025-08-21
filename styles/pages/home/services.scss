@@ -3,6 +3,20 @@
   padding: 2rem;
   margin-block: 2rem;
 
+  // Mobile-specific padding adjustments
+  @media (max-width: 768px) {
+    padding: 1rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    margin-block: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem 0.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
   &__title {
     font-size: 2rem;
     max-width: 100%;

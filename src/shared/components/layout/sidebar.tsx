@@ -67,6 +67,12 @@ const getRoutes = (
   // Student-specific routes
   const studentRoutes: RouteItem[] = [
     {
+      label: t('navigation.free_session'),
+      icon: Calendar,
+      href: `/${locale}/dashboard/free-session`,
+      isActive: true,
+    },
+    {
       label: t('navigation.my_teacher'),
       icon: GraduationCap,
       href: `/${locale}/dashboard/teacher`,
@@ -120,6 +126,12 @@ const getRoutes = (
           label: t('navigation.admin.packages'),
           icon: BookText,
           href: `/${locale}/dashboard/admin/packages`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.freeSessions'),
+          icon: Calendar,
+          href: `/${locale}/dashboard/admin/free-sessions`,
           isActive: true,
         },
         {
@@ -322,7 +334,7 @@ export const DashboardSidebar = () => {
         <Button
           variant='ghost'
           size='icon'
-          className='fixed top-20 left-4 z-50'
+          className={cn('fixed top-20 z-50', isRTL ? 'right-4' : 'left-4')}
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         >
           <Menu className='h-5 w-5' />
@@ -341,7 +353,7 @@ export const DashboardSidebar = () => {
       <div
         id='dashboard-sidebar'
         className={cn(
-          'fixed h-full bg-background border-r z-50 transition-all duration-300',
+          'fixed h-full bg-background z-50 transition-all duration-300',
           isMobile
             ? isSidebarOpen
               ? 'translate-x-0'
@@ -349,7 +361,7 @@ export const DashboardSidebar = () => {
                 ? 'translate-x-56'
                 : '-translate-x-56'
             : 'translate-x-0',
-          isRTL ? 'right-0 border-l border-r-0' : 'left-0',
+          isRTL ? 'right-0 border-l border-r-0' : 'left-0 border-r border-l-0',
           'w-56'
         )}
         dir={isRTL ? 'rtl' : 'ltr'}

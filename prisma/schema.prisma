@@ -77,6 +77,8 @@ model User {
   accounts              Account[]
   twoFactorConfirmation TwoFactorConfirmation?
   subscriptions         Subscription[]
+  freeSessionBookings   FreeSessionBooking[]  @relation("StudentBookings")
+  teacherBookings       FreeSessionBooking[]  @relation("TeacherBookings")
 }
 
 model Account {
@@ -170,6 +172,31 @@ model TeacherStudent {
   @@map("teacher_students")
 }
 
+model FreeSessionBooking {
+  id                String               @id @default(cuid())
+  studentId         String
+  teacherId         String?              // Can be null initially, assigned later
+  sessionDate       DateTime
+  duration          Int                  @default(30) // Duration in minutes
+  status            FreeSessionStatus    @default(PENDING)
+  subject           String?              // Subject for the session (Quran, Arabic, etc.)
+  studentNotes      String?              // Notes from student about their goals/needs
+  teacherNotes      String?              // Notes from teacher after the session
+  meetingLink       String?              // Online meeting link
+  timezone          String?              // Student's timezone
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+  completedAt       DateTime?            // When the session was completed
+  cancelledAt       DateTime?            // When the session was cancelled
+  cancellationReason String?             // Reason for cancellation
+  
+  // Relations
+  student           User                 @relation("StudentBookings", fields: [studentId], references: [id], onDelete: Cascade)
+  teacher           User?                @relation("TeacherBookings", fields: [teacherId], references: [id], onDelete: SetNull)
+  
+  @@map("free_session_bookings")
+}
+
 enum UserRole {
   ADMIN
   USER
@@ -192,4 +219,12 @@ enum SubscriptionStatus {
   CANCELLED
   EXPIRED
   PENDING
+}
+
+enum FreeSessionStatus {
+  PENDING      // Waiting for teacher assignment
+  SCHEDULED    // Teacher assigned and confirmed
+  COMPLETED    // Session completed
+  CANCELLED    // Session cancelled
+  NO_SHOW      // Student didn't show up
 }

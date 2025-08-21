@@ -356,6 +356,7 @@
       "profile": "الملف الشخصي",
       "settings": "الإعدادات",
       "logout": "تسجيل الخروج",
+      "free_session": "الجلسة المجانية",
       "my_teacher": "معلمي",
       "my_packages": "باقاتي",
       "schedule": "الجدولة",
@@ -367,6 +368,7 @@
         "users": "إدارة المستخدمين",
         "teachers": "إدارة المعلمين",
         "packages": "إدارة الباقات",
+        "freeSessions": "الجلسات المجانية",
         "subscriptions": "الاشتراكات",
         "analytics": "التحليلات",
         "settings": "إعدادات النظام"
@@ -440,6 +442,59 @@
         "total_revenue": "إجمالي الإيرادات",
         "pending_approvals": "الموافقات المعلقة",
         "monthly_growth": "النمو الشهري"
+      },
+      "freeSessions": {
+        "title": "إدارة الجلسات المجانية",
+        "description": "إدارة جميع حجوزات الجلسات المجانية والمهام",
+        "stats": {
+          "total": "إجمالي الجلسات",
+          "pending": "قيد الانتظار",
+          "scheduled": "مجدولة",
+          "completed": "مكتملة",
+          "cancelled": "ملغية"
+        },
+        "status": {
+          "pending": "قيد الانتظار",
+          "scheduled": "مجدولة",
+          "completed": "مكتملة",
+          "cancelled": "ملغية",
+          "noShow": "غير حاضر"
+        },
+        "filters": {
+          "title": "المرشحات والبحث",
+          "description": "تصفية والبحث عبر حجوزات الجلسات المجانية",
+          "searchPlaceholder": "البحث بالاسم أو البريد الإلكتروني أو الموضوع...",
+          "statusPlaceholder": "تصفية حسب الحالة",
+          "allStatuses": "جميع الحالات"
+        },
+        "table": {
+          "title": "حجوزات الجلسات المجانية",
+          "description": "نظرة عامة على جميع حجوزات الجلسات المجانية",
+          "student": "الطالب",
+          "sessionDate": "تاريخ الجلسة",
+          "subject": "الموضوع",
+          "status": "الحالة",
+          "teacher": "المعلم",
+          "createdAt": "تاريخ الإنشاء",
+          "actions": "الإجراءات",
+          "noBookings": "لا توجد جلسات مجانية",
+          "noBookingsDescription": "لا توجد حجوزات جلسات مجانية تطابق معاييرك.",
+          "unassigned": "غير مخصص"
+        },
+        "details": {
+          "title": "تفاصيل الجلسة",
+          "description": "معلومات كاملة حول حجز الجلسة المجانية",
+          "student": "معلومات الطالب",
+          "session": "معلومات الجلسة",
+          "teacher": "معلومات المعلم",
+          "studentNotes": "ملاحظات الطالب"
+        },
+        "actions": {
+          "export": "تصدير",
+          "assign": "تخصيص معلم",
+          "edit": "تعديل",
+          "view": "عرض التفاصيل"
+        }
       }
     }
   },
@@ -563,6 +618,66 @@
     "collaborative_learning": {
       "title": "بيئة تعلم تعاونية",
       "content": "تعاون مع مدربين آخرين لخلق بيئة تعلم تعاونية وداعمة لجميع الطلاب."
+    }
+  },
+  "FreeSession": {
+    "title": "حجز جلسة مجانية",
+    "description": "احجز جلستك التجريبية المجانية",
+    "bookingSuccess": "تم حجز جلستك المجانية بنجاح! سنتواصل معك قريباً لتأكيد التفاصيل.",
+    "form": {
+      "sessionDate": "تاريخ الجلسة",
+      "sessionTime": "وقت الجلسة",
+      "duration": "المدة",
+      "subject": "الموضوع",
+      "studentNotes": "ملاحظات إضافية",
+      "timezone": "المنطقة الزمنية",
+      "selectTime": "اختر الوقت",
+      "selectSubject": "اختر الموضوع",
+      "submitButton": "احجز الجلسة المجانية",
+      "submitting": "جاري الحجز...",
+      "timezoneDescription": "يتم تحديد المنطقة الزمنية تلقائياً بناءً على موقعك",
+      "notesDescription": "شارك أهدافك التعليمية لنتمكن من تخصيص الجلسة حسب احتياجاتك",
+      "notesPlaceholder": "أخبرنا عن أهدافك التعليمية أو أي متطلبات خاصة..."
+    },
+    "subjects": {
+      "quran-memorization": "حفظ القرآن",
+      "quran-recitation": "تلاوة القرآن",
+      "tajweed": "التجويد",
+      "arabic-language": "اللغة العربية",
+      "islamic-studies": "الدراسات الإسلامية"
+    },
+    "status": {
+      "pending": "في الانتظار",
+      "scheduled": "مجدولة",
+      "completed": "مكتملة",
+      "cancelled": "ملغية",
+      "no_show": "لم يحضر"
+    },
+    "dashboard": {
+      "title": "الجلسات المجانية",
+      "description": "إدارة وتتبع جلساتك المجانية",
+      "bookNewSession": "احجز جلسة جديدة",
+      "welcome": "مرحباً بك في منصة قدوة!",
+      "welcomeDescription": "احجز جلستك المجانية الأولى لتقييم احتياجاتك التعليمية وبدء رحلتك في تعلم القرآن والعربية",
+      "noBookings": "لا توجد جلسات محجوزة",
+      "noBookingsDescription": "احجز جلستك المجانية الأولى لبدء رحلتك التعليمية"
+    },
+    "tabs": {
+      "all": "الكل",
+      "pending": "في الانتظار",
+      "scheduled": "مجدولة",
+      "completed": "مكتملة"
+    },
+    "booking": {
+      "sessionDetails": "تفاصيل الجلسة",
+      "timeAndDuration": "الوقت والمدة",
+      "subject": "الموضوع",
+      "assignedTeacher": "المعلم المختص",
+      "yourNotes": "ملاحظاتك",
+      "teacherNotes": "ملاحظات المعلم",
+      "joinSession": "انضم للجلسة",
+      "cancellationReason": "سبب الإلغاء",
+      "minutes": "دقيقة"
     }
   }
 }

@@ -10,6 +10,15 @@
     flex-direction: column;
     @include max-width(1200px);
     padding: 100px 0;
+
+    // Mobile-specific padding adjustments
+    @media (max-width: 768px) {
+      padding: 3rem 1rem;
+    }
+
+    @media (max-width: 480px) {
+      padding: 2rem 0.5rem;
+    }
   }
   .how-to-start-title {
     font-size: 40px;
@@ -87,8 +96,21 @@
 @media screen and (max-width: 768px) {
   .how-to-start-wrapper {
     .how-to-start-content {
+      .how-to-start-title {
+        font-size: 28px;
+        margin-bottom: 15px;
+      }
+      .how-to-start-subtitle {
+        font-size: 14px;
+        max-width: 90%;
+      }
       .how-to-start-main {
+        width: 95%;
+        margin-top: 15px;
         .how-to-start-main-points {
+          .points-number {
+            font-size: 72px;
+          }
           .points-wrapper {
             .points-wrapper-main {
               .points-content {
@@ -101,18 +123,58 @@
     }
   }
 }
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 480px) {
   .how-to-start-wrapper {
     .how-to-start-content {
+      .how-to-start-title {
+        font-size: 24px;
+        text-align: center;
+      }
+      .how-to-start-subtitle {
+        font-size: 13px;
+      }
       .how-to-start-main {
         flex-wrap: nowrap;
         flex-direction: column;
+        width: 100%;
+        gap: 30px;
         .how-to-start-main-points {
+          .points-number {
+            font-size: 60px;
+            text-align: center;
+          }
           .points-wrapper {
             flex-direction: column;
+            align-items: center;
+            text-align: center;
+            .points-wrapper-main {
+              .points-title {
+                justify-content: center;
+                .points-title-wrapper {
+                  .title {
+                    font-size: 18px;
+                  }
+                  .under-line {
+                    margin: 6px auto 24px;
+                  }
+                }
+              }
+              .points-content {
+                max-width: 280px;
+                text-align: center;
+              }
+            }
             .arrow {
+              margin-top: 20px;
               svg {
                 transform: rotate(90deg);
+              }
+            }
+          }
+          &:last-child {
+            .points-wrapper {
+              .arrow {
+                display: none;
               }
             }
           }
