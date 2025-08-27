@@ -75,8 +75,14 @@ export default function TeacherRecruitmentPage() {
       return;
     }
 
+    console.log('🚀 Starting email send process...');
+    console.log('Valid emails:', validEmails);
+    console.log('Subject:', subject);
+    console.log('Custom message length:', customMessage.length);
+
     setLoading(true);
     try {
+      console.log('📤 Making API request to /api/admin/teacher-recruitment');
       const response = await fetch('/api/admin/teacher-recruitment', {
         method: 'POST',
         headers: {
@@ -89,22 +95,34 @@ export default function TeacherRecruitmentPage() {
         }),
       });
 
+      console.log('📨 Response status:', response.status);
+      console.log('📨 Response ok:', response.ok);
+
       const data = await response.json();
+      console.log('📨 Response data:', data);
 
       if (!response.ok) {
+        console.error('❌ API Error:', data);
         throw new Error(data.error || 'Failed to send emails');
       }
 
       setLastResults(data.results);
+      console.log('✅ Emails sent successfully:', data);
       toast.success(data.message);
 
       // Clear form on success
       setEmailInput('');
       setCustomMessage('');
     } catch (error: any) {
-      console.error('Error sending recruitment emails:', error);
+      console.error('❌ Error sending recruitment emails:', error);
+      console.error('❌ Error details:', {
+        message: error.message,
+        stack: error.stack,
+        name: error.name
+      });
       toast.error(error.message || 'Failed to send recruitment emails');
     } finally {
+      console.log('🏁 Email send process completed');
       setLoading(false);
     }
   };
