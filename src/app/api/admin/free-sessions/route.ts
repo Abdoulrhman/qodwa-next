@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
-import { getAllFreeSessionBookings, updateFreeSessionBooking, UpdateFreeSessionBookingData } from '@/data/free-session-booking';
+import {
+  getAllFreeSessionBookings,
+  updateFreeSessionBooking,
+  UpdateFreeSessionBookingData,
+} from '@/data/free-session-booking';
 
 export async function GET(request: NextRequest) {
   try {

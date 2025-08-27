@@ -58,7 +58,32 @@
         "quarterly": "ربع سنوي",
         "half_year": "نصف سنوي",
         "yearly": "سنوي"
-      }
+      },
+      "title": "باقاتنا",
+      "subtitle": "اختر الباقة المناسبة لرحلة تعلم القرآن",
+      "view_details": "عرض التفاصيل",
+      "details_description": "معلومات مفصلة عن الباقة وميزاتها",
+      "subscription_frequency": "مدة الاشتراك",
+      "class_duration": "مدة الدرس",
+      "minutes": "دقيقة",
+      "minutes_title": "{duration} دقيقة",
+      "days_per_week": "{days} أيام في الأسبوع",
+      "price_details": "تفاصيل السعر",
+      "current_price": "السعر الحالي",
+      "original_price": "السعر الأصلي",
+      "per_class": "سعر الحصة",
+      "you_save": "توفر",
+      "package_details": "تفاصيل الباقة",
+      "subject": "المادة",
+      "level": "المستوى",
+      "whats_included": "ما هو مُتضمن",
+      "program_duration": "مدة البرنامج",
+      "duration_description": "تمتد هذه الباقة لـ {weeks} أسابيع مع {days} حصص في الأسبوع",
+      "enroll_now": "اشترك الآن",
+      "monthly": "شهري",
+      "quarterly": "ربع سنوي",
+      "semmi_annual": "نصف سنوي",
+      "yearly": "سنوي"
     },
     "PackageContent": {
       "8_classes": {
@@ -370,6 +395,9 @@
         "packages": "إدارة الباقات",
         "freeSessions": "الجلسات المجانية",
         "subscriptions": "الاشتراكات",
+        "notifications": "الإشعارات",
+        "teacherRecruitment": "توظيف المعلمين",
+        "emailDebug": "اختبار البريد الإلكتروني",
         "analytics": "التحليلات",
         "settings": "إعدادات النظام"
       }
@@ -508,27 +536,51 @@
     "go_home": "العودة للرئيسية",
     "logo_alt": "شعار قدوة"
   },
-  "Packages": {
-    "title": "باقاتنا",
-    "subtitle": "اختر الباقة المناسبة لرحلة تعلم القرآن",
-    "view_details": "عرض التفاصيل",
-    "details_description": "معلومات مفصلة عن الباقة وميزاتها",
-    "subscription_frequency": "مدة الاشتراك",
-    "class_duration": "مدة الدرس",
-    "minutes": "دقيقة",
-    "days_per_week": "{days} أيام في الأسبوع",
-    "price_details": "تفاصيل السعر",
-    "enroll_now": "اشترك الآن",
-    "monthly": "شهري",
-    "quarterly": "ربع سنوي",
-    "semmi_annual": "نصف سنوي",
-    "yearly": "سنوي"
-  },
   "Student": {
     "Register": {
       "platformName": "منصة قدوة",
       "testimonialQuote": "انضم إلى منصتنا لتعلم القرآن عبر الإنترنت وابدأ رحلتك اليوم",
       "testimonialAuthor": "فريق قدوة"
+    },
+    "Form": {
+      "title": "تسجيل الطالب",
+      "successMessage": "تم التسجيل بنجاح! يرجى التحقق من بريدك الإلكتروني للتحقق من الحساب.",
+      "errors": {
+        "invalidData": "بيانات النموذج غير صحيحة. يرجى التحقق من المدخلات.",
+        "emailExists": "يوجد مستخدم بهذا البريد الإلكتروني بالفعل.",
+        "unexpected": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقاً."
+      },
+      "fields": {
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "retypePassword": "إعادة كتابة كلمة المرور",
+        "phone": "الهاتف",
+        "gender": "الجنس",
+        "birthDate": "تاريخ الميلاد",
+        "referralSource": "مصدر الإحالة"
+      },
+      "placeholders": {
+        "name": "أدخل اسمك",
+        "email": "أدخل بريدك الإلكتروني",
+        "password": "أدخل كلمة المرور",
+        "retypePassword": "أعد كتابة كلمة المرور",
+        "phone": "+966-123-456-7890",
+        "gender": "اختر الجنس",
+        "referralSource": "اختر مصدر الإحالة"
+      },
+      "options": {
+        "male": "ذكر",
+        "female": "أنثى",
+        "facebook": "فيسبوك",
+        "google": "جوجل",
+        "friend": "صديق",
+        "others": "أخرى"
+      },
+      "buttons": {
+        "submitting": "جاري التسجيل...",
+        "register": "تسجيل"
+      }
     }
   },
   "Teacher": {
@@ -678,6 +730,268 @@
       "joinSession": "انضم للجلسة",
       "cancellationReason": "سبب الإلغاء",
       "minutes": "دقيقة"
+    }
+  },
+  "Common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح",
+    "failed": "فشل",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "pending": "قيد الانتظار",
+    "approved": "موافق عليه",
+    "rejected": "مرفوض",
+    "cancelled": "ملغي",
+    "completed": "مكتمل",
+    "expired": "منتهي الصلاحية",
+    "popular": "الأكثر شعبية",
+    "students": "الطلاب",
+    "teachers": "المعلمون",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "gender": "الجنس",
+    "male": "ذكر",
+    "female": "أنثى",
+    "save": "حفظ",
+    "save_changes": "حفظ التغييرات",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "view": "عرض",
+    "view_details": "عرض التفاصيل",
+    "actions": "الإجراءات",
+    "status": "الحالة",
+    "created_at": "تاريخ الإنشاء",
+    "updated_at": "تاريخ التحديث",
+    "search": "بحث",
+    "search_placeholder": "بحث...",
+    "no_results": "لا توجد نتائج",
+    "select_placeholder": "اختر خياراً",
+    "required": "مطلوب",
+    "optional": "اختياري",
+    "submit": "إرسال",
+    "submitting": "جاري الإرسال...",
+    "create": "إنشاء",
+    "update": "تحديث",
+    "confirm": "تأكيد",
+    "yes": "نعم",
+    "no": "لا",
+    "close": "إغلاق",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "home": "الرئيسية",
+    "dashboard": "لوحة التحكم",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "login": "تسجيل الدخول",
+    "register": "التسجيل",
+    "minutes": "دقائق",
+    "hours": "ساعات",
+    "days": "أيام",
+    "weeks": "أسابيع",
+    "months": "شهور",
+    "years": "سنوات",
+    "class": "حصة",
+    "total_classes": "إجمالي الحصص",
+    "frequency": "التكرار",
+    "duration": "المدة",
+    "schedule": "الجدول"
+  },
+  "Forms": {
+    "validation": {
+      "email_required": "البريد الإلكتروني مطلوب",
+      "email_invalid": "عنوان بريد إلكتروني غير صحيح",
+      "password_required": "كلمة المرور مطلوبة",
+      "password_min_length": "كلمة المرور يجب أن تكون على الأقل {length} أحرف",
+      "passwords_no_match": "كلمات المرور غير متطابقة",
+      "name_required": "الاسم مطلوب",
+      "name_min_length": "الاسم يجب أن يكون على الأقل {length} أحرف",
+      "name_max_length": "الاسم لا يمكن أن يتجاوز {length} حرف",
+      "phone_required": "رقم الهاتف مطلوب",
+      "phone_min_length": "رقم الهاتف يجب أن يكون على الأقل {length} أرقام",
+      "gender_required": "الجنس مطلوب",
+      "birth_date_invalid": "تنسيق تاريخ الميلاد غير صحيح. استخدم YYYY-MM-DD",
+      "qualifications_required": "يرجى تقديم مؤهلات مفصلة (الحد الأدنى {length} حرف)",
+      "subjects_required": "يرجى تحديد المواد التي يمكنك تدريسها",
+      "experience_negative": "سنوات الخبرة التدريسية لا يمكن أن تكون سالبة",
+      "experience_unrealistic": "يرجى إدخال عدد واقعي من السنوات",
+      "retype_password_required": "إعادة كتابة كلمة المرور مطلوبة",
+      "new_password_required": "كلمة المرور الجديدة مطلوبة!"
+    },
+    "placeholders": {
+      "enter_email": "أدخل بريدك الإلكتروني",
+      "enter_password": "أدخل كلمة المرور",
+      "enter_name": "أدخل اسمك",
+      "confirm_password": "أكد كلمة المرور",
+      "enter_phone": "أدخل رقم هاتفك",
+      "select_gender": "اختر الجنس",
+      "enter_qualifications": "أدخل مؤهلاتك",
+      "enter_subjects": "أدخل المواد التي تدرسها",
+      "enter_experience": "أدخل سنوات الخبرة",
+      "search_by_name_email": "البحث بالاسم أو البريد الإلكتروني..."
+    }
+  },
+  "UI": {
+    "placeholders": {
+      "enter_email_subject": "أدخل موضوع البريد الإلكتروني",
+      "enter_message": "أدخل رسالتك...",
+      "test_email_address": "أدخل بريدك الإلكتروني لتلقي رسائل اختبار",
+      "search_products": "البحث في المنتجات...",
+      "store_name": "اسم المتجر",
+      "project_name": "اسم المشروع",
+      "enter_current_password": "أدخل كلمة المرور الحالية",
+      "enter_new_password": "أدخل كلمة المرور الجديدة",
+      "confirm_new_password": "أكد كلمة المرور الجديدة",
+      "subjects_example": "مثال: الرياضيات، الفيزياء، العربية",
+      "qualifications_example": "مثال: ماجستير رياضيات، شهادة تدريس، شهادة TESOL",
+      "search_students": "البحث في الطلاب بالاسم أو البريد الإلكتروني...",
+      "select_student": "اختر طالباً",
+      "select_teacher": "اختر معلماً",
+      "assignment_notes": "أضف أي ملاحظات حول هذا التكليف...",
+      "search_packages": "البحث في الباقات...",
+      "package_title_example": "مثال: 30 دقيقة",
+      "package_description": "وصف الباقة...",
+      "subjects_list_example": "مثال: الإنجليزية، الرياضيات",
+      "features_example": "جلسات فردية، دعم الواجبات المنزلية، تتبع التقدم",
+      "rejection_reason": "يرجى شرح سبب رفض هذا الطلب..."
+    },
+    "labels": {
+      "recipients": "المستلمون",
+      "subject": "الموضوع",
+      "message": "الرسالة",
+      "test_email_address": "عنوان بريد إلكتروني للاختبار",
+      "email_recipients": "مستلمو البريد الإلكتروني",
+      "two_factor_code": "رمز المصادقة الثنائية",
+      "two_factor_authentication": "المصادقة الثنائية",
+      "experience": "الخبرة",
+      "subjects": "المواد",
+      "qualifications": "المؤهلات",
+      "current_status": "الحالة الحالية",
+      "rejection_reason": "سبب الرفض"
+    },
+    "buttons": {
+      "send_email": "إرسال بريد إلكتروني",
+      "test_first": "اختبر أولاً",
+      "quick_email": "بريد سريع",
+      "send_test_email": "إرسال بريد تجريبي",
+      "create_package": "إنشاء باقة"
+    },
+    "cards": {
+      "personal_information": "المعلومات الشخصية",
+      "password_security": "أمان كلمة المرور",
+      "teaching_profile": "الملف التدريسي",
+      "account_overview": "نظرة عامة على الحساب",
+      "store_name": "اسم المتجر",
+      "plugins_directory": "دليل الإضافات",
+      "package_details": "تفاصيل الباقة"
+    },
+    "sections": {
+      "single_email": "بريد إلكتروني واحد",
+      "bulk_email": "بريد إلكتروني جماعي"
+    }
+  },
+  "Permissions": {
+    "no_permission": "ليس لديك صلاحية لعرض هذا المحتوى!",
+    "loading": "جاري التحميل..."
+  },
+  "Email": {
+    "guide": {
+      "title": "دليل نظام البريد الإلكتروني",
+      "description": "دليل سريع لاستخدام نظام البريد الإلكتروني",
+      "test_first": "اختبر أولاً",
+      "test_description": "اختبر دائماً الرسائل قبل الإرسال للمجموعات",
+      "quick_email": "بريد سريع",
+      "quick_description": "إرسال رسائل فورية لجميع الطلاب أو المعلمين",
+      "targeted_emails": "رسائل مستهدفة",
+      "targeted_description": "إرسال رسائل شخصية لأفراد محددين",
+      "advanced_features": "ميزات متقدمة",
+      "advanced_description": "استخدام القوالب والجدولة للتواصل المهني",
+      "badges": {
+        "students": "الطلاب",
+        "teachers": "المعلمون",
+        "bulk_email": "بريد جماعي",
+        "test_mode": "وضع الاختبار"
+      }
+    },
+    "stats": {
+      "title": "إحصائيات البريد الإلكتروني",
+      "description": "نظرة عامة على أداء نظام البريد الإلكتروني",
+      "total_sent": "إجمالي المرسل",
+      "success_rate": "معدل النجاح",
+      "recent_activity": "النشاط الأخير",
+      "activities": {
+        "teacher_approval": "تم إرسال رسائل موافقة المعلمين",
+        "newsletter_scheduled": "تم جدولة النشرة الشهرية",
+        "welcome_new_students": "تم إرسال رسالة ترحيب لـ 5 طلاب جدد"
+      }
+    },
+    "manager": {
+      "title": "إدارة البريد الإلكتروني",
+      "description": "إرسال رسائل للطلاب والمعلمين"
+    },
+    "test": {
+      "title": "اختبار البريد الإلكتروني",
+      "description": "اختبار وظائف البريد الإلكتروني قبل الإرسال للمستخدمين",
+      "buttons": {
+        "test_welcome": "اختبار رسالة الترحيب",
+        "test_approval": "اختبار موافقة المعلم",
+        "test_bulk_students": "اختبار بريد الطلاب الجماعي"
+      }
+    },
+    "quick": {
+      "title": "مُرسل البريد السريع",
+      "description": "إرسال بريد سريع للطلاب أو المعلمين"
+    },
+    "errors": {
+      "fill_subject_message": "يرجى ملء الموضوع والرسالة",
+      "failed_to_send": "فشل في إرسال البريد الإلكتروني",
+      "enter_id": "يرجى إدخال معرف {type}",
+      "failed_test_email": "فشل في إرسال البريد التجريبي"
+    },
+    "success": {
+      "test_sent": "{message} - تحقق من بريدك الإلكتروني!"
+    }
+  },
+  "Profile": {
+    "sections": {
+      "account_status": "حالة الحساب",
+      "member_since": "عضو منذ",
+      "plan_type": "نوع الخطة"
+    }
+  },
+  "TeacherRequests": {
+    "title": "طلبات المعلمين",
+    "description": "إدارة طلبات تطبيقات المعلمين",
+    "headers": {
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "gender": "الجنس",
+      "experience": "الخبرة",
+      "subjects": "المواد",
+      "status": "الحالة",
+      "date": "تاريخ التقديم",
+      "actions": "الإجراءات"
+    },
+    "actions": {
+      "approve": "موافقة",
+      "reject": "رفض",
+      "view_details": "عرض التفاصيل"
+    },
+    "confirmations": {
+      "approve_teacher": "هل أنت متأكد من موافقتك على هذا المعلم؟",
+      "reject_teacher": "هل أنت متأكد من رفض هذا المعلم؟"
+    },
+    "success": {
+      "teacher_approved": "تمت الموافقة على المعلم بنجاح",
+      "teacher_rejected": "تم رفض المعلم بنجاح"
+    },
+    "errors": {
+      "action_failed": "فشل الإجراء. يرجى المحاولة مرة أخرى."
     }
   }
 }

@@ -39,6 +39,7 @@ import {
   Clock,
   CheckCircle,
   XCircle,
+  UserPlus,
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -58,8 +59,18 @@ interface Teacher {
   totalConnectionCount: number;
 }
 
+interface Student {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  createdAt: string;
+  assignedTeacherId?: string;
+}
+
 export default function TeacherManagementPage() {
   const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<
@@ -68,9 +79,14 @@ export default function TeacherManagementPage() {
   const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
   const [rejectionReason, setRejectionReason] = useState('');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isAssignDialogOpen, setIsAssignDialogOpen] = useState(false);
+  const [selectedStudentIds, setSelectedStudentIds] = useState<string[]>([]);
+  const [teacherForAssignment, setTeacherForAssignment] = useState<Teacher | null>(null);
+  const [studentSearchTerm, setStudentSearchTerm] = useState('');
 
   useEffect(() => {
     fetchTeachers();
+    fetchStudents();
   }, []);
 
   const fetchTeachers = async () => {
@@ -89,6 +105,25 @@ export default function TeacherManagementPage() {
       toast.error('Failed to load teachers');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchStudents = async () => {
+    try {
+      const response = await fetch('/api/admin/users?role=USER');
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        console.error('API Error:', errorData);
+        throw new Error('Failed to fetch students');
+      }
+
+      const data = await response.json();
+      console.log('Fetched students:', data);
+      setStudents(data.users || []);
+    } catch (error) {
+      console.error('Error fetching students:', error);
+      toast.error('Failed to load students');
     }
   };
 
@@ -138,6 +173,57 @@ export default function TeacherManagementPage() {
     }
   };
 
+  const handleAssignStudents = async () => {
+    if (!teacherForAssignment || selectedStudentIds.length === 0) {
+      toast.error('Please select students to assign');
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/admin/student-assignments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          teacherId: teacherForAssignment.id,
+          studentIds: selectedStudentIds,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to assign students');
+      }
+
+      toast.success(`Successfully assigned ${selectedStudentIds.length} student(s) to ${teacherForAssignment.name}`);
+      setIsAssignDialogOpen(false);
+      setSelectedStudentIds([]);
+      setTeacherForAssignment(null);
+      await fetchTeachers();
+      await fetchStudents();
+    } catch (error) {
+      console.error('Error assigning students:', error);
+      toast.error('Failed to assign students');
+    }
+  };
+
+  const openAssignDialog = (teacher: Teacher) => {
+    setTeacherForAssignment(teacher);
+    setIsAssignDialogOpen(true);
+    setSelectedStudentIds([]);
+    setStudentSearchTerm('');
+    // Refresh students data when dialog opens
+    fetchStudents();
+  };
+
+  const handleStudentSelection = (studentId: string) => {
+    setSelectedStudentIds(prev => 
+      prev.includes(studentId) 
+        ? prev.filter(id => id !== studentId)
+        : [...prev, studentId]
+    );
+  };
+
   const filteredTeachers = teachers.filter((teacher) => {
     const matchesSearch =
       teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -145,6 +231,13 @@ export default function TeacherManagementPage() {
     const matchesStatus =
       statusFilter === 'ALL' || teacher.teacherApprovalStatus === statusFilter;
     return matchesSearch && matchesStatus;
+  });
+
+  const filteredStudents = students.filter((student) => {
+    const matchesSearch =
+      student.name.toLowerCase().includes(studentSearchTerm.toLowerCase()) ||
+      student.email.toLowerCase().includes(studentSearchTerm.toLowerCase());
+    return matchesSearch;
   });
 
   const getStatusBadge = (status: string) => {
@@ -511,6 +604,17 @@ export default function TeacherManagementPage() {
                             </Dialog>
                           </>
                         )}
+
+                        {teacher.teacherApprovalStatus === 'APPROVED' && (
+                          <Button
+                            variant='outline'
+                            size='sm'
+                            onClick={() => openAssignDialog(teacher)}
+                            className='text-blue-600 hover:text-blue-700'
+                          >
+                            <UserPlus className='w-4 h-4' />
+                          </Button>
+                        )}
                       </div>
                     </TableCell>
                   </TableRow>
@@ -525,6 +629,124 @@ export default function TeacherManagementPage() {
             )}
           </CardContent>
         </Card>
+
+        {/* Student Assignment Dialog */}
+        <Dialog open={isAssignDialogOpen} onOpenChange={setIsAssignDialogOpen}>
+          <DialogContent className='max-w-4xl max-h-[80vh] overflow-y-auto'>
+            <DialogHeader>
+              <DialogTitle>Assign Students to {teacherForAssignment?.name}</DialogTitle>
+              <DialogDescription>
+                Select students to assign to this teacher. You can assign multiple students at once.
+              </DialogDescription>
+            </DialogHeader>
+            
+            <div className='space-y-4'>
+              {/* Search Students */}
+              <div className='relative'>
+                <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4' />
+                <Input
+                  placeholder='Search students by name or email...'
+                  value={studentSearchTerm}
+                  onChange={(e) => setStudentSearchTerm(e.target.value)}
+                  className='pl-10'
+                />
+              </div>
+
+              {/* Selected Students Count */}
+              {selectedStudentIds.length > 0 && (
+                <div className='bg-blue-50 p-3 rounded-lg'>
+                  <p className='text-sm text-blue-700'>
+                    {selectedStudentIds.length} student(s) selected for assignment
+                  </p>
+                </div>
+              )}
+
+              {/* Students List */}
+              <div className='border rounded-lg max-h-96 overflow-y-auto'>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className='w-12'>Select</TableHead>
+                      <TableHead>Student</TableHead>
+                      <TableHead>Contact</TableHead>
+                      <TableHead>Current Teacher</TableHead>
+                      <TableHead>Joined</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {filteredStudents.map((student) => (
+                      <TableRow key={student.id}>
+                        <TableCell>
+                          <input
+                            type='checkbox'
+                            checked={selectedStudentIds.includes(student.id)}
+                            onChange={() => handleStudentSelection(student.id)}
+                            className='w-4 h-4 text-blue-600 rounded focus:ring-blue-500'
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <div>
+                            <div className='font-medium'>{student.name}</div>
+                            <div className='text-sm text-muted-foreground'>
+                              {student.email}
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className='text-sm'>
+                            {student.phone || 'No phone'}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className='text-sm'>
+                            {student.assignedTeacherId ? (
+                              <Badge variant='secondary'>Assigned</Badge>
+                            ) : (
+                              <Badge variant='outline'>Unassigned</Badge>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className='text-sm text-muted-foreground'>
+                            {new Date(student.createdAt).toLocaleDateString()}
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                
+                {filteredStudents.length === 0 && (
+                  <div className='text-center py-8 text-muted-foreground'>
+                    No students found matching your search.
+                  </div>
+                )}
+              </div>
+
+              {/* Action Buttons */}
+              <div className='flex justify-end gap-2 pt-4 border-t'>
+                <Button
+                  variant='outline'
+                  onClick={() => {
+                    setIsAssignDialogOpen(false);
+                    setSelectedStudentIds([]);
+                    setTeacherForAssignment(null);
+                    setStudentSearchTerm('');
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={handleAssignStudents}
+                  disabled={selectedStudentIds.length === 0}
+                  className='bg-blue-600 hover:bg-blue-700'
+                >
+                  Assign {selectedStudentIds.length} Student(s)
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </RoleGate>
   );

@@ -8,6 +8,7 @@ import { TeacherRegistrationSchema } from '@/shared/schemas';
 import { getUserByEmail } from '@/data/user';
 import { generateVerificationToken } from '@/lib/tokens';
 import { sendVerificationEmail } from '@/lib/mail';
+import { sendAdminNotification } from '@/lib/admin-notifications';
 
 export const registerTeacher = async (
   values: z.infer<typeof TeacherRegistrationSchema>
@@ -68,6 +69,28 @@ export const registerTeacher = async (
       verificationToken.email,
       verificationToken.token
     );
+
+    // Send admin notification for new teacher registration
+    try {
+      await sendAdminNotification({
+        type: 'TEACHER_REGISTRATION',
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          isTeacher: user.isTeacher,
+          phone: user.phone,
+          gender: user.gender,
+          qualifications: user.qualifications,
+          subjects: user.subjects,
+          teachingExperience: user.teachingExperience,
+        },
+      });
+    } catch (error) {
+      console.error('Failed to send admin notification:', error);
+      // Don't fail the registration if notification fails
+    }
 
     return {
       success:

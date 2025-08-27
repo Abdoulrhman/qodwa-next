@@ -1,12 +1,12 @@
 'use client';
 
 import * as z from 'zod';
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 
-import { TeacherRegistrationSchema } from '@/shared/schemas';
+import { createTranslatedSchemas } from '@/shared/schemas';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -35,6 +35,10 @@ export const TeacherRegistrationForm = () => {
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
+
+  // Create translated schema
+  const schemas = useMemo(() => createTranslatedSchemas(t), [t]);
+  const TeacherRegistrationSchema = schemas.TeacherRegistrationSchema;
 
   const form = useForm<z.infer<typeof TeacherRegistrationSchema>>({
     resolver: zodResolver(TeacherRegistrationSchema),

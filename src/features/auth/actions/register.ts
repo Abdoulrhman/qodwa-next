@@ -8,6 +8,7 @@ import { StudentFormSchema } from '@/shared/schemas';
 import { getUserByEmail } from '@/data/user';
 import { sendVerificationEmail } from '@/lib/mail';
 import { generateVerificationToken } from '@/lib/tokens';
+import { sendAdminNotification } from '@/lib/admin-notifications';
 
 export const register = async (values: z.infer<typeof StudentFormSchema>) => {
   const validatedFields = StudentFormSchema.safeParse(values);
@@ -35,7 +36,7 @@ export const register = async (values: z.infer<typeof StudentFormSchema>) => {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  await db.user.create({
+  const user = await db.user.create({
     data: {
       name,
       email,
@@ -48,8 +49,28 @@ export const register = async (values: z.infer<typeof StudentFormSchema>) => {
     },
   });
 
+  // Send verification email
   const verificationToken = await generateVerificationToken(email);
   await sendVerificationEmail(verificationToken.email, verificationToken.token);
+
+  // Send admin notification for new user registration
+  try {
+    await sendAdminNotification({
+      type: 'USER_REGISTRATION',
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        isTeacher: user.isTeacher,
+        phone: user.phone,
+        gender: user.gender,
+      },
+    });
+  } catch (error) {
+    console.error('Failed to send admin notification:', error);
+    // Don't fail the registration if notification fails
+  }
 
   return { success: 'Confirmation email sent!' };
 };

@@ -2,11 +2,11 @@
 
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 
-import { ResetSchema } from '@/shared/schemas';
+import { createTranslatedSchemas } from '@/shared/schemas';
 import { Input } from '@/components/ui/input';
 import {
   Form,
@@ -23,10 +23,14 @@ import { FormSuccess } from '@/shared/components/form-success';
 import { reset } from '@/features/auth/actions/reset';
 
 export const ResetForm = () => {
-  const t = useTranslations('Auth.reset');
+  const t = useTranslations();
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
+
+  // Create translated schema
+  const schemas = useMemo(() => createTranslatedSchemas(t), [t]);
+  const ResetSchema = schemas.ResetSchema;
 
   const form = useForm<z.infer<typeof ResetSchema>>({
     resolver: zodResolver(ResetSchema),

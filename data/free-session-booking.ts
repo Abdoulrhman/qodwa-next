@@ -176,42 +176,42 @@ export const updateFreeSessionBooking = async (
     const setClauses: string[] = [];
     const values: any[] = [];
     let paramIndex = 1;
-    
+
     if (data.teacherId !== undefined) {
       setClauses.push(`"teacherId" = $${paramIndex++}`);
       values.push(data.teacherId);
     }
-    
+
     if (data.sessionDate !== undefined) {
       setClauses.push(`"sessionDate" = $${paramIndex++}`);
       values.push(data.sessionDate);
     }
-    
+
     if (data.status !== undefined) {
       setClauses.push(`status = $${paramIndex++}::"FreeSessionStatus"`);
       values.push(data.status);
     }
-    
+
     if (data.teacherNotes !== undefined) {
       setClauses.push(`"teacherNotes" = $${paramIndex++}`);
       values.push(data.teacherNotes);
     }
-    
+
     if (data.meetingLink !== undefined) {
       setClauses.push(`"meetingLink" = $${paramIndex++}`);
       values.push(data.meetingLink);
     }
-    
+
     if (data.completedAt !== undefined) {
       setClauses.push(`"completedAt" = $${paramIndex++}`);
       values.push(data.completedAt);
     }
-    
+
     if (data.cancelledAt !== undefined) {
       setClauses.push(`"cancelledAt" = $${paramIndex++}`);
       values.push(data.cancelledAt);
     }
-    
+
     if (data.cancellationReason !== undefined) {
       setClauses.push(`"cancellationReason" = $${paramIndex++}`);
       values.push(data.cancellationReason);
@@ -230,14 +230,14 @@ export const updateFreeSessionBooking = async (
       SET ${setClauses.join(', ')}
       WHERE id = $${paramIndex}
     `;
-    
+
     values.push(id);
-    
+
     // Debug logging
     console.log('📝 SQL Query:', query);
     console.log('📝 Parameters:', values);
     console.log('📝 Parameter count:', values.length);
-    
+
     await db.$executeRawUnsafe(query, ...values);
 
     // Fetch the updated booking
@@ -293,7 +293,8 @@ export const getAllFreeSessionBookings = async (
       FROM free_session_bookings fsb
       ${whereClause}
     `;
-    const totalResult = await db.$queryRawUnsafe<{ count: number }[]>(totalQuery);
+    const totalResult =
+      await db.$queryRawUnsafe<{ count: number }[]>(totalQuery);
     const total = Number(totalResult[0]?.count || 0);
 
     // Get bookings with pagination
@@ -322,7 +323,8 @@ export const getAllFreeSessionBookings = async (
       ORDER BY fsb."createdAt" DESC
       LIMIT ${limit} OFFSET ${offset}
     `;
-    const bookings = await db.$queryRawUnsafe<FreeSessionBooking[]>(bookingsQuery);
+    const bookings =
+      await db.$queryRawUnsafe<FreeSessionBooking[]>(bookingsQuery);
 
     return { bookings, total };
   } catch (error) {

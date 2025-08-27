@@ -18,6 +18,9 @@ import {
   BookText,
   ChevronDown,
   ChevronRight,
+  Bell,
+  Bug,
+  Mail,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
@@ -114,7 +117,7 @@ const getRoutes = (
           label: t('navigation.admin.users'),
           icon: Users,
           href: `/${locale}/dashboard/admin/users`,
-          isActive: false,
+          isActive: true,
         },
         {
           label: t('navigation.admin.teachers'),
@@ -138,6 +141,24 @@ const getRoutes = (
           label: t('navigation.admin.subscriptions'),
           icon: DollarSign,
           href: `/${locale}/dashboard/admin/subscriptions`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.notifications'),
+          icon: Bell,
+          href: `/${locale}/dashboard/admin/notifications`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.teacherRecruitment'),
+          icon: Mail,
+          href: `/${locale}/dashboard/admin/teacher-recruitment`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.emailDebug'),
+          icon: Bug,
+          href: `/${locale}/dashboard/admin/debug/email`,
           isActive: true,
         },
         {

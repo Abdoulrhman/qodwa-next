@@ -13,6 +13,8 @@ import { ProfileMenu } from '@/features/dashboard/components/profile-menu';
 import { DashboardSidebar } from './sidebar';
 import { ThemeProvider } from 'next-themes';
 import { cn } from '@/lib/utils';
+import { useCurrentUser } from '@/src/hooks/use-current-user';
+import NotificationBell from '@/src/components/admin/notification-bell';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -21,6 +23,7 @@ interface DashboardLayoutProps {
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const locale = useLocale();
   const isRTL = locale === 'ar';
+  const user = useCurrentUser();
 
   return (
     <ThemeProvider attribute='class' defaultTheme='system' enableSystem>

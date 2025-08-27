@@ -66,8 +66,19 @@
       "subscription_frequency": "Subscription Frequency",
       "class_duration": "Class Duration",
       "minutes": "Minutes",
+      "minutes_title": "{duration} Minutes",
       "days_per_week": "{days} Days per Week",
       "price_details": "Price Details",
+      "current_price": "Current Price",
+      "original_price": "Original Price",
+      "per_class": "Per Class",
+      "you_save": "You Save",
+      "package_details": "Package Details",
+      "subject": "Subject",
+      "level": "Level",
+      "whats_included": "What's Included",
+      "program_duration": "Program Duration",
+      "duration_description": "This package runs for {weeks} weeks with {days} classes per week",
       "enroll_now": "Enroll Now",
       "monthly": "Monthly",
       "quarterly": "Quarterly",
@@ -372,6 +383,9 @@
         "packages": "Package Management",
         "freeSessions": "Free Sessions",
         "subscriptions": "Subscriptions",
+        "notifications": "Notifications",
+        "teacherRecruitment": "Teacher Recruitment",
+        "emailDebug": "Email Debug",
         "analytics": "Analytics",
         "settings": "System Settings"
       }
@@ -734,6 +748,268 @@
       "joinSession": "Join Session",
       "cancellationReason": "Cancellation Reason",
       "minutes": "min"
+    }
+  },
+  "Common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "failed": "Failed",
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled",
+    "completed": "Completed",
+    "expired": "Expired",
+    "popular": "Popular",
+    "students": "Students",
+    "teachers": "Teachers",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "save": "Save",
+    "save_changes": "Save Changes",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "view_details": "View Details",
+    "actions": "Actions",
+    "status": "Status",
+    "created_at": "Created At",
+    "updated_at": "Updated At",
+    "search": "Search",
+    "search_placeholder": "Search...",
+    "no_results": "No results found",
+    "select_placeholder": "Select an option",
+    "required": "Required",
+    "optional": "Optional",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "create": "Create",
+    "update": "Update",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register",
+    "minutes": "minutes",
+    "hours": "hours",
+    "days": "days",
+    "weeks": "weeks",
+    "months": "months",
+    "years": "years",
+    "class": "class",
+    "total_classes": "total classes",
+    "frequency": "Frequency",
+    "duration": "Duration",
+    "schedule": "Schedule"
+  },
+  "Forms": {
+    "validation": {
+      "email_required": "Email is required",
+      "email_invalid": "Invalid email address",
+      "password_required": "Password is required",
+      "password_min_length": "Password must be at least {length} characters",
+      "passwords_no_match": "Passwords do not match",
+      "name_required": "Name is required",
+      "name_min_length": "Name must be at least {length} characters",
+      "name_max_length": "Name cannot exceed {length} characters",
+      "phone_required": "Phone number is required",
+      "phone_min_length": "Phone number must be at least {length} digits",
+      "gender_required": "Gender is required",
+      "birth_date_invalid": "Invalid birth date format. Use YYYY-MM-DD",
+      "qualifications_required": "Please provide detailed qualifications (minimum {length} characters)",
+      "subjects_required": "Please specify subjects you can teach",
+      "experience_negative": "Teaching experience cannot be negative",
+      "experience_unrealistic": "Please enter a realistic number of years",
+      "retype_password_required": "Retype Password is required",
+      "new_password_required": "New password is required!"
+    },
+    "placeholders": {
+      "enter_email": "Enter your email",
+      "enter_password": "Enter your password",
+      "enter_name": "Enter your name",
+      "confirm_password": "Confirm your password",
+      "enter_phone": "Enter your phone number",
+      "select_gender": "Select gender",
+      "enter_qualifications": "Enter your qualifications",
+      "enter_subjects": "Enter subjects you teach",
+      "enter_experience": "Enter years of experience",
+      "search_by_name_email": "Search by name or email..."
+    }
+  },
+  "UI": {
+    "placeholders": {
+      "enter_email_subject": "Enter email subject",
+      "enter_message": "Enter your message...",
+      "test_email_address": "Enter your email to receive test emails",
+      "search_products": "Search products...",
+      "store_name": "Store Name",
+      "project_name": "Project Name",
+      "enter_current_password": "Enter current password",
+      "enter_new_password": "Enter new password",
+      "confirm_new_password": "Confirm new password",
+      "subjects_example": "e.g., Mathematics, Physics, Arabic",
+      "qualifications_example": "e.g., MSc Mathematics, Teaching Certificate, TESOL Certification",
+      "search_students": "Search students by name or email...",
+      "select_student": "Select a student",
+      "select_teacher": "Select a teacher",
+      "assignment_notes": "Add any notes about this assignment...",
+      "search_packages": "Search packages...",
+      "package_title_example": "e.g., 30 Minutes",
+      "package_description": "Package description...",
+      "subjects_list_example": "e.g., English, Math",
+      "features_example": "1-on-1 sessions, Homework support, Progress tracking",
+      "rejection_reason": "Please explain why this application is being rejected..."
+    },
+    "labels": {
+      "recipients": "Recipients",
+      "subject": "Subject",
+      "message": "Message",
+      "test_email_address": "Test Email Address",
+      "email_recipients": "Email Recipients",
+      "two_factor_code": "Two Factor Code",
+      "two_factor_authentication": "Two Factor Authentication",
+      "experience": "Experience",
+      "subjects": "Subjects",
+      "qualifications": "Qualifications",
+      "current_status": "Current Status",
+      "rejection_reason": "Rejection Reason"
+    },
+    "buttons": {
+      "send_email": "Send Email",
+      "test_first": "Test First",
+      "quick_email": "Quick Email",
+      "send_test_email": "Send Test Email",
+      "create_package": "Create Package"
+    },
+    "cards": {
+      "personal_information": "Personal Information",
+      "password_security": "Password Security",
+      "teaching_profile": "Teaching Profile",
+      "account_overview": "Account Overview",
+      "store_name": "Store Name",
+      "plugins_directory": "Plugins Directory",
+      "package_details": "Package Details"
+    },
+    "sections": {
+      "single_email": "Single Email",
+      "bulk_email": "Bulk Email"
+    }
+  },
+  "Permissions": {
+    "no_permission": "You do not have permission to view this content!",
+    "loading": "Loading..."
+  },
+  "Email": {
+    "guide": {
+      "title": "Email System Guide",
+      "description": "Quick guide to using the email system",
+      "test_first": "Test First",
+      "test_description": "Always test emails before sending to groups",
+      "quick_email": "Quick Email",
+      "quick_description": "Send immediate emails to all students or teachers",
+      "targeted_emails": "Targeted Emails",
+      "targeted_description": "Send personalized emails to specific individuals",
+      "advanced_features": "Advanced Features",
+      "advanced_description": "Use templates and scheduling for professional communication",
+      "badges": {
+        "students": "Students",
+        "teachers": "Teachers",
+        "bulk_email": "Bulk Email",
+        "test_mode": "Test Mode"
+      }
+    },
+    "stats": {
+      "title": "Email Statistics",
+      "description": "Overview of email system performance",
+      "total_sent": "Total Sent",
+      "success_rate": "Success Rate",
+      "recent_activity": "Recent Activity",
+      "activities": {
+        "teacher_approval": "Teacher approval emails sent",
+        "newsletter_scheduled": "Monthly newsletter scheduled",
+        "welcome_new_students": "Welcome email sent to 5 new students"
+      }
+    },
+    "manager": {
+      "title": "Email Management",
+      "description": "Send emails to students and teachers"
+    },
+    "test": {
+      "title": "Email Testing",
+      "description": "Test email functionality before sending to users",
+      "buttons": {
+        "test_welcome": "Test Welcome Email",
+        "test_approval": "Test Teacher Approval",
+        "test_bulk_students": "Test Bulk Students Email"
+      }
+    },
+    "quick": {
+      "title": "Quick Email Sender",
+      "description": "Send a quick email to students or teachers"
+    },
+    "errors": {
+      "fill_subject_message": "Please fill in subject and message",
+      "failed_to_send": "Failed to send email",
+      "enter_id": "Please enter {type} ID",
+      "failed_test_email": "Failed to send test email"
+    },
+    "success": {
+      "test_sent": "{message} - Check your email!"
+    }
+  },
+  "Profile": {
+    "sections": {
+      "account_status": "Account Status",
+      "member_since": "Member Since",
+      "plan_type": "Plan Type"
+    }
+  },
+  "TeacherRequests": {
+    "title": "Teacher Requests",
+    "description": "Manage teacher application requests",
+    "headers": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "gender": "Gender",
+      "experience": "Experience",
+      "subjects": "Subjects",
+      "status": "Status",
+      "date": "Applied Date",
+      "actions": "Actions"
+    },
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "view_details": "View Details"
+    },
+    "confirmations": {
+      "approve_teacher": "Are you sure you want to approve this teacher?",
+      "reject_teacher": "Are you sure you want to reject this teacher?"
+    },
+    "success": {
+      "teacher_approved": "Teacher approved successfully",
+      "teacher_rejected": "Teacher rejected successfully"
+    },
+    "errors": {
+      "action_failed": "Action failed. Please try again."
     }
   }
 }

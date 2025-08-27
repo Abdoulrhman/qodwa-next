@@ -95,7 +95,8 @@ export function AdminFreeSessionsDashboard() {
   const [totalPages, setTotalPages] = useState(1);
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedBooking, setSelectedBooking] = useState<FreeSessionBooking | null>(null);
+  const [selectedBooking, setSelectedBooking] =
+    useState<FreeSessionBooking | null>(null);
   const [isUpdating, setIsUpdating] = useState(false);
 
   const limit = 10;
@@ -166,11 +167,26 @@ export function AdminFreeSessionsDashboard() {
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      PENDING: { color: 'bg-yellow-100 text-yellow-800', label: t('status.pending') },
-      SCHEDULED: { color: 'bg-blue-100 text-blue-800', label: t('status.scheduled') },
-      COMPLETED: { color: 'bg-green-100 text-green-800', label: t('status.completed') },
-      CANCELLED: { color: 'bg-red-100 text-red-800', label: t('status.cancelled') },
-      NO_SHOW: { color: 'bg-gray-100 text-gray-800', label: t('status.noShow') },
+      PENDING: {
+        color: 'bg-yellow-100 text-yellow-800',
+        label: t('status.pending'),
+      },
+      SCHEDULED: {
+        color: 'bg-blue-100 text-blue-800',
+        label: t('status.scheduled'),
+      },
+      COMPLETED: {
+        color: 'bg-green-100 text-green-800',
+        label: t('status.completed'),
+      },
+      CANCELLED: {
+        color: 'bg-red-100 text-red-800',
+        label: t('status.cancelled'),
+      },
+      NO_SHOW: {
+        color: 'bg-gray-100 text-gray-800',
+        label: t('status.noShow'),
+      },
     };
 
     const config = statusConfig[status as keyof typeof statusConfig];
@@ -203,59 +219,69 @@ export function AdminFreeSessionsDashboard() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       {/* Summary Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+      <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-5'>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t('stats.total')}</CardTitle>
-            <Calendar className="h-4 w-4 text-muted-foreground" />
+          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+            <CardTitle className='text-sm font-medium'>
+              {t('stats.total')}
+            </CardTitle>
+            <Calendar className='h-4 w-4 text-muted-foreground' />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{bookings.length}</div>
+            <div className='text-2xl font-bold'>{bookings.length}</div>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t('stats.pending')}</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
+          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+            <CardTitle className='text-sm font-medium'>
+              {t('stats.pending')}
+            </CardTitle>
+            <Clock className='h-4 w-4 text-muted-foreground' />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {bookings.filter(b => b.status === 'PENDING').length}
+            <div className='text-2xl font-bold'>
+              {bookings.filter((b) => b.status === 'PENDING').length}
             </div>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t('stats.scheduled')}</CardTitle>
-            <User className="h-4 w-4 text-muted-foreground" />
+          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+            <CardTitle className='text-sm font-medium'>
+              {t('stats.scheduled')}
+            </CardTitle>
+            <User className='h-4 w-4 text-muted-foreground' />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {bookings.filter(b => b.status === 'SCHEDULED').length}
+            <div className='text-2xl font-bold'>
+              {bookings.filter((b) => b.status === 'SCHEDULED').length}
             </div>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t('stats.completed')}</CardTitle>
-            <BookOpen className="h-4 w-4 text-muted-foreground" />
+          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+            <CardTitle className='text-sm font-medium'>
+              {t('stats.completed')}
+            </CardTitle>
+            <BookOpen className='h-4 w-4 text-muted-foreground' />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {bookings.filter(b => b.status === 'COMPLETED').length}
+            <div className='text-2xl font-bold'>
+              {bookings.filter((b) => b.status === 'COMPLETED').length}
             </div>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t('stats.cancelled')}</CardTitle>
-            <BookOpen className="h-4 w-4 text-muted-foreground" />
+          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+            <CardTitle className='text-sm font-medium'>
+              {t('stats.cancelled')}
+            </CardTitle>
+            <BookOpen className='h-4 w-4 text-muted-foreground' />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {bookings.filter(b => b.status === 'CANCELLED').length}
+            <div className='text-2xl font-bold'>
+              {bookings.filter((b) => b.status === 'CANCELLED').length}
             </div>
           </CardContent>
         </Card>
@@ -268,33 +294,39 @@ export function AdminFreeSessionsDashboard() {
           <CardDescription>{t('filters.description')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+          <div className='flex flex-col sm:flex-row gap-4'>
+            <div className='flex-1'>
+              <div className='relative'>
+                <Search className='absolute left-3 top-3 h-4 w-4 text-muted-foreground' />
                 <Input
                   placeholder={t('filters.searchPlaceholder')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
+                  className='pl-10'
                 />
               </div>
             </div>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className='w-[180px]'>
                 <SelectValue placeholder={t('filters.statusPlaceholder')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">{t('filters.allStatuses')}</SelectItem>
-                <SelectItem value="PENDING">{t('status.pending')}</SelectItem>
-                <SelectItem value="SCHEDULED">{t('status.scheduled')}</SelectItem>
-                <SelectItem value="COMPLETED">{t('status.completed')}</SelectItem>
-                <SelectItem value="CANCELLED">{t('status.cancelled')}</SelectItem>
-                <SelectItem value="NO_SHOW">{t('status.noShow')}</SelectItem>
+                <SelectItem value='all'>{t('filters.allStatuses')}</SelectItem>
+                <SelectItem value='PENDING'>{t('status.pending')}</SelectItem>
+                <SelectItem value='SCHEDULED'>
+                  {t('status.scheduled')}
+                </SelectItem>
+                <SelectItem value='COMPLETED'>
+                  {t('status.completed')}
+                </SelectItem>
+                <SelectItem value='CANCELLED'>
+                  {t('status.cancelled')}
+                </SelectItem>
+                <SelectItem value='NO_SHOW'>{t('status.noShow')}</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" size="sm">
-              <Download className="h-4 w-4 mr-2" />
+            <Button variant='outline' size='sm'>
+              <Download className='h-4 w-4 mr-2' />
               {t('actions.export')}
             </Button>
           </div>
@@ -309,21 +341,21 @@ export function AdminFreeSessionsDashboard() {
         </CardHeader>
         <CardContent>
           {isLoading ? (
-            <div className="flex items-center justify-center h-64">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            <div className='flex items-center justify-center h-64'>
+              <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
             </div>
           ) : filteredBookings.length === 0 ? (
-            <div className="text-center py-8">
-              <Calendar className="mx-auto h-12 w-12 text-muted-foreground" />
-              <h3 className="mt-2 text-sm font-semibold text-gray-900">
+            <div className='text-center py-8'>
+              <Calendar className='mx-auto h-12 w-12 text-muted-foreground' />
+              <h3 className='mt-2 text-sm font-semibold text-gray-900'>
                 {t('table.noBookings')}
               </h3>
-              <p className="mt-1 text-sm text-gray-500">
+              <p className='mt-1 text-sm text-gray-500'>
                 {t('table.noBookingsDescription')}
               </p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
+            <div className='overflow-x-auto'>
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -333,7 +365,9 @@ export function AdminFreeSessionsDashboard() {
                     <TableHead>{t('table.status')}</TableHead>
                     <TableHead>{t('table.teacher')}</TableHead>
                     <TableHead>{t('table.createdAt')}</TableHead>
-                    <TableHead className="text-right">{t('table.actions')}</TableHead>
+                    <TableHead className='text-right'>
+                      {t('table.actions')}
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -341,141 +375,168 @@ export function AdminFreeSessionsDashboard() {
                     <TableRow key={booking.id}>
                       <TableCell>
                         <div>
-                          <div className="font-medium">{booking.student?.name}</div>
-                          <div className="text-sm text-muted-foreground">
+                          <div className='font-medium'>
+                            {booking.student?.name}
+                          </div>
+                          <div className='text-sm text-muted-foreground'>
                             {booking.student?.email}
                           </div>
                         </div>
                       </TableCell>
                       <TableCell>
-                        <div className="text-sm">
+                        <div className='text-sm'>
                           {formatDate(booking.sessionDate)}
                         </div>
-                        <div className="text-xs text-muted-foreground">
+                        <div className='text-xs text-muted-foreground'>
                           {booking.duration} min
                         </div>
                       </TableCell>
                       <TableCell>
                         {booking.subject ? (
-                          <Badge variant="outline">{booking.subject}</Badge>
+                          <Badge variant='outline'>{booking.subject}</Badge>
                         ) : (
-                          <span className="text-muted-foreground">-</span>
+                          <span className='text-muted-foreground'>-</span>
                         )}
                       </TableCell>
                       <TableCell>{getStatusBadge(booking.status)}</TableCell>
                       <TableCell>
                         {booking.teacher ? (
-                          <div className="text-sm">{booking.teacher.name}</div>
+                          <div className='text-sm'>{booking.teacher.name}</div>
                         ) : (
-                          <span className="text-muted-foreground">{t('table.unassigned')}</span>
+                          <span className='text-muted-foreground'>
+                            {t('table.unassigned')}
+                          </span>
                         )}
                       </TableCell>
-                      <TableCell className="text-sm">
+                      <TableCell className='text-sm'>
                         {formatDate(booking.createdAt)}
                       </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex items-center gap-2 justify-end">
+                      <TableCell className='text-right'>
+                        <div className='flex items-center gap-2 justify-end'>
                           <Select
                             value={booking.status}
-                            onValueChange={(newStatus) => updateBookingStatus(booking.id, newStatus)}
+                            onValueChange={(newStatus) =>
+                              updateBookingStatus(booking.id, newStatus)
+                            }
                             disabled={isUpdating}
                           >
-                            <SelectTrigger className="w-32">
+                            <SelectTrigger className='w-32'>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="PENDING">{t('status.pending')}</SelectItem>
-                              <SelectItem value="SCHEDULED">{t('status.scheduled')}</SelectItem>
-                              <SelectItem value="COMPLETED">{t('status.completed')}</SelectItem>
-                              <SelectItem value="CANCELLED">{t('status.cancelled')}</SelectItem>
-                              <SelectItem value="NO_SHOW">{t('status.noShow')}</SelectItem>
+                              <SelectItem value='PENDING'>
+                                {t('status.pending')}
+                              </SelectItem>
+                              <SelectItem value='SCHEDULED'>
+                                {t('status.scheduled')}
+                              </SelectItem>
+                              <SelectItem value='COMPLETED'>
+                                {t('status.completed')}
+                              </SelectItem>
+                              <SelectItem value='CANCELLED'>
+                                {t('status.cancelled')}
+                              </SelectItem>
+                              <SelectItem value='NO_SHOW'>
+                                {t('status.noShow')}
+                              </SelectItem>
                             </SelectContent>
                           </Select>
-                          
+
                           <Dialog>
                             <DialogTrigger asChild>
                               <Button
-                                variant="ghost"
-                                size="sm"
+                                variant='ghost'
+                                size='sm'
                                 onClick={() => setSelectedBooking(booking)}
                               >
-                                <Eye className="h-4 w-4" />
+                                <Eye className='h-4 w-4' />
                               </Button>
                             </DialogTrigger>
-                          <DialogContent className="max-w-2xl">
-                            <DialogHeader>
-                              <DialogTitle>{t('details.title')}</DialogTitle>
-                              <DialogDescription>
-                                {t('details.description')}
-                              </DialogDescription>
-                            </DialogHeader>
-                            {selectedBooking && (
-                              <div className="space-y-4">
-                                <div className="grid grid-cols-2 gap-4">
-                                  <div>
-                                    <h4 className="font-semibold mb-2">{t('details.student')}</h4>
-                                    <div className="space-y-1 text-sm">
-                                      <div className="flex items-center gap-2">
-                                        <User className="h-4 w-4" />
-                                        {selectedBooking.student?.name}
-                                      </div>
-                                      <div className="flex items-center gap-2">
-                                        <Mail className="h-4 w-4" />
-                                        {selectedBooking.student?.email}
-                                      </div>
-                                      {selectedBooking.student?.phone && (
-                                        <div className="flex items-center gap-2">
-                                          <Phone className="h-4 w-4" />
-                                          {selectedBooking.student.phone}
+                            <DialogContent className='max-w-2xl'>
+                              <DialogHeader>
+                                <DialogTitle>{t('details.title')}</DialogTitle>
+                                <DialogDescription>
+                                  {t('details.description')}
+                                </DialogDescription>
+                              </DialogHeader>
+                              {selectedBooking && (
+                                <div className='space-y-4'>
+                                  <div className='grid grid-cols-2 gap-4'>
+                                    <div>
+                                      <h4 className='font-semibold mb-2'>
+                                        {t('details.student')}
+                                      </h4>
+                                      <div className='space-y-1 text-sm'>
+                                        <div className='flex items-center gap-2'>
+                                          <User className='h-4 w-4' />
+                                          {selectedBooking.student?.name}
                                         </div>
-                                      )}
-                                    </div>
-                                  </div>
-                                  <div>
-                                    <h4 className="font-semibold mb-2">{t('details.session')}</h4>
-                                    <div className="space-y-1 text-sm">
-                                      <div className="flex items-center gap-2">
-                                        <Calendar className="h-4 w-4" />
-                                        {formatDate(selectedBooking.sessionDate)}
-                                      </div>
-                                      <div className="flex items-center gap-2">
-                                        <Clock className="h-4 w-4" />
-                                        {selectedBooking.duration} minutes
-                                      </div>
-                                      <div className="flex items-center gap-2">
-                                        <BookOpen className="h-4 w-4" />
-                                        {selectedBooking.subject || 'Not specified'}
+                                        <div className='flex items-center gap-2'>
+                                          <Mail className='h-4 w-4' />
+                                          {selectedBooking.student?.email}
+                                        </div>
+                                        {selectedBooking.student?.phone && (
+                                          <div className='flex items-center gap-2'>
+                                            <Phone className='h-4 w-4' />
+                                            {selectedBooking.student.phone}
+                                          </div>
+                                        )}
                                       </div>
                                     </div>
+                                    <div>
+                                      <h4 className='font-semibold mb-2'>
+                                        {t('details.session')}
+                                      </h4>
+                                      <div className='space-y-1 text-sm'>
+                                        <div className='flex items-center gap-2'>
+                                          <Calendar className='h-4 w-4' />
+                                          {formatDate(
+                                            selectedBooking.sessionDate
+                                          )}
+                                        </div>
+                                        <div className='flex items-center gap-2'>
+                                          <Clock className='h-4 w-4' />
+                                          {selectedBooking.duration} minutes
+                                        </div>
+                                        <div className='flex items-center gap-2'>
+                                          <BookOpen className='h-4 w-4' />
+                                          {selectedBooking.subject ||
+                                            'Not specified'}
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
+                                  {selectedBooking.studentNotes && (
+                                    <div>
+                                      <h4 className='font-semibold mb-2'>
+                                        {t('details.studentNotes')}
+                                      </h4>
+                                      <p className='text-sm bg-muted p-3 rounded'>
+                                        {selectedBooking.studentNotes}
+                                      </p>
+                                    </div>
+                                  )}
+                                  {selectedBooking.teacher && (
+                                    <div>
+                                      <h4 className='font-semibold mb-2'>
+                                        {t('details.teacher')}
+                                      </h4>
+                                      <div className='space-y-1 text-sm'>
+                                        <div className='flex items-center gap-2'>
+                                          <User className='h-4 w-4' />
+                                          {selectedBooking.teacher.name}
+                                        </div>
+                                        <div className='flex items-center gap-2'>
+                                          <Mail className='h-4 w-4' />
+                                          {selectedBooking.teacher.email}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
                                 </div>
-                                {selectedBooking.studentNotes && (
-                                  <div>
-                                    <h4 className="font-semibold mb-2">{t('details.studentNotes')}</h4>
-                                    <p className="text-sm bg-muted p-3 rounded">
-                                      {selectedBooking.studentNotes}
-                                    </p>
-                                  </div>
-                                )}
-                                {selectedBooking.teacher && (
-                                  <div>
-                                    <h4 className="font-semibold mb-2">{t('details.teacher')}</h4>
-                                    <div className="space-y-1 text-sm">
-                                      <div className="flex items-center gap-2">
-                                        <User className="h-4 w-4" />
-                                        {selectedBooking.teacher.name}
-                                      </div>
-                                      <div className="flex items-center gap-2">
-                                        <Mail className="h-4 w-4" />
-                                        {selectedBooking.teacher.email}
-                                      </div>
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-                            )}
-                          </DialogContent>
-                        </Dialog>
+                              )}
+                            </DialogContent>
+                          </Dialog>
                         </div>
                       </TableCell>
                     </TableRow>
@@ -489,23 +550,25 @@ export function AdminFreeSessionsDashboard() {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between">
-          <div className="text-sm text-muted-foreground">
+        <div className='flex items-center justify-between'>
+          <div className='text-sm text-muted-foreground'>
             Page {currentPage} of {totalPages}
           </div>
-          <div className="flex gap-2">
+          <div className='flex gap-2'>
             <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+              variant='outline'
+              size='sm'
+              onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
               disabled={currentPage === 1}
             >
               Previous
             </Button>
             <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+              variant='outline'
+              size='sm'
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(totalPages, prev + 1))
+              }
               disabled={currentPage === totalPages}
             >
               Next
