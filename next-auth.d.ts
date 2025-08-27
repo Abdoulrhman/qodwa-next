@@ -10,6 +10,7 @@ export type ExtendedUser = DefaultSession['user'] & {
   teachingExperience?: number;
   qualifications?: string;
   phone?: string;
+  emailVerified?: Date | null;
 };
 
 declare module 'next-auth' {

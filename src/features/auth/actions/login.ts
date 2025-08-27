@@ -44,7 +44,7 @@ export const login = async (
       verificationToken.token
     );
 
-    return { success: 'Confirmation email sent!' };
+    return { error: 'EmailNotVerified' };
   }
 
   if (existingUser.isTwoFactorEnabled && existingUser.email) {
@@ -93,14 +93,35 @@ export const login = async (
   }
 
   try {
-    await signIn('credentials', {
+    console.log('🔐 Attempting signIn for:', email);
+    const result = await signIn('credentials', {
       email,
       password,
       redirect: false, // Don't redirect automatically
     });
+    console.log('✅ SignIn result:', result);
+    
+    // Check if the sign-in was successful but blocked
+    if (result?.error) {
+      console.log('❌ SignIn error from result:', result.error);
+      if (result.error === 'CredentialsSignin') {
+        // Check if it's due to email verification
+        if (!existingUser.emailVerified) {
+          return { error: 'EmailNotVerified' };
+        }
+        return { error: 'Invalid credentials!' };
+      }
+      return { error: result.error };
+    }
+    
   } catch (error: any) {
+    console.log('❌ SignIn exception:', error);
     // Handle NextAuth errors
     if (error?.type === 'CredentialsSignin') {
+      // Check if it's due to email verification
+      if (!existingUser.emailVerified) {
+        return { error: 'EmailNotVerified' };
+      }
       return { error: 'Invalid credentials!' };
     }
 

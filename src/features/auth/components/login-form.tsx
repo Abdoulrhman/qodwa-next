@@ -42,6 +42,8 @@ export const LoginForm = () => {
   const urlError =
     searchParams.get('error') === 'OAuthAccountNotLinked'
       ? t('email_in_use_error')
+      : searchParams.get('error') === 'EmailNotVerified'
+      ? 'Please verify your email address before accessing your dashboard. Check your inbox for the verification link.'
       : '';
 
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -61,7 +63,12 @@ export const LoginForm = () => {
         .then(async (data) => {
           if (data?.error) {
             form.reset();
-            setError(data.error);
+            // Special handling for email verification errors
+            if (data.error === 'EmailNotVerified') {
+              setError('Your email address is not verified. Please check your inbox for the verification link or request a new one.');
+            } else {
+              setError(data.error);
+            }
           }
 
           if (data?.success) {
@@ -172,6 +179,25 @@ export const LoginForm = () => {
           </div>
           <FormError message={error || urlError} />
           <FormSuccess message={success} />
+          
+          {/* Show resend verification link if email not verified */}
+          {(error === 'Your email address is not verified. Please check your inbox for the verification link or request a new one.' || 
+            error === 'EmailNotVerified' ||
+            urlError.includes('verify your email')) && (
+            <div className="text-center">
+              <Button
+                size="sm"
+                variant="link"
+                asChild
+                className="px-0 font-normal text-blue-600 hover:text-blue-800"
+              >
+                <Link href="/auth/verify-email">
+                  Resend Verification Email
+                </Link>
+              </Button>
+            </div>
+          )}
+          
           <Button disabled={isPending} type='submit' className='w-full'>
             {showTwoFactor ? 'Confirm' : t('submit')}
           </Button>

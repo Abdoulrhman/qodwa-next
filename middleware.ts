@@ -41,6 +41,7 @@ export default async function middleware(request: any) {
   // Get the token from the session
   const session = await auth();
   const isLoggedIn = !!session;
+  const isEmailVerified = !!session?.user?.emailVerified;
 
   // Check if the route is protected (any dashboard route)
   const isProtectedRoute = pathname.match(/^\/[a-z]{2}\/dashboard/) !== null;
@@ -55,11 +56,16 @@ export default async function middleware(request: any) {
     (route) => pathname.startsWith(route) || pathname === route
   );
 
-  // If the route is protected and the user isn't logged in,
-  // redirect to the login page
+  // If the route is protected and the user isn't logged in or email not verified,
+  // redirect appropriately
   if (isProtectedRoute && !isLoggedIn) {
     const redirectUrl = new URL(`/${locale}/auth/login`, nextUrl);
     redirectUrl.searchParams.set('callbackUrl', pathname);
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  if (isProtectedRoute && isLoggedIn && !isEmailVerified) {
+    const redirectUrl = new URL(`/${locale}/auth/verify-email`, nextUrl);
     return NextResponse.redirect(redirectUrl);
   }
 
