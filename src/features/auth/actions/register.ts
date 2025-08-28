@@ -10,7 +10,10 @@ import { sendVerificationEmail } from '@/lib/mail';
 import { generateVerificationToken } from '@/lib/tokens';
 import { sendAdminNotification } from '@/lib/admin-notifications';
 
-export const register = async (values: z.infer<typeof StudentFormSchema>) => {
+export const register = async (
+  values: z.infer<typeof StudentFormSchema>,
+  locale: string = 'en'
+) => {
   const validatedFields = StudentFormSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -51,7 +54,7 @@ export const register = async (values: z.infer<typeof StudentFormSchema>) => {
 
   // Send verification email
   const verificationToken = await generateVerificationToken(email);
-  await sendVerificationEmail(verificationToken.email, verificationToken.token);
+  await sendVerificationEmail(verificationToken.email, verificationToken.token, locale);
 
   // Send admin notification for new user registration
   try {

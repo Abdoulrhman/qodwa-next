@@ -5,7 +5,7 @@ import { generateVerificationToken } from '@/lib/tokens';
 
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json();
+    const { email, locale = 'en' } = await request.json();
 
     if (!email) {
       return NextResponse.json(
@@ -33,7 +33,8 @@ export async function POST(request: NextRequest) {
     const verificationToken = await generateVerificationToken(email);
     await sendVerificationEmail(
       verificationToken.email,
-      verificationToken.token
+      verificationToken.token,
+      locale
     );
 
     return NextResponse.json(

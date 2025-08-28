@@ -4,7 +4,7 @@ import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { useState, useTransition, useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 import { createTranslatedSchemas } from '@/shared/schemas';
 import { Input } from '@/components/ui/input';
@@ -24,6 +24,7 @@ import { reset } from '@/features/auth/actions/reset';
 
 export const ResetForm = () => {
   const t = useTranslations();
+  const locale = useLocale();
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
@@ -44,7 +45,7 @@ export const ResetForm = () => {
     setSuccess('');
 
     startTransition(() => {
-      reset(values).then((data) => {
+      reset(values, locale).then((data) => {
         setError(data?.error);
         setSuccess(data?.success);
       });

@@ -25,7 +25,7 @@ import { FormSuccess } from '@/shared/components/form-success';
 import { login } from '@/features/auth/actions/login';
 import { useLocale, useTranslations } from 'next-intl';
 
-export const LoginForm = () => {
+const LoginForm = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { update } = useSession();
@@ -35,6 +35,7 @@ export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
+  const [isResending, setIsResending] = useState(false);
 
   const locale = useLocale();
   const t = useTranslations('Auth.login');
@@ -90,6 +91,45 @@ export const LoginForm = () => {
         .catch(() => setError('Something went wrong'));
     });
   };
+
+  const onResendVerification = () => {
+    const emailValue = form.getValues('email');
+    
+    if (!emailValue) {
+      setError('Please enter your email address first');
+      return;
+    }
+
+    setIsResending(true);
+    setError('');
+    setSuccess('');
+
+    fetch('/api/auth/send-verification', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: emailValue,
+        locale: locale,
+      }),
+    })
+      .then(async (res) => {
+        const data = await res.json();
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setSuccess('Verification email sent! Please check your inbox.');
+        }
+      })
+      .catch(() => {
+        setError('Something went wrong. Please try again.');
+      })
+      .finally(() => {
+        setIsResending(false);
+      });
+  };
+
   return (
     <CardWrapper
       headerLabel={t('title')}
@@ -188,12 +228,11 @@ export const LoginForm = () => {
               <Button
                 size="sm"
                 variant="link"
-                asChild
+                onClick={onResendVerification}
+                disabled={isResending || isPending}
                 className="px-0 font-normal text-blue-600 hover:text-blue-800"
               >
-                <Link href="/auth/verify-email">
-                  Resend Verification Email
-                </Link>
+                {isResending ? 'Sending...' : 'Resend Verification Email'}
               </Button>
             </div>
           )}

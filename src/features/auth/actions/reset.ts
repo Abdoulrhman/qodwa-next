@@ -7,7 +7,10 @@ import { getUserByEmail } from '@/data/user';
 import { sendPasswordResetEmail } from '@/lib/mail';
 import { generatePasswordResetToken } from '@/lib/tokens';
 
-export const reset = async (values: z.infer<typeof ResetSchema>) => {
+export const reset = async (
+  values: z.infer<typeof ResetSchema>,
+  locale: string = 'en'
+) => {
   const validatedFields = ResetSchema.safeParse(values);
 
   if (!validatedFields.success) {

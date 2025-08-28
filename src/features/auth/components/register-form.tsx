@@ -4,7 +4,7 @@ import * as z from 'zod';
 import { useState, useTransition } from 'react';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 import { StudentFormSchema } from '@/shared/schemas';
 import { Input } from '@/components/ui/input';
@@ -34,6 +34,7 @@ type StudentFormValues = z.infer<typeof StudentFormSchema>;
 
 export const RegisterForm = () => {
   const t = useTranslations('Auth.register');
+  const locale = useLocale();
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
@@ -58,7 +59,7 @@ export const RegisterForm = () => {
     setSuccess('');
 
     startTransition(() => {
-      register(values).then((data) => {
+      register(values, locale).then((data) => {
         setError(data.error);
         setSuccess(data.success);
         if (data.success) methods.reset();
