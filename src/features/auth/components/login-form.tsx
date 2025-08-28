@@ -25,7 +25,7 @@ import { FormSuccess } from '@/shared/components/form-success';
 import { login } from '@/features/auth/actions/login';
 import { useLocale, useTranslations } from 'next-intl';
 
-const LoginForm = () => {
+export const LoginForm = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { update } = useSession();
