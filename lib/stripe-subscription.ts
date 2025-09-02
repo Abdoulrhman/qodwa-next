@@ -437,30 +437,40 @@ export function calculateNextBillingDate(frequency: string): Date {
 }
 
 async function createOrGetStripePrice(packageData: any): Promise<string> {
-  // Check if price already exists in Stripe (you might want to store this in DB)
-  const priceId = `price_${packageData.id}_${packageData.subscription_frequency}`;
+  // Check if price already exists in Stripe by searching existing prices
+  const existingPrices = await stripe.prices.list({
+    product: `prod_${packageData.id}_${packageData.package_type}`,
+    limit: 100,
+  });
 
-  try {
-    await stripe.prices.retrieve(priceId);
-    return priceId;
-  } catch (error) {
-    // Create new price
-    const price = await stripe.prices.create({
-      id: priceId,
-      unit_amount: Math.round(parseFloat(packageData.current_price) * 100),
-      currency: packageData.currency.toLowerCase(),
-      recurring: {
-        interval: getStripeInterval(packageData.subscription_frequency),
-        interval_count: getIntervalCount(packageData.subscription_frequency),
-      },
-      product_data: {
-        name: `${packageData.package_type} - ${packageData.subscription_frequency}`,
-        description: packageData.description || '',
-      },
-    });
+  const matchingPrice = existingPrices.data.find(
+    (price) => 
+      price.unit_amount === Math.round(parseFloat(packageData.current_price) * 100) &&
+      price.recurring?.interval === getStripeInterval(packageData.subscription_frequency)
+  );
 
-    return price.id;
+  if (matchingPrice) {
+    return matchingPrice.id;
   }
+
+  // Create new price
+  const price = await stripe.prices.create({
+    unit_amount: Math.round(parseFloat(packageData.current_price) * 100),
+    currency: packageData.currency.toLowerCase(),
+    recurring: {
+      interval: getStripeInterval(packageData.subscription_frequency),
+      interval_count: getIntervalCount(packageData.subscription_frequency),
+    },
+    product_data: {
+      name: `${packageData.package_type} - ${packageData.subscription_frequency}`,
+      metadata: {
+        description: packageData.description || '',
+        package_id: packageData.id.toString(),
+      },
+    },
+  });
+
+  return price.id;
 }
 
 function getStripeInterval(frequency: string): 'month' | 'year' {
