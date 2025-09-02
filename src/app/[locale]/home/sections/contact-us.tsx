@@ -1,3 +1,4 @@
+'use client';
 import { useTranslations } from 'next-intl';
 import { BsChatSquareText, BsCartCheck, BsTools } from 'react-icons/bs';
 

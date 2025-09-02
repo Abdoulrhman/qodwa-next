@@ -9,6 +9,8 @@
     "explore": "Explore",
     "main_header_text": "Start Learning Quran",
     "sub_header_text": "Join our online Quran learning platform and start your journey today",
+    "teacher_main_header_text": "Start Teaching Quran",
+    "teacher_sub_header_text": "Join our platform as a teacher and help students in their Quran learning journey",
     "now": "Now",
     "student": "Student",
     "teacher": "Teacher",
@@ -64,8 +66,19 @@
       "subscription_frequency": "Subscription Frequency",
       "class_duration": "Class Duration",
       "minutes": "Minutes",
+      "minutes_title": "{duration} Minutes",
       "days_per_week": "{days} Days per Week",
       "price_details": "Price Details",
+      "current_price": "Current Price",
+      "original_price": "Original Price",
+      "per_class": "Per Class",
+      "you_save": "You Save",
+      "package_details": "Package Details",
+      "subject": "Subject",
+      "level": "Level",
+      "whats_included": "What's Included",
+      "program_duration": "Program Duration",
+      "duration_description": "This package runs for {weeks} weeks with {days} classes per week",
       "enroll_now": "Enroll Now",
       "monthly": "Monthly",
       "quarterly": "Quarterly",
@@ -140,48 +153,6 @@
       "description": "Learn Quran online with qualified teachers",
       "keywords": "quran, online learning, islamic studies"
     },
-    "Services": {
-      "header": "Our Services",
-      "title": "Enhance Your Quran Memorization with Our Expert Instructors",
-      "any_quran_memorization_path": {
-        "title": "Any Quran Memorization Path, Anytime",
-        "content": "Access and manage personalized Quran memorization plans. Your dedicated teachers and a structured curriculum are available at your convenience."
-      },
-      "browse_teacher_profiles": {
-        "title": "Browse Teacher Profiles",
-        "content": "Find certified Quran and Arabic teachers by reviewing their experience, qualifications, and student feedback before joining their classes."
-      },
-      "achieve_quran_goals_faster": {
-        "title": "Achieve Your Quran Goals Faster",
-        "content": "Accelerate your Quran memorization with personalized learning paths and on-demand sessions tailored to fit your schedule and progress."
-      },
-      "comprehensive_support": {
-        "title": "Comprehensive Support",
-        "content": "Our platform handles everything, from progress tracking to managing lessons and assignments, so you can focus solely on learning."
-      },
-      "teacher_flexibility": {
-        "title": "Teacher Flexibility",
-        "content": "Not satisfied with your current teacher? You can easily switch to another certified instructor who better matches your learning style."
-      },
-      "faster_quran_memorization": {
-        "title": "60% Faster Quran Memorization",
-        "content": "Our proven techniques and experienced teachers help you memorize the Quran more efficiently, without compromising quality."
-      },
-      "items": {
-        "quran": {
-          "title": "Quran Learning",
-          "description": "Learn Quran with tajweed from qualified teachers"
-        },
-        "islamic": {
-          "title": "Islamic Studies",
-          "description": "Learn about Islamic principles and values"
-        },
-        "arabic": {
-          "title": "Arabic Language",
-          "description": "Learn Arabic language from native speakers"
-        }
-      }
-    },
     "SuccessPayment": {
       "title": "Payment Successful",
       "content": "Your payment has been successfully processed. You will receive a confirmation email shortly.",
@@ -191,33 +162,6 @@
       "title": "Payment Canceled",
       "content": "Your payment has been canceled. You can return to the homepage to try again.",
       "goHome": "Go Home"
-    },
-    "TeacherServices": {
-      "title": "Enhance Your Teaching Skills with Our Expert Tools",
-      "guided_teaching_path": {
-        "title": "Guided Teaching Path",
-        "content": "Receive personalized guidance on structuring your Quran and Arabic lessons to best fit the students' learning paths."
-      },
-      "teacher_training": {
-        "title": "Teacher Training & Certification",
-        "content": "Participate in training programs to enhance your teaching methods and earn certifications recognized by the community."
-      },
-      "feedback_improvement": {
-        "title": "Receive and Improve Through Feedback",
-        "content": "Collect feedback from students and improve your teaching techniques to provide the best learning experience."
-      },
-      "efficient_scheduling": {
-        "title": "Efficient Scheduling",
-        "content": "Manage your class schedules effectively and efficiently with our built-in tools designed for Quran and Arabic teachers."
-      },
-      "performance_tracking": {
-        "title": "Performance Tracking",
-        "content": "Track student performance and adjust your teaching strategies to optimize their learning experience."
-      },
-      "collaborative_learning": {
-        "title": "Collaborative Learning Environment",
-        "content": "Work with other instructors to create a collaborative and supportive learning environment for all students."
-      }
     },
     "HowToStart": {
       "title": "How to get Started as a Student",
@@ -252,21 +196,21 @@
       "loading": "Loading"
     },
     "AboutTutor": {
-      "subtitle": "Know about classes",
-      "title": "We create unique digital media experiences",
-      "description": "Online courses from the world's leading experts. Our platform provides comprehensive learning solutions tailored to your needs.",
+      "subtitle": "Discover Quranic Learning",
+      "title": "We provide exceptional Quran and Arabic learning experiences",
+      "description": "Learn the Holy Quran and Arabic language with certified teachers. Our platform offers personalized learning paths designed specifically for Quranic memorization and Arabic mastery.",
       "features": {
         "professional": {
-          "title": "Professional Educators",
-          "description": "Get one-on-one help from our subject matter experts"
+          "title": "Certified Quran Teachers",
+          "description": "Learn from qualified instructors specialized in Quranic recitation and Arabic linguistics"
         },
         "support": {
-          "title": "Real-Time Support",
-          "description": "Ask questions over live chat or schedule a virtual meeting"
+          "title": "Personalized Guidance",
+          "description": "Receive individual attention and progress tracking for your memorization journey"
         },
         "access": {
-          "title": "Free Access",
-          "description": "Every course offers online tutoring at no additional charge"
+          "title": "Flexible Learning",
+          "description": "Study at your own pace with scheduled sessions that fit your lifestyle"
         }
       }
     },
@@ -274,16 +218,16 @@
       "header": "Contact Us",
       "cards": {
         "feedback": {
-          "title": "General Feedback",
-          "description": "Our friendly team is here to help"
+          "title": "Learning Support",
+          "description": "Get guidance on your Quran memorization journey"
         },
         "sales": {
-          "title": "Sales Inquiries",
-          "description": "Connect with our sales team"
+          "title": "Enrollment Inquiries",
+          "description": "Learn about our Quran and Arabic learning packages"
         },
         "technical": {
           "title": "Technical Support",
-          "description": "Get technical assistance"
+          "description": "Get help with platform features and technical issues"
         }
       }
     },
@@ -294,11 +238,41 @@
         "Guide": "Guide",
         "About Us": "About Us",
         "Services": "Services",
-        "Contact Us": "Contact Us"
+        "Contact Us": "Contact Us",
+        "Apply as a Teacher": "Apply as a Teacher",
+        "Home": "Home"
       },
       "login": "Login",
       "menu_button_label": "Toggle menu",
       "close_menu": "Close menu"
+    },
+    "Services": {
+      "header": "Our Services",
+      "title": "Enhance Your Quran Memorization with Our Expert Instructors",
+      "any_quran_memorization_path": {
+        "title": "Any Quran Memorization Path, Anytime",
+        "content": "Access and manage personalized Quran memorization plans. Your dedicated teachers and a structured curriculum are available at your convenience."
+      },
+      "browse_teacher_profiles": {
+        "title": "Browse Teacher Profiles",
+        "content": "Find certified Quran and Arabic teachers by reviewing their experience, qualifications, and student feedback before joining their classes."
+      },
+      "achieve_quran_goals_faster": {
+        "title": "Achieve Your Quran Goals Faster",
+        "content": "Accelerate your Quran memorization with personalized learning paths and on-demand sessions tailored to fit your schedule and progress."
+      },
+      "comprehensive_support": {
+        "title": "Comprehensive Support",
+        "content": "Our platform handles everything, from progress tracking to managing lessons and assignments, so you can focus solely on learning."
+      },
+      "teacher_flexibility": {
+        "title": "Teacher Flexibility",
+        "content": "Choose from a variety of qualified teachers and switch between them based on your schedule and learning preferences."
+      },
+      "faster_quran_memorization": {
+        "title": "Faster Quran Memorization",
+        "content": "Achieve faster Quran memorization through structured lessons, regular practice sessions, and continuous teacher feedback."
+      }
     }
   },
   "PackageDetails": {
@@ -340,16 +314,49 @@
       "submit": "Login",
       "forgot_password": "Forgot password?",
       "no_account": "Don't have an account?",
-      "sign_up": "Sign up"
+      "sign_up": "Sign up",
+      "email_in_use_error": "Email already in use with different provider!"
     },
     "register": {
       "title": "Create an account",
       "name_label": "Name",
+      "name_placeholder": "John Doe",
       "email_label": "Email",
+      "email_placeholder": "john.doe@example.com",
       "password_label": "Password",
-      "submit": "Register",
+      "password_placeholder": "******",
+      "retype_password_label": "Retype Password",
+      "retype_password_placeholder": "******",
+      "phone_label": "Phone",
+      "phone_placeholder": "+1-234-567-8900",
+      "gender_label": "Gender",
+      "gender_placeholder": "Select gender",
+      "gender_male": "Male",
+      "gender_female": "Female",
+      "birth_date_label": "Birth Date",
+      "referral_source_label": "Referral Source",
+      "referral_source_placeholder": "Select referral source",
+      "referral_facebook": "Facebook",
+      "referral_google": "Google",
+      "referral_friend": "Friend",
+      "referral_others": "Others",
+      "submit": "Create an account",
       "has_account": "Already have an account?",
       "sign_in": "Sign in"
+    },
+    "reset": {
+      "title": "Forgot your password?",
+      "email_label": "Email",
+      "email_placeholder": "john.doe@example.com",
+      "submit": "Send reset email",
+      "back_to_login": "Back to login"
+    },
+    "new_password": {
+      "title": "Enter a new password",
+      "password_label": "Password",
+      "password_placeholder": "******",
+      "submit": "Reset password",
+      "back_to_login": "Back to login"
     }
   },
   "Dashboard": {
@@ -361,7 +368,28 @@
       "home": "Home",
       "profile": "Profile",
       "settings": "Settings",
-      "logout": "Logout"
+      "logout": "Logout",
+      "free_session": "Free Session",
+      "my_teacher": "My Teacher",
+      "my_packages": "My Packages",
+      "schedule": "Schedule",
+      "progress": "Progress",
+      "messages": "Messages",
+      "admin": {
+        "title": "Admin",
+        "dashboard": "Dashboard",
+        "users": "User Management",
+        "teachers": "Teacher Management",
+        "assignTeacher": "Assign Teacher",
+        "packages": "Package Management",
+        "freeSessions": "Free Sessions",
+        "subscriptions": "Subscriptions",
+        "notifications": "Notifications",
+        "teacherRecruitment": "Teacher Recruitment",
+        "emailDebug": "Email Debug",
+        "analytics": "Analytics",
+        "settings": "System Settings"
+      }
     },
     "home": {
       "welcome_message": "Keep up the great work and continue your Quran & Arabic learning journey! Every step makes you closer to your goal.",
@@ -381,6 +409,113 @@
       "no_subscriptions": "No Subscriptions Found",
       "no_subscriptions_description": "You haven't subscribed to any packages yet. Browse our available packages to get started.",
       "view_packages": "View Packages"
+    },
+    "admin": {
+      "title": "Admin Dashboard",
+      "welcome": "Good Afternoon, Admin",
+      "subtitle": "Keep up the great work and continue your Quran & Arabic learning journey! Every step makes you closer to your goal.",
+      "discover_courses": "Discover Courses",
+      "stats": {
+        "enrolled_courses": "Enrolled Courses",
+        "classes_completed": "Classes Completed",
+        "study_hours": "Study Hours",
+        "current_streak": "Current Streak",
+        "days": "days"
+      },
+      "sections": {
+        "progress_overview": "Progress Overview",
+        "upcoming_classes": "Upcoming Classes",
+        "recent_activity": "Recent Activity",
+        "recent_achievements": "Recent Achievements",
+        "todo_list": "To-do List",
+        "quick_actions": "Quick Actions"
+      },
+      "activities": {
+        "quran_memorization": "Quran Memorization Class",
+        "perfect_attendance": "Perfect Attendance Week",
+        "tajweed_practice": "Tajweed Practice"
+      },
+      "achievements": {
+        "first_surah_completed": "First Surah Completed",
+        "consistent_learner": "Consistent Learner"
+      },
+      "quick_actions": {
+        "contact_teacher": "Contact Teacher",
+        "my_packages": "My Packages",
+        "messages": "Messages"
+      },
+      "management": {
+        "users": "User Management",
+        "teachers": "Teacher Management",
+        "packages": "Package Management",
+        "subscriptions": "Subscription Management",
+        "analytics": "Analytics & Reports",
+        "settings": "System Settings"
+      },
+      "cards": {
+        "total_users": "Total Users",
+        "total_teachers": "Total Teachers",
+        "active_subscriptions": "Active Subscriptions",
+        "total_revenue": "Total Revenue",
+        "pending_approvals": "Pending Approvals",
+        "monthly_growth": "Monthly Growth"
+      },
+      "freeSessions": {
+        "title": "Free Sessions Management",
+        "description": "Manage all free session bookings and assignments",
+        "stats": {
+          "total": "Total Sessions",
+          "pending": "Pending",
+          "scheduled": "Scheduled",
+          "completed": "Completed",
+          "cancelled": "Cancelled"
+        },
+        "status": {
+          "pending": "Pending",
+          "scheduled": "Scheduled",
+          "completed": "Completed",
+          "cancelled": "Cancelled",
+          "noShow": "No Show"
+        },
+        "filters": {
+          "title": "Filters & Search",
+          "description": "Filter and search through free session bookings",
+          "searchPlaceholder": "Search by student name, email, or subject...",
+          "statusPlaceholder": "Filter by status",
+          "allStatuses": "All Statuses"
+        },
+        "table": {
+          "title": "Free Session Bookings",
+          "description": "Overview of all free session bookings",
+          "student": "Student",
+          "sessionDate": "Session Date",
+          "subject": "Subject",
+          "status": "Status",
+          "teacher": "Teacher",
+          "createdAt": "Created",
+          "actions": "Actions",
+          "noBookings": "No free sessions found",
+          "noBookingsDescription": "There are no free session bookings matching your criteria.",
+          "unassigned": "Unassigned"
+        },
+        "details": {
+          "title": "Session Details",
+          "description": "Complete information about the free session booking",
+          "student": "Student Information",
+          "session": "Session Information",
+          "teacher": "Teacher Information",
+          "studentNotes": "Student Notes"
+        },
+        "actions": {
+          "export": "Export",
+          "assign": "Assign Teacher",
+          "edit": "Edit",
+          "view": "View Details"
+        }
+      }
+    },
+    "teacherStudents": {
+      "title": "My Students"
     }
   },
   "NotAuthorized": {
@@ -444,6 +579,459 @@
         "submitting": "Submitting...",
         "register": "Register"
       }
+    }
+  },
+  "Teacher": {
+    "Register": {
+      "platformName": "Qodwa Platform",
+      "testimonialQuote": "Join our educational community and inspire students worldwide with your knowledge",
+      "testimonialAuthor": "Qodwa Teaching Team"
+    }
+  },
+  "teacherRegistration": {
+    "title": "Join as a Teacher",
+    "subtitle": "Share your knowledge and inspire students worldwide",
+    "personalInfo": "Personal Information",
+    "professionalInfo": "Professional Information",
+    "name": "Full Name",
+    "namePlaceholder": "Enter your full name",
+    "email": "Email",
+    "emailPlaceholder": "your.email@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "Enter password",
+    "retypePassword": "Confirm Password",
+    "retypePasswordPlaceholder": "Confirm password",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+1234567890",
+    "gender": "Gender",
+    "genderPlaceholder": "Select gender",
+    "male": "Male",
+    "female": "Female",
+    "birthDate": "Birth Date",
+    "qualifications": "Qualifications & Education",
+    "qualificationsPlaceholder": "Describe your educational background, degrees, certifications...",
+    "subjects": "Subjects You Teach",
+    "subjectsPlaceholder": "Math, Physics, Chemistry...",
+    "experience": "Teaching Experience (Years)",
+    "experiencePlaceholder": "0",
+    "referralSource": "How did you hear about us?",
+    "referralPlaceholder": "Select source",
+    "facebook": "Facebook",
+    "google": "Google",
+    "friend": "Friend Referral",
+    "linkedin": "LinkedIn",
+    "others": "Others",
+    "submitting": "Submitting...",
+    "submit": "Submit Application"
+  },
+  "teacherDashboard": {
+    "welcome": "Welcome back",
+    "subtitle": "Here's an overview of your teaching activity",
+    "totalStudents": "Total Students",
+    "activeStudents": "Active students",
+    "activeClasses": "Active Classes",
+    "ongoingClasses": "Ongoing classes",
+    "totalEarnings": "Total Earnings",
+    "thisMonth": "This month",
+    "averageRating": "Average Rating",
+    "outOfFive": "out of 5",
+    "upcomingClasses": "Upcoming Classes",
+    "nextWeek": "Next 7 days",
+    "completedClasses": "Completed Classes",
+    "totalCompleted": "Total completed",
+    "quickActions": "Quick Actions",
+    "quickActionsDesc": "Manage your teaching activities",
+    "viewSchedule": "View Schedule",
+    "manageStudents": "Manage Students",
+    "createLesson": "Create Lesson",
+    "viewEarnings": "View Earnings",
+    "profileStatus": "Profile Status",
+    "editProfile": "Edit Profile"
+  },
+  "teacherStudents": {
+    "title": "My Students",
+    "subtitle": "Manage and track your students' progress",
+    "students": "Students",
+    "searchPlaceholder": "Search students by name or email...",
+    "noSearchResults": "No students found matching your search.",
+    "noStudents": "No students assigned yet.",
+    "completedClasses": "classes completed",
+    "active": "Active",
+    "inactive": "Inactive",
+    "nextClass": "Next class",
+    "viewProgress": "View Progress",
+    "message": "Message",
+    "classNotes": {
+      "title": "Class Notes",
+      "dailyAssignment": "Daily Assignment",
+      "appliedTajweed": "Applied Tajweed",
+      "review": "Review",
+      "memorization": "Memorization",
+      "addNotes": "Add Notes",
+      "saveNotes": "Save Notes",
+      "editNotes": "Edit Notes",
+      "classDate": "Class Date",
+      "startTime": "Start",
+      "endTime": "End",
+      "duration": "Duration",
+      "sessionHistory": "Session History",
+      "noNotes": "No notes available for this student yet.",
+      "notesUpdated": "Notes updated successfully",
+      "notesError": "Failed to update notes"
+    }
+  },
+  "Footer": {
+    "description": "Join our online Quran learning platform with certified teachers providing personalized instruction to help you achieve your spiritual goals.",
+    "quick_links": "Quick Links",
+    "all_rights_reserved": "All rights reserved"
+  },
+  "TeacherServices": {
+    "title": "Enhance Your Teaching Skills with Our Expert Tools",
+    "guided_teaching_path": {
+      "title": "Guided Teaching Path",
+      "content": "Receive personalized guidance on structuring your Quran and Arabic lessons to best fit the students' learning paths."
+    },
+    "teacher_training": {
+      "title": "Teacher Training & Certification",
+      "content": "Participate in training programs to enhance your teaching methods and earn certifications recognized by the community."
+    },
+    "feedback_improvement": {
+      "title": "Receive and Improve Through Feedback",
+      "content": "Collect feedback from students and improve your teaching techniques to provide the best learning experience."
+    },
+    "efficient_scheduling": {
+      "title": "Efficient Scheduling",
+      "content": "Manage your class schedules effectively and efficiently with our built-in tools designed for Quran and Arabic teachers."
+    },
+    "performance_tracking": {
+      "title": "Performance Tracking",
+      "content": "Track student performance and adjust your teaching strategies to optimize their learning experience."
+    },
+    "collaborative_learning": {
+      "title": "Collaborative Learning Environment",
+      "content": "Work with other instructors to create a collaborative and supportive learning environment for all students."
+    }
+  },
+  "FreeSession": {
+    "title": "Free Session Booking",
+    "description": "Schedule your free trial session",
+    "bookingSuccess": "Your free session has been booked successfully! We will contact you soon to confirm the details.",
+    "form": {
+      "sessionDate": "Session Date",
+      "sessionTime": "Session Time",
+      "duration": "Duration",
+      "subject": "Subject",
+      "studentNotes": "Additional Notes",
+      "timezone": "Timezone",
+      "selectTime": "Select time",
+      "selectSubject": "Select subject",
+      "submitButton": "Book Free Session",
+      "submitting": "Booking...",
+      "timezoneDescription": "Your timezone is automatically detected based on your location",
+      "notesDescription": "Share your learning goals so we can customize the session to your needs",
+      "notesPlaceholder": "Tell us about your learning goals or any special requirements..."
+    },
+    "subjects": {
+      "quran-memorization": "Quran Memorization",
+      "quran-recitation": "Quran Recitation",
+      "tajweed": "Tajweed",
+      "arabic-language": "Arabic Language",
+      "islamic-studies": "Islamic Studies"
+    },
+    "status": {
+      "pending": "Pending",
+      "scheduled": "Scheduled",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "no_show": "No Show"
+    },
+    "dashboard": {
+      "title": "Free Sessions",
+      "description": "Manage and track your free sessions",
+      "bookNewSession": "Book New Session",
+      "welcome": "Welcome to Qodwa Platform!",
+      "welcomeDescription": "Book your first free session to evaluate your learning needs and start your Quran & Arabic learning journey",
+      "noBookings": "No Bookings Yet",
+      "noBookingsDescription": "Book your first free session to start your learning journey"
+    },
+    "tabs": {
+      "all": "All",
+      "pending": "Pending",
+      "scheduled": "Scheduled",
+      "completed": "Completed"
+    },
+    "booking": {
+      "sessionDetails": "Session Details",
+      "timeAndDuration": "Time & Duration",
+      "subject": "Subject",
+      "assignedTeacher": "Assigned Teacher",
+      "yourNotes": "Your Notes",
+      "teacherNotes": "Teacher Notes",
+      "joinSession": "Join Session",
+      "cancellationReason": "Cancellation Reason",
+      "minutes": "min"
+    }
+  },
+  "Common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "failed": "Failed",
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled",
+    "completed": "Completed",
+    "expired": "Expired",
+    "popular": "Popular",
+    "students": "Students",
+    "teachers": "Teachers",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "save": "Save",
+    "save_changes": "Save Changes",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "view_details": "View Details",
+    "actions": "Actions",
+    "status": "Status",
+    "created_at": "Created At",
+    "updated_at": "Updated At",
+    "search": "Search",
+    "search_placeholder": "Search...",
+    "no_results": "No results found",
+    "select_placeholder": "Select an option",
+    "required": "Required",
+    "optional": "Optional",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "create": "Create",
+    "update": "Update",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register",
+    "minutes": "minutes",
+    "hours": "hours",
+    "days": "days",
+    "weeks": "weeks",
+    "months": "months",
+    "years": "years",
+    "class": "class",
+    "total_classes": "total classes",
+    "frequency": "Frequency",
+    "duration": "Duration",
+    "schedule": "Schedule"
+  },
+  "Forms": {
+    "validation": {
+      "email_required": "Email is required",
+      "email_invalid": "Invalid email address",
+      "password_required": "Password is required",
+      "password_min_length": "Password must be at least {length} characters",
+      "passwords_no_match": "Passwords do not match",
+      "name_required": "Name is required",
+      "name_min_length": "Name must be at least {length} characters",
+      "name_max_length": "Name cannot exceed {length} characters",
+      "phone_required": "Phone number is required",
+      "phone_min_length": "Phone number must be at least {length} digits",
+      "gender_required": "Gender is required",
+      "birth_date_invalid": "Invalid birth date format. Use YYYY-MM-DD",
+      "qualifications_required": "Please provide detailed qualifications (minimum {length} characters)",
+      "subjects_required": "Please specify subjects you can teach",
+      "experience_negative": "Teaching experience cannot be negative",
+      "experience_unrealistic": "Please enter a realistic number of years",
+      "retype_password_required": "Retype Password is required",
+      "new_password_required": "New password is required!"
+    },
+    "placeholders": {
+      "enter_email": "Enter your email",
+      "enter_password": "Enter your password",
+      "enter_name": "Enter your name",
+      "confirm_password": "Confirm your password",
+      "enter_phone": "Enter your phone number",
+      "select_gender": "Select gender",
+      "enter_qualifications": "Enter your qualifications",
+      "enter_subjects": "Enter subjects you teach",
+      "enter_experience": "Enter years of experience",
+      "search_by_name_email": "Search by name or email..."
+    }
+  },
+  "UI": {
+    "placeholders": {
+      "enter_email_subject": "Enter email subject",
+      "enter_message": "Enter your message...",
+      "test_email_address": "Enter your email to receive test emails",
+      "search_products": "Search products...",
+      "store_name": "Store Name",
+      "project_name": "Project Name",
+      "enter_current_password": "Enter current password",
+      "enter_new_password": "Enter new password",
+      "confirm_new_password": "Confirm new password",
+      "subjects_example": "e.g., Mathematics, Physics, Arabic",
+      "qualifications_example": "e.g., MSc Mathematics, Teaching Certificate, TESOL Certification",
+      "search_students": "Search students by name or email...",
+      "select_student": "Select a student",
+      "select_teacher": "Select a teacher",
+      "assignment_notes": "Add any notes about this assignment...",
+      "search_packages": "Search packages...",
+      "package_title_example": "e.g., 30 Minutes",
+      "package_description": "Package description...",
+      "subjects_list_example": "e.g., English, Math",
+      "features_example": "1-on-1 sessions, Homework support, Progress tracking",
+      "rejection_reason": "Please explain why this application is being rejected..."
+    },
+    "labels": {
+      "recipients": "Recipients",
+      "subject": "Subject",
+      "message": "Message",
+      "test_email_address": "Test Email Address",
+      "email_recipients": "Email Recipients",
+      "two_factor_code": "Two Factor Code",
+      "two_factor_authentication": "Two Factor Authentication",
+      "experience": "Experience",
+      "subjects": "Subjects",
+      "qualifications": "Qualifications",
+      "current_status": "Current Status",
+      "rejection_reason": "Rejection Reason"
+    },
+    "buttons": {
+      "send_email": "Send Email",
+      "test_first": "Test First",
+      "quick_email": "Quick Email",
+      "send_test_email": "Send Test Email",
+      "create_package": "Create Package"
+    },
+    "cards": {
+      "personal_information": "Personal Information",
+      "password_security": "Password Security",
+      "teaching_profile": "Teaching Profile",
+      "account_overview": "Account Overview",
+      "store_name": "Store Name",
+      "plugins_directory": "Plugins Directory",
+      "package_details": "Package Details"
+    },
+    "sections": {
+      "single_email": "Single Email",
+      "bulk_email": "Bulk Email"
+    }
+  },
+  "Permissions": {
+    "no_permission": "You do not have permission to view this content!",
+    "loading": "Loading..."
+  },
+  "Email": {
+    "guide": {
+      "title": "Email System Guide",
+      "description": "Quick guide to using the email system",
+      "test_first": "Test First",
+      "test_description": "Always test emails before sending to groups",
+      "quick_email": "Quick Email",
+      "quick_description": "Send immediate emails to all students or teachers",
+      "targeted_emails": "Targeted Emails",
+      "targeted_description": "Send personalized emails to specific individuals",
+      "advanced_features": "Advanced Features",
+      "advanced_description": "Use templates and scheduling for professional communication",
+      "badges": {
+        "students": "Students",
+        "teachers": "Teachers",
+        "bulk_email": "Bulk Email",
+        "test_mode": "Test Mode"
+      }
+    },
+    "stats": {
+      "title": "Email Statistics",
+      "description": "Overview of email system performance",
+      "total_sent": "Total Sent",
+      "success_rate": "Success Rate",
+      "recent_activity": "Recent Activity",
+      "activities": {
+        "teacher_approval": "Teacher approval emails sent",
+        "newsletter_scheduled": "Monthly newsletter scheduled",
+        "welcome_new_students": "Welcome email sent to 5 new students"
+      }
+    },
+    "manager": {
+      "title": "Email Management",
+      "description": "Send emails to students and teachers"
+    },
+    "test": {
+      "title": "Email Testing",
+      "description": "Test email functionality before sending to users",
+      "buttons": {
+        "test_welcome": "Test Welcome Email",
+        "test_approval": "Test Teacher Approval",
+        "test_bulk_students": "Test Bulk Students Email"
+      }
+    },
+    "quick": {
+      "title": "Quick Email Sender",
+      "description": "Send a quick email to students or teachers"
+    },
+    "errors": {
+      "fill_subject_message": "Please fill in subject and message",
+      "failed_to_send": "Failed to send email",
+      "enter_id": "Please enter {type} ID",
+      "failed_test_email": "Failed to send test email"
+    },
+    "success": {
+      "test_sent": "{message} - Check your email!"
+    }
+  },
+  "Profile": {
+    "sections": {
+      "account_status": "Account Status",
+      "member_since": "Member Since",
+      "plan_type": "Plan Type"
+    }
+  },
+  "TeacherRequests": {
+    "title": "Teacher Requests",
+    "description": "Manage teacher application requests",
+    "headers": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "gender": "Gender",
+      "experience": "Experience",
+      "subjects": "Subjects",
+      "status": "Status",
+      "date": "Applied Date",
+      "actions": "Actions"
+    },
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "view_details": "View Details"
+    },
+    "confirmations": {
+      "approve_teacher": "Are you sure you want to approve this teacher?",
+      "reject_teacher": "Are you sure you want to reject this teacher?"
+    },
+    "success": {
+      "teacher_approved": "Teacher approved successfully",
+      "teacher_rejected": "Teacher rejected successfully"
+    },
+    "errors": {
+      "action_failed": "Action failed. Please try again."
     }
   }
 }

@@ -1,3 +1,4 @@
+'use client';
 import { FreeAccessIcon } from '@/public/icons/FreeAccessIcon';
 import KnowAboutClassesIcon from '@/public/icons/KnowAboutClassesIcon';
 import ProfessionalEducatorsIcon from '@/public/icons/ProfessionalEducatorsIcon';

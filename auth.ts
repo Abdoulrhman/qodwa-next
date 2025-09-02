@@ -26,13 +26,28 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     // @ts-ignore
     async signIn({ user, account }) {
+      console.log('🔐 SignIn callback called with:', {
+        userId: user.id,
+        email: user.email,
+        provider: account?.provider,
+      });
+
       // Allow OAuth without email verification
       if (account?.provider !== 'credentials') return true;
 
       const existingUser = await getUserById(user.id!);
+      console.log('👤 Found existing user:', {
+        id: existingUser?.id,
+        email: existingUser?.email,
+        emailVerified: existingUser?.emailVerified,
+      });
 
       // Prevent sign in without email verification
-      if (!existingUser?.emailVerified) return false;
+      if (!existingUser?.emailVerified) {
+        console.log('❌ Email not verified, returning false');
+        // Return false to prevent sign in
+        return false;
+      }
 
       if (existingUser.isTwoFactorEnabled) {
         const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
@@ -47,6 +62,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         });
       }
 
+      console.log('✅ SignIn successful');
       return true;
     },
     // @ts-ignore
@@ -68,12 +84,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.name = token.name;
         session.user.email = token.email!;
         (session.user as any).isOAuth = token.isOAuth as boolean;
+        (session.user as any).isTeacher = token.isTeacher as boolean;
+        (session.user as any).subjects = token.subjects as string;
+        (session.user as any).teachingExperience =
+          token.teachingExperience as number;
+        (session.user as any).qualifications = token.qualifications as string;
+        (session.user as any).phone = token.phone as string;
+        (session.user as any).emailVerified =
+          token.emailVerified as Date | null;
       }
 
       return session;
     },
     // @ts-ignore
-    async jwt({ token }) {
+    async jwt({ token, trigger }) {
       if (!token.sub) return token;
 
       const existingUser = await getUserById(token.sub);
@@ -87,12 +111,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       token.email = existingUser.email;
       token.role = existingUser.role;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
+      token.isTeacher = existingUser.isTeacher;
+      token.subjects = existingUser.subjects;
+      token.teachingExperience = existingUser.teachingExperience;
+      token.qualifications = existingUser.qualifications;
+      token.phone = existingUser.phone;
+      token.emailVerified = existingUser.emailVerified;
+
+      // Force token refresh timestamp for debugging
+      token.lastUpdated = Date.now();
 
       return token;
     },
   },
   adapter: PrismaAdapter(db),
-  session: { strategy: 'jwt' },
+  session: {
+    strategy: 'jwt',
+    maxAge: 30 * 60, // 30 minutes for development testing
+  },
+  jwt: {
+    maxAge: 30 * 60, // 30 minutes for development testing
+  },
   ...authConfig,
 });
 

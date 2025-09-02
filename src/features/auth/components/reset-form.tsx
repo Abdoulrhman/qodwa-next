@@ -2,10 +2,11 @@
 
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations, useLocale } from 'next-intl';
 
-import { ResetSchema } from '@/shared/schemas';
+import { createTranslatedSchemas } from '@/shared/schemas';
 import { Input } from '@/components/ui/input';
 import {
   Form,
@@ -22,9 +23,15 @@ import { FormSuccess } from '@/shared/components/form-success';
 import { reset } from '@/features/auth/actions/reset';
 
 export const ResetForm = () => {
+  const t = useTranslations();
+  const locale = useLocale();
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
+
+  // Create translated schema
+  const schemas = useMemo(() => createTranslatedSchemas(t), [t]);
+  const ResetSchema = schemas.ResetSchema;
 
   const form = useForm<z.infer<typeof ResetSchema>>({
     resolver: zodResolver(ResetSchema),
@@ -38,7 +45,7 @@ export const ResetForm = () => {
     setSuccess('');
 
     startTransition(() => {
-      reset(values).then((data) => {
+      reset(values, locale).then((data) => {
         setError(data?.error);
         setSuccess(data?.success);
       });
@@ -47,8 +54,8 @@ export const ResetForm = () => {
 
   return (
     <CardWrapper
-      headerLabel='Forgot your password?'
-      backButtonLabel='Back to login'
+      headerLabel={t('title')}
+      backButtonLabel={t('back_to_login')}
       backButtonHref='login'
     >
       <Form {...form}>
@@ -59,12 +66,12 @@ export const ResetForm = () => {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('email_label')}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder='john.doe@example.com'
+                      placeholder={t('email_placeholder')}
                       type='email'
                     />
                   </FormControl>
@@ -76,7 +83,7 @@ export const ResetForm = () => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button disabled={isPending} type='submit' className='w-full'>
-            Send reset email
+            {t('submit')}
           </Button>
         </form>
       </Form>

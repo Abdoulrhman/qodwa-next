@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { SessionProvider } from 'next-auth/react';
+import { EnhancedSessionProvider } from './enhanced-session-provider';
 import { ThemeProvider } from '@/shared/components/providers/theme-provider';
 
 interface ProvidersProps {
@@ -9,5 +9,5 @@ interface ProvidersProps {
 }
 
 export function Providers({ children }: ProvidersProps) {
-  return <SessionProvider>{children}</SessionProvider>;
+  return <EnhancedSessionProvider>{children}</EnhancedSessionProvider>;
 }

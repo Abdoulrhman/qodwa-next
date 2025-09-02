@@ -13,64 +13,212 @@ import {
   BarChart3,
   Settings,
   Shield,
+  Users,
+  UserPlus,
+  BookText,
+  ChevronDown,
+  ChevronRight,
+  Bell,
+  Bug,
+  Mail,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
+import { useSession } from 'next-auth/react';
 import { useCurrentUserRole } from '@/features/auth/hooks/use-current-user-role';
+import { useCurrentUser } from '@/features/auth/hooks/use-current-user';
+import { hasTeacherAccess } from '@/src/shared/utils/teacher-utils';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import useIsMobile from '@/shared/hooks/use-is-mobile';
 
-const getRoutes = (locale: string, t: any, role: string | undefined) => {
-  const baseRoutes = [
+interface RouteItem {
+  label: string;
+  icon: React.ComponentType<any>;
+  href?: string;
+  children?: RouteItem[];
+  isActive?: boolean;
+}
+
+const getRoutes = (
+  locale: string,
+  t: any,
+  role: string | undefined,
+  isTeacher: boolean
+): RouteItem[] => {
+  // Base routes available to all users
+  const baseRoutes: RouteItem[] = [
     {
       label: t('navigation.home'),
       icon: Home,
       href: `/${locale}/dashboard`,
+      isActive: true,
+    },
+  ].filter((route) => route.isActive);
+
+  // Teacher-specific routes
+  const teacherRoutes: RouteItem[] = [
+    {
+      label: t('teacherStudents.title'),
+      icon: Users,
+      href: `/${locale}/dashboard/teacher/students`,
+      isActive: true,
+    },
+  ].filter((route) => route.isActive);
+
+  // Student-specific routes
+  const studentRoutes: RouteItem[] = [
+    {
+      label: t('navigation.free_session'),
+      icon: Calendar,
+      href: `/${locale}/dashboard/free-session`,
+      isActive: true,
     },
     {
-      label: 'My Teacher',
+      label: t('navigation.my_teacher'),
       icon: GraduationCap,
       href: `/${locale}/dashboard/teacher`,
+      isActive: true,
     },
     {
-      label: 'My Packages',
+      label: t('navigation.my_packages'),
       icon: BookOpen,
       href: `/${locale}/dashboard/packages`,
+      isActive: true,
     },
     {
-      label: 'Schedule',
+      label: t('navigation.schedule'),
       icon: Calendar,
       href: `/${locale}/dashboard/schedule`,
+      isActive: false,
     },
     {
-      label: 'Progress',
+      label: t('navigation.progress'),
       icon: BarChart3,
       href: `/${locale}/dashboard/progress`,
+      isActive: false,
     },
+  ].filter((route) => route.isActive);
+
+  // Admin-specific routes
+  const adminRoutes: RouteItem[] = [
+    {
+      label: t('navigation.admin.title'),
+      icon: Shield,
+      children: [
+        {
+          label: t('navigation.admin.dashboard'),
+          icon: Home,
+          href: `/${locale}/dashboard/admin`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.users'),
+          icon: Users,
+          href: `/${locale}/dashboard/admin/users`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.teachers'),
+          icon: GraduationCap,
+          href: `/${locale}/dashboard/admin/teachers`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.assignTeacher'),
+          icon: UserPlus,
+          href: `/${locale}/dashboard/admin/assign-teacher`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.packages'),
+          icon: BookText,
+          href: `/${locale}/dashboard/admin/packages`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.freeSessions'),
+          icon: Calendar,
+          href: `/${locale}/dashboard/admin/free-sessions`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.subscriptions'),
+          icon: DollarSign,
+          href: `/${locale}/dashboard/admin/subscriptions`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.notifications'),
+          icon: Bell,
+          href: `/${locale}/dashboard/admin/notifications`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.teacherRecruitment'),
+          icon: Mail,
+          href: `/${locale}/dashboard/admin/teacher-recruitment`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.emailDebug'),
+          icon: Bug,
+          href: `/${locale}/dashboard/admin/debug/email`,
+          isActive: true,
+        },
+        {
+          label: t('navigation.admin.analytics'),
+          icon: BarChart3,
+          href: `/${locale}/dashboard/admin/analytics`,
+          isActive: false,
+        },
+        {
+          label: t('navigation.admin.settings'),
+          icon: Settings,
+          href: `/${locale}/dashboard/admin/settings`,
+          isActive: false,
+        },
+      ].filter((route) => route.isActive), // Filter out inactive routes
+    },
+  ];
+
+  // Common routes for teachers and students (not admins)
+  const commonRoutes: RouteItem[] = [
     {
       label: 'Messages',
       icon: MessageCircle,
       href: `/${locale}/dashboard/messages`,
+      isActive: false,
     },
     {
       label: t('Payments.title'),
       icon: DollarSign,
       href: `/${locale}/dashboard/payments`,
+      isActive: role === 'USER',
     },
-  ];
+  ].filter((route) => route.isActive);
 
-  // Add admin routes if user is admin
+  // Determine user type and build routes accordingly
+  let userType: 'admin' | 'teacher' | 'student' = 'student';
+
   if (role === 'ADMIN') {
-    baseRoutes.push({
-      label: 'Admin Dashboard',
-      icon: Shield,
-      href: `/${locale}/dashboard/admin`,
-    });
+    userType = 'admin';
+  } else if (isTeacher) {
+    userType = 'teacher';
   }
 
-  return baseRoutes;
+  switch (userType) {
+    case 'admin':
+      return [...baseRoutes, ...adminRoutes];
+
+    case 'teacher':
+      return [...baseRoutes, ...teacherRoutes, ...commonRoutes];
+
+    case 'student':
+    default:
+      return [...baseRoutes, ...studentRoutes, ...commonRoutes];
+  }
 };
 
 export const DashboardSidebar = () => {
@@ -80,11 +228,77 @@ export const DashboardSidebar = () => {
   const isRTL = locale === 'ar';
   const isMobile = useIsMobile();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>(
+    {}
+  );
 
-  // Get user role using the proper hook
+  // Get user role and user data
   const { role } = useCurrentUserRole();
+  const user = useCurrentUser();
+  const { data: session, status, update } = useSession();
 
-  const routes = getRoutes(locale, t, role);
+  // Use session user if useCurrentUser returns undefined (fallback)
+  const currentUser = user || session?.user;
+  const isTeacher = hasTeacherAccess(currentUser);
+
+  // Handle loading state
+  const isLoading = status === 'loading';
+
+  // Force session refresh if authenticated but user data is missing
+  useEffect(() => {
+    if (status === 'authenticated' && !user && session?.user) {
+      console.log('🔄 Forcing session refresh due to missing user data');
+      update();
+    }
+  }, [status, user, session?.user, update]);
+
+  // Additional effect to handle session state changes
+  useEffect(() => {
+    if (status === 'authenticated' && session?.user && !user) {
+      console.log(
+        '🔄 Session authenticated but useCurrentUser hook not updated, forcing refresh...'
+      );
+      // Small delay then force update
+      setTimeout(() => {
+        update();
+      }, 100);
+    }
+  }, [status, session, user, update]);
+
+  console.log('🔍 CORRECT SIDEBAR DEBUG:', {
+    user: user,
+    currentUser: currentUser,
+    session: session,
+    role: role,
+    isTeacher: isTeacher,
+    status: status,
+    isLoading: isLoading,
+    userIsTeacherFlag: (currentUser as any)?.isTeacher,
+    userRoleFlag: (currentUser as any)?.role,
+    sessionUser: session?.user,
+  });
+
+  const routes = getRoutes(locale, t, role, isTeacher);
+
+  // Toggle dropdown function
+  const toggleDropdown = (label: string) => {
+    setOpenDropdowns((prev) => ({
+      ...prev,
+      [label]: !prev[label],
+    }));
+  };
+
+  // Initialize admin dropdown as open if on admin page
+  useEffect(() => {
+    if (pathname.includes('/dashboard/admin')) {
+      setOpenDropdowns((prev) => ({ ...prev, Admin: true }));
+    }
+  }, [pathname]);
+
+  // Check if any admin route is active
+  const isAdminRouteActive = (children: any[]) => {
+    return children.some((child: any) => pathname === child.href);
+  };
 
   // Close sidebar on route change
   useEffect(() => {
@@ -116,13 +330,29 @@ export const DashboardSidebar = () => {
     if (isMobile && isSidebarOpen) {
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = 'unset';
     }
 
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = 'unset';
     };
   }, [isMobile, isSidebarOpen]);
+
+  // Show loading skeleton while session is loading
+  if (isLoading) {
+    console.log('🔍 SIDEBAR LOADING STATE');
+    return (
+      <aside className='w-64 h-full bg-background border-r'>
+        <div className='p-4'>
+          <div className='space-y-2'>
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className='h-10 bg-muted animate-pulse rounded' />
+            ))}
+          </div>
+        </div>
+      </aside>
+    );
+  }
 
   return (
     <>
@@ -131,7 +361,7 @@ export const DashboardSidebar = () => {
         <Button
           variant='ghost'
           size='icon'
-          className='fixed top-20 left-4 z-50'
+          className={cn('fixed top-20 z-50', isRTL ? 'right-4' : 'left-4')}
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         >
           <Menu className='h-5 w-5' />
@@ -150,36 +380,103 @@ export const DashboardSidebar = () => {
       <div
         id='dashboard-sidebar'
         className={cn(
-          'fixed h-full bg-background border-r z-50 transition-all duration-300',
+          'fixed h-full bg-background z-50 transition-all duration-300',
           isMobile
             ? isSidebarOpen
               ? 'translate-x-0'
               : isRTL
-                ? 'translate-x-56'
-                : '-translate-x-56'
+                ? 'translate-x-full'
+                : '-translate-x-full'
             : 'translate-x-0',
-          isRTL ? 'right-0 border-l border-r-0' : 'left-0',
+          isRTL ? 'right-0 border-l border-r-0' : 'left-0 border-r border-l-0',
           'w-56'
         )}
         dir={isRTL ? 'rtl' : 'ltr'}
       >
         <div className='flex flex-1 flex-col gap-2 p-4 pt-20'>
-          {routes.map((route) => (
-            <Link
-              key={route.href}
-              href={route.href}
-              className={cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all hover:bg-secondary',
-                pathname === route.href
-                  ? 'bg-secondary text-secondary-foreground'
-                  : 'text-muted-foreground',
-                isRTL && 'flex-row-reverse text-right'
-              )}
-            >
-              <route.icon className='h-4 w-4' />
-              {route.label}
-            </Link>
-          ))}
+          {routes.map((route: any) => {
+            // Handle dropdown routes
+            if (route.children) {
+              const isOpen = openDropdowns[route.label];
+              const hasActiveChild = isAdminRouteActive(route.children);
+
+              return (
+                <div key={route.label}>
+                  {/* Dropdown trigger */}
+                  <button
+                    onClick={() => toggleDropdown(route.label)}
+                    className={cn(
+                      'flex items-center justify-between w-full gap-3 rounded-lg px-3 py-2 text-sm transition-all hover:bg-secondary',
+                      hasActiveChild
+                        ? 'bg-secondary text-secondary-foreground'
+                        : 'text-muted-foreground',
+                      isRTL && 'flex-row-reverse text-right'
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        'flex items-center gap-3',
+                        isRTL && 'flex-row-reverse'
+                      )}
+                    >
+                      <route.icon className='h-4 w-4' />
+                      {route.label}
+                    </div>
+                    {isOpen ? (
+                      <ChevronDown className='h-4 w-4' />
+                    ) : (
+                      <ChevronRight className='h-4 w-4' />
+                    )}
+                  </button>
+
+                  {/* Dropdown content */}
+                  {isOpen && (
+                    <div
+                      className={cn(
+                        'ml-4 mt-1 space-y-1',
+                        isRTL && 'mr-4 ml-0'
+                      )}
+                    >
+                      {route.children.map((child: any) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className={cn(
+                            'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all hover:bg-secondary',
+                            pathname === child.href
+                              ? 'bg-secondary text-secondary-foreground'
+                              : 'text-muted-foreground',
+                            isRTL && 'flex-row-reverse text-right'
+                          )}
+                        >
+                          <child.icon className='h-4 w-4' />
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
+            // Handle regular routes
+            return (
+              <Link
+                key={route.href}
+                href={route.href}
+                className={cn(
+                  'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all hover:bg-secondary',
+                  pathname === route.href
+                    ? 'bg-secondary text-secondary-foreground'
+                    : 'text-muted-foreground',
+                  isRTL && 'flex-row-reverse text-right'
+                )}
+              >
+                <route.icon className='h-4 w-4' />
+                {route.label}
+              </Link>
+            );
+          })}
         </div>
       </div>
 

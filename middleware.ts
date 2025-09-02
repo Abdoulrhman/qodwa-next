@@ -16,19 +16,32 @@ const localeMiddleware = createMiddleware(routing);
 
 export default async function middleware(request: any) {
   const { nextUrl } = request;
-  const locale = request.nextUrl.pathname.split('/')[1];
 
-  // Get the pathname of the request
-  const pathname = nextUrl.pathname;
-
-  // Check if the pathname is an API auth route
-  if (pathname.startsWith(apiAuthPrefix)) {
+  // Check if the pathname is an API auth route - handle these first
+  if (nextUrl.pathname.startsWith(apiAuthPrefix)) {
     return NextResponse.next();
   }
+
+  // Apply locale middleware first to ensure proper locale detection
+  const localeResponse = localeMiddleware(request);
+
+  // If the locale middleware returns a redirect, use it
+  if (
+    localeResponse &&
+    localeResponse.status >= 300 &&
+    localeResponse.status < 400
+  ) {
+    return localeResponse;
+  }
+
+  // Now apply authentication logic
+  const locale = request.nextUrl.pathname.split('/')[1];
+  const pathname = nextUrl.pathname;
 
   // Get the token from the session
   const session = await auth();
   const isLoggedIn = !!session;
+  const isEmailVerified = !!session?.user?.emailVerified;
 
   // Check if the route is protected (any dashboard route)
   const isProtectedRoute = pathname.match(/^\/[a-z]{2}\/dashboard/) !== null;
@@ -43,11 +56,16 @@ export default async function middleware(request: any) {
     (route) => pathname.startsWith(route) || pathname === route
   );
 
-  // If the route is protected and the user isn't logged in,
-  // redirect to the login page
+  // If the route is protected and the user isn't logged in or email not verified,
+  // redirect appropriately
   if (isProtectedRoute && !isLoggedIn) {
     const redirectUrl = new URL(`/${locale}/auth/login`, nextUrl);
     redirectUrl.searchParams.set('callbackUrl', pathname);
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  if (isProtectedRoute && isLoggedIn && !isEmailVerified) {
+    const redirectUrl = new URL(`/${locale}/auth/verify-email`, nextUrl);
     return NextResponse.redirect(redirectUrl);
   }
 
@@ -59,8 +77,8 @@ export default async function middleware(request: any) {
     );
   }
 
-  console.log('✅ Middleware allowing request - applying locale middleware');
-  return localeMiddleware(request);
+  console.log('✅ Middleware allowing request with locale:', locale);
+  return localeResponse || NextResponse.next();
 }
 
 export const config = {

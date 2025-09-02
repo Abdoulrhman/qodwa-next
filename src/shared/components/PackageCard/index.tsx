@@ -52,6 +52,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
   const { locale } = useParams();
   const t = useTranslations('Home');
   const tPackage = useTranslations('Home.PackageContent');
+  const tCommon = useTranslations('Common');
   const currencySymbol = cardInfo.currency === 'USD' ? '$' : '€';
 
   // Helper function to get translated package content
@@ -108,7 +109,8 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
   // Get translated content
   const translatedTitle = getTranslatedContent(
     'title',
-    cardInfo.title || `${cardInfo.class_duration} Minutes`
+    cardInfo.title ||
+      t('Packages.minutes_title', { duration: cardInfo.class_duration })
   );
   const translatedDescription = getTranslatedContent(
     'description',
@@ -208,52 +210,33 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
           <ul className='package-card__info-list'>
             <li className='package-card__info-item'>
               <BsCalendar2 size={16} />
-              {cardInfo.days} days/week
+              {t('Packages.days_per_week', { days: cardInfo.days })}
             </li>
             <li className='package-card__info-item'>
               <BsClock size={16} />
-              {cardInfo.class_duration} min/class
+              {cardInfo.class_duration} {tCommon('minutes')}/{tCommon('class')}
             </li>
             {cardInfo.total_classes && (
               <li className='package-card__info-item'>
                 <BsPeople size={16} />
-                {cardInfo.total_classes} total classes
+                {cardInfo.total_classes} {tCommon('total_classes')}
               </li>
             )}
             {perClassPrice && (
               <li className='package-card__info-item'>
                 <BsStar size={16} />
                 {currencySymbol}
-                {perClassPrice}/class
+                {perClassPrice}/{tCommon('class')}
               </li>
             )}
           </ul>
-
-          {/* Features Preview */}
-          {translatedFeatures && translatedFeatures.length > 0 && (
-            <div className='package-card__features-preview'>
-              {translatedFeatures.slice(0, 3).map((feature, index) => (
-                <div key={index} className='package-card__feature'>
-                  <BsCheckCircle size={12} />
-                  <span>{feature}</span>
-                </div>
-              ))}
-              {translatedFeatures.length > 3 && (
-                <span className='package-card__more-features'>
-                  <span className='package-card__features-count'>
-                    +{translatedFeatures.length - 3} more
-                  </span>
-                </span>
-              )}
-            </div>
-          )}
         </div>
 
         <div className='package-card__btn-wrapper'>
           <Dialog>
             <DialogTrigger asChild>
               <Button size='lg' className='w-full' variant='qo_primary'>
-                {t('buttons.enroll_now')}
+                {t('Packages.enroll_now')}
               </Button>
             </DialogTrigger>
             <DialogContent className='sm:max-w-[500px] max-h-[80vh] overflow-y-auto'>
@@ -261,7 +244,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
                 <DialogTitle className='text-2xl font-bold flex items-center gap-2'>
                   {translatedTitle}
                   {cardInfo.is_popular && (
-                    <Badge variant='destructive'>Popular</Badge>
+                    <Badge variant='destructive'>{t('Features.popular')}</Badge>
                   )}
                 </DialogTitle>
                 <DialogDescription>
@@ -279,7 +262,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
                   </h4>
                   <div className='bg-gray-50 p-4 rounded-lg space-y-2'>
                     <div className='flex justify-between items-center'>
-                      <span>Current Price:</span>
+                      <span>{t('Packages.current_price')}:</span>
                       <span className='text-2xl font-bold text-primary'>
                         {currencySymbol} {cardInfo.current_price}
                       </span>
@@ -289,14 +272,14 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
                       (cardInfo.discount && cardInfo.discount !== '0%')) && (
                       <>
                         <div className='flex justify-between items-center text-gray-500'>
-                          <span>Original Price:</span>
+                          <span>{t('Packages.original_price')}:</span>
                           <span className='line-through'>
                             {currencySymbol} {cardInfo.original_price}
                           </span>
                         </div>
                         {cardInfo.discount && cardInfo.discount !== '0%' && (
                           <div className='flex justify-between items-center text-green-600'>
-                            <span>You Save:</span>
+                            <span>{t('Packages.you_save')}:</span>
                             <span className='font-semibold'>
                               {cardInfo.discount}
                             </span>
@@ -306,7 +289,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
                     )}
                     {perClassPrice && (
                       <div className='flex justify-between items-center border-t pt-2'>
-                        <span>Per Class:</span>
+                        <span>{t('Packages.per_class')}:</span>
                         <span className='font-semibold'>
                           {currencySymbol}
                           {perClassPrice}
@@ -318,13 +301,16 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
 
                 {/* Package Details */}
                 <div className='space-y-3'>
-                  <h4 className='font-semibold text-lg'>Package Details</h4>
+                  <h4 className='font-semibold text-lg'>
+                    {t('Packages.package_details')}
+                  </h4>
                   <div className='grid grid-cols-2 gap-4'>
                     {cardInfo.subject && (
                       <div className='flex items-center gap-2'>
                         <BsBook className='h-4 w-4 text-primary' />
                         <span className='text-sm'>
-                          <strong>Subject:</strong> {cardInfo.subject}
+                          <strong>{t('Packages.subject')}:</strong>{' '}
+                          {cardInfo.subject}
                         </span>
                       </div>
                     )}
@@ -332,35 +318,38 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
                       <div className='flex items-center gap-2'>
                         <BsAward className='h-4 w-4 text-primary' />
                         <span className='text-sm'>
-                          <strong>Level:</strong> {translatedLevel}
+                          <strong>{t('Packages.level')}:</strong>{' '}
+                          {translatedLevel}
                         </span>
                       </div>
                     )}
                     <div className='flex items-center gap-2'>
                       <BsCalendar2 className='h-4 w-4 text-primary' />
                       <span className='text-sm'>
-                        <strong>Frequency:</strong>{' '}
+                        <strong>{tCommon('frequency')}:</strong>{' '}
                         {cardInfo.subscription_frequency}
                       </span>
                     </div>
                     <div className='flex items-center gap-2'>
                       <BsClock className='h-4 w-4 text-primary' />
                       <span className='text-sm'>
-                        <strong>Duration:</strong> {cardInfo.class_duration}{' '}
-                        min/class
+                        <strong>{tCommon('duration')}:</strong>{' '}
+                        {cardInfo.class_duration} {tCommon('minutes')}/
+                        {tCommon('class')}
                       </span>
                     </div>
                     <div className='flex items-center gap-2'>
                       <BsPeople className='h-4 w-4 text-primary' />
                       <span className='text-sm'>
-                        <strong>Schedule:</strong> {cardInfo.days} days/week
+                        <strong>{tCommon('schedule')}:</strong>{' '}
+                        {t('Packages.days_per_week', { days: cardInfo.days })}
                       </span>
                     </div>
                     {cardInfo.total_classes && (
                       <div className='flex items-center gap-2'>
                         <BsCheckCircle className='h-4 w-4 text-primary' />
                         <span className='text-sm'>
-                          <strong>Total Classes:</strong>{' '}
+                          <strong>{tCommon('total_classes')}:</strong>{' '}
                           {cardInfo.total_classes}
                         </span>
                       </div>
@@ -372,7 +361,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
                 {translatedFeatures && translatedFeatures.length > 0 && (
                   <div className='space-y-3'>
                     <h4 className='font-semibold text-lg'>
-                      What&apos;s Included
+                      {t('Packages.whats_included')}
                     </h4>
                     <div className='space-y-2'>
                       {translatedFeatures.map((feature, index) => (
@@ -389,11 +378,13 @@ const PackageCard: React.FC<PackageCardProps> = ({ cardInfo }) => {
                 {cardInfo.duration_weeks && (
                   <div className='bg-blue-50 p-4 rounded-lg'>
                     <h5 className='font-semibold text-blue-800 mb-2'>
-                      Program Duration
+                      {t('Packages.program_duration')}
                     </h5>
                     <p className='text-blue-700 text-sm'>
-                      This package runs for {cardInfo.duration_weeks} weeks with{' '}
-                      {cardInfo.days} classes per week.
+                      {t('Packages.duration_description', {
+                        weeks: cardInfo.duration_weeks,
+                        days: cardInfo.days,
+                      })}
                     </p>
                   </div>
                 )}

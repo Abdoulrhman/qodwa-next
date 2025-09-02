@@ -17,7 +17,7 @@ const IntroContent: React.FC<IntroContentProps> = ({ isTeacherPage }) => {
   };
   const handleGetStarted = () => {
     const path = isTeacherPage
-      ? `/${locale}/auth/register`
+      ? `/${locale}/teacher/register`
       : `/${locale}/student/register`;
     router.push(path);
   };
@@ -29,12 +29,14 @@ const IntroContent: React.FC<IntroContentProps> = ({ isTeacherPage }) => {
       <ToggleSwitch />
       <h1 className={`intro-title ${teachersStylingClass}`}>
         <span className={`intro-title-highlight ${teachersStylingClass}`}>
-          {t('main_header_text')}
+          {isTeacherPage
+            ? t('teacher_main_header_text')
+            : t('main_header_text')}
         </span>{' '}
         {t('now')}
       </h1>
       <p className={`intro-subtitle  ${teachersStylingClass}`}>
-        {t('sub_header_text')}
+        {isTeacherPage ? t('teacher_sub_header_text') : t('sub_header_text')}
       </p>
       <div className='intro-cta'>
         <button

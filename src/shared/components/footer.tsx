@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { Link, usePathname } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
 
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 
@@ -15,6 +16,8 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ navLinks }) => {
   const pathName = usePathname();
   const [isTeacher, setIsTeacher] = useState(false);
+  const t = useTranslations('Footer');
+  const navT = useTranslations('Home.IntroHeader.nav');
 
   useEffect(() => {
     setIsTeacher(pathName.includes('teacher'));
@@ -30,17 +33,14 @@ const Footer: React.FC<FooterProps> = ({ navLinks }) => {
               width={120}
               height={40}
             />
-            <p className='footer-about-txt'>
-              We form dedicated squads of our top-notch engineers and tech
-              experts to build your product up digitally
-            </p>
+            <p className='footer-about-txt'>{t('description')}</p>
           </div>
           <div className='footer-quick-links'>
-            <p className='quick-links-title'>Quick Links</p>
+            <p className='quick-links-title'>{t('quick_links')}</p>
             <ul className='links'>
               {navLinks?.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href}>{link.label}</Link>
+                  <Link href={link.href}>{navT(link.label)}</Link>
                 </li>
               ))}
               {/* <p>Hire Tech Team</p>
@@ -76,7 +76,7 @@ const Footer: React.FC<FooterProps> = ({ navLinks }) => {
         </div>
 
         <p className={`footer-bottom ${isTeacher ? 'teacher-version' : ''}`}>
-          &copy; {new Date().getFullYear()} - All rights reserved
+          &copy; {new Date().getFullYear()} - {t('all_rights_reserved')}
         </p>
       </div>
     </div>

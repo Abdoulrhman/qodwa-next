@@ -33,8 +33,11 @@ import { Progress } from '@/components/ui/progress';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { DashboardLayout } from '@/shared/components/layout/dashboard-layout';
 import { TodoList } from '@/features/dashboard/components/todo-list';
+import { TeacherDashboardOverview } from '@/features/teacher/components/teacher-dashboard-overview';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/auth-context';
+import { useCurrentUser } from '@/features/auth/hooks/use-current-user';
+import { hasTeacherAccess } from '@/shared/utils/teacher-utils';
 
 interface DashboardData {
   stats: {
@@ -80,6 +83,10 @@ export default function DashboardPage() {
   const isRTL = locale === 'ar';
   const { user } = useAuth();
   const userName = user?.name || '';
+
+  // Add teacher/student detection
+  const currentUser = useCurrentUser();
+  const isTeacher = hasTeacherAccess(currentUser);
 
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(
     null
@@ -212,6 +219,33 @@ export default function DashboardPage() {
     );
   }
 
+  // Render teacher dashboard if user is a teacher
+  if (isTeacher) {
+    return (
+      <DashboardLayout>
+        <div className='space-y-6' dir={isRTL ? 'rtl' : 'ltr'}>
+          {/* Welcome Header for Teacher */}
+          <div className={cn('space-y-4', isRTL && 'text-right')}>
+            <div className='flex items-center justify-between flex-wrap gap-4'>
+              <div className={cn('space-y-2', isRTL && 'text-right')}>
+                <h1 className='text-3xl font-bold'>
+                  Welcome back, {userName.split(' ')[0] || 'Teacher'} 👨‍🏫
+                </h1>
+                <p className='text-lg text-muted-foreground'>
+                  Here&apos;s an overview of your teaching activity
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Teacher Dashboard Content */}
+          <TeacherDashboardOverview />
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  // Render student dashboard if user is a student
   return (
     <DashboardLayout>
       <div className='space-y-6' dir={isRTL ? 'rtl' : 'ltr'}>
@@ -237,9 +271,50 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/* Free Session Booking Prompt */}
+        <Card className='border-2 border-dashed border-primary/20 bg-gradient-to-r from-primary/5 to-blue-50 dark:to-blue-950'>
+          <CardContent className='p-6'>
+            <div
+              className={cn(
+                'flex items-center gap-4',
+                isRTL && 'flex-row-reverse'
+              )}
+            >
+              <div className='p-3 bg-primary/10 rounded-full'>
+                <Calendar className='h-8 w-8 text-primary' />
+              </div>
+              <div className={cn('flex-1', isRTL && 'text-right')}>
+                <h3 className='text-xl font-semibold mb-2'>
+                  {isRTL ? 'احجز جلستك المجانية!' : 'Book Your Free Session!'}
+                </h3>
+                <p className='text-muted-foreground mb-4'>
+                  {isRTL
+                    ? 'احجز جلسة تجريبية مجانية مع أحد معلمينا المعتمدين لتقييم احتياجاتك التعليمية وتحديد الخطة الأنسب لك'
+                    : 'Book a free trial session with one of our certified teachers to evaluate your learning needs and determine the best plan for you'}
+                </p>
+                <Button asChild className='bg-primary hover:bg-primary/90'>
+                  <a href={`/${locale}/dashboard/free-session`}>
+                    {isRTL ? 'احجز الآن' : 'Book Now'}
+                  </a>
+                </Button>
+              </div>
+              <div
+                className={cn('text-6xl opacity-20', isRTL && 'order-first')}
+              >
+                🎯
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Main Stats Grid */}
         <div className='grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'>
-          <Card className='border-l-4 border-l-blue-500'>
+          <Card
+            className={cn(
+              'border-l-4 border-l-blue-500',
+              isRTL && 'border-l-0 border-r-4 border-r-blue-500'
+            )}
+          >
             <CardContent className='pt-6'>
               <div
                 className={cn(
@@ -262,7 +337,12 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
 
-          <Card className='border-l-4 border-l-green-500'>
+          <Card
+            className={cn(
+              'border-l-4 border-l-green-500',
+              isRTL && 'border-l-0 border-r-4 border-r-green-500'
+            )}
+          >
             <CardContent className='pt-6'>
               <div
                 className={cn(
@@ -285,7 +365,12 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
 
-          <Card className='border-l-4 border-l-purple-500'>
+          <Card
+            className={cn(
+              'border-l-4 border-l-purple-500',
+              isRTL && 'border-l-0 border-r-4 border-r-purple-500'
+            )}
+          >
             <CardContent className='pt-6'>
               <div
                 className={cn(
@@ -308,7 +393,12 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
 
-          <Card className='border-l-4 border-l-orange-500'>
+          <Card
+            className={cn(
+              'border-l-4 border-l-orange-500',
+              isRTL && 'border-l-0 border-r-4 border-r-orange-500'
+            )}
+          >
             <CardContent className='pt-6'>
               <div
                 className={cn(

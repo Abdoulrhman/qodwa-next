@@ -16,13 +16,25 @@ const HomeIntro: React.FC<HomeIntroProps> = ({
   isBgImage = true,
 }) => {
   const [isTeacherPage, setIsTeacherPage] = useState(false);
-  const navLinks = [
-    { label: 'Packages', href: '#packages' },
-    { label: 'Guide', href: '#how-to-start' },
-    { label: 'About Us', href: '#about-us' },
-    { label: 'Services', href: '#services' },
-    { label: 'Contact Us', href: '#contact-us' },
-  ];
+  const pathName = usePathname();
+
+  useEffect(() => {
+    setIsTeacherPage(pathName.includes('teacher'));
+  }, [pathName]);
+
+  // Dynamic navigation links based on page type
+  const navLinks = isTeacherPage
+    ? [
+        { label: 'Home', href: '/' },
+        { label: 'Apply as a Teacher', href: '/teacher/register' },
+      ]
+    : [
+        { label: 'Packages', href: '#packages' },
+        { label: 'Guide', href: '#how-to-start' },
+        { label: 'About Us', href: '#about-us' },
+        { label: 'Services', href: '#services' },
+        { label: 'Contact Us', href: '#contact-us' },
+      ];
 
   // Default values for bgImage and bgColor if not provided
   const defaultBgImage = '/images/header-bg.jpg';
@@ -32,12 +44,6 @@ const HomeIntro: React.FC<HomeIntroProps> = ({
     backgroundColor: !isBgImage ? bgColor || defaultBgColor : 'transparent',
     backgroundImage: isBgImage ? `url(${bgImage || defaultBgImage})` : 'none',
   };
-
-  const pathName = usePathname();
-
-  useEffect(() => {
-    setIsTeacherPage(pathName.includes('teacher'));
-  }, [pathName]);
 
   return (
     <div className='intro' style={backgroundStyle}>

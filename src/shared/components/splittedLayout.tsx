@@ -18,10 +18,10 @@ const SplittedLayout: React.FC<SplittedLayoutProps> = ({
   isColorBlack = true,
 }) => {
   return (
-    <div className='h-screen flex'>
+    <div className='min-h-screen flex flex-col md:flex-row'>
       {/* Left side with background image and overlay text */}
       <div
-        className={`w-1/2 hidden md:flex bg-cover bg-center ${
+        className={`hidden md:w-1/2 md:flex bg-cover bg-center ${
           isColorBlack ? 'text-black' : 'text-white'
         } flex-col justify-end p-8`}
         style={{ backgroundImage: `url(${backgroundImage})` }}
@@ -36,9 +36,9 @@ const SplittedLayout: React.FC<SplittedLayoutProps> = ({
         </div>
       </div>
 
-      {/* Right side with children */}
-      <div className='w-full md:w-1/2 flex items-center justify-center bg-white p-8'>
-        {children}
+      {/* Right side with children - mobile optimized */}
+      <div className='w-full md:w-1/2 flex items-start md:items-center justify-center bg-white p-4 md:p-8 pt-8 md:pt-8 min-h-screen md:min-h-0'>
+        <div className='w-full max-w-md mx-auto'>{children}</div>
       </div>
     </div>
   );

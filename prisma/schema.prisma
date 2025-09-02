@@ -52,6 +52,10 @@ model User {
   birthDate             DateTime?
   gender                Gender?
   isTeacher             Boolean?               @default(false)
+  teacherApprovalStatus TeacherApprovalStatus? @default(PENDING)
+  teacherApprovedAt     DateTime?
+  teacherApprovedBy     String?               // ID of admin who approved
+  teacherRejectedReason String?               // Reason for rejection if any
   phone                 String?
   qualifications        String?
   referralSource        String?
@@ -59,6 +63,10 @@ model User {
   teachingExperience    Int?
   hasBookedDemo         Boolean                @default(false)
   demoSessionDate       DateTime?
+  
+  // Payment and billing info
+  // stripeCustomerId      String?               // Stripe customer ID for secure payment processing
+  // defaultPaymentMethodId String?              // Default Stripe payment method ID
   
   // Teacher-Student Relations
   assignedTeacherId     String?               // Foreign key for assigned teacher
@@ -73,6 +81,14 @@ model User {
   accounts              Account[]
   twoFactorConfirmation TwoFactorConfirmation?
   subscriptions         Subscription[]
+  // paymentMethods        PaymentMethod[]       @relation("UserPaymentMethods")
+  freeSessionBookings   FreeSessionBooking[]  @relation("StudentBookings")
+  teacherBookings       FreeSessionBooking[]  @relation("TeacherBookings")
+  
+  // Class session relationships
+  studentClasses        ClassSession[]        @relation("StudentClasses")
+  teacherClasses        ClassSession[]        @relation("TeacherClasses")
+  teacherEarnings       TeacherEarnings[]     @relation("TeacherEarnings")
 }
 
 model Account {
@@ -134,21 +150,68 @@ model Subscription {
   endDate           DateTime?
   status            SubscriptionStatus @default(ACTIVE)
   
-  // New fields for better tracking
+  // Enhanced subscription tracking
   classes_completed Int      @default(0) // Number of classes completed
   classes_remaining Int?     // Calculated or stored remaining classes
   next_class_date   DateTime? // Next scheduled class
   auto_renew        Boolean  @default(false) // Auto-renewal setting
-  payment_method    String?  // Payment method used
+  payment_method    String?  // Payment method used (for display)
   stripe_session_id String?  // Stripe session ID for reference
   cancellation_reason String? // Reason for cancellation (if cancelled)
   notes             String?  // Admin notes about the subscription
   
+  // Auto-renewal fields
+  // stripe_subscription_id String? // Stripe subscription ID for auto-renewal
+  // next_billing_date     DateTime? // Next billing date for auto-renewal
+  // billing_cycle_anchor  DateTime? // Billing cycle anchor for renewals
+  // auto_renew_attempts   Int      @default(0) // Number of failed renewal attempts
+  // last_renewal_attempt  DateTime? // Last renewal attempt timestamp
+  // renewal_failure_reason String? // Reason for last renewal failure
+  
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   package           Package  @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  classSessions     ClassSession[]
+  // paymentIntents    PaymentIntent[] // Track payment history
 
   @@unique([userId, packageId])
 }
+
+// model PaymentMethod {
+//   id                    String   @id @default(cuid())
+//   userId                String
+//   stripePaymentMethodId String   @unique // Stripe payment method ID
+//   type                  String   // card, bank_account, etc.
+//   last4                 String?  // Last 4 digits of card (for display)
+//   brand                 String?  // visa, mastercard, etc.
+//   expiryMonth           Int?     // Card expiry month
+//   expiryYear            Int?     // Card expiry year
+//   isDefault             Boolean  @default(false)
+//   isActive              Boolean  @default(true)
+//   createdAt             DateTime @default(now())
+//   updatedAt             DateTime @updatedAt
+  
+//   user                  User     @relation("UserPaymentMethods", fields: [userId], references: [id], onDelete: Cascade)
+  
+//   @@map("payment_methods")
+// }
+
+// model PaymentIntent {
+//   id                    String   @id @default(cuid())
+//   stripePaymentIntentId String   @unique
+//   subscriptionId        String
+//   amount                Float    // Amount in dollars
+//   currency              String   @default("USD")
+//   status                PaymentStatus
+//   description           String?
+//   failureReason         String?  // Reason for payment failure
+//   processedAt           DateTime?
+//   createdAt             DateTime @default(now())
+//   updatedAt             DateTime @updatedAt
+  
+//   subscription          Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  
+//   @@map("payment_intents")
+// }
 
 model TeacherStudent {
   id            String   @id @default(cuid())
@@ -157,6 +220,7 @@ model TeacherStudent {
   assignedAt    DateTime @default(now())
   isActive      Boolean  @default(true)
   notes         String?  // Optional notes about the teacher-student relationship
+  zoomLink      String?  // Zoom meeting link for teacher-student sessions
   
   // Relations
   teacher       User     @relation("TeacherConnections", fields: [teacherId], references: [id], onDelete: Cascade)
@@ -164,6 +228,31 @@ model TeacherStudent {
   
   @@unique([teacherId, studentId])
   @@map("teacher_students")
+}
+
+model FreeSessionBooking {
+  id                String               @id @default(cuid())
+  studentId         String
+  teacherId         String?              // Can be null initially, assigned later
+  sessionDate       DateTime
+  duration          Int                  @default(30) // Duration in minutes
+  status            FreeSessionStatus    @default(PENDING)
+  subject           String?              // Subject for the session (Quran, Arabic, etc.)
+  studentNotes      String?              // Notes from student about their goals/needs
+  teacherNotes      String?              // Notes from teacher after the session
+  meetingLink       String?              // Online meeting link
+  timezone          String?              // Student's timezone
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+  completedAt       DateTime?            // When the session was completed
+  cancelledAt       DateTime?            // When the session was cancelled
+  cancellationReason String?             // Reason for cancellation
+  
+  // Relations
+  student           User                 @relation("StudentBookings", fields: [studentId], references: [id], onDelete: Cascade)
+  teacher           User?                @relation("TeacherBookings", fields: [teacherId], references: [id], onDelete: SetNull)
+  
+  @@map("free_session_bookings")
 }
 
 enum UserRole {
@@ -177,9 +266,86 @@ enum Gender {
   FEMALE
 }
 
+enum TeacherApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 enum SubscriptionStatus {
   ACTIVE
   CANCELLED
   EXPIRED
   PENDING
+}
+
+enum FreeSessionStatus {
+  PENDING      // Waiting for teacher assignment
+  SCHEDULED    // Teacher assigned and confirmed
+  COMPLETED    // Session completed
+  CANCELLED    // Session cancelled
+  NO_SHOW      // Student didn't show up
+}
+
+enum ClassStatus {
+  SCHEDULED    // Class is scheduled
+  IN_PROGRESS  // Class is currently in progress
+  COMPLETED    // Class has been completed
+  CANCELLED    // Class was cancelled
+  NO_SHOW      // Student didn't show up
+}
+
+// enum PaymentStatus {
+//   PENDING      // Payment is pending
+//   PROCESSING   // Payment is being processed
+//   SUCCEEDED    // Payment succeeded
+//   FAILED       // Payment failed
+//   CANCELLED    // Payment was cancelled
+//   REFUNDED     // Payment was refunded
+// }
+
+model ClassSession {
+  id                String           @id @default(cuid())
+  studentId         String
+  teacherId         String
+  subscriptionId    String
+  startTime         DateTime
+  endTime           DateTime?
+  duration          Int              @default(30) // Duration in minutes
+  zoomLink          String?          // Zoom meeting link
+  status            ClassStatus      @default(SCHEDULED)
+  teacherEarning    Float            @default(2.0) // Teacher earning for this class
+  notes             String?          // General teacher notes about the class
+  
+  // Structured notes for different aspects of learning
+  dailyAssignment   String?          // الواجب اليومي - Daily Assignment notes
+  appliedTajweed    String?          // التجويد التطبيقي - Applied Tajweed notes  
+  review            String?          // المراجعة - Review notes
+  memorization      String?          // حفظ - Memorization notes
+  
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  
+  // Relations
+  student           User             @relation("StudentClasses", fields: [studentId], references: [id], onDelete: Cascade)
+  teacher           User             @relation("TeacherClasses", fields: [teacherId], references: [id], onDelete: Cascade)
+  subscription      Subscription     @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  
+  @@map("class_sessions")
+}
+
+model TeacherEarnings {
+  id                String           @id @default(cuid())
+  teacherId         String
+  totalEarnings     Float            @default(0.0)
+  totalClasses      Int              @default(0)
+  currentMonth      Int              // 1-12 for tracking monthly earnings
+  currentYear       Int              // Year for tracking annual earnings
+  lastUpdated       DateTime         @default(now()) @updatedAt
+  
+  // Relations
+  teacher           User             @relation("TeacherEarnings", fields: [teacherId], references: [id], onDelete: Cascade)
+  
+  @@unique([teacherId, currentMonth, currentYear])
+  @@map("teacher_earnings")
 }

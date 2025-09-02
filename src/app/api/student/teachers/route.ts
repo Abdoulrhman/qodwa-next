@@ -18,50 +18,53 @@ export async function GET(request: NextRequest) {
 
     const userId = session.user.id;
 
-    // For now, let's return sample data since the database may not have teacher assignments yet
-    // TODO: Replace with actual database queries once teacher assignments are set up
-
-    // Sample primary teacher data
-    const samplePrimaryTeacher = {
-      id: 'sample-teacher-1',
-      name: 'أستاذ أحمد محمد',
-      email: 'ahmed.mohammed@qodwa.com',
-      phone: '+966501234567',
-      image: '/images/teachers/teacher-1.jpg',
-      subjects: 'القرآن الكريم، التجويد، الفقه',
-      qualifications: 'ماجستير في علوم القرآن - جامعة الأزهر',
-      teachingExperience: 8,
-    };
-
-    // Sample additional teachers
-    const sampleAdditionalTeachers = [
-      {
-        id: 'connection-1',
-        assignedAt: '2025-01-01T00:00:00Z',
-        isActive: true,
-        notes: 'متخصص في تحفيظ القرآن الكريم',
-        teacher: {
-          id: 'sample-teacher-2',
-          name: 'أستاذة فاطمة علي',
-          email: 'fatima.ali@qodwa.com',
-          phone: '+966507654321',
-          image: '/images/teachers/teacher-2.jpg',
-          subjects: 'التحفيظ، التلاوة',
-          qualifications: 'إجازة في القراءات العشر',
-          teachingExperience: 12,
-        },
-      },
-    ];
-
-    // Try to fetch student data to verify they exist
-    const student = await db.user.findUnique({
+    // Fetch real student data with teacher relationships
+    const studentData = await db.user.findUnique({
       where: {
         id: userId,
         OR: [{ isTeacher: false }, { isTeacher: null }],
       },
+      include: {
+        // Primary teacher assignment
+        assignedTeacher: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            phone: true,
+            image: true,
+            subjects: true,
+            qualifications: true,
+            teachingExperience: true,
+          },
+        },
+        // Additional teacher connections
+        teacherConnections: {
+          where: {
+            isActive: true,
+          },
+          include: {
+            teacher: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+                phone: true,
+                image: true,
+                subjects: true,
+                qualifications: true,
+                teachingExperience: true,
+              },
+            },
+          },
+          orderBy: {
+            assignedAt: 'desc',
+          },
+        },
+      },
     });
 
-    if (!student) {
+    if (!studentData) {
       return NextResponse.json(
         {
           success: false,
@@ -71,11 +74,11 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Return sample data for now
+    // Format the response data
     const response = {
       success: true,
-      primaryTeacher: samplePrimaryTeacher,
-      additionalTeachers: sampleAdditionalTeachers,
+      primaryTeacher: studentData.assignedTeacher,
+      additionalTeachers: studentData.teacherConnections,
     };
 
     return NextResponse.json(response);

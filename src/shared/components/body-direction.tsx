@@ -22,17 +22,22 @@ export default function BodyDirection() {
 
     // Update body direction and preserve existing classes
     document.body.dir = direction;
-    
+
     // Add font class while preserving existing classes
     const existingClasses = document.body.className;
     const fontClass = isRTL ? almarai.className : inter.className;
-    
+
     // Remove any existing font classes and add the new one
     const cleanedClasses = existingClasses
       .split(' ')
-      .filter(cls => !cls.startsWith('__className_') && cls !== almarai.className && cls !== inter.className)
+      .filter(
+        (cls) =>
+          !cls.startsWith('__className_') &&
+          cls !== almarai.className &&
+          cls !== inter.className
+      )
       .join(' ');
-    
+
     document.body.className = `${cleanedClasses} ${fontClass}`.trim();
   }, [locale]);
 

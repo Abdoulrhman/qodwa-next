@@ -9,9 +9,16 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 
-const stripePromise: Promise<Stripe | null> = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+// Add error handling for missing Stripe key
+const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+console.log(
+  'Stripe publishable key:',
+  stripePublishableKey ? 'Found' : 'Missing'
 );
+
+const stripePromise: Promise<Stripe | null> = stripePublishableKey
+  ? loadStripe(stripePublishableKey)
+  : Promise.resolve(null);
 
 interface CheckoutButtonProps {
   items: { name: string; price: number; quantity: number; packageId: number }[];
@@ -38,25 +45,52 @@ export default function CheckoutButton({
 
     setLoading(true);
 
-    const stripe = await stripePromise;
+    try {
+      // Check if Stripe was loaded successfully
+      const stripe = await stripePromise;
 
-    const response = await fetch('/api/checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items }),
-    });
+      if (!stripe) {
+        console.error('Stripe failed to load. Check your publishable key.');
+        alert('Payment system is not available. Please try again later.');
+        setLoading(false);
+        return;
+      }
 
-    const { sessionId } = await response.json();
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items }),
+      });
 
-    if (stripe && sessionId) {
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Checkout API error:', errorData);
+        alert('Failed to create payment session. Please try again.');
+        setLoading(false);
+        return;
+      }
+
+      const { sessionId } = await response.json();
+
+      if (!sessionId) {
+        console.error('No session ID returned from checkout API');
+        alert('Payment session could not be created. Please try again.');
+        setLoading(false);
+        return;
+      }
+
       const result = await stripe.redirectToCheckout({ sessionId });
 
       if (result.error) {
-        console.error(result.error.message);
+        console.error('Stripe redirect error:', result.error.message);
+        alert(`Payment error: ${result.error.message}`);
       }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('An unexpected error occurred. Please try again.');
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (

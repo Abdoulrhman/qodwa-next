@@ -187,14 +187,17 @@ export default function SchedulePage() {
     );
   }
 
-  const groupedClasses = classes.reduce((groups, classItem) => {
-    const date = classItem.date;
-    if (!groups[date]) {
-      groups[date] = [];
-    }
-    groups[date].push(classItem);
-    return groups;
-  }, {} as Record<string, ScheduledClass[]>);
+  const groupedClasses = classes.reduce(
+    (groups, classItem) => {
+      const date = classItem.date;
+      if (!groups[date]) {
+        groups[date] = [];
+      }
+      groups[date].push(classItem);
+      return groups;
+    },
+    {} as Record<string, ScheduledClass[]>
+  );
 
   return (
     <DashboardLayout>

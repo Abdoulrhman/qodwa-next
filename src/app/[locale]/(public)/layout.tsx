@@ -3,7 +3,7 @@ import Header from '@/shared/components/header';
 
 const PublicLayout = ({ children }: { children: React.ReactNode }) => {
   const navLinks = [
-    { label: 'Apply as a Student', href: '/student/register' },
+    { label: 'Apply as a Teacher', href: '/student/register' },
     { label: 'Packages', href: '/packages' },
   ];
 

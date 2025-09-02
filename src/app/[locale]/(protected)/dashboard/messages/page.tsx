@@ -14,16 +14,16 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { 
-  Loader2, 
-  MessageCircle, 
+import {
+  Loader2,
+  MessageCircle,
   Send,
   Pin,
   Star,
   Clock,
   CheckCheck,
   Check,
-  Plus
+  Plus,
 } from 'lucide-react';
 import { useAuth } from '@/contexts/auth-context';
 import { cn } from '@/lib/utils';
@@ -65,7 +65,9 @@ export default function MessagesPage() {
   const { user } = useAuth();
 
   const [messagesData, setMessagesData] = useState<MessagesData | null>(null);
-  const [selectedThread, setSelectedThread] = useState<MessageThread | null>(null);
+  const [selectedThread, setSelectedThread] = useState<MessageThread | null>(
+    null
+  );
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [sendingMessage, setSendingMessage] = useState(false);
@@ -76,13 +78,13 @@ export default function MessagesPage() {
       try {
         setLoading(true);
         const response = await fetch('/api/student/messages');
-        
+
         if (!response.ok) {
           throw new Error('Failed to fetch messages');
         }
 
         const data = await response.json();
-        
+
         if (data.success) {
           setMessagesData(data.messages);
         } else {
@@ -110,13 +112,13 @@ export default function MessagesPage() {
     try {
       setLoading(true);
       const response = await fetch('/api/student/messages');
-      
+
       if (!response.ok) {
         throw new Error('Failed to fetch messages');
       }
 
       const data = await response.json();
-      
+
       if (data.success) {
         setMessagesData(data.messages);
         // Auto-select first thread if available
@@ -198,10 +200,14 @@ export default function MessagesPage() {
 
   const getMessageTypeIcon = (type: string) => {
     switch (type) {
-      case 'assignment': return '📚';
-      case 'reminder': return '⏰';
-      case 'feedback': return '⭐';
-      default: return '💬';
+      case 'assignment':
+        return '📚';
+      case 'reminder':
+        return '⏰';
+      case 'feedback':
+        return '⭐';
+      default:
+        return '💬';
     }
   };
 
@@ -246,7 +252,12 @@ export default function MessagesPage() {
       <div className='space-y-6' dir={isRTL ? 'rtl' : 'ltr'}>
         {/* Page Header */}
         <div className={cn('space-y-2', isRTL && 'text-right')}>
-          <div className={cn('flex items-center justify-between', isRTL && 'flex-row-reverse')}>
+          <div
+            className={cn(
+              'flex items-center justify-between',
+              isRTL && 'flex-row-reverse'
+            )}
+          >
             <h1 className='text-3xl font-bold'>
               {isRTL ? 'الرسائل' : 'Messages'}
             </h1>
@@ -257,10 +268,9 @@ export default function MessagesPage() {
             )}
           </div>
           <p className='text-muted-foreground'>
-            {isRTL 
+            {isRTL
               ? 'تواصل مع معلميك واستقبل الإشعارات والواجبات'
-              : 'Communicate with your teachers and receive notifications'
-            }
+              : 'Communicate with your teachers and receive notifications'}
           </p>
         </div>
 
@@ -268,7 +278,12 @@ export default function MessagesPage() {
           {/* Message Threads List */}
           <Card className='lg:col-span-1'>
             <CardHeader>
-              <CardTitle className={cn('flex items-center gap-2', isRTL && 'flex-row-reverse')}>
+              <CardTitle
+                className={cn(
+                  'flex items-center gap-2',
+                  isRTL && 'flex-row-reverse'
+                )}
+              >
                 <MessageCircle className='h-5 w-5' />
                 {isRTL ? 'المحادثات' : 'Conversations'}
               </CardTitle>
@@ -287,9 +302,15 @@ export default function MessagesPage() {
                   >
                     <div className='relative'>
                       <Avatar className='h-10 w-10'>
-                        <AvatarImage src={thread.teacherAvatar} alt={thread.teacherName} />
+                        <AvatarImage
+                          src={thread.teacherAvatar}
+                          alt={thread.teacherName}
+                        />
                         <AvatarFallback>
-                          {thread.teacherName.split(' ').map(n => n[0]).join('')}
+                          {thread.teacherName
+                            .split(' ')
+                            .map((n) => n[0])
+                            .join('')}
                         </AvatarFallback>
                       </Avatar>
                       {thread.unreadCount > 0 && (
@@ -301,13 +322,22 @@ export default function MessagesPage() {
                       )}
                     </div>
 
-                    <div className={cn('flex-1 min-w-0', isRTL && 'text-right')}>
-                      <div className={cn('flex items-center justify-between', isRTL && 'flex-row-reverse')}>
+                    <div
+                      className={cn('flex-1 min-w-0', isRTL && 'text-right')}
+                    >
+                      <div
+                        className={cn(
+                          'flex items-center justify-between',
+                          isRTL && 'flex-row-reverse'
+                        )}
+                      >
                         <h4 className='font-medium text-sm truncate'>
                           {thread.teacherName}
                         </h4>
                         <div className='flex items-center gap-1'>
-                          {thread.isPinned && <Pin className='h-3 w-3 text-amber-500' />}
+                          {thread.isPinned && (
+                            <Pin className='h-3 w-3 text-amber-500' />
+                          )}
                           <span className='text-xs text-muted-foreground'>
                             {formatTime(thread.lastMessageTime)}
                           </span>
@@ -331,17 +361,37 @@ export default function MessagesPage() {
             {selectedThread ? (
               <>
                 <CardHeader>
-                  <div className={cn('flex items-center justify-between', isRTL && 'flex-row-reverse')}>
-                    <div className={cn('flex items-center gap-3', isRTL && 'flex-row-reverse')}>
+                  <div
+                    className={cn(
+                      'flex items-center justify-between',
+                      isRTL && 'flex-row-reverse'
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        'flex items-center gap-3',
+                        isRTL && 'flex-row-reverse'
+                      )}
+                    >
                       <Avatar>
-                        <AvatarImage src={selectedThread.teacherAvatar} alt={selectedThread.teacherName} />
+                        <AvatarImage
+                          src={selectedThread.teacherAvatar}
+                          alt={selectedThread.teacherName}
+                        />
                         <AvatarFallback>
-                          {selectedThread.teacherName.split(' ').map(n => n[0]).join('')}
+                          {selectedThread.teacherName
+                            .split(' ')
+                            .map((n) => n[0])
+                            .join('')}
                         </AvatarFallback>
                       </Avatar>
                       <div className={cn(isRTL && 'text-right')}>
-                        <h3 className='font-medium'>{selectedThread.teacherName}</h3>
-                        <p className='text-sm text-muted-foreground'>{selectedThread.subject}</p>
+                        <h3 className='font-medium'>
+                          {selectedThread.teacherName}
+                        </h3>
+                        <p className='text-sm text-muted-foreground'>
+                          {selectedThread.subject}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -355,58 +405,89 @@ export default function MessagesPage() {
                         key={message.id}
                         className={cn(
                           'flex gap-3',
-                          message.senderId === user?.id 
-                            ? (isRTL ? 'justify-start' : 'justify-end')
-                            : (isRTL ? 'justify-end flex-row-reverse' : 'justify-start')
+                          message.senderId === user?.id
+                            ? isRTL
+                              ? 'justify-start'
+                              : 'justify-end'
+                            : isRTL
+                              ? 'justify-end flex-row-reverse'
+                              : 'justify-start'
                         )}
                       >
                         {message.senderId !== user?.id && (
                           <Avatar className='h-8 w-8'>
-                            <AvatarImage src={message.senderAvatar} alt={message.senderName} />
+                            <AvatarImage
+                              src={message.senderAvatar}
+                              alt={message.senderName}
+                            />
                             <AvatarFallback>
-                              {message.senderName.split(' ').map(n => n[0]).join('')}
+                              {message.senderName
+                                .split(' ')
+                                .map((n) => n[0])
+                                .join('')}
                             </AvatarFallback>
                           </Avatar>
                         )}
-                        
-                        <div className={cn(
-                          'max-w-[70%] space-y-1',
-                          message.senderId === user?.id 
-                            ? (isRTL ? 'text-right' : 'text-left')
-                            : (isRTL ? 'text-left' : 'text-right')
-                        )}>
-                          <div className={cn(
-                            'p-3 rounded-lg',
+
+                        <div
+                          className={cn(
+                            'max-w-[70%] space-y-1',
                             message.senderId === user?.id
-                              ? 'bg-primary text-primary-foreground'
-                              : 'bg-muted'
-                          )}>
-                            <div className={cn('flex items-center gap-2 mb-1', isRTL && 'flex-row-reverse')}>
-                              <span className='text-lg'>{getMessageTypeIcon(message.type)}</span>
+                              ? isRTL
+                                ? 'text-right'
+                                : 'text-left'
+                              : isRTL
+                                ? 'text-left'
+                                : 'text-right'
+                          )}
+                        >
+                          <div
+                            className={cn(
+                              'p-3 rounded-lg',
+                              message.senderId === user?.id
+                                ? 'bg-primary text-primary-foreground'
+                                : 'bg-muted'
+                            )}
+                          >
+                            <div
+                              className={cn(
+                                'flex items-center gap-2 mb-1',
+                                isRTL && 'flex-row-reverse'
+                              )}
+                            >
+                              <span className='text-lg'>
+                                {getMessageTypeIcon(message.type)}
+                              </span>
                               {message.type !== 'text' && (
                                 <Badge variant='outline' className='text-xs'>
-                                  {message.type === 'assignment' && (isRTL ? 'واجب' : 'Assignment')}
-                                  {message.type === 'reminder' && (isRTL ? 'تذكير' : 'Reminder')}
-                                  {message.type === 'feedback' && (isRTL ? 'ملاحظة' : 'Feedback')}
+                                  {message.type === 'assignment' &&
+                                    (isRTL ? 'واجب' : 'Assignment')}
+                                  {message.type === 'reminder' &&
+                                    (isRTL ? 'تذكير' : 'Reminder')}
+                                  {message.type === 'feedback' &&
+                                    (isRTL ? 'ملاحظة' : 'Feedback')}
                                 </Badge>
                               )}
                             </div>
-                            <p className='text-sm whitespace-pre-wrap'>{message.content}</p>
+                            <p className='text-sm whitespace-pre-wrap'>
+                              {message.content}
+                            </p>
                           </div>
-                          
-                          <div className={cn(
-                            'flex items-center gap-1 text-xs text-muted-foreground',
-                            isRTL && 'flex-row-reverse'
-                          )}>
+
+                          <div
+                            className={cn(
+                              'flex items-center gap-1 text-xs text-muted-foreground',
+                              isRTL && 'flex-row-reverse'
+                            )}
+                          >
                             <Clock className='h-3 w-3' />
                             <span>{formatTime(message.timestamp)}</span>
-                            {message.senderId === user?.id && (
-                              message.isRead ? (
+                            {message.senderId === user?.id &&
+                              (message.isRead ? (
                                 <CheckCheck className='h-3 w-3 text-blue-500' />
                               ) : (
                                 <Check className='h-3 w-3' />
-                              )
-                            )}
+                              ))}
                           </div>
                         </div>
                       </div>
@@ -414,11 +495,19 @@ export default function MessagesPage() {
                   </div>
 
                   {/* Message Input */}
-                  <div className={cn('flex gap-2', isRTL && 'flex-row-reverse')}>
+                  <div
+                    className={cn('flex gap-2', isRTL && 'flex-row-reverse')}
+                  >
                     <Input
                       value={newMessage}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewMessage(e.target.value)}
-                      placeholder={isRTL ? 'اكتب رسالتك هنا...' : 'Type your message here...'}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setNewMessage(e.target.value)
+                      }
+                      placeholder={
+                        isRTL
+                          ? 'اكتب رسالتك هنا...'
+                          : 'Type your message here...'
+                      }
                       className='flex-1'
                       dir={isRTL ? 'rtl' : 'ltr'}
                       onKeyPress={(e: React.KeyboardEvent) => {
@@ -428,7 +517,7 @@ export default function MessagesPage() {
                         }
                       }}
                     />
-                    <Button 
+                    <Button
                       onClick={sendMessage}
                       disabled={!newMessage.trim() || sendingMessage}
                       size='icon'
@@ -437,7 +526,9 @@ export default function MessagesPage() {
                       {sendingMessage ? (
                         <Loader2 className='h-4 w-4 animate-spin' />
                       ) : (
-                        <Send className={cn('h-4 w-4', isRTL && 'scale-x-[-1]')} />
+                        <Send
+                          className={cn('h-4 w-4', isRTL && 'scale-x-[-1]')}
+                        />
                       )}
                     </Button>
                   </div>
@@ -445,16 +536,20 @@ export default function MessagesPage() {
               </>
             ) : (
               <CardContent className='flex items-center justify-center h-full'>
-                <div className={cn('text-center text-muted-foreground', isRTL && 'text-right')}>
+                <div
+                  className={cn(
+                    'text-center text-muted-foreground',
+                    isRTL && 'text-right'
+                  )}
+                >
                   <MessageCircle className='h-12 w-12 mx-auto mb-4 opacity-50' />
                   <h3 className='font-medium mb-2'>
                     {isRTL ? 'اختر محادثة' : 'Select a conversation'}
                   </h3>
                   <p className='text-sm'>
-                    {isRTL 
+                    {isRTL
                       ? 'اختر محادثة من القائمة لبدء المراسلة'
-                      : 'Choose a conversation from the list to start messaging'
-                    }
+                      : 'Choose a conversation from the list to start messaging'}
                   </p>
                 </div>
               </CardContent>

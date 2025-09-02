@@ -20,9 +20,9 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Loader2, 
-  PackageOpen, 
+import {
+  Loader2,
+  PackageOpen,
   CreditCard,
   Calendar,
   DollarSign,
@@ -30,7 +30,7 @@ import {
   Eye,
   Receipt,
   TrendingUp,
-  Clock
+  Clock,
 } from 'lucide-react';
 import { useAuth } from '@/contexts/auth-context';
 import { cn } from '@/lib/utils';
@@ -71,7 +71,7 @@ export default function PaymentsPage() {
         setIsLoading(true);
         const [subscriptionsResponse, statsResponse] = await Promise.all([
           fetch('/api/student/subscriptions'),
-          fetch('/api/student/payment-stats')
+          fetch('/api/student/payment-stats'),
         ]);
 
         if (!subscriptionsResponse.ok || !statsResponse.ok) {
@@ -142,7 +142,10 @@ export default function PaymentsPage() {
             <CardContent className='pt-6'>
               <p className='text-destructive text-center'>{error}</p>
               <div className='flex justify-center mt-4'>
-                <Button onClick={() => window.location.reload()} variant='outline'>
+                <Button
+                  onClick={() => window.location.reload()}
+                  variant='outline'
+                >
                   {isRTL ? 'إعادة المحاولة' : 'Try Again'}
                 </Button>
               </div>
@@ -162,10 +165,9 @@ export default function PaymentsPage() {
             {isRTL ? 'المدفوعات والفواتير' : 'Payments & Invoices'}
           </h1>
           <p className='text-muted-foreground'>
-            {isRTL 
+            {isRTL
               ? 'إدارة اشتراكاتك ومراجعة تاريخ المدفوعات'
-              : 'Manage your subscriptions and review payment history'
-            }
+              : 'Manage your subscriptions and review payment history'}
           </p>
         </div>
 
@@ -174,7 +176,12 @@ export default function PaymentsPage() {
           <div className='grid gap-4 grid-cols-1 md:grid-cols-4'>
             <Card>
               <CardContent className='pt-6'>
-                <div className={cn('flex items-center gap-3', isRTL && 'flex-row-reverse')}>
+                <div
+                  className={cn(
+                    'flex items-center gap-3',
+                    isRTL && 'flex-row-reverse'
+                  )}
+                >
                   <div className='p-2 bg-blue-100 rounded-lg dark:bg-blue-900'>
                     <DollarSign className='h-5 w-5 text-blue-600 dark:text-blue-300' />
                   </div>
@@ -182,7 +189,9 @@ export default function PaymentsPage() {
                     <p className='text-sm text-muted-foreground'>
                       {isRTL ? 'إجمالي المدفوعات' : 'Total Spent'}
                     </p>
-                    <p className='text-2xl font-bold'>${paymentStats.totalSpent}</p>
+                    <p className='text-2xl font-bold'>
+                      ${paymentStats.totalSpent}
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -190,7 +199,12 @@ export default function PaymentsPage() {
 
             <Card>
               <CardContent className='pt-6'>
-                <div className={cn('flex items-center gap-3', isRTL && 'flex-row-reverse')}>
+                <div
+                  className={cn(
+                    'flex items-center gap-3',
+                    isRTL && 'flex-row-reverse'
+                  )}
+                >
                   <div className='p-2 bg-green-100 rounded-lg dark:bg-green-900'>
                     <TrendingUp className='h-5 w-5 text-green-600 dark:text-green-300' />
                   </div>
@@ -198,7 +212,9 @@ export default function PaymentsPage() {
                     <p className='text-sm text-muted-foreground'>
                       {isRTL ? 'الاشتراكات النشطة' : 'Active Subscriptions'}
                     </p>
-                    <p className='text-2xl font-bold'>{paymentStats.activeSubscriptions}</p>
+                    <p className='text-2xl font-bold'>
+                      {paymentStats.activeSubscriptions}
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -207,7 +223,12 @@ export default function PaymentsPage() {
             {paymentStats.nextPaymentDate && (
               <Card>
                 <CardContent className='pt-6'>
-                  <div className={cn('flex items-center gap-3', isRTL && 'flex-row-reverse')}>
+                  <div
+                    className={cn(
+                      'flex items-center gap-3',
+                      isRTL && 'flex-row-reverse'
+                    )}
+                  >
                     <div className='p-2 bg-orange-100 rounded-lg dark:bg-orange-900'>
                       <Calendar className='h-5 w-5 text-orange-600 dark:text-orange-300' />
                     </div>
@@ -215,7 +236,9 @@ export default function PaymentsPage() {
                       <p className='text-sm text-muted-foreground'>
                         {isRTL ? 'الدفعة القادمة' : 'Next Payment'}
                       </p>
-                      <p className='text-lg font-bold'>{formatDate(paymentStats.nextPaymentDate)}</p>
+                      <p className='text-lg font-bold'>
+                        {formatDate(paymentStats.nextPaymentDate)}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -225,7 +248,12 @@ export default function PaymentsPage() {
             {paymentStats.nextPaymentAmount && (
               <Card>
                 <CardContent className='pt-6'>
-                  <div className={cn('flex items-center gap-3', isRTL && 'flex-row-reverse')}>
+                  <div
+                    className={cn(
+                      'flex items-center gap-3',
+                      isRTL && 'flex-row-reverse'
+                    )}
+                  >
                     <div className='p-2 bg-purple-100 rounded-lg dark:bg-purple-900'>
                       <Clock className='h-5 w-5 text-purple-600 dark:text-purple-300' />
                     </div>
@@ -233,7 +261,9 @@ export default function PaymentsPage() {
                       <p className='text-sm text-muted-foreground'>
                         {isRTL ? 'المبلغ القادم' : 'Next Amount'}
                       </p>
-                      <p className='text-2xl font-bold'>${paymentStats.nextPaymentAmount}</p>
+                      <p className='text-2xl font-bold'>
+                        ${paymentStats.nextPaymentAmount}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -245,32 +275,51 @@ export default function PaymentsPage() {
         {/* Active Subscriptions */}
         <Card>
           <CardHeader>
-            <CardTitle className={cn('flex items-center gap-2', isRTL && 'flex-row-reverse')}>
+            <CardTitle
+              className={cn(
+                'flex items-center gap-2',
+                isRTL && 'flex-row-reverse'
+              )}
+            >
               <CreditCard className='h-5 w-5' />
               {isRTL ? 'الاشتراكات النشطة' : 'Active Subscriptions'}
             </CardTitle>
             <CardDescription>
-              {isRTL 
+              {isRTL
                 ? 'إدارة باقات التعليم الخاصة بك'
-                : 'Manage your learning packages and subscriptions'
-              }
+                : 'Manage your learning packages and subscriptions'}
             </CardDescription>
           </CardHeader>
           <CardContent>
             {subscriptions.length > 0 ? (
               <div className='space-y-4'>
                 {subscriptions.map((subscription) => (
-                  <Card key={subscription.id} className='border-l-4 border-l-primary'>
+                  <Card
+                    key={subscription.id}
+                    className='border-l-4 border-l-primary'
+                  >
                     <CardContent className='pt-6'>
-                      <div className={cn('flex items-center justify-between', isRTL && 'flex-row-reverse')}>
-                        <div className={cn('flex items-center gap-4', isRTL && 'flex-row-reverse')}>
+                      <div
+                        className={cn(
+                          'flex items-center justify-between',
+                          isRTL && 'flex-row-reverse'
+                        )}
+                      >
+                        <div
+                          className={cn(
+                            'flex items-center gap-4',
+                            isRTL && 'flex-row-reverse'
+                          )}
+                        >
                           <div className='p-3 bg-primary/10 rounded-lg'>
                             <PackageOpen className='h-6 w-6 text-primary' />
                           </div>
                           <div className={cn(isRTL && 'text-right')}>
-                            <h3 className='font-semibold text-lg'>{subscription.packageName}</h3>
+                            <h3 className='font-semibold text-lg'>
+                              {subscription.packageName}
+                            </h3>
                             <p className='text-sm text-muted-foreground'>
-                              {subscription.price} {subscription.currency} 
+                              {subscription.price} {subscription.currency}
                               {subscription.autoRenew && (
                                 <span className='ml-2'>
                                   • {isRTL ? 'تجديد تلقائي' : 'Auto-renew'}
@@ -279,33 +328,54 @@ export default function PaymentsPage() {
                             </p>
                           </div>
                         </div>
-                        
-                        <div className={cn('flex items-center gap-3', isRTL && 'flex-row-reverse')}>
-                          <Badge className={getStatusColor(subscription.status)}>
-                            {subscription.status === 'active' && (isRTL ? 'نشط' : 'Active')}
-                            {subscription.status === 'expired' && (isRTL ? 'منتهي' : 'Expired')}
-                            {subscription.status === 'pending' && (isRTL ? 'معلق' : 'Pending')}
-                            {subscription.status === 'cancelled' && (isRTL ? 'ملغي' : 'Cancelled')}
+
+                        <div
+                          className={cn(
+                            'flex items-center gap-3',
+                            isRTL && 'flex-row-reverse'
+                          )}
+                        >
+                          <Badge
+                            className={getStatusColor(subscription.status)}
+                          >
+                            {subscription.status === 'active' &&
+                              (isRTL ? 'نشط' : 'Active')}
+                            {subscription.status === 'expired' &&
+                              (isRTL ? 'منتهي' : 'Expired')}
+                            {subscription.status === 'pending' &&
+                              (isRTL ? 'معلق' : 'Pending')}
+                            {subscription.status === 'cancelled' &&
+                              (isRTL ? 'ملغي' : 'Cancelled')}
                           </Badge>
-                          
-                          <div className={cn('text-right text-sm', isRTL && 'text-left')}>
+
+                          <div
+                            className={cn(
+                              'text-right text-sm',
+                              isRTL && 'text-left'
+                            )}
+                          >
                             <div className='font-medium'>
-                              {formatDate(subscription.startDate)} - {formatDate(subscription.endDate)}
+                              {formatDate(subscription.startDate)} -{' '}
+                              {formatDate(subscription.endDate)}
                             </div>
                             <div className='text-muted-foreground'>
                               {subscription.paymentMethod}
                             </div>
                           </div>
-                          
+
                           <div className='flex gap-2'>
                             {subscription.invoiceUrl && (
                               <Button size='sm' variant='outline' asChild>
-                                <a href={subscription.invoiceUrl} target='_blank' rel='noopener noreferrer'>
+                                <a
+                                  href={subscription.invoiceUrl}
+                                  target='_blank'
+                                  rel='noopener noreferrer'
+                                >
                                   <Download className='h-4 w-4' />
                                 </a>
                               </Button>
                             )}
-                            
+
                             <Button size='sm' variant='outline'>
                               <Eye className='h-4 w-4' />
                             </Button>
@@ -323,10 +393,9 @@ export default function PaymentsPage() {
                   {isRTL ? 'لا توجد اشتراكات' : 'No Subscriptions'}
                 </h3>
                 <p className='text-muted-foreground mb-4'>
-                  {isRTL 
+                  {isRTL
                     ? 'لم تقم بالاشتراك في أي باقة تعليمية بعد'
-                    : 'You haven\'t subscribed to any learning packages yet'
-                  }
+                    : "You haven't subscribed to any learning packages yet"}
                 </p>
                 <Button asChild>
                   <a href='/#packages'>
@@ -342,15 +411,19 @@ export default function PaymentsPage() {
         {subscriptions.length > 0 && (
           <Card>
             <CardHeader>
-              <CardTitle className={cn('flex items-center gap-2', isRTL && 'flex-row-reverse')}>
+              <CardTitle
+                className={cn(
+                  'flex items-center gap-2',
+                  isRTL && 'flex-row-reverse'
+                )}
+              >
                 <Receipt className='h-5 w-5' />
                 {isRTL ? 'تاريخ المدفوعات' : 'Payment History'}
               </CardTitle>
               <CardDescription>
-                {isRTL 
+                {isRTL
                   ? 'جميع المعاملات والفواتير السابقة'
-                  : 'All your past transactions and invoices'
-                }
+                  : 'All your past transactions and invoices'}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -381,15 +454,23 @@ export default function PaymentsPage() {
                   <TableBody>
                     {subscriptions.map((subscription) => (
                       <TableRow key={subscription.id}>
-                        <TableCell className={cn('font-medium', isRTL && 'text-right')}>
+                        <TableCell
+                          className={cn('font-medium', isRTL && 'text-right')}
+                        >
                           {subscription.packageName}
                         </TableCell>
                         <TableCell className={cn(isRTL && 'text-right')}>
-                          <Badge className={getStatusColor(subscription.status)}>
-                            {subscription.status === 'active' && (isRTL ? 'نشط' : 'Active')}
-                            {subscription.status === 'expired' && (isRTL ? 'منتهي' : 'Expired')}
-                            {subscription.status === 'pending' && (isRTL ? 'معلق' : 'Pending')}
-                            {subscription.status === 'cancelled' && (isRTL ? 'ملغي' : 'Cancelled')}
+                          <Badge
+                            className={getStatusColor(subscription.status)}
+                          >
+                            {subscription.status === 'active' &&
+                              (isRTL ? 'نشط' : 'Active')}
+                            {subscription.status === 'expired' &&
+                              (isRTL ? 'منتهي' : 'Expired')}
+                            {subscription.status === 'pending' &&
+                              (isRTL ? 'معلق' : 'Pending')}
+                            {subscription.status === 'cancelled' &&
+                              (isRTL ? 'ملغي' : 'Cancelled')}
                           </Badge>
                         </TableCell>
                         <TableCell className={cn(isRTL && 'text-right')}>
@@ -405,7 +486,11 @@ export default function PaymentsPage() {
                           <div className='flex gap-2'>
                             {subscription.invoiceUrl && (
                               <Button size='sm' variant='ghost' asChild>
-                                <a href={subscription.invoiceUrl} target='_blank' rel='noopener noreferrer'>
+                                <a
+                                  href={subscription.invoiceUrl}
+                                  target='_blank'
+                                  rel='noopener noreferrer'
+                                >
                                   <Download className='h-4 w-4' />
                                 </a>
                               </Button>

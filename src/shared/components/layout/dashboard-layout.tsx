@@ -8,10 +8,13 @@ import { useLocale } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/shared/components/mode-toggle';
+import LanguageSwitcher from '@/shared/components/lang-switcher';
 import { ProfileMenu } from '@/features/dashboard/components/profile-menu';
 import { DashboardSidebar } from './sidebar';
 import { ThemeProvider } from 'next-themes';
 import { cn } from '@/lib/utils';
+import { useCurrentUser } from '@/src/hooks/use-current-user';
+import NotificationBell from '@/src/components/admin/notification-bell';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -20,10 +23,11 @@ interface DashboardLayoutProps {
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const locale = useLocale();
   const isRTL = locale === 'ar';
+  const user = useCurrentUser();
 
   return (
     <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-      <div className='min-h-screen'>
+      <div className='min-h-screen' dir={isRTL ? 'rtl' : 'ltr'}>
         {/* Header */}
         <header className='fixed top-0 z-50 w-full border-b bg-background'>
           <div
@@ -32,7 +36,10 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               isRTL && 'flex-row-reverse'
             )}
           >
-            <Link href={`/${locale}`} className='flex items-center gap-2'>
+            <Link
+              href={`/${locale}`}
+              className={cn('flex items-center gap-2', isRTL && 'order-2')}
+            >
               <Image
                 src='/images/logo/logo.png'
                 alt='Qodwa'
@@ -43,11 +50,12 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             </Link>
             <div
               className={cn(
-                'ml-auto flex items-center gap-4',
-                isRTL && 'ml-0 mr-auto'
+                'flex items-center gap-4',
+                isRTL ? 'mr-auto order-1' : 'ml-auto'
               )}
             >
               <ModeToggle />
+              <LanguageSwitcher />
               <Button variant='ghost' size='icon'>
                 <Bell className='h-5 w-5' />
               </Button>
@@ -57,9 +65,16 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         </header>
 
         {/* Main Content */}
-        <div className='flex pt-16'>
+        <div className={cn('flex pt-16', isRTL && 'flex-row-reverse')}>
           <DashboardSidebar />
-          <main className='flex-1 overflow-y-auto p-4 md:p-8'>{children}</main>
+          <main
+            className={cn(
+              'flex-1 overflow-y-auto p-4 md:p-8 transition-all duration-300'
+            )}
+            dir={isRTL ? 'rtl' : 'ltr'}
+          >
+            {children}
+          </main>
         </div>
       </div>
     </ThemeProvider>

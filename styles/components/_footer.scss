@@ -8,71 +8,111 @@
 
   .footer-content {
     @include max-width(1200px);
+    padding: 0 20px;
   }
 
   .footer-main {
     padding: 70px 40px;
     display: flex;
-    gap: 20px;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: space-between;
+
     .footer-about {
-      width: 25%;
+      flex: 1;
+      max-width: 350px;
+
       .footer-about-txt {
         margin-top: 16px;
-        font-size: 12px;
-        max-width: 270px;
-        line-height: 1.2rem;
+        font-size: 14px;
+        line-height: 1.6;
+        color: inherit;
       }
     }
+
     .footer-quick-links {
-      width: 50%;
+      flex: 1;
+      max-width: 300px;
+
       .quick-links-title {
         font-size: 18px;
         font-weight: 600;
+        margin-bottom: 16px;
+        color: inherit;
       }
+
       .links {
-        cursor: pointer;
-        margin-top: 16px;
-        font-size: 14px;
-        p {
-          margin-bottom: 8px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin-bottom: 12px;
+
+          a {
+            color: inherit;
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.3s ease;
+
+            &:hover {
+              opacity: 0.8;
+            }
+          }
         }
       }
     }
+
     .footer-communication {
+      flex: 0 0 auto;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+
       .background {
         border: 1px solid #fff;
         background-color: transparent;
         border-radius: 50%;
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-bottom: 16px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+
         &.teacher-version {
           background-color: #422e87;
           border-color: #422e87;
           color: #fff;
         }
-        cursor: pointer;
+
+        svg {
+          font-size: 18px;
+        }
+
         &:hover {
-          background-color: yellow;
-          border-color: yellow;
+          background-color: #ffd700;
+          border-color: #ffd700;
+          transform: translateY(-2px);
+
           svg {
-            fill: #422e87;
+            color: #422e87;
           }
         }
       }
-      width: 25%;
-      display: flex;
-      gap: 8px;
     }
   }
+
   .footer-bottom {
     text-align: center;
-    padding: 10px 0;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+
     &.teacher-version {
-      background-color: #fff;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
     }
   }
 }
@@ -80,18 +120,25 @@
 @media screen and (max-width: 1024px) {
   .footer-wrapper {
     .footer-content {
+      padding: 0 15px;
+
       .footer-main {
-        padding: 70px 20px;
-        justify-content: space-between;
+        padding: 50px 20px;
+        gap: 30px;
+
         .footer-about {
-          width: 33%;
+          max-width: 300px;
         }
+
         .footer-quick-links {
-          width: 33%;
+          max-width: 250px;
         }
+
         .footer-communication {
-          width: 33%;
-          justify-content: center;
+          .background {
+            width: 42px;
+            height: 42px;
+          }
         }
       }
     }
@@ -101,22 +148,112 @@
 @media screen and (max-width: 768px) {
   .footer-wrapper {
     .footer-content {
+      padding: 0 15px;
+
       .footer-main {
-        justify-content: space-between;
-        flex-wrap: wrap;
+        padding: 40px 20px;
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+
         .footer-about {
-          width: 100%;
+          max-width: 100%;
+
           .footer-about-txt {
             max-width: 100%;
+            margin: 16px auto 0;
           }
         }
+
         .footer-quick-links {
-          width: 100%;
+          max-width: 100%;
+
+          .quick-links-title {
+            margin-bottom: 20px;
+          }
+
+          .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px 30px;
+
+            li {
+              margin-bottom: 0;
+
+              a {
+                font-size: 15px;
+              }
+            }
+          }
         }
+
         .footer-communication {
-          justify-content: flex-start;
-          width: 100%;
+          justify-content: center;
+          gap: 15px;
+
+          .background {
+            width: 50px;
+            height: 50px;
+
+            svg {
+              font-size: 20px;
+            }
+          }
         }
+      }
+
+      .footer-bottom {
+        padding: 25px 20px;
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .footer-wrapper {
+    .footer-content {
+      .footer-main {
+        padding: 30px 15px;
+        gap: 25px;
+
+        .footer-about {
+          .footer-about-txt {
+            font-size: 13px;
+            line-height: 1.5;
+          }
+        }
+
+        .footer-quick-links {
+          .quick-links-title {
+            font-size: 16px;
+          }
+
+          .links {
+            li a {
+              font-size: 14px;
+            }
+          }
+        }
+
+        .footer-communication {
+          gap: 12px;
+
+          .background {
+            width: 45px;
+            height: 45px;
+
+            svg {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+
+      .footer-bottom {
+        padding: 20px 15px;
+        font-size: 12px;
       }
     }
   }

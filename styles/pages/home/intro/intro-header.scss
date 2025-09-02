@@ -148,6 +148,8 @@
       color: #fff;
       border-radius: 6px;
       justify-content: space-between;
+      z-index: 10000; // Ensure proper stacking within sidebar
+
       a {
         color: #fff;
         font-weight: 600;
@@ -164,6 +166,21 @@
         &:hover {
           transform: scale(1.05);
         }
+      }
+
+      // Ensure profile dropdown menu appears above everything including sidebar
+      [data-radix-popper-content-wrapper] {
+        z-index: 99999 !important;
+      }
+
+      // Target the dropdown menu content specifically for mobile
+      [data-radix-dropdown-menu-content] {
+        z-index: 99999 !important;
+      }
+
+      // Additional fallback for any dropdown content
+      .dropdown-menu-content {
+        z-index: 99999 !important;
       }
     }
   }

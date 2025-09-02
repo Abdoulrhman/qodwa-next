@@ -9,6 +9,8 @@
     "explore": "استكشف",
     "main_header_text": "ابدأ تعلم القرآن",
     "sub_header_text": "انضم إلى منصتنا لتعلم القرآن عبر الإنترنت وابدأ رحلتك اليوم",
+    "teacher_main_header_text": "ابدأ تعليم القرآن",
+    "teacher_sub_header_text": "انضم إلى منصتنا كمعلم وساعد الطلاب في رحلة تعلم القرآن",
     "now": "الآن",
     "student": "طالب",
     "teacher": "معلم",
@@ -56,7 +58,32 @@
         "quarterly": "ربع سنوي",
         "half_year": "نصف سنوي",
         "yearly": "سنوي"
-      }
+      },
+      "title": "باقاتنا",
+      "subtitle": "اختر الباقة المناسبة لرحلة تعلم القرآن",
+      "view_details": "عرض التفاصيل",
+      "details_description": "معلومات مفصلة عن الباقة وميزاتها",
+      "subscription_frequency": "مدة الاشتراك",
+      "class_duration": "مدة الدرس",
+      "minutes": "دقيقة",
+      "minutes_title": "{duration} دقيقة",
+      "days_per_week": "{days} أيام في الأسبوع",
+      "price_details": "تفاصيل السعر",
+      "current_price": "السعر الحالي",
+      "original_price": "السعر الأصلي",
+      "per_class": "سعر الحصة",
+      "you_save": "توفر",
+      "package_details": "تفاصيل الباقة",
+      "subject": "المادة",
+      "level": "المستوى",
+      "whats_included": "ما هو مُتضمن",
+      "program_duration": "مدة البرنامج",
+      "duration_description": "تمتد هذه الباقة لـ {weeks} أسابيع مع {days} حصص في الأسبوع",
+      "enroll_now": "اشترك الآن",
+      "monthly": "شهري",
+      "quarterly": "ربع سنوي",
+      "semmi_annual": "نصف سنوي",
+      "yearly": "سنوي"
     },
     "PackageContent": {
       "8_classes": {
@@ -126,48 +153,6 @@
       "description": "تعلم القرآن عبر الإنترنت مع معلمين مؤهلين",
       "keywords": "قرآن، تعلم عن بعد، دراسات إسلامية"
     },
-    "Services": {
-      "title": "قم بتعزيز حفظ القرآن الخاص بك مع معلمينا الخبراء",
-      "any_quran_memorization_path": {
-        "title": "أي مسار لحفظ القرآن، في أي وقت",
-        "content": "الوصول إلى خطط حفظ القرآن الشخصية وإدارتها. معلموك المخصصون ومنهج منظم متاحون في أي وقت يناسبك."
-      },
-      "browse_teacher_profiles": {
-        "title": "استعرض ملفات المعلمين",
-        "content": "ابحث عن معلمين معتمدين للقرآن واللغة العربية عن طريق مراجعة خبراتهم ومؤهلاتهم ومراجعات الطلاب قبل الانضمام إلى دروسهم."
-      },
-      "achieve_quran_goals_faster": {
-        "title": "حقق أهدافك القرآنية بشكل أسرع",
-        "content": "عزز حفظك للقرآن من خلال مسارات تعليمية مخصصة وجلسات عند الطلب تناسب جدولك وتقدمك."
-      },
-      "comprehensive_support": {
-        "title": "دعم شامل",
-        "content": "نحن نتولى كل شيء، من تتبع التقدم إلى إدارة الدروس والواجبات، حتى تتمكن من التركيز على التعلم فقط."
-      },
-      "teacher_flexibility": {
-        "title": "مرونة في اختيار المعلم",
-        "content": "غير راضٍ عن المعلم الحالي؟ يمكنك بسهولة التحويل إلى معلم آخر معتمد يتناسب أكثر مع أسلوب تعلمك."
-      },
-      "faster_quran_memorization": {
-        "title": "حفظ القرآن أسرع بنسبة 60%",
-        "content": "تساعدك تقنياتنا المثبتة ومعلمونا ذوو الخبرة في حفظ القرآن بشكل أكثر كفاءة دون التضحية بالجودة."
-      },
-      "header": "خدماتنا",
-      "items": {
-        "quran": {
-          "title": "تعلم القرآن",
-          "description": "تعلم القرآن مع التجويد من معلمين مؤهلين"
-        },
-        "islamic": {
-          "title": "الدراسات الإسلامية",
-          "description": "تعلم المبادئ والقيم الإسلامية"
-        },
-        "arabic": {
-          "title": "اللغة العربية",
-          "description": "تعلم اللغة العربية من متحدثين أصليين"
-        }
-      }
-    },
     "SuccessPayment": {
       "title": "تم الدفع بنجاح",
       "content": "تم معالجة الدفع الخاص بك بنجاح. ستتلقى رسالة تأكيد عبر البريد الإلكتروني قريبًا.",
@@ -177,33 +162,6 @@
       "title": "تم إلغاء الدفع",
       "content": "تم إلغاء الدفع الخاص بك. يمكنك العودة إلى الصفحة الرئيسية للمحاولة مرة أخرى.",
       "goHome": "العودة إلى الصفحة الرئيسية"
-    },
-    "TeacherServices": {
-      "title": "عزز مهاراتك في التدريس باستخدام أدواتنا المتقدمة",
-      "guided_teaching_path": {
-        "title": "مسار التدريس الموجه",
-        "content": "احصل على إرشادات شخصية حول كيفية تنظيم دروس القرآن واللغة العربية بما يتناسب مع مسارات تعلم الطلاب."
-      },
-      "teacher_training": {
-        "title": "تدريب المعلمين وشهادات معتمدة",
-        "content": "شارك في برامج التدريب لتحسين طرق التدريس الخاصة بك واحصل على شهادات معترف بها من المجتمع."
-      },
-      "feedback_improvement": {
-        "title": "تلقي التحسين من خلال الملاحظات",
-        "content": "جمع الملاحظات من الطلاب وحسن أساليب التدريس الخاصة بك لتقديم أفضل تجربة تعليمية."
-      },
-      "efficient_scheduling": {
-        "title": "الجدولة الفعالة",
-        "content": "إدارة جدول الحصص الدراسية بفعالية وكفاءة باستخدام أدواتنا المصممة خصيصًا للمعلمين."
-      },
-      "performance_tracking": {
-        "title": "متابعة الأداء",
-        "content": "تتبع أداء الطلاب وضبط استراتيجيات التدريس لتحسين تجربة التعلم."
-      },
-      "collaborative_learning": {
-        "title": "بيئة تعلم تعاونية",
-        "content": "تعاون مع مدربين آخرين لخلق بيئة تعلم تعاونية وداعمة لجميع الطلاب."
-      }
     },
     "HowToStart": {
       "title": "كيف تبدأ كطالب",
@@ -238,21 +196,21 @@
       "loading": "جار التحميل"
     },
     "AboutTutor": {
-      "subtitle": "تعرف على الدروس",
-      "title": "نقدم تجارب تعليمية رقمية فريدة",
-      "description": "دورات عبر الإنترنت من خبراء عالميين. منصتنا توفر حلولاً تعليمية شاملة مصممة خصيصاً لاحتياجاتك.",
+      "subtitle": "اكتشف تعلم القرآن",
+      "title": "نقدم تجارب استثنائية لتعلم القرآن الكريم واللغة العربية",
+      "description": "تعلم القرآن الكريم واللغة العربية مع معلمين معتمدين. منصتنا تقدم مسارات تعليمية شخصية مصممة خصيصاً لحفظ القرآن وإتقان اللغة العربية.",
       "features": {
         "professional": {
-          "title": "معلمون محترفون",
-          "description": "احصل على مساعدة فردية من خبرائنا المتخصصين"
+          "title": "معلمو قرآن معتمدون",
+          "description": "تعلم من مدربين مؤهلين متخصصين في تلاوة القرآن وعلوم اللغة العربية"
         },
         "support": {
-          "title": "دعم مباشر",
-          "description": "اطرح الأسئلة عبر الدردشة المباشرة أو حدد موعداً للقاء افتراضي"
+          "title": "إرشاد شخصي",
+          "description": "احصل على اهتمام فردي ومتابعة تقدمك في رحلة الحفظ"
         },
         "access": {
-          "title": "وصول مجاني",
-          "description": "كل دورة تقدم تدريساً عبر الإنترنت دون رسوم إضافية"
+          "title": "تعلم مرن",
+          "description": "ادرس بالسرعة التي تناسبك مع جلسات مجدولة تتناسب مع نمط حياتك"
         }
       }
     },
@@ -260,16 +218,16 @@
       "header": "اتصل بنا",
       "cards": {
         "feedback": {
-          "title": "الملاحظات العامة",
-          "description": "فريقنا الودود هنا للمساعدة"
+          "title": "دعم التعلم",
+          "description": "احصل على الإرشاد في رحلة حفظ القرآن الكريم"
         },
         "sales": {
-          "title": "استفسارات المبيعات",
-          "description": "تواصل مع فريق المبيعات"
+          "title": "استفسارات التسجيل",
+          "description": "تعرف على باقات تعلم القرآن واللغة العربية لدينا"
         },
         "technical": {
           "title": "الدعم الفني",
-          "description": "احصل على المساعدة التقنية"
+          "description": "احصل على المساعدة في ميزات المنصة والمشاكل التقنية"
         }
       }
     },
@@ -283,7 +241,36 @@
         "Guide": "الدليل",
         "About Us": "من نحن",
         "Services": "خدماتنا",
-        "Contact Us": "اتصل بنا"
+        "Contact Us": "اتصل بنا",
+        "Apply as a Teacher": "التقدم كمعلم",
+        "Home": "الرئيسية"
+      }
+    },
+    "Services": {
+      "title": "قم بتعزيز حفظ القرآن الخاص بك مع معلمينا الخبراء",
+      "any_quran_memorization_path": {
+        "title": "أي مسار لحفظ القرآن، في أي وقت",
+        "content": "الوصول إلى خطط حفظ القرآن الشخصية وإدارتها. معلموك المخصصون ومنهج منظم متاحون في أي وقت يناسبك."
+      },
+      "browse_teacher_profiles": {
+        "title": "استعرض ملفات المعلمين",
+        "content": "ابحث عن معلمين معتمدين للقرآن واللغة العربية عن طريق مراجعة خبراتهم ومؤهلاتهم ومراجعات الطلاب قبل الانضمام إلى دروسهم."
+      },
+      "achieve_quran_goals_faster": {
+        "title": "حقق أهدافك القرآنية بشكل أسرع",
+        "content": "عزز حفظك للقرآن من خلال مسارات تعليمية مخصصة وجلسات عند الطلب تناسب جدولك وتقدمك."
+      },
+      "comprehensive_support": {
+        "title": "دعم شامل",
+        "content": "منصتنا تتولى كل شيء، من تتبع التقدم إلى إدارة الدروس والمهام، بحيث يمكنك التركيز فقط على التعلم."
+      },
+      "teacher_flexibility": {
+        "title": "مرونة المعلم",
+        "content": "اختر من بين مجموعة متنوعة من المعلمين المؤهلين وانتقل بينهم حسب جدولك وتفضيلات التعلم."
+      },
+      "faster_quran_memorization": {
+        "title": "حفظ أسرع للقرآن",
+        "content": "حقق حفظاً أسرع للقرآن من خلال دروس منظمة وجلسات ممارسة منتظمة وتغذية راجعة مستمرة من معلمك."
       }
     }
   },
@@ -339,16 +326,49 @@
       "submit": "تسجيل الدخول",
       "forgot_password": "نسيت كلمة المرور؟",
       "no_account": "ليس لديك حساب؟",
-      "sign_up": "إنشاء حساب"
+      "sign_up": "إنشاء حساب",
+      "email_in_use_error": "البريد الإلكتروني مستخدم بالفعل مع مزود مختلف!"
     },
     "register": {
       "title": "إنشاء حساب جديد",
       "name_label": "الاسم",
+      "name_placeholder": "أحمد محمد",
       "email_label": "البريد الإلكتروني",
+      "email_placeholder": "ahmad.mohamed@example.com",
       "password_label": "كلمة المرور",
-      "submit": "تسجيل",
+      "password_placeholder": "******",
+      "retype_password_label": "تأكيد كلمة المرور",
+      "retype_password_placeholder": "******",
+      "phone_label": "رقم الهاتف",
+      "phone_placeholder": "+966-50-123-4567",
+      "gender_label": "الجنس",
+      "gender_placeholder": "اختر الجنس",
+      "gender_male": "ذكر",
+      "gender_female": "أنثى",
+      "birth_date_label": "تاريخ الميلاد",
+      "referral_source_label": "مصدر التوصية",
+      "referral_source_placeholder": "اختر مصدر التوصية",
+      "referral_facebook": "فيسبوك",
+      "referral_google": "جوجل",
+      "referral_friend": "صديق",
+      "referral_others": "أخرى",
+      "submit": "إنشاء حساب",
       "has_account": "لديك حساب بالفعل؟",
       "sign_in": "تسجيل الدخول"
+    },
+    "reset": {
+      "title": "نسيت كلمة المرور؟",
+      "email_label": "البريد الإلكتروني",
+      "email_placeholder": "ahmad.mohamed@example.com",
+      "submit": "إرسال رابط إعادة التعيين",
+      "back_to_login": "العودة لتسجيل الدخول"
+    },
+    "new_password": {
+      "title": "أدخل كلمة مرور جديدة",
+      "password_label": "كلمة المرور",
+      "password_placeholder": "******",
+      "submit": "إعادة تعيين كلمة المرور",
+      "back_to_login": "العودة لتسجيل الدخول"
     }
   },
   "Dashboard": {
@@ -360,7 +380,28 @@
       "home": "الرئيسية",
       "profile": "الملف الشخصي",
       "settings": "الإعدادات",
-      "logout": "تسجيل الخروج"
+      "logout": "تسجيل الخروج",
+      "free_session": "الجلسة المجانية",
+      "my_teacher": "معلمي",
+      "my_packages": "باقاتي",
+      "schedule": "الجدولة",
+      "progress": "التقدم",
+      "messages": "الرسائل",
+      "admin": {
+        "title": "الإدارة",
+        "dashboard": "لوحة التحكم",
+        "users": "إدارة المستخدمين",
+        "teachers": "إدارة المعلمين",
+        "assignTeacher": "تعيين المعلم",
+        "packages": "إدارة الباقات",
+        "freeSessions": "الجلسات المجانية",
+        "subscriptions": "الاشتراكات",
+        "notifications": "الإشعارات",
+        "teacherRecruitment": "توظيف المعلمين",
+        "emailDebug": "اختبار البريد الإلكتروني",
+        "analytics": "التحليلات",
+        "settings": "إعدادات النظام"
+      }
     },
     "home": {
       "welcome_message": "استمر في العمل الجيد ومواصلة رحلتك في تعلم القرآن واللغة العربية! كل خطوة تقربك من هدفك.",
@@ -380,6 +421,113 @@
       "no_subscriptions": "لا توجد اشتراكات",
       "no_subscriptions_description": "لم تشترك في أي باقة حتى الآن. تصفح الباقات المتاحة للبدء",
       "view_packages": "عرض الباقات"
+    },
+    "admin": {
+      "title": "لوحة تحكم الإدارة",
+      "welcome": "مساء الخير، المدير",
+      "subtitle": "استمر في العمل الجيد ومواصلة رحلة تعلم القرآن واللغة العربية! كل خطوة تقربك من هدفك.",
+      "discover_courses": "استكشف الدورات",
+      "stats": {
+        "enrolled_courses": "الدورات المسجلة",
+        "classes_completed": "الحصص المكتملة",
+        "study_hours": "ساعات الدراسة",
+        "current_streak": "المتتالية الحالية",
+        "days": "أيام"
+      },
+      "sections": {
+        "progress_overview": "نظرة عامة على التقدم",
+        "upcoming_classes": "الحصص القادمة",
+        "recent_activity": "النشاط الحديث",
+        "recent_achievements": "الإنجازات الحديثة",
+        "todo_list": "قائمة المهام",
+        "quick_actions": "الإجراءات السريعة"
+      },
+      "activities": {
+        "quran_memorization": "حصة حفظ القرآن",
+        "perfect_attendance": "أسبوع الحضور المثالي",
+        "tajweed_practice": "ممارسة التجويد"
+      },
+      "achievements": {
+        "first_surah_completed": "إكمال أول سورة",
+        "consistent_learner": "متعلم منتظم"
+      },
+      "quick_actions": {
+        "contact_teacher": "اتصال بالمعلم",
+        "my_packages": "باقاتي",
+        "messages": "الرسائل"
+      },
+      "management": {
+        "users": "إدارة المستخدمين",
+        "teachers": "إدارة المعلمين",
+        "packages": "إدارة الباقات",
+        "subscriptions": "إدارة الاشتراكات",
+        "analytics": "التحليلات والتقارير",
+        "settings": "إعدادات النظام"
+      },
+      "cards": {
+        "total_users": "إجمالي المستخدمين",
+        "total_teachers": "إجمالي المعلمين",
+        "active_subscriptions": "الاشتراكات النشطة",
+        "total_revenue": "إجمالي الإيرادات",
+        "pending_approvals": "الموافقات المعلقة",
+        "monthly_growth": "النمو الشهري"
+      },
+      "freeSessions": {
+        "title": "إدارة الجلسات المجانية",
+        "description": "إدارة جميع حجوزات الجلسات المجانية والمهام",
+        "stats": {
+          "total": "إجمالي الجلسات",
+          "pending": "قيد الانتظار",
+          "scheduled": "مجدولة",
+          "completed": "مكتملة",
+          "cancelled": "ملغية"
+        },
+        "status": {
+          "pending": "قيد الانتظار",
+          "scheduled": "مجدولة",
+          "completed": "مكتملة",
+          "cancelled": "ملغية",
+          "noShow": "غير حاضر"
+        },
+        "filters": {
+          "title": "المرشحات والبحث",
+          "description": "تصفية والبحث عبر حجوزات الجلسات المجانية",
+          "searchPlaceholder": "البحث بالاسم أو البريد الإلكتروني أو الموضوع...",
+          "statusPlaceholder": "تصفية حسب الحالة",
+          "allStatuses": "جميع الحالات"
+        },
+        "table": {
+          "title": "حجوزات الجلسات المجانية",
+          "description": "نظرة عامة على جميع حجوزات الجلسات المجانية",
+          "student": "الطالب",
+          "sessionDate": "تاريخ الجلسة",
+          "subject": "الموضوع",
+          "status": "الحالة",
+          "teacher": "المعلم",
+          "createdAt": "تاريخ الإنشاء",
+          "actions": "الإجراءات",
+          "noBookings": "لا توجد جلسات مجانية",
+          "noBookingsDescription": "لا توجد حجوزات جلسات مجانية تطابق معاييرك.",
+          "unassigned": "غير مخصص"
+        },
+        "details": {
+          "title": "تفاصيل الجلسة",
+          "description": "معلومات كاملة حول حجز الجلسة المجانية",
+          "student": "معلومات الطالب",
+          "session": "معلومات الجلسة",
+          "teacher": "معلومات المعلم",
+          "studentNotes": "ملاحظات الطالب"
+        },
+        "actions": {
+          "export": "تصدير",
+          "assign": "تخصيص معلم",
+          "edit": "تعديل",
+          "view": "عرض التفاصيل"
+        }
+      }
+    },
+    "teacherStudents": {
+      "title": "طلابي"
     }
   },
   "Success": {
@@ -392,20 +540,494 @@
     "go_home": "العودة للرئيسية",
     "logo_alt": "شعار قدوة"
   },
-  "Packages": {
-    "title": "باقاتنا",
-    "subtitle": "اختر الباقة المناسبة لرحلة تعلم القرآن",
+  "Student": {
+    "Register": {
+      "platformName": "منصة قدوة",
+      "testimonialQuote": "انضم إلى منصتنا لتعلم القرآن عبر الإنترنت وابدأ رحلتك اليوم",
+      "testimonialAuthor": "فريق قدوة"
+    },
+    "Form": {
+      "title": "تسجيل الطالب",
+      "successMessage": "تم التسجيل بنجاح! يرجى التحقق من بريدك الإلكتروني للتحقق من الحساب.",
+      "errors": {
+        "invalidData": "بيانات النموذج غير صحيحة. يرجى التحقق من المدخلات.",
+        "emailExists": "يوجد مستخدم بهذا البريد الإلكتروني بالفعل.",
+        "unexpected": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقاً."
+      },
+      "fields": {
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "retypePassword": "إعادة كتابة كلمة المرور",
+        "phone": "الهاتف",
+        "gender": "الجنس",
+        "birthDate": "تاريخ الميلاد",
+        "referralSource": "مصدر الإحالة"
+      },
+      "placeholders": {
+        "name": "أدخل اسمك",
+        "email": "أدخل بريدك الإلكتروني",
+        "password": "أدخل كلمة المرور",
+        "retypePassword": "أعد كتابة كلمة المرور",
+        "phone": "+966-123-456-7890",
+        "gender": "اختر الجنس",
+        "referralSource": "اختر مصدر الإحالة"
+      },
+      "options": {
+        "male": "ذكر",
+        "female": "أنثى",
+        "facebook": "فيسبوك",
+        "google": "جوجل",
+        "friend": "صديق",
+        "others": "أخرى"
+      },
+      "buttons": {
+        "submitting": "جاري التسجيل...",
+        "register": "تسجيل"
+      }
+    }
+  },
+  "Teacher": {
+    "Register": {
+      "platformName": "منصة قدوة",
+      "testimonialQuote": "انضم إلى مجتمعنا التعليمي وألهم الطلاب حول العالم بمعرفتك",
+      "testimonialAuthor": "فريق التدريس في قدوة"
+    }
+  },
+  "teacherStudents": {
+    "title": "طلابي",
+    "subtitle": "إدارة ومتابعة تقدم طلابك",
+    "students": "الطلاب",
+    "searchPlaceholder": "البحث عن الطلاب بالاسم أو البريد الإلكتروني...",
+    "noSearchResults": "لم يتم العثور على طلاب مطابقين لبحثك.",
+    "noStudents": "لم يتم تعيين طلاب بعد.",
+    "completedClasses": "حصص مكتملة",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "nextClass": "الحصة التالية",
+    "viewProgress": "عرض التقدم",
+    "message": "رسالة",
+    "classNotes": {
+      "title": "ملاحظات الحصة",
+      "dailyAssignment": "الواجب اليومي",
+      "appliedTajweed": "التجويد التطبيقي",
+      "review": "المراجعة",
+      "memorization": "حفظ",
+      "addNotes": "إضافة ملاحظات",
+      "saveNotes": "حفظ الملاحظات",
+      "editNotes": "تعديل الملاحظات",
+      "classDate": "تاريخ الحصة",
+      "startTime": "البداية",
+      "endTime": "النهاية",
+      "duration": "المدة",
+      "sessionHistory": "تاريخ الجلسات",
+      "noNotes": "لا توجد ملاحظات متاحة لهذا الطالب بعد.",
+      "notesUpdated": "تم تحديث الملاحظات بنجاح",
+      "notesError": "فشل في تحديث الملاحظات"
+    }
+  },
+  "Footer": {
+    "description": "انضم إلى منصتنا لتعلم القرآن الكريم عبر الإنترنت مع معلمين مؤهلين يقدمون تعليماً شخصياً لمساعدتك في تحقيق أهدافك الروحية.",
+    "quick_links": "روابط سريعة",
+    "all_rights_reserved": "جميع الحقوق محفوظة"
+  },
+  "teacherRegistration": {
+    "title": "انضم كمعلم",
+    "subtitle": "شارك معرفتك وألهم الطلاب حول العالم",
+    "personalInfo": "المعلومات الشخصية",
+    "professionalInfo": "المعلومات المهنية",
+    "name": "الاسم الكامل",
+    "namePlaceholder": "أدخل اسمك الكامل",
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "your.email@example.com",
+    "password": "كلمة المرور",
+    "passwordPlaceholder": "أدخل كلمة المرور",
+    "retypePassword": "تأكيد كلمة المرور",
+    "retypePasswordPlaceholder": "أكد كلمة المرور",
+    "phone": "رقم الهاتف",
+    "phonePlaceholder": "+1234567890",
+    "gender": "الجنس",
+    "genderPlaceholder": "اختر الجنس",
+    "male": "ذكر",
+    "female": "أنثى",
+    "birthDate": "تاريخ الميلاد",
+    "qualifications": "المؤهلات والتعليم",
+    "qualificationsPlaceholder": "اوصف خلفيتك التعليمية، الدرجات العلمية، الشهادات...",
+    "subjects": "المواد التي تدرسها",
+    "subjectsPlaceholder": "الرياضيات، الفيزياء، الكيمياء...",
+    "experience": "سنوات الخبرة في التدريس",
+    "experiencePlaceholder": "0",
+    "referralSource": "كيف سمعت عنا؟",
+    "referralPlaceholder": "اختر المصدر",
+    "facebook": "فيسبوك",
+    "google": "جوجل",
+    "friend": "إحالة من صديق",
+    "linkedin": "لينكد إن",
+    "others": "أخرى",
+    "submitting": "جاري الإرسال...",
+    "submit": "إرسال الطلب"
+  },
+  "teacherDashboard": {
+    "welcome": "مرحباً بعودتك",
+    "subtitle": "إليك نظرة عامة على نشاطك التدريسي",
+    "totalStudents": "إجمالي الطلاب",
+    "activeStudents": "الطلاب النشطون",
+    "activeClasses": "الحصص النشطة",
+    "ongoingClasses": "الحصص الجارية",
+    "totalEarnings": "إجمالي الأرباح",
+    "thisMonth": "هذا الشهر",
+    "averageRating": "متوسط التقييم",
+    "outOfFive": "من 5",
+    "upcomingClasses": "الحصص القادمة",
+    "nextWeek": "الأيام السبعة القادمة"
+  },
+  "TeacherServices": {
+    "title": "عزز مهاراتك في التدريس باستخدام أدواتنا المتقدمة",
+    "guided_teaching_path": {
+      "title": "مسار التدريس الموجه",
+      "content": "احصل على إرشادات شخصية حول كيفية تنظيم دروس القرآن واللغة العربية بما يتناسب مع مسارات تعلم الطلاب."
+    },
+    "teacher_training": {
+      "title": "تدريب المعلمين وشهادات معتمدة",
+      "content": "شارك في برامج التدريب لتحسين طرق التدريس الخاصة بك واحصل على شهادات معترف بها من المجتمع."
+    },
+    "feedback_improvement": {
+      "title": "تلقي التحسين من خلال الملاحظات",
+      "content": "جمع الملاحظات من الطلاب وحسن أساليب التدريس الخاصة بك لتقديم أفضل تجربة تعليمية."
+    },
+    "efficient_scheduling": {
+      "title": "الجدولة الفعالة",
+      "content": "إدارة جدول الحصص الدراسية بفعالية وكفاءة باستخدام أدواتنا المصممة خصيصًا للمعلمين."
+    },
+    "performance_tracking": {
+      "title": "متابعة الأداء",
+      "content": "تتبع أداء الطلاب وضبط استراتيجيات التدريس لتحسين تجربة التعلم."
+    },
+    "collaborative_learning": {
+      "title": "بيئة تعلم تعاونية",
+      "content": "تعاون مع مدربين آخرين لخلق بيئة تعلم تعاونية وداعمة لجميع الطلاب."
+    }
+  },
+  "FreeSession": {
+    "title": "حجز جلسة مجانية",
+    "description": "احجز جلستك التجريبية المجانية",
+    "bookingSuccess": "تم حجز جلستك المجانية بنجاح! سنتواصل معك قريباً لتأكيد التفاصيل.",
+    "form": {
+      "sessionDate": "تاريخ الجلسة",
+      "sessionTime": "وقت الجلسة",
+      "duration": "المدة",
+      "subject": "الموضوع",
+      "studentNotes": "ملاحظات إضافية",
+      "timezone": "المنطقة الزمنية",
+      "selectTime": "اختر الوقت",
+      "selectSubject": "اختر الموضوع",
+      "submitButton": "احجز الجلسة المجانية",
+      "submitting": "جاري الحجز...",
+      "timezoneDescription": "يتم تحديد المنطقة الزمنية تلقائياً بناءً على موقعك",
+      "notesDescription": "شارك أهدافك التعليمية لنتمكن من تخصيص الجلسة حسب احتياجاتك",
+      "notesPlaceholder": "أخبرنا عن أهدافك التعليمية أو أي متطلبات خاصة..."
+    },
+    "subjects": {
+      "quran-memorization": "حفظ القرآن",
+      "quran-recitation": "تلاوة القرآن",
+      "tajweed": "التجويد",
+      "arabic-language": "اللغة العربية",
+      "islamic-studies": "الدراسات الإسلامية"
+    },
+    "status": {
+      "pending": "في الانتظار",
+      "scheduled": "مجدولة",
+      "completed": "مكتملة",
+      "cancelled": "ملغية",
+      "no_show": "لم يحضر"
+    },
+    "dashboard": {
+      "title": "الجلسات المجانية",
+      "description": "إدارة وتتبع جلساتك المجانية",
+      "bookNewSession": "احجز جلسة جديدة",
+      "welcome": "مرحباً بك في منصة قدوة!",
+      "welcomeDescription": "احجز جلستك المجانية الأولى لتقييم احتياجاتك التعليمية وبدء رحلتك في تعلم القرآن والعربية",
+      "noBookings": "لا توجد جلسات محجوزة",
+      "noBookingsDescription": "احجز جلستك المجانية الأولى لبدء رحلتك التعليمية"
+    },
+    "tabs": {
+      "all": "الكل",
+      "pending": "في الانتظار",
+      "scheduled": "مجدولة",
+      "completed": "مكتملة"
+    },
+    "booking": {
+      "sessionDetails": "تفاصيل الجلسة",
+      "timeAndDuration": "الوقت والمدة",
+      "subject": "الموضوع",
+      "assignedTeacher": "المعلم المختص",
+      "yourNotes": "ملاحظاتك",
+      "teacherNotes": "ملاحظات المعلم",
+      "joinSession": "انضم للجلسة",
+      "cancellationReason": "سبب الإلغاء",
+      "minutes": "دقيقة"
+    }
+  },
+  "Common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح",
+    "failed": "فشل",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "pending": "قيد الانتظار",
+    "approved": "موافق عليه",
+    "rejected": "مرفوض",
+    "cancelled": "ملغي",
+    "completed": "مكتمل",
+    "expired": "منتهي الصلاحية",
+    "popular": "الأكثر شعبية",
+    "students": "الطلاب",
+    "teachers": "المعلمون",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "gender": "الجنس",
+    "male": "ذكر",
+    "female": "أنثى",
+    "save": "حفظ",
+    "save_changes": "حفظ التغييرات",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "view": "عرض",
     "view_details": "عرض التفاصيل",
-    "details_description": "معلومات مفصلة عن الباقة وميزاتها",
-    "subscription_frequency": "مدة الاشتراك",
-    "class_duration": "مدة الدرس",
-    "minutes": "دقيقة",
-    "days_per_week": "{days} أيام في الأسبوع",
-    "price_details": "تفاصيل السعر",
-    "enroll_now": "اشترك الآن",
-    "monthly": "شهري",
-    "quarterly": "ربع سنوي",
-    "semmi_annual": "نصف سنوي",
-    "yearly": "سنوي"
+    "actions": "الإجراءات",
+    "status": "الحالة",
+    "created_at": "تاريخ الإنشاء",
+    "updated_at": "تاريخ التحديث",
+    "search": "بحث",
+    "search_placeholder": "بحث...",
+    "no_results": "لا توجد نتائج",
+    "select_placeholder": "اختر خياراً",
+    "required": "مطلوب",
+    "optional": "اختياري",
+    "submit": "إرسال",
+    "submitting": "جاري الإرسال...",
+    "create": "إنشاء",
+    "update": "تحديث",
+    "confirm": "تأكيد",
+    "yes": "نعم",
+    "no": "لا",
+    "close": "إغلاق",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "home": "الرئيسية",
+    "dashboard": "لوحة التحكم",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "login": "تسجيل الدخول",
+    "register": "التسجيل",
+    "minutes": "دقائق",
+    "hours": "ساعات",
+    "days": "أيام",
+    "weeks": "أسابيع",
+    "months": "شهور",
+    "years": "سنوات",
+    "class": "حصة",
+    "total_classes": "إجمالي الحصص",
+    "frequency": "التكرار",
+    "duration": "المدة",
+    "schedule": "الجدول"
+  },
+  "Forms": {
+    "validation": {
+      "email_required": "البريد الإلكتروني مطلوب",
+      "email_invalid": "عنوان بريد إلكتروني غير صحيح",
+      "password_required": "كلمة المرور مطلوبة",
+      "password_min_length": "كلمة المرور يجب أن تكون على الأقل {length} أحرف",
+      "passwords_no_match": "كلمات المرور غير متطابقة",
+      "name_required": "الاسم مطلوب",
+      "name_min_length": "الاسم يجب أن يكون على الأقل {length} أحرف",
+      "name_max_length": "الاسم لا يمكن أن يتجاوز {length} حرف",
+      "phone_required": "رقم الهاتف مطلوب",
+      "phone_min_length": "رقم الهاتف يجب أن يكون على الأقل {length} أرقام",
+      "gender_required": "الجنس مطلوب",
+      "birth_date_invalid": "تنسيق تاريخ الميلاد غير صحيح. استخدم YYYY-MM-DD",
+      "qualifications_required": "يرجى تقديم مؤهلات مفصلة (الحد الأدنى {length} حرف)",
+      "subjects_required": "يرجى تحديد المواد التي يمكنك تدريسها",
+      "experience_negative": "سنوات الخبرة التدريسية لا يمكن أن تكون سالبة",
+      "experience_unrealistic": "يرجى إدخال عدد واقعي من السنوات",
+      "retype_password_required": "إعادة كتابة كلمة المرور مطلوبة",
+      "new_password_required": "كلمة المرور الجديدة مطلوبة!"
+    },
+    "placeholders": {
+      "enter_email": "أدخل بريدك الإلكتروني",
+      "enter_password": "أدخل كلمة المرور",
+      "enter_name": "أدخل اسمك",
+      "confirm_password": "أكد كلمة المرور",
+      "enter_phone": "أدخل رقم هاتفك",
+      "select_gender": "اختر الجنس",
+      "enter_qualifications": "أدخل مؤهلاتك",
+      "enter_subjects": "أدخل المواد التي تدرسها",
+      "enter_experience": "أدخل سنوات الخبرة",
+      "search_by_name_email": "البحث بالاسم أو البريد الإلكتروني..."
+    }
+  },
+  "UI": {
+    "placeholders": {
+      "enter_email_subject": "أدخل موضوع البريد الإلكتروني",
+      "enter_message": "أدخل رسالتك...",
+      "test_email_address": "أدخل بريدك الإلكتروني لتلقي رسائل اختبار",
+      "search_products": "البحث في المنتجات...",
+      "store_name": "اسم المتجر",
+      "project_name": "اسم المشروع",
+      "enter_current_password": "أدخل كلمة المرور الحالية",
+      "enter_new_password": "أدخل كلمة المرور الجديدة",
+      "confirm_new_password": "أكد كلمة المرور الجديدة",
+      "subjects_example": "مثال: الرياضيات، الفيزياء، العربية",
+      "qualifications_example": "مثال: ماجستير رياضيات، شهادة تدريس، شهادة TESOL",
+      "search_students": "البحث في الطلاب بالاسم أو البريد الإلكتروني...",
+      "select_student": "اختر طالباً",
+      "select_teacher": "اختر معلماً",
+      "assignment_notes": "أضف أي ملاحظات حول هذا التكليف...",
+      "search_packages": "البحث في الباقات...",
+      "package_title_example": "مثال: 30 دقيقة",
+      "package_description": "وصف الباقة...",
+      "subjects_list_example": "مثال: الإنجليزية، الرياضيات",
+      "features_example": "جلسات فردية، دعم الواجبات المنزلية، تتبع التقدم",
+      "rejection_reason": "يرجى شرح سبب رفض هذا الطلب..."
+    },
+    "labels": {
+      "recipients": "المستلمون",
+      "subject": "الموضوع",
+      "message": "الرسالة",
+      "test_email_address": "عنوان بريد إلكتروني للاختبار",
+      "email_recipients": "مستلمو البريد الإلكتروني",
+      "two_factor_code": "رمز المصادقة الثنائية",
+      "two_factor_authentication": "المصادقة الثنائية",
+      "experience": "الخبرة",
+      "subjects": "المواد",
+      "qualifications": "المؤهلات",
+      "current_status": "الحالة الحالية",
+      "rejection_reason": "سبب الرفض"
+    },
+    "buttons": {
+      "send_email": "إرسال بريد إلكتروني",
+      "test_first": "اختبر أولاً",
+      "quick_email": "بريد سريع",
+      "send_test_email": "إرسال بريد تجريبي",
+      "create_package": "إنشاء باقة"
+    },
+    "cards": {
+      "personal_information": "المعلومات الشخصية",
+      "password_security": "أمان كلمة المرور",
+      "teaching_profile": "الملف التدريسي",
+      "account_overview": "نظرة عامة على الحساب",
+      "store_name": "اسم المتجر",
+      "plugins_directory": "دليل الإضافات",
+      "package_details": "تفاصيل الباقة"
+    },
+    "sections": {
+      "single_email": "بريد إلكتروني واحد",
+      "bulk_email": "بريد إلكتروني جماعي"
+    }
+  },
+  "Permissions": {
+    "no_permission": "ليس لديك صلاحية لعرض هذا المحتوى!",
+    "loading": "جاري التحميل..."
+  },
+  "Email": {
+    "guide": {
+      "title": "دليل نظام البريد الإلكتروني",
+      "description": "دليل سريع لاستخدام نظام البريد الإلكتروني",
+      "test_first": "اختبر أولاً",
+      "test_description": "اختبر دائماً الرسائل قبل الإرسال للمجموعات",
+      "quick_email": "بريد سريع",
+      "quick_description": "إرسال رسائل فورية لجميع الطلاب أو المعلمين",
+      "targeted_emails": "رسائل مستهدفة",
+      "targeted_description": "إرسال رسائل شخصية لأفراد محددين",
+      "advanced_features": "ميزات متقدمة",
+      "advanced_description": "استخدام القوالب والجدولة للتواصل المهني",
+      "badges": {
+        "students": "الطلاب",
+        "teachers": "المعلمون",
+        "bulk_email": "بريد جماعي",
+        "test_mode": "وضع الاختبار"
+      }
+    },
+    "stats": {
+      "title": "إحصائيات البريد الإلكتروني",
+      "description": "نظرة عامة على أداء نظام البريد الإلكتروني",
+      "total_sent": "إجمالي المرسل",
+      "success_rate": "معدل النجاح",
+      "recent_activity": "النشاط الأخير",
+      "activities": {
+        "teacher_approval": "تم إرسال رسائل موافقة المعلمين",
+        "newsletter_scheduled": "تم جدولة النشرة الشهرية",
+        "welcome_new_students": "تم إرسال رسالة ترحيب لـ 5 طلاب جدد"
+      }
+    },
+    "manager": {
+      "title": "إدارة البريد الإلكتروني",
+      "description": "إرسال رسائل للطلاب والمعلمين"
+    },
+    "test": {
+      "title": "اختبار البريد الإلكتروني",
+      "description": "اختبار وظائف البريد الإلكتروني قبل الإرسال للمستخدمين",
+      "buttons": {
+        "test_welcome": "اختبار رسالة الترحيب",
+        "test_approval": "اختبار موافقة المعلم",
+        "test_bulk_students": "اختبار بريد الطلاب الجماعي"
+      }
+    },
+    "quick": {
+      "title": "مُرسل البريد السريع",
+      "description": "إرسال بريد سريع للطلاب أو المعلمين"
+    },
+    "errors": {
+      "fill_subject_message": "يرجى ملء الموضوع والرسالة",
+      "failed_to_send": "فشل في إرسال البريد الإلكتروني",
+      "enter_id": "يرجى إدخال معرف {type}",
+      "failed_test_email": "فشل في إرسال البريد التجريبي"
+    },
+    "success": {
+      "test_sent": "{message} - تحقق من بريدك الإلكتروني!"
+    }
+  },
+  "Profile": {
+    "sections": {
+      "account_status": "حالة الحساب",
+      "member_since": "عضو منذ",
+      "plan_type": "نوع الخطة"
+    }
+  },
+  "TeacherRequests": {
+    "title": "طلبات المعلمين",
+    "description": "إدارة طلبات تطبيقات المعلمين",
+    "headers": {
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "gender": "الجنس",
+      "experience": "الخبرة",
+      "subjects": "المواد",
+      "status": "الحالة",
+      "date": "تاريخ التقديم",
+      "actions": "الإجراءات"
+    },
+    "actions": {
+      "approve": "موافقة",
+      "reject": "رفض",
+      "view_details": "عرض التفاصيل"
+    },
+    "confirmations": {
+      "approve_teacher": "هل أنت متأكد من موافقتك على هذا المعلم؟",
+      "reject_teacher": "هل أنت متأكد من رفض هذا المعلم؟"
+    },
+    "success": {
+      "teacher_approved": "تمت الموافقة على المعلم بنجاح",
+      "teacher_rejected": "تم رفض المعلم بنجاح"
+    },
+    "errors": {
+      "action_failed": "فشل الإجراء. يرجى المحاولة مرة أخرى."
+    }
   }
 }
