@@ -392,6 +392,7 @@
         "dashboard": "لوحة التحكم",
         "users": "إدارة المستخدمين",
         "teachers": "إدارة المعلمين",
+        "assignTeacher": "تعيين المعلم",
         "packages": "إدارة الباقات",
         "freeSessions": "الجلسات المجانية",
         "subscriptions": "الاشتراكات",
@@ -524,6 +525,9 @@
           "view": "عرض التفاصيل"
         }
       }
+    },
+    "teacherStudents": {
+      "title": "طلابي"
     }
   },
   "Success": {
@@ -588,6 +592,38 @@
       "platformName": "منصة قدوة",
       "testimonialQuote": "انضم إلى مجتمعنا التعليمي وألهم الطلاب حول العالم بمعرفتك",
       "testimonialAuthor": "فريق التدريس في قدوة"
+    }
+  },
+  "teacherStudents": {
+    "title": "طلابي",
+    "subtitle": "إدارة ومتابعة تقدم طلابك",
+    "students": "الطلاب",
+    "searchPlaceholder": "البحث عن الطلاب بالاسم أو البريد الإلكتروني...",
+    "noSearchResults": "لم يتم العثور على طلاب مطابقين لبحثك.",
+    "noStudents": "لم يتم تعيين طلاب بعد.",
+    "completedClasses": "حصص مكتملة",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "nextClass": "الحصة التالية",
+    "viewProgress": "عرض التقدم",
+    "message": "رسالة",
+    "classNotes": {
+      "title": "ملاحظات الحصة",
+      "dailyAssignment": "الواجب اليومي",
+      "appliedTajweed": "التجويد التطبيقي",
+      "review": "المراجعة",
+      "memorization": "حفظ",
+      "addNotes": "إضافة ملاحظات",
+      "saveNotes": "حفظ الملاحظات",
+      "editNotes": "تعديل الملاحظات",
+      "classDate": "تاريخ الحصة",
+      "startTime": "البداية",
+      "endTime": "النهاية",
+      "duration": "المدة",
+      "sessionHistory": "تاريخ الجلسات",
+      "noNotes": "لا توجد ملاحظات متاحة لهذا الطالب بعد.",
+      "notesUpdated": "تم تحديث الملاحظات بنجاح",
+      "notesError": "فشل في تحديث الملاحظات"
     }
   },
   "Footer": {

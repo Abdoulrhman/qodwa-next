@@ -69,8 +69,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           <DashboardSidebar />
           <main
             className={cn(
-              'flex-1 overflow-y-auto p-4 md:p-8',
-              isRTL && 'text-right'
+              'flex-1 overflow-y-auto p-4 md:p-8 transition-all duration-300'
             )}
             dir={isRTL ? 'rtl' : 'ltr'}
           >

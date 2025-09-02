@@ -79,6 +79,11 @@ model User {
   subscriptions         Subscription[]
   freeSessionBookings   FreeSessionBooking[]  @relation("StudentBookings")
   teacherBookings       FreeSessionBooking[]  @relation("TeacherBookings")
+  
+  // Class session relationships
+  studentClasses        ClassSession[]        @relation("StudentClasses")
+  teacherClasses        ClassSession[]        @relation("TeacherClasses")
+  teacherEarnings       TeacherEarnings[]     @relation("TeacherEarnings")
 }
 
 model Account {
@@ -152,6 +157,7 @@ model Subscription {
   
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   package           Package  @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  classSessions     ClassSession[]
 
   @@unique([userId, packageId])
 }
@@ -163,6 +169,7 @@ model TeacherStudent {
   assignedAt    DateTime @default(now())
   isActive      Boolean  @default(true)
   notes         String?  // Optional notes about the teacher-student relationship
+  zoomLink      String?  // Zoom meeting link for teacher-student sessions
   
   // Relations
   teacher       User     @relation("TeacherConnections", fields: [teacherId], references: [id], onDelete: Cascade)
@@ -227,4 +234,58 @@ enum FreeSessionStatus {
   COMPLETED    // Session completed
   CANCELLED    // Session cancelled
   NO_SHOW      // Student didn't show up
+}
+
+enum ClassStatus {
+  SCHEDULED    // Class is scheduled
+  IN_PROGRESS  // Class is currently in progress
+  COMPLETED    // Class has been completed
+  CANCELLED    // Class was cancelled
+  NO_SHOW      // Student didn't show up
+}
+
+model ClassSession {
+  id                String           @id @default(cuid())
+  studentId         String
+  teacherId         String
+  subscriptionId    String
+  startTime         DateTime
+  endTime           DateTime?
+  duration          Int              @default(30) // Duration in minutes
+  zoomLink          String?          // Zoom meeting link
+  status            ClassStatus      @default(SCHEDULED)
+  teacherEarning    Float            @default(2.0) // Teacher earning for this class
+  notes             String?          // General teacher notes about the class
+  
+  // Structured notes for different aspects of learning
+  dailyAssignment   String?          // الواجب اليومي - Daily Assignment notes
+  appliedTajweed    String?          // التجويد التطبيقي - Applied Tajweed notes  
+  review            String?          // المراجعة - Review notes
+  memorization      String?          // حفظ - Memorization notes
+  
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  
+  // Relations
+  student           User             @relation("StudentClasses", fields: [studentId], references: [id], onDelete: Cascade)
+  teacher           User             @relation("TeacherClasses", fields: [teacherId], references: [id], onDelete: Cascade)
+  subscription      Subscription     @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  
+  @@map("class_sessions")
+}
+
+model TeacherEarnings {
+  id                String           @id @default(cuid())
+  teacherId         String
+  totalEarnings     Float            @default(0.0)
+  totalClasses      Int              @default(0)
+  currentMonth      Int              // 1-12 for tracking monthly earnings
+  currentYear       Int              // Year for tracking annual earnings
+  lastUpdated       DateTime         @default(now()) @updatedAt
+  
+  // Relations
+  teacher           User             @relation("TeacherEarnings", fields: [teacherId], references: [id], onDelete: Cascade)
+  
+  @@unique([teacherId, currentMonth, currentYear])
+  @@map("teacher_earnings")
 }

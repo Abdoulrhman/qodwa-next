@@ -165,7 +165,8 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
           success: false,
           message: 'Failed to send test notification',
-          error: emailError instanceof Error ? emailError.message : 'Unknown error',
+          error:
+            emailError instanceof Error ? emailError.message : 'Unknown error',
         });
       }
     }

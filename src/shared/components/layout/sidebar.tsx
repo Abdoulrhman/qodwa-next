@@ -126,6 +126,12 @@ const getRoutes = (
           isActive: true,
         },
         {
+          label: t('navigation.admin.assignTeacher'),
+          icon: UserPlus,
+          href: `/${locale}/dashboard/admin/assign-teacher`,
+          isActive: true,
+        },
+        {
           label: t('navigation.admin.packages'),
           icon: BookText,
           href: `/${locale}/dashboard/admin/packages`,
@@ -379,8 +385,8 @@ export const DashboardSidebar = () => {
             ? isSidebarOpen
               ? 'translate-x-0'
               : isRTL
-                ? 'translate-x-56'
-                : '-translate-x-56'
+                ? 'translate-x-full'
+                : '-translate-x-full'
             : 'translate-x-0',
           isRTL ? 'right-0 border-l border-r-0' : 'left-0 border-r border-l-0',
           'w-56'

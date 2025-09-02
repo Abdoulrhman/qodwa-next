@@ -100,7 +100,7 @@ export const login = async (
       redirect: false, // Don't redirect automatically
     });
     console.log('✅ SignIn result:', result);
-    
+
     // Check if the sign-in was successful but blocked
     if (result?.error) {
       console.log('❌ SignIn error from result:', result.error);
@@ -113,7 +113,6 @@ export const login = async (
       }
       return { error: result.error };
     }
-    
   } catch (error: any) {
     console.log('❌ SignIn exception:', error);
     // Handle NextAuth errors

@@ -13,14 +13,13 @@ async function testLogin() {
       },
       body: JSON.stringify({
         email: 'test.unverified@example.com',
-        password: 'password123'
-      })
+        password: 'password123',
+      }),
     });
-    
+
     console.log('Response status:', response.status);
     const result = await response.text();
     console.log('Response:', result);
-    
   } catch (error) {
     console.error('Error:', error);
   }

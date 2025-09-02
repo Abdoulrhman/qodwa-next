@@ -15,7 +15,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { teacherId, studentId, isPrimary, notes } = await request.json();
+    const { teacherId, studentId, isPrimary, notes, zoomLink } =
+      await request.json();
 
     // Validate required fields
     if (!teacherId || !studentId) {
@@ -67,12 +68,14 @@ export async function POST(request: NextRequest) {
         update: {
           isActive: true,
           notes: notes || 'Primary teacher assignment',
+          zoomLink: zoomLink || null,
         },
         create: {
           teacherId,
           studentId,
           isActive: true,
           notes: notes || 'Primary teacher assignment',
+          zoomLink: zoomLink || null,
         },
       });
 
@@ -117,6 +120,7 @@ export async function POST(request: NextRequest) {
           studentId,
           isActive: true,
           notes: notes || 'Additional teacher connection',
+          zoomLink: zoomLink || null,
         },
       });
 

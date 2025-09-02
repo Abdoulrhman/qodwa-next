@@ -81,7 +81,8 @@ export default function TeacherManagementPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isAssignDialogOpen, setIsAssignDialogOpen] = useState(false);
   const [selectedStudentIds, setSelectedStudentIds] = useState<string[]>([]);
-  const [teacherForAssignment, setTeacherForAssignment] = useState<Teacher | null>(null);
+  const [teacherForAssignment, setTeacherForAssignment] =
+    useState<Teacher | null>(null);
   const [studentSearchTerm, setStudentSearchTerm] = useState('');
 
   useEffect(() => {
@@ -195,7 +196,9 @@ export default function TeacherManagementPage() {
         throw new Error('Failed to assign students');
       }
 
-      toast.success(`Successfully assigned ${selectedStudentIds.length} student(s) to ${teacherForAssignment.name}`);
+      toast.success(
+        `Successfully assigned ${selectedStudentIds.length} student(s) to ${teacherForAssignment.name}`
+      );
       setIsAssignDialogOpen(false);
       setSelectedStudentIds([]);
       setTeacherForAssignment(null);
@@ -217,9 +220,9 @@ export default function TeacherManagementPage() {
   };
 
   const handleStudentSelection = (studentId: string) => {
-    setSelectedStudentIds(prev => 
-      prev.includes(studentId) 
-        ? prev.filter(id => id !== studentId)
+    setSelectedStudentIds((prev) =>
+      prev.includes(studentId)
+        ? prev.filter((id) => id !== studentId)
         : [...prev, studentId]
     );
   };
@@ -634,12 +637,15 @@ export default function TeacherManagementPage() {
         <Dialog open={isAssignDialogOpen} onOpenChange={setIsAssignDialogOpen}>
           <DialogContent className='max-w-4xl max-h-[80vh] overflow-y-auto'>
             <DialogHeader>
-              <DialogTitle>Assign Students to {teacherForAssignment?.name}</DialogTitle>
+              <DialogTitle>
+                Assign Students to {teacherForAssignment?.name}
+              </DialogTitle>
               <DialogDescription>
-                Select students to assign to this teacher. You can assign multiple students at once.
+                Select students to assign to this teacher. You can assign
+                multiple students at once.
               </DialogDescription>
             </DialogHeader>
-            
+
             <div className='space-y-4'>
               {/* Search Students */}
               <div className='relative'>
@@ -656,7 +662,8 @@ export default function TeacherManagementPage() {
               {selectedStudentIds.length > 0 && (
                 <div className='bg-blue-50 p-3 rounded-lg'>
                   <p className='text-sm text-blue-700'>
-                    {selectedStudentIds.length} student(s) selected for assignment
+                    {selectedStudentIds.length} student(s) selected for
+                    assignment
                   </p>
                 </div>
               )}
@@ -715,7 +722,7 @@ export default function TeacherManagementPage() {
                     ))}
                   </TableBody>
                 </Table>
-                
+
                 {filteredStudents.length === 0 && (
                   <div className='text-center py-8 text-muted-foreground'>
                     No students found matching your search.

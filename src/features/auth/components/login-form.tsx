@@ -44,8 +44,8 @@ export const LoginForm = () => {
     searchParams.get('error') === 'OAuthAccountNotLinked'
       ? t('email_in_use_error')
       : searchParams.get('error') === 'EmailNotVerified'
-      ? 'Please verify your email address before accessing your dashboard. Check your inbox for the verification link.'
-      : '';
+        ? 'Please verify your email address before accessing your dashboard. Check your inbox for the verification link.'
+        : '';
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -66,7 +66,9 @@ export const LoginForm = () => {
             form.reset();
             // Special handling for email verification errors
             if (data.error === 'EmailNotVerified') {
-              setError('Your email address is not verified. Please check your inbox for the verification link or request a new one.');
+              setError(
+                'Your email address is not verified. Please check your inbox for the verification link or request a new one.'
+              );
             } else {
               setError(data.error);
             }
@@ -94,7 +96,7 @@ export const LoginForm = () => {
 
   const onResendVerification = () => {
     const emailValue = form.getValues('email');
-    
+
     if (!emailValue) {
       setError('Please enter your email address first');
       return;
@@ -219,24 +221,25 @@ export const LoginForm = () => {
           </div>
           <FormError message={error || urlError} />
           <FormSuccess message={success} />
-          
+
           {/* Show resend verification link if email not verified */}
-          {(error === 'Your email address is not verified. Please check your inbox for the verification link or request a new one.' || 
+          {(error ===
+            'Your email address is not verified. Please check your inbox for the verification link or request a new one.' ||
             error === 'EmailNotVerified' ||
             urlError.includes('verify your email')) && (
-            <div className="text-center">
+            <div className='text-center'>
               <Button
-                size="sm"
-                variant="link"
+                size='sm'
+                variant='link'
                 onClick={onResendVerification}
                 disabled={isResending || isPending}
-                className="px-0 font-normal text-blue-600 hover:text-blue-800"
+                className='px-0 font-normal text-blue-600 hover:text-blue-800'
               >
                 {isResending ? 'Sending...' : 'Resend Verification Email'}
               </Button>
             </div>
           )}
-          
+
           <Button disabled={isPending} type='submit' className='w-full'>
             {showTwoFactor ? 'Confirm' : t('submit')}
           </Button>

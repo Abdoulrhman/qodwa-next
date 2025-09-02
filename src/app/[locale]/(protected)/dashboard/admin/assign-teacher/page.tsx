@@ -96,6 +96,7 @@ export default function TeacherAssignmentPage() {
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [selectedTeacher, setSelectedTeacher] = useState<string>('');
   const [assignmentNotes, setAssignmentNotes] = useState('');
+  const [zoomLink, setZoomLink] = useState('');
   const [isPrimaryAssignment, setIsPrimaryAssignment] = useState(true);
   const [isAssignDialogOpen, setIsAssignDialogOpen] = useState(false);
 
@@ -139,6 +140,7 @@ export default function TeacherAssignmentPage() {
           studentId: selectedStudent.id,
           isPrimary: isPrimaryAssignment,
           notes: assignmentNotes || undefined,
+          zoomLink: zoomLink.trim() || undefined,
         }),
       });
 
@@ -154,6 +156,7 @@ export default function TeacherAssignmentPage() {
       setSelectedStudent(null);
       setSelectedTeacher('');
       setAssignmentNotes('');
+      setZoomLink('');
       setIsPrimaryAssignment(true);
       setIsAssignDialogOpen(false);
 
@@ -387,6 +390,20 @@ export default function TeacherAssignmentPage() {
                     </div>
 
                     <div>
+                      <Label htmlFor='zoomLink'>Zoom Link</Label>
+                      <Input
+                        id='zoomLink'
+                        value={zoomLink}
+                        onChange={(e) => setZoomLink(e.target.value)}
+                        placeholder='https://zoom.us/j/...'
+                        className='mt-1'
+                      />
+                      <p className='text-xs text-muted-foreground mt-1'>
+                        Shared Zoom meeting link for this teacher-student pair
+                      </p>
+                    </div>
+
+                    <div>
                       <Label htmlFor='notes'>Notes (Optional)</Label>
                       <Textarea
                         id='notes'
@@ -405,6 +422,7 @@ export default function TeacherAssignmentPage() {
                           setSelectedStudent(null);
                           setSelectedTeacher('');
                           setAssignmentNotes('');
+                          setZoomLink('');
                           setIsPrimaryAssignment(true);
                         }}
                       >

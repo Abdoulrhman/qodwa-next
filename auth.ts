@@ -26,20 +26,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     // @ts-ignore
     async signIn({ user, account }) {
-      console.log('🔐 SignIn callback called with:', { 
-        userId: user.id, 
-        email: user.email, 
-        provider: account?.provider 
+      console.log('🔐 SignIn callback called with:', {
+        userId: user.id,
+        email: user.email,
+        provider: account?.provider,
       });
 
       // Allow OAuth without email verification
       if (account?.provider !== 'credentials') return true;
 
       const existingUser = await getUserById(user.id!);
-      console.log('👤 Found existing user:', { 
-        id: existingUser?.id, 
-        email: existingUser?.email, 
-        emailVerified: existingUser?.emailVerified 
+      console.log('👤 Found existing user:', {
+        id: existingUser?.id,
+        email: existingUser?.email,
+        emailVerified: existingUser?.emailVerified,
       });
 
       // Prevent sign in without email verification
@@ -90,7 +90,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           token.teachingExperience as number;
         (session.user as any).qualifications = token.qualifications as string;
         (session.user as any).phone = token.phone as string;
-        (session.user as any).emailVerified = token.emailVerified as Date | null;
+        (session.user as any).emailVerified =
+          token.emailVerified as Date | null;
       }
 
       return session;

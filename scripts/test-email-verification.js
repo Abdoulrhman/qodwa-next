@@ -12,7 +12,7 @@ async function createUnverifiedUser() {
   try {
     // Create a test user without email verification
     const hashedPassword = await bcrypt.hash('testpassword123', 12);
-    
+
     const testUser = await db.user.create({
       data: {
         name: 'Test User',
@@ -30,16 +30,18 @@ async function createUnverifiedUser() {
     });
 
     console.log('\n📋 Test Instructions:');
-    console.log('1. Try logging in with: test.unverified@example.com / testpassword123');
+    console.log(
+      '1. Try logging in with: test.unverified@example.com / testpassword123'
+    );
     console.log('2. You should be blocked from accessing the dashboard');
     console.log('3. You should be redirected to /auth/verify-email');
-    
+
     return testUser;
   } catch (error) {
     if (error.code === 'P2002') {
       console.log('⚠️  Test user already exists, deleting and recreating...');
       await db.user.delete({
-        where: { email: 'test.unverified@example.com' }
+        where: { email: 'test.unverified@example.com' },
       });
       return createUnverifiedUser();
     }
@@ -51,7 +53,7 @@ async function createVerifiedUser() {
   try {
     // Create a test user with email verification
     const hashedPassword = await bcrypt.hash('testpassword123', 12);
-    
+
     const testUser = await db.user.create({
       data: {
         name: 'Verified User',
@@ -69,15 +71,19 @@ async function createVerifiedUser() {
     });
 
     console.log('\n📋 Comparison Test:');
-    console.log('1. Try logging in with: test.verified@example.com / testpassword123');
+    console.log(
+      '1. Try logging in with: test.verified@example.com / testpassword123'
+    );
     console.log('2. This user SHOULD be able to access the dashboard');
-    
+
     return testUser;
   } catch (error) {
     if (error.code === 'P2002') {
-      console.log('⚠️  Verified test user already exists, deleting and recreating...');
+      console.log(
+        '⚠️  Verified test user already exists, deleting and recreating...'
+      );
       await db.user.delete({
-        where: { email: 'test.verified@example.com' }
+        where: { email: 'test.verified@example.com' },
       });
       return createVerifiedUser();
     }
@@ -87,13 +93,15 @@ async function createVerifiedUser() {
 
 async function main() {
   console.log('🧪 Creating test users for email verification enforcement...\n');
-  
+
   await createUnverifiedUser();
   console.log('');
   await createVerifiedUser();
 
   console.log('\n🔒 Email verification enforcement is now active!');
-  console.log('📧 Unverified users will be redirected to the verification page.');
+  console.log(
+    '📧 Unverified users will be redirected to the verification page.'
+  );
 }
 
 main()

@@ -118,7 +118,7 @@ export default function TeacherRecruitmentPage() {
       console.error('❌ Error details:', {
         message: error.message,
         stack: error.stack,
-        name: error.name
+        name: error.name,
       });
       toast.error(error.message || 'Failed to send recruitment emails');
     } finally {

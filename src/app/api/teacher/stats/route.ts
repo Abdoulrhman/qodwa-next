@@ -42,17 +42,48 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    // Calculate total earnings (mock calculation for now)
-    const totalEarnings = activeClasses * 100; // $100 per active class as example
+    // Get current month earnings
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getFullYear();
 
-    // Calculate average rating (mock for now)
+    const currentMonthEarnings = await db.teacherEarnings.findUnique({
+      where: {
+        teacherId_currentMonth_currentYear: {
+          teacherId,
+          currentMonth,
+          currentYear,
+        },
+      },
+    });
+
+    const totalEarnings = currentMonthEarnings?.totalEarnings || 0;
+
+    // Calculate average rating (for now we'll use a default, but this could be from a ratings table later)
     const averageRating = 4.5;
 
-    // Count upcoming classes (mock for now)
-    const upcomingClasses = Math.floor(Math.random() * 10) + 1;
+    // Count upcoming classes (classes scheduled for the next 7 days)
+    const nextWeek = new Date();
+    nextWeek.setDate(nextWeek.getDate() + 7);
 
-    // Count completed classes (mock for now)
-    const completedClasses = Math.floor(Math.random() * 50) + 20;
+    const upcomingClasses = await db.classSession.count({
+      where: {
+        teacherId,
+        status: 'SCHEDULED',
+        startTime: {
+          gte: new Date(),
+          lte: nextWeek,
+        },
+      },
+    });
+
+    // Count completed classes for this teacher
+    const completedClasses = await db.classSession.count({
+      where: {
+        teacherId,
+        status: 'COMPLETED',
+      },
+    });
 
     const stats = {
       totalStudents,

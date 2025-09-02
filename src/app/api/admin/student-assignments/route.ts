@@ -103,14 +103,18 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    
+
     // Handle both single student and bulk assignment
     const isBulkAssignment = 'studentIds' in body;
-    
+
     if (isBulkAssignment) {
       const { studentIds, teacherId } = body;
 
-      if (!studentIds || !Array.isArray(studentIds) || studentIds.length === 0) {
+      if (
+        !studentIds ||
+        !Array.isArray(studentIds) ||
+        studentIds.length === 0
+      ) {
         return NextResponse.json(
           { error: 'Student IDs array is required and cannot be empty' },
           { status: 400 }
@@ -166,7 +170,7 @@ export async function POST(request: NextRequest) {
       });
 
       // Also create TeacherStudent relationships
-      const teacherStudentData = studentIds.map(studentId => ({
+      const teacherStudentData = studentIds.map((studentId) => ({
         teacherId,
         studentId,
         isActive: true,
@@ -174,7 +178,7 @@ export async function POST(request: NextRequest) {
 
       // Use upsert to handle existing relationships
       await Promise.all(
-        teacherStudentData.map(data =>
+        teacherStudentData.map((data) =>
           db.teacherStudent.upsert({
             where: {
               teacherId_studentId: {
@@ -261,7 +265,9 @@ export async function POST(request: NextRequest) {
       });
 
       const action = teacherId ? 'assigned' : 'unassigned';
-      const teacherName = teacherId ? updatedStudent.assignedTeacher?.name : null;
+      const teacherName = teacherId
+        ? updatedStudent.assignedTeacher?.name
+        : null;
 
       return NextResponse.json({
         message: `Student ${action} successfully${teacherName ? ` to ${teacherName}` : ''}`,

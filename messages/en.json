@@ -380,6 +380,7 @@
         "dashboard": "Dashboard",
         "users": "User Management",
         "teachers": "Teacher Management",
+        "assignTeacher": "Assign Teacher",
         "packages": "Package Management",
         "freeSessions": "Free Sessions",
         "subscriptions": "Subscriptions",
@@ -512,6 +513,9 @@
           "view": "View Details"
         }
       }
+    },
+    "teacherStudents": {
+      "title": "My Students"
     }
   },
   "NotAuthorized": {
@@ -656,7 +660,25 @@
     "inactive": "Inactive",
     "nextClass": "Next class",
     "viewProgress": "View Progress",
-    "message": "Message"
+    "message": "Message",
+    "classNotes": {
+      "title": "Class Notes",
+      "dailyAssignment": "Daily Assignment",
+      "appliedTajweed": "Applied Tajweed",
+      "review": "Review",
+      "memorization": "Memorization",
+      "addNotes": "Add Notes",
+      "saveNotes": "Save Notes",
+      "editNotes": "Edit Notes",
+      "classDate": "Class Date",
+      "startTime": "Start",
+      "endTime": "End",
+      "duration": "Duration",
+      "sessionHistory": "Session History",
+      "noNotes": "No notes available for this student yet.",
+      "notesUpdated": "Notes updated successfully",
+      "notesError": "Failed to update notes"
+    }
   },
   "Footer": {
     "description": "Join our online Quran learning platform with certified teachers providing personalized instruction to help you achieve your spiritual goals.",

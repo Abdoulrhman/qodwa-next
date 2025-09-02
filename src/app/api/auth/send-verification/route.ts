@@ -8,19 +8,13 @@ export async function POST(request: NextRequest) {
     const { email, locale = 'en' } = await request.json();
 
     if (!email) {
-      return NextResponse.json(
-        { error: 'Email is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
     const existingUser = await getUserByEmail(email);
 
     if (!existingUser) {
-      return NextResponse.json(
-        { error: 'User not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
     if (existingUser.emailVerified) {
