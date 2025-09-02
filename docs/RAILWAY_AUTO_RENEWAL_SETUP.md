@@ -3,6 +3,7 @@
 ## Railway Function Configuration
 
 ### 1. Deploy Railway Function
+
 ```bash
 # Install Railway CLI
 npm install -g @railway/cli
@@ -18,6 +19,7 @@ railway up
 ```
 
 ### 2. Set Environment Variables in Railway
+
 ```bash
 # Database connection
 DATABASE_URL=your_postgres_connection_string
@@ -34,9 +36,11 @@ NEXT_PUBLIC_BASE_URL=https://your-app.vercel.app
 ```
 
 ### 3. Create Cron Job in Railway
+
 Railway supports cron jobs that can call your API endpoints.
 
 Create a cron job that calls:
+
 ```
 POST https://your-app.vercel.app/api/railway/subscription-renewal
 Authorization: Bearer your_secure_random_string
@@ -52,6 +56,7 @@ Add these webhook endpoints to your Stripe dashboard:
 **Endpoint URL:** `https://your-app.vercel.app/api/webhooks/stripe`
 
 **Events to listen for:**
+
 - `checkout.session.completed`
 - `checkout.session.expired`
 - `payment_intent.succeeded`
@@ -66,6 +71,7 @@ Add these webhook endpoints to your Stripe dashboard:
 ### 5. Testing the Auto-Renewal System
 
 #### Test with Stripe Test Cards
+
 ```javascript
 // Use these test card numbers in Stripe test mode:
 // Successful payment: 4242424242424242
@@ -74,6 +80,7 @@ Add these webhook endpoints to your Stripe dashboard:
 ```
 
 #### Test the Railway Function Manually
+
 ```bash
 curl -X POST https://your-app.vercel.app/api/railway/subscription-renewal \
   -H "Authorization: Bearer your_secure_random_string" \
@@ -81,6 +88,7 @@ curl -X POST https://your-app.vercel.app/api/railway/subscription-renewal \
 ```
 
 #### Check Function Status
+
 ```bash
 curl https://your-app.vercel.app/api/railway/subscription-renewal
 ```
@@ -88,6 +96,7 @@ curl https://your-app.vercel.app/api/railway/subscription-renewal
 ### 6. Monitoring and Alerts
 
 The system includes:
+
 - **Health checks** via GET endpoint
 - **Email notifications** for failed renewals (customize as needed)
 - **Comprehensive logging** for debugging
@@ -124,6 +133,7 @@ Sends notifications for failures
 ### 9. Error Handling
 
 The system handles:
+
 - **Payment failures** (card declined, expired, etc.)
 - **Network issues** with retry logic
 - **Invalid payment methods** with user notifications

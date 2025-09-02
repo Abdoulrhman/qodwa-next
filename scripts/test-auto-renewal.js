@@ -7,7 +7,7 @@ async function testAutoRenewalSystem() {
   try {
     // 1. Check database schema
     console.log('1. Checking database schema...');
-    
+
     // Check if new fields exist
     const subscription = await prisma.subscription.findFirst({
       include: {
@@ -17,18 +17,24 @@ async function testAutoRenewalSystem() {
             email: true,
             stripeCustomerId: true,
             defaultPaymentMethodId: true,
-          }
+          },
         },
         package: true,
-      }
+      },
     });
 
     if (subscription) {
       console.log('✅ Subscription model updated with new fields');
       console.log('   - auto_renew:', subscription.auto_renew);
       console.log('   - next_billing_date:', subscription.next_billing_date);
-      console.log('   - stripe_subscription_id:', subscription.stripe_subscription_id);
-      console.log('   - auto_renew_attempts:', subscription.auto_renew_attempts);
+      console.log(
+        '   - stripe_subscription_id:',
+        subscription.stripe_subscription_id
+      );
+      console.log(
+        '   - auto_renew_attempts:',
+        subscription.auto_renew_attempts
+      );
     } else {
       console.log('ℹ️  No subscriptions found in database');
     }
@@ -36,20 +42,24 @@ async function testAutoRenewalSystem() {
     // 2. Check payment methods table
     console.log('\n2. Checking payment methods...');
     const paymentMethodCount = await prisma.paymentMethod.count();
-    console.log(`✅ Payment methods table exists with ${paymentMethodCount} records`);
+    console.log(
+      `✅ Payment methods table exists with ${paymentMethodCount} records`
+    );
 
     // 3. Check payment intents table
     console.log('\n3. Checking payment intents...');
     const paymentIntentCount = await prisma.paymentIntent.count();
-    console.log(`✅ Payment intents table exists with ${paymentIntentCount} records`);
+    console.log(
+      `✅ Payment intents table exists with ${paymentIntentCount} records`
+    );
 
     // 4. Test subscription queries
     console.log('\n4. Testing subscription queries...');
-    
+
     // Get subscriptions due for renewal (test query)
     const now = new Date();
     const gracePeriod = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-    
+
     const dueSubscriptions = await prisma.subscription.findMany({
       where: {
         auto_renew: true,
@@ -67,38 +77,42 @@ async function testAutoRenewalSystem() {
             email: true,
             stripeCustomerId: true,
             defaultPaymentMethodId: true,
-          }
+          },
         },
         package: true,
-      }
+      },
     });
 
-    console.log(`✅ Found ${dueSubscriptions.length} subscriptions due for renewal`);
+    console.log(
+      `✅ Found ${dueSubscriptions.length} subscriptions due for renewal`
+    );
 
     // 5. Test user payment method queries
     console.log('\n5. Testing user payment method queries...');
-    
+
     const usersWithPaymentMethods = await prisma.user.findMany({
       where: {
         paymentMethods: {
           some: {
             isActive: true,
-          }
-        }
+          },
+        },
       },
       include: {
         paymentMethods: {
           where: { isActive: true },
-        }
+        },
       },
       take: 5,
     });
 
-    console.log(`✅ Found ${usersWithPaymentMethods.length} users with active payment methods`);
+    console.log(
+      `✅ Found ${usersWithPaymentMethods.length} users with active payment methods`
+    );
 
     // 6. Test subscription statistics
     console.log('\n6. Subscription Statistics:');
-    
+
     const stats = await prisma.subscription.groupBy({
       by: ['status', 'auto_renew'],
       _count: {
@@ -106,13 +120,15 @@ async function testAutoRenewalSystem() {
       },
     });
 
-    stats.forEach(stat => {
-      console.log(`   - ${stat.status} subscriptions with auto_renew=${stat.auto_renew}: ${stat._count.id}`);
+    stats.forEach((stat) => {
+      console.log(
+        `   - ${stat.status} subscriptions with auto_renew=${stat.auto_renew}: ${stat._count.id}`
+      );
     });
 
     // 7. Test failed renewal attempts
     console.log('\n7. Failed renewal attempts:');
-    
+
     const failedAttempts = await prisma.subscription.findMany({
       where: {
         auto_renew_attempts: {
@@ -128,9 +144,13 @@ async function testAutoRenewalSystem() {
     });
 
     if (failedAttempts.length > 0) {
-      console.log(`⚠️  Found ${failedAttempts.length} subscriptions with failed renewal attempts`);
-      failedAttempts.forEach(sub => {
-        console.log(`   - Subscription ${sub.id}: ${sub.auto_renew_attempts} attempts, reason: ${sub.renewal_failure_reason}`);
+      console.log(
+        `⚠️  Found ${failedAttempts.length} subscriptions with failed renewal attempts`
+      );
+      failedAttempts.forEach((sub) => {
+        console.log(
+          `   - Subscription ${sub.id}: ${sub.auto_renew_attempts} attempts, reason: ${sub.renewal_failure_reason}`
+        );
       });
     } else {
       console.log('✅ No failed renewal attempts found');
@@ -138,27 +158,27 @@ async function testAutoRenewalSystem() {
 
     // 8. Create test data for development
     console.log('\n8. Creating test data...');
-    
+
     // Find a user without auto-renewal setup
     const testUser = await prisma.user.findFirst({
       where: {
         subscriptions: {
           some: {
             status: 'ACTIVE',
-          }
-        }
+          },
+        },
       },
       include: {
         subscriptions: {
           where: { status: 'ACTIVE' },
           include: { package: true },
-        }
-      }
+        },
+      },
     });
 
     if (testUser && testUser.subscriptions.length > 0) {
       const subscription = testUser.subscriptions[0];
-      
+
       // Update subscription for testing
       await prisma.subscription.update({
         where: { id: subscription.id },
@@ -168,11 +188,15 @@ async function testAutoRenewalSystem() {
           auto_renew_attempts: 0,
         },
       });
-      
-      console.log(`✅ Updated subscription ${subscription.id} for testing auto-renewal`);
+
+      console.log(
+        `✅ Updated subscription ${subscription.id} for testing auto-renewal`
+      );
       console.log(`   - User: ${testUser.email}`);
       console.log(`   - Package: ${subscription.package.package_type}`);
-      console.log(`   - Next billing: ${new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString()}`);
+      console.log(
+        `   - Next billing: ${new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString()}`
+      );
     }
 
     console.log('\n🎉 Auto-Renewal System Test Completed Successfully!');
@@ -181,14 +205,17 @@ async function testAutoRenewalSystem() {
     console.log('2. Configure Railway cron job');
     console.log('3. Test payment flow in Stripe test mode');
     console.log('4. Monitor renewal attempts in production');
-
   } catch (error) {
     console.error('❌ Test failed:', error);
-    
+
     if (error.code === 'P2021') {
-      console.log('\n💡 Tip: Run "npx prisma migrate dev" to apply database changes');
+      console.log(
+        '\n💡 Tip: Run "npx prisma migrate dev" to apply database changes'
+      );
     } else if (error.code === 'P2025') {
-      console.log('\n💡 Tip: Some fields may not exist yet. Check your schema migration.');
+      console.log(
+        '\n💡 Tip: Some fields may not exist yet. Check your schema migration.'
+      );
     }
   } finally {
     await prisma.$disconnect();
@@ -198,7 +225,7 @@ async function testAutoRenewalSystem() {
 // Helper function to create a test subscription with auto-renewal
 async function createTestAutoRenewalSubscription() {
   console.log('\n🧪 Creating test auto-renewal subscription...');
-  
+
   try {
     // Find or create a test user
     let testUser = await prisma.user.findFirst({
@@ -219,7 +246,7 @@ async function createTestAutoRenewalSubscription() {
 
     // Get a package
     const testPackage = await prisma.package.findFirst();
-    
+
     if (!testPackage) {
       console.log('❌ No packages found. Please seed packages first.');
       return;
@@ -255,7 +282,6 @@ async function createTestAutoRenewalSubscription() {
     console.log(`   - Package: ${testPackage.package_type}`);
     console.log(`   - Next billing: ${subscription.next_billing_date}`);
     console.log(`   - Auto-renew: ${subscription.auto_renew}`);
-
   } catch (error) {
     console.error('❌ Failed to create test subscription:', error);
   }

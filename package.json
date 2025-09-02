@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed-packages": "node prisma/seed/packages.js"
+    "seed-packages": "node prisma/seed/packages.js",
+    "renewal": "node scripts/subscription-renewal.js",
+    "renewal:test": "NODE_ENV=development node scripts/subscription-renewal.js"
   },
   "prisma": {
     "seed": "node prisma/seed/seed.js"
