@@ -64,6 +64,10 @@ model User {
   hasBookedDemo         Boolean                @default(false)
   demoSessionDate       DateTime?
   
+  // Payment and billing info
+  stripeCustomerId      String?               // Stripe customer ID for secure payment processing
+  defaultPaymentMethodId String?              // Default Stripe payment method ID
+  
   // Teacher-Student Relations
   assignedTeacherId     String?               // Foreign key for assigned teacher
   assignedTeacher       User?                 @relation("TeacherStudents", fields: [assignedTeacherId], references: [id])
@@ -77,6 +81,7 @@ model User {
   accounts              Account[]
   twoFactorConfirmation TwoFactorConfirmation?
   subscriptions         Subscription[]
+  paymentMethods        PaymentMethod[]       @relation("UserPaymentMethods")
   freeSessionBookings   FreeSessionBooking[]  @relation("StudentBookings")
   teacherBookings       FreeSessionBooking[]  @relation("TeacherBookings")
   
@@ -145,21 +150,67 @@ model Subscription {
   endDate           DateTime?
   status            SubscriptionStatus @default(ACTIVE)
   
-  // New fields for better tracking
+  // Enhanced subscription tracking
   classes_completed Int      @default(0) // Number of classes completed
   classes_remaining Int?     // Calculated or stored remaining classes
   next_class_date   DateTime? // Next scheduled class
   auto_renew        Boolean  @default(false) // Auto-renewal setting
-  payment_method    String?  // Payment method used
+  payment_method    String?  // Payment method used (for display)
   stripe_session_id String?  // Stripe session ID for reference
   cancellation_reason String? // Reason for cancellation (if cancelled)
   notes             String?  // Admin notes about the subscription
   
+  // Auto-renewal fields
+  stripe_subscription_id String? // Stripe subscription ID for auto-renewal
+  next_billing_date     DateTime? // Next billing date for auto-renewal
+  billing_cycle_anchor  DateTime? // Billing cycle anchor for renewals
+  auto_renew_attempts   Int      @default(0) // Number of failed renewal attempts
+  last_renewal_attempt  DateTime? // Last renewal attempt timestamp
+  renewal_failure_reason String? // Reason for last renewal failure
+  
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   package           Package  @relation(fields: [packageId], references: [id], onDelete: Cascade)
   classSessions     ClassSession[]
+  paymentIntents    PaymentIntent[] // Track payment history
 
   @@unique([userId, packageId])
+}
+
+model PaymentMethod {
+  id                    String   @id @default(cuid())
+  userId                String
+  stripePaymentMethodId String   @unique // Stripe payment method ID
+  type                  String   // card, bank_account, etc.
+  last4                 String?  // Last 4 digits of card (for display)
+  brand                 String?  // visa, mastercard, etc.
+  expiryMonth           Int?     // Card expiry month
+  expiryYear            Int?     // Card expiry year
+  isDefault             Boolean  @default(false)
+  isActive              Boolean  @default(true)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  user                  User     @relation("UserPaymentMethods", fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("payment_methods")
+}
+
+model PaymentIntent {
+  id                    String   @id @default(cuid())
+  stripePaymentIntentId String   @unique
+  subscriptionId        String
+  amount                Float    // Amount in dollars
+  currency              String   @default("USD")
+  status                PaymentStatus
+  description           String?
+  failureReason         String?  // Reason for payment failure
+  processedAt           DateTime?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  subscription          Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  
+  @@map("payment_intents")
 }
 
 model TeacherStudent {
@@ -242,6 +293,15 @@ enum ClassStatus {
   COMPLETED    // Class has been completed
   CANCELLED    // Class was cancelled
   NO_SHOW      // Student didn't show up
+}
+
+enum PaymentStatus {
+  PENDING      // Payment is pending
+  PROCESSING   // Payment is being processed
+  SUCCEEDED    // Payment succeeded
+  FAILED       // Payment failed
+  CANCELLED    // Payment was cancelled
+  REFUNDED     // Payment was refunded
 }
 
 model ClassSession {
