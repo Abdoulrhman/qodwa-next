@@ -1,0 +1,25 @@
+{
+  "name": "qodwa-subscription-renewal",
+  "version": "1.0.0",
+  "description": "Railway Function for automatic subscription renewal processing",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": [
+    "railway",
+    "subscription",
+    "renewal",
+    "stripe",
+    "cron"
+  ],
+  "author": "Qodwa Team",
+  "license": "MIT"
+}

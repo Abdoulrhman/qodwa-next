@@ -2,7 +2,7 @@
 
 /**
  * Subscription Renewal Script
- * 
+ *
  * This script runs daily via GitHub Actions to process subscription renewals.
  * It handles automatic billing for students with active subscriptions and saved payment methods.
  */
@@ -18,8 +18,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
  * Main renewal processing function
  */
 async function processSubscriptionRenewals() {
-  console.log(`🔄 Starting subscription renewal process at ${new Date().toISOString()}`);
-  
+  console.log(
+    `🔄 Starting subscription renewal process at ${new Date().toISOString()}`
+  );
+
   try {
     // Find subscriptions that need renewal
     const subscriptionsToRenew = await db.subscription.findMany({
@@ -27,8 +29,8 @@ async function processSubscriptionRenewals() {
         status: 'ACTIVE',
         auto_renew: true,
         next_billing_date: {
-          lte: new Date()
-        }
+          lte: new Date(),
+        },
       },
       include: {
         user: {
@@ -37,21 +39,23 @@ async function processSubscriptionRenewals() {
             email: true,
             name: true,
             stripeCustomerId: true,
-            defaultPaymentMethodId: true
-          }
+            defaultPaymentMethodId: true,
+          },
         },
         package: {
           select: {
             id: true,
             current_price: true,
             title: true,
-            subscription_frequency: true
-          }
-        }
-      }
+            subscription_frequency: true,
+          },
+        },
+      },
     });
 
-    console.log(`📋 Found ${subscriptionsToRenew.length} subscriptions to process`);
+    console.log(
+      `📋 Found ${subscriptionsToRenew.length} subscriptions to process`
+    );
 
     if (subscriptionsToRenew.length === 0) {
       console.log('✅ No subscriptions need renewal today');
@@ -61,7 +65,7 @@ async function processSubscriptionRenewals() {
     const results = {
       successful: 0,
       failed: 0,
-      errors: []
+      errors: [],
     };
 
     // Process each subscription
@@ -70,24 +74,32 @@ async function processSubscriptionRenewals() {
         const result = await processSubscriptionRenewal(subscription);
         if (result.success) {
           results.successful++;
-          console.log(`✅ Successfully renewed subscription ${subscription.id} for user ${subscription.user.email}`);
+          console.log(
+            `✅ Successfully renewed subscription ${subscription.id} for user ${subscription.user.email}`
+          );
         } else {
           results.failed++;
           results.errors.push({
             subscriptionId: subscription.id,
             userEmail: subscription.user.email,
-            error: result.error
+            error: result.error,
           });
-          console.error(`❌ Failed to renew subscription ${subscription.id}:`, result.error);
+          console.error(
+            `❌ Failed to renew subscription ${subscription.id}:`,
+            result.error
+          );
         }
       } catch (error) {
         results.failed++;
         results.errors.push({
           subscriptionId: subscription.id,
           userEmail: subscription.user.email,
-          error: error.message
+          error: error.message,
         });
-        console.error(`❌ Exception processing subscription ${subscription.id}:`, error);
+        console.error(
+          `❌ Exception processing subscription ${subscription.id}:`,
+          error
+        );
       }
     }
 
@@ -98,11 +110,12 @@ async function processSubscriptionRenewals() {
 
     if (results.errors.length > 0) {
       console.log(`\n🚨 Errors:`);
-      results.errors.forEach(error => {
-        console.log(`- ${error.userEmail} (${error.subscriptionId}): ${error.error}`);
+      results.errors.forEach((error) => {
+        console.log(
+          `- ${error.userEmail} (${error.subscriptionId}): ${error.error}`
+        );
       });
     }
-
   } catch (error) {
     console.error('💥 Critical error in renewal process:', error);
     throw error;
@@ -121,7 +134,7 @@ async function processSubscriptionRenewal(subscription) {
   if (!user.stripeCustomerId || !user.defaultPaymentMethodId) {
     return {
       success: false,
-      error: 'User does not have payment method configured'
+      error: 'User does not have payment method configured',
     };
   }
 
@@ -140,13 +153,15 @@ async function processSubscriptionRenewal(subscription) {
         subscriptionId: subscription.id,
         userId: user.id,
         packageId: pkg.id.toString(),
-        renewalDate: new Date().toISOString()
-      }
+        renewalDate: new Date().toISOString(),
+      },
     });
 
     if (paymentIntent.status === 'succeeded') {
       // Calculate next billing date
-      const nextBillingDate = calculateNextBillingDate(pkg.subscription_frequency);
+      const nextBillingDate = calculateNextBillingDate(
+        pkg.subscription_frequency
+      );
 
       // Update subscription
       await db.subscription.update({
@@ -155,8 +170,8 @@ async function processSubscriptionRenewal(subscription) {
           next_billing_date: nextBillingDate,
           auto_renew_attempts: 0,
           last_renewal_attempt: new Date(),
-          renewal_failure_reason: null
-        }
+          renewal_failure_reason: null,
+        },
       });
 
       // Create payment intent record
@@ -168,15 +183,14 @@ async function processSubscriptionRenewal(subscription) {
           currency: 'USD',
           status: 'SUCCEEDED',
           description: `Subscription renewal: ${pkg.title}`,
-          processedAt: new Date()
-        }
+          processedAt: new Date(),
+        },
       });
 
       return { success: true };
     } else {
       throw new Error(`Payment failed with status: ${paymentIntent.status}`);
     }
-
   } catch (error) {
     // Update subscription with failure info
     await db.subscription.update({
@@ -186,13 +200,13 @@ async function processSubscriptionRenewal(subscription) {
         last_renewal_attempt: new Date(),
         renewal_failure_reason: error.message,
         // Disable auto-renewal after 3 failed attempts
-        auto_renew: subscription.auto_renew_attempts >= 2 ? false : true
-      }
+        auto_renew: subscription.auto_renew_attempts >= 2 ? false : true,
+      },
     });
 
     return {
       success: false,
-      error: error.message
+      error: error.message,
     };
   }
 }
@@ -202,7 +216,7 @@ async function processSubscriptionRenewal(subscription) {
  */
 function calculateNextBillingDate(frequency) {
   const now = new Date();
-  
+
   switch (frequency.toLowerCase()) {
     case 'monthly':
       return new Date(now.setMonth(now.getMonth() + 1));
@@ -223,10 +237,12 @@ function calculateNextBillingDate(frequency) {
  */
 function validateEnvironment() {
   const required = ['DATABASE_URL', 'STRIPE_SECRET_KEY'];
-  const missing = required.filter(env => !process.env[env]);
-  
+  const missing = required.filter((env) => !process.env[env]);
+
   if (missing.length > 0) {
-    throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
+    throw new Error(
+      `Missing required environment variables: ${missing.join(', ')}`
+    );
   }
 }
 
@@ -247,5 +263,5 @@ if (require.main === module) {
 module.exports = {
   processSubscriptionRenewals,
   processSubscriptionRenewal,
-  calculateNextBillingDate
+  calculateNextBillingDate,
 };

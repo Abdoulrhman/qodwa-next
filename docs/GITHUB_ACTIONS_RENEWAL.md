@@ -71,6 +71,7 @@ yarn renewal:test
 ## Workflow Details
 
 ### Schedule
+
 - **Frequency**: Daily at 9:00 AM UTC
 - **Trigger**: GitHub Actions cron schedule
 - **Manual**: Can be triggered manually via workflow_dispatch
@@ -102,13 +103,17 @@ yarn renewal:test
 ## Monitoring and Alerts
 
 ### GitHub Issues
+
 Failed renewals automatically create GitHub issues with:
+
 - Subscription details
 - Error information
 - Timestamp and context
 
 ### Logs
+
 All workflow runs are logged in GitHub Actions with:
+
 - Processing summary
 - Individual subscription results
 - Error details and stack traces
@@ -123,12 +128,14 @@ All workflow runs are logged in GitHub Actions with:
 ## Maintenance
 
 ### Regular Tasks
+
 - Monitor GitHub Actions workflow runs
 - Review and close resolved GitHub issues
 - Update billing dates for plan changes
 - Verify Stripe webhook configurations
 
 ### Troubleshooting
+
 - Check GitHub repository secrets configuration
 - Verify database connectivity from Actions environment
 - Validate Stripe API key permissions
@@ -137,6 +144,7 @@ All workflow runs are logged in GitHub Actions with:
 ## Testing
 
 ### Local Testing
+
 ```bash
 # Test database connection and setup
 node scripts/test-renewal-setup.js
@@ -146,6 +154,7 @@ NODE_ENV=development node scripts/subscription-renewal.js
 ```
 
 ### Production Testing
+
 - Use workflow_dispatch to manually trigger
 - Monitor first few runs carefully
 - Verify billing dates and payment records
