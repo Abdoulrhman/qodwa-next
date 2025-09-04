@@ -34,6 +34,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/contexts/auth-context';
 import { cn } from '@/lib/utils';
+import AutoRenewManagement from '../../../../../components/auto-renewal-management';
 
 interface Subscription {
   id: string;
@@ -508,6 +509,9 @@ export default function PaymentsPage() {
             </CardContent>
           </Card>
         )}
+
+        {/* Card Management & Auto-Renewal Settings */}
+        <AutoRenewManagement />
       </div>
     </DashboardLayout>
   );

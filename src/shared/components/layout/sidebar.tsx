@@ -195,7 +195,7 @@ const getRoutes = (
       label: t('Payments.title'),
       icon: DollarSign,
       href: `/${locale}/dashboard/payments`,
-      isActive: role === 'USER',
+      isActive: true, // Available to both students and teachers
     },
   ].filter((route) => route.isActive);
 

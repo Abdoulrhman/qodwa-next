@@ -1,13 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
-
-// Sample payment statistics data
-const samplePaymentStats = {
-  totalSpent: 597, // Total amount spent across all subscriptions
-  activeSubscriptions: 2, // Number of active subscriptions
-  nextPaymentDate: '2025-04-01T00:00:00Z', // Next upcoming payment
-  nextPaymentAmount: 299, // Amount of next payment
-};
+import { db } from '@/lib/db';
 
 export async function GET(req: NextRequest) {
   try {
@@ -20,15 +13,74 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // In a real application, you would:
-    // 1. Calculate total spent from payment history
-    // 2. Count active subscriptions from database
-    // 3. Find the next upcoming payment from subscription schedules
-    // 4. Calculate payment amounts based on subscription pricing
+    const userId = session.user.id;
+
+    // Get real payment statistics from database
+    const [subscriptions, allSubscriptions] = await Promise.all([
+      // Get active subscriptions
+      db.subscription.findMany({
+        where: {
+          userId: userId,
+          status: 'ACTIVE',
+        },
+        include: {
+          package: true,
+        },
+      }),
+      
+      // Get all subscriptions for total spent calculation
+      db.subscription.findMany({
+        where: {
+          userId: userId,
+        },
+        include: {
+          package: true,
+        },
+      }),
+    ]);
+
+    // Calculate statistics
+    const activeSubscriptions = subscriptions.length;
+
+    // Calculate total spent from all subscriptions (past and present)
+    const totalSpent = allSubscriptions.reduce((total: number, subscription: any) => {
+      return total + Number(subscription.package.price || 0);
+    }, 0);
+
+    // Find next payment date and amount from active subscriptions with auto-renewal
+    let nextPaymentDate: string | undefined;
+    let nextPaymentAmount: number | undefined;
+
+    const activeAutoRenewSubscriptions = subscriptions.filter(
+      (sub: any) => sub.auto_renew === true
+    );
+
+    if (activeAutoRenewSubscriptions.length > 0) {
+      // Find the earliest next billing date
+      const upcomingPayments = activeAutoRenewSubscriptions
+        .filter((sub: any) => sub.next_billing_date)
+        .map((sub: any) => ({
+          date: sub.next_billing_date!,
+          amount: Number(sub.package.price || 0),
+        }))
+        .sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+      if (upcomingPayments.length > 0) {
+        nextPaymentDate = upcomingPayments[0].date.toISOString();
+        nextPaymentAmount = upcomingPayments[0].amount;
+      }
+    }
+
+    const stats = {
+      totalSpent,
+      activeSubscriptions,
+      nextPaymentDate,
+      nextPaymentAmount,
+    };
 
     return NextResponse.json({
       success: true,
-      stats: samplePaymentStats,
+      stats,
     });
   } catch (error) {
     console.error('Error fetching payment stats:', error);

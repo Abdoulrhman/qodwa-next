@@ -15,6 +15,7 @@ import { CreditCard, Plus, Trash2, Check, AlertTriangle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
 import { cn } from '@/lib/utils';
+import StripeAddPaymentMethod from './stripe-add-payment-method';
 
 interface PaymentMethod {
   id: string;
@@ -51,6 +52,7 @@ export default function AutoRenewManagement({
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showAddPaymentDialog, setShowAddPaymentDialog] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -81,14 +83,26 @@ export default function AutoRenewManagement({
         setSubscriptions(subscriptionsData.subscriptions);
       }
     } catch (error) {
-      console.error('Error fetching data:', error);
-      setError('Failed to load payment information');
+      console.error('Failed to fetch data:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const toggleAutoRenewal = async (
+  const fetchPaymentMethods = async () => {
+    try {
+      const response = await fetch('/api/payment-methods');
+      if (!response.ok) {
+        throw new Error('Failed to fetch payment methods');
+      }
+      const data = await response.json();
+      if (data.success) {
+        setPaymentMethods(data.paymentMethods);
+      }
+    } catch (error) {
+      console.error('Failed to fetch payment methods:', error);
+    }
+  };  const toggleAutoRenewal = async (
     subscriptionId: string,
     enabled: boolean
   ) => {
@@ -142,15 +156,37 @@ export default function AutoRenewManagement({
     }
   };
 
-  const getBrandIcon = (brand: string) => {
-    // You can replace these with actual brand icons
-    const brandIcons: { [key: string]: string } = {
-      visa: '💳',
-      mastercard: '💳',
-      amex: '💳',
-      discover: '💳',
-    };
-    return brandIcons[brand.toLowerCase()] || '💳';
+  const setDefaultPaymentMethod = async (paymentMethodId: string) => {
+    try {
+      const response = await fetch('/api/payment-methods', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          payment_method_id: paymentMethodId,
+          action: 'set_default'
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to set default payment method');
+      }
+
+      // Update local state - set all to false, then set the selected one to true
+      setPaymentMethods((methods) =>
+        methods.map((method) => ({
+          ...method,
+          isDefault: method.stripePaymentMethodId === paymentMethodId,
+        }))
+      );
+    } catch (error) {
+      console.error('Error setting default payment method:', error);
+      setError('Failed to set default payment method');
+    }
+  };
+
+  const addPaymentMethod = async () => {
+    // This will be handled by the StripeAddPaymentMethod component
+    await fetchData(); // Refresh the payment methods list
   };
 
   if (isLoading) {
@@ -206,6 +242,28 @@ export default function AutoRenewManagement({
         <CardContent>
           {paymentMethods.length > 0 ? (
             <div className='space-y-4'>
+              <div className="flex justify-end mb-4">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => setShowAddPaymentDialog(true)}
+                >
+                  <Plus className='h-4 w-4 mr-2' />
+                  {isRTL ? 'إضافة بطاقة أخرى' : 'Add Another Card'}
+                </Button>
+              </div>
+              
+              {showAddPaymentDialog && (
+                <StripeAddPaymentMethod 
+                  isOpen={showAddPaymentDialog}
+                  onClose={() => setShowAddPaymentDialog(false)}
+                  onSuccess={() => {
+                    setShowAddPaymentDialog(false);
+                    fetchPaymentMethods();
+                  }}
+                  isRTL={isRTL}
+                />
+              )}
               {paymentMethods.map((method) => (
                 <div
                   key={method.id}
@@ -221,7 +279,7 @@ export default function AutoRenewManagement({
                     )}
                   >
                     <span className='text-2xl'>
-                      {getBrandIcon(method.brand)}
+                      💳
                     </span>
                     <div className={cn(isRTL && 'text-right')}>
                       <p className='font-medium'>
@@ -239,16 +297,28 @@ export default function AutoRenewManagement({
                       </Badge>
                     )}
                   </div>
-                  <Button
-                    variant='outline'
-                    size='sm'
-                    onClick={() =>
-                      removePaymentMethod(method.stripePaymentMethodId)
-                    }
-                    className='text-red-600 hover:text-red-700'
-                  >
-                    <Trash2 className='h-4 w-4' />
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    {!method.isDefault && (
+                      <Button
+                        variant='outline'
+                        size='sm'
+                        onClick={() => setDefaultPaymentMethod(method.stripePaymentMethodId)}
+                        className="text-blue-600 hover:text-blue-700"
+                      >
+                        {isRTL ? 'تعيين كافتراضي' : 'Set as Default'}
+                      </Button>
+                    )}
+                    <Button
+                      variant='outline'
+                      size='sm'
+                      onClick={() =>
+                        removePaymentMethod(method.stripePaymentMethodId)
+                      }
+                      className='text-red-600 hover:text-red-700'
+                    >
+                      <Trash2 className='h-4 w-4' />
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -263,7 +333,7 @@ export default function AutoRenewManagement({
                   ? 'أضف طريقة دفع لتمكين التجديد التلقائي'
                   : 'Add a payment method to enable auto-renewal'}
               </p>
-              <Button>
+              <Button onClick={() => setShowAddPaymentDialog(true)}>
                 <Plus className='h-4 w-4 mr-2' />
                 {isRTL ? 'إضافة طريقة دفع' : 'Add Payment Method'}
               </Button>

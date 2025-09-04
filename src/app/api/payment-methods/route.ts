@@ -85,6 +85,45 @@ export async function POST(req: NextRequest) {
   }
 }
 
+export async function PATCH(req: NextRequest) {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { payment_method_id, action } = await req.json();
+
+    if (!payment_method_id) {
+      return NextResponse.json(
+        { error: 'Payment method ID is required' },
+        { status: 400 }
+      );
+    }
+
+    if (action === 'set_default') {
+      // Set the payment method as default
+      await setDefaultPaymentMethod(session.user.id, payment_method_id);
+      
+      return NextResponse.json({
+        success: true,
+        message: 'Default payment method updated successfully',
+      });
+    }
+
+    return NextResponse.json(
+      { error: 'Invalid action' },
+      { status: 400 }
+    );
+  } catch (error) {
+    console.error('[PAYMENT_METHODS_PATCH]', error);
+    return NextResponse.json(
+      { error: 'Failed to update payment method' },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(req: NextRequest) {
   try {
     const session = await auth();
