@@ -217,7 +217,7 @@ export async function createStripeSubscription(
         userId_packageId: { userId, packageId },
       },
       update: {
-        stripe_subscription_id: subscription.id,
+        stripeSubscriptionId: subscription.id,
         auto_renew: true,
         next_billing_date: new Date(subscription.current_period_end * 1000),
         billing_cycle_anchor: new Date(
@@ -228,7 +228,7 @@ export async function createStripeSubscription(
       create: {
         userId,
         packageId,
-        stripe_subscription_id: subscription.id,
+        stripeSubscriptionId: subscription.id,
         auto_renew: true,
         next_billing_date: new Date(subscription.current_period_end * 1000),
         billing_cycle_anchor: new Date(
@@ -260,15 +260,15 @@ export async function cancelAutoRenewal(
   try {
     const subscription = await db.subscription.findUnique({
       where: { id: subscriptionId },
-      select: { stripe_subscription_id: true },
+      select: { stripeSubscriptionId: true },
     });
 
-    if (!subscription?.stripe_subscription_id) {
+    if (!subscription?.stripeSubscriptionId) {
       return false;
     }
 
     // Cancel Stripe subscription at period end
-    await stripe.subscriptions.update(subscription.stripe_subscription_id, {
+    await stripe.subscriptions.update(subscription.stripeSubscriptionId, {
       cancel_at_period_end: true,
     });
 

@@ -60,7 +60,7 @@ export async function PATCH(
       });
     } else {
       // Disable auto-renewal
-      if (subscription.stripe_subscription_id) {
+      if (subscription.stripeSubscriptionId) {
         await cancelAutoRenewal(subscriptionId);
       } else {
         await db.subscription.update({

@@ -16,7 +16,7 @@ async function testModels() {
       id: true,
       auto_renew: true,
       next_billing_date: true,
-      stripe_subscription_id: true,
+      stripeSubscriptionId: true,
     },
   });
   console.log('Enhanced Subscription model works:', subscriptions.length);

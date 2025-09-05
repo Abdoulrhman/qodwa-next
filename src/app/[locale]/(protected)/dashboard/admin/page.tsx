@@ -326,7 +326,7 @@ export default function AdminDashboard() {
                 <Award className='h-5 w-5' />
                 {t('sections.recent_achievements')}
               </CardTitle>
-              <Button size='sm' variant='ghost'>
+              <Button size='sm' variant='ghost' disabled>
                 View All Achievements
               </Button>
             </CardHeader>

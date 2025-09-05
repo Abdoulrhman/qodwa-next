@@ -94,88 +94,35 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate API call - replace with actual API call
+    // Fetch real dashboard data from API
     const fetchDashboardData = async () => {
       try {
-        // Sample data - replace with actual API call
-        const sampleData: DashboardData = {
-          stats: {
-            totalCourses: 3,
-            completedClasses: 24,
-            studyHours: 156,
-            currentStreak: 7,
-          },
-          recentActivity: [
-            {
-              id: '1',
-              type: 'class',
-              title: 'Quran Memorization Class',
-              description: 'Completed Al-Baqarah verses 1-20',
-              timestamp: '2024-08-06T10:30:00Z',
-              icon: '📚',
-            },
-            {
-              id: '2',
-              type: 'achievement',
-              title: 'Perfect Attendance Week',
-              description: 'Attended all classes this week',
-              timestamp: '2024-08-05T16:00:00Z',
-              icon: '🏆',
-            },
-            {
-              id: '3',
-              type: 'assignment',
-              title: 'Tajweed Practice',
-              description: 'Submitted recitation assignment',
-              timestamp: '2024-08-04T14:20:00Z',
-              icon: '✅',
-            },
-          ],
-          upcomingClasses: [
-            {
-              id: '1',
-              subject: 'Quran Memorization',
-              teacher: 'Ahmed Al-Mansouri',
-              time: '19:00',
-              date: '2024-08-07',
-              duration: 60,
-            },
-            {
-              id: '2',
-              subject: 'Tajweed Rules',
-              teacher: 'Fatima Al-Zahra',
-              time: '20:30',
-              date: '2024-08-08',
-              duration: 45,
-            },
-          ],
-          achievements: [
-            {
-              id: '1',
-              title: 'First Surah Completed',
-              description: 'Successfully memorized Al-Fatiha',
-              earnedDate: '2024-08-01T00:00:00Z',
-              type: 'recent',
-            },
-            {
-              id: '2',
-              title: 'Consistent Learner',
-              description: '7 days learning streak',
-              earnedDate: '2024-08-06T00:00:00Z',
-              type: 'featured',
-            },
-          ],
-          progressOverview: {
-            weeklyGoal: 10,
-            weeklyProgress: 7,
-            monthlyGoal: 40,
-            monthlyProgress: 24,
-          },
-        };
-
-        setDashboardData(sampleData);
+        const response = await fetch('/api/student/dashboard');
+        if (!response.ok) {
+          throw new Error('Failed to fetch dashboard data');
+        }
+        const data: DashboardData = await response.json();
+        setDashboardData(data);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
+        // Fallback to empty data instead of sample data
+        setDashboardData({
+          stats: {
+            totalCourses: 0,
+            completedClasses: 0,
+            studyHours: 0,
+            currentStreak: 0,
+          },
+          recentActivity: [],
+          upcomingClasses: [],
+          achievements: [],
+          progressOverview: {
+            weeklyGoal: 3,
+            weeklyProgress: 0,
+            monthlyGoal: 12,
+            monthlyProgress: 0,
+          },
+        });
       } finally {
         setIsLoading(false);
       }
