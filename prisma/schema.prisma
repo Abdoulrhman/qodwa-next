@@ -161,7 +161,7 @@ model Subscription {
   notes             String?  // Admin notes about the subscription
   
   // Auto-renewal fields
-  stripe_subscription_id String? // Stripe subscription ID for auto-renewal
+  stripeSubscriptionId String? @map("stripe_subscription_id") // Stripe subscription ID for auto-renewal
   next_billing_date     DateTime? // Next billing date for auto-renewal
   billing_cycle_anchor  DateTime? // Billing cycle anchor for renewals
   auto_renew_attempts   Int      @default(0) // Number of failed renewal attempts
