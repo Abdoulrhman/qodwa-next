@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { db } from '@/lib/db';
-import stripe from '@/lib/stripe-client';
+import { stripe } from '@/lib/stripe';
 
 export async function POST(request: NextRequest) {
   try {
