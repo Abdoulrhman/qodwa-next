@@ -66,87 +66,68 @@ export default function StudentBillingPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Using mock data for demonstration
-    setTimeout(() => {
-      setPaymentMethods([
-        {
-          id: '1',
-          type: 'card',
-          last4: '4242',
-          brand: 'visa',
-          expiryMonth: 12,
-          expiryYear: 2025,
-          isDefault: true,
-          isActive: true,
-        },
-        {
-          id: '2',
-          type: 'card',
-          last4: '5555',
-          brand: 'mastercard',
-          expiryMonth: 6,
-          expiryYear: 2026,
-          isDefault: false,
-          isActive: true,
-        },
-      ]);
-
-      setPaymentHistory([
-        {
-          id: '1',
-          amount: 99.99,
-          currency: 'USD',
-          status: 'SUCCEEDED',
-          description: 'Monthly subscription payment',
-          processedAt: '2024-12-01T10:00:00Z',
-          subscription: {
-            package: {
-              title: '60-Minute Classes',
-            },
-          },
-        },
-        {
-          id: '2',
-          amount: 99.99,
-          currency: 'USD',
-          status: 'SUCCEEDED',
-          description: 'Monthly subscription payment',
-          processedAt: '2024-11-01T10:00:00Z',
-          subscription: {
-            package: {
-              title: '60-Minute Classes',
-            },
-          },
-        },
-      ]);
-
-      setSubscriptions([
-        {
-          id: '1',
-          status: 'ACTIVE',
-          auto_renew: true,
-          next_billing_date: '2025-01-01T10:00:00Z',
-          package: {
-            title: '60-Minute Classes',
-            current_price: '99.99',
-            subscription_frequency: 'monthly',
-          },
-        },
-      ]);
-
-      setLoading(false);
-    }, 1000);
+    fetchBillingData();
   }, []);
 
+  const fetchBillingData = async () => {
+    try {
+      setLoading(true);
+      
+      // Fetch payment methods
+      const paymentMethodsResponse = await fetch('/api/student/payment-methods');
+      if (paymentMethodsResponse.ok) {
+        const paymentMethodsData = await paymentMethodsResponse.json();
+        setPaymentMethods(paymentMethodsData.paymentMethods || []);
+      }
+
+      // Fetch payment history
+      const paymentHistoryResponse = await fetch('/api/student/payment-history');
+      if (paymentHistoryResponse.ok) {
+        const paymentHistoryData = await paymentHistoryResponse.json();
+        setPaymentHistory(paymentHistoryData.payments || []);
+      }
+
+      // Fetch dashboard data to get subscriptions
+      const dashboardResponse = await fetch('/api/student/dashboard');
+      if (dashboardResponse.ok) {
+        const dashboardData = await dashboardResponse.json();
+        setSubscriptions(dashboardData.subscriptions || []);
+      }
+    } catch (error) {
+      console.error('Error fetching billing data:', error);
+      toast.error('Failed to load billing information');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSetDefaultPaymentMethod = async (paymentMethodId: string) => {
-    // Mock implementation - in real app this would call the API
-    setPaymentMethods((methods) =>
-      methods.map((method) => ({
-        ...method,
-        isDefault: method.id === paymentMethodId,
-      }))
-    );
-    toast.success('Default payment method updated');
+    try {
+      const response = await fetch('/api/student/payment-methods/set-default', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ paymentMethodId }),
+      });
+
+      if (response.ok) {
+        // Update the local state
+        setPaymentMethods((methods) =>
+          methods.map((method) => ({
+            ...method,
+            isDefault: method.id === paymentMethodId,
+          }))
+        );
+        toast.success('Default payment method updated');
+      } else {
+        const error = await response.json();
+        toast.error(error.error || 'Failed to set default payment method');
+      }
+    } catch (error) {
+      console.error('Error setting default payment method:', error);
+      toast.error('Failed to set default payment method');
+    }
   };
 
   const handleRemovePaymentMethod = async (paymentMethodId: string) => {
@@ -154,11 +135,25 @@ export default function StudentBillingPage() {
       return;
     }
 
-    // Mock implementation - in real app this would call the API
-    setPaymentMethods((methods) =>
-      methods.filter((method) => method.id !== paymentMethodId)
-    );
-    toast.success('Payment method removed');
+    try {
+      const response = await fetch(`/api/student/payment-methods/${paymentMethodId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        // Update the local state
+        setPaymentMethods((methods) =>
+          methods.filter((method) => method.id !== paymentMethodId)
+        );
+        toast.success('Payment method removed');
+      } else {
+        const error = await response.json();
+        toast.error(error.error || 'Failed to remove payment method');
+      }
+    } catch (error) {
+      console.error('Error removing payment method:', error);
+      toast.error('Failed to remove payment method');
+    }
   };
 
   const toggleAutoRenewal = async (
@@ -222,19 +217,6 @@ export default function StudentBillingPage() {
           Add Payment Method
         </Button>
       </div>
-
-      {/* Demo Notice */}
-      <Card className='border-blue-200 bg-blue-50'>
-        <CardContent className='pt-6'>
-          <div className='flex items-center gap-2 text-blue-800'>
-            <Eye className='w-5 h-5' />
-            <p className='text-sm'>
-              <strong>Demo Mode:</strong> This is a preview of your billing
-              dashboard. Real payment integration will be available soon.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Active Subscriptions */}
       <Card>
