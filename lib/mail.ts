@@ -59,17 +59,26 @@ export const sendVerificationEmail = async (
   token: string,
   locale: string = defaultLocale
 ) => {
-  const confirmLink = createLocalizedUrl(
-    `/auth/new-verification?token=${token}`,
-    locale
-  );
+  try {
+    console.log(`📧 Sending verification email to: ${email}`);
+    const confirmLink = createLocalizedUrl(
+      `/auth/new-verification?token=${token}`,
+      locale
+    );
 
-  await resend.emails.send({
-    from: fromEmail,
-    to: email,
-    subject: emailVerificationSubject,
-    html: emailVerificationTemplate(confirmLink),
-  });
+    const result = await resend.emails.send({
+      from: fromEmail,
+      to: email,
+      subject: emailVerificationSubject,
+      html: emailVerificationTemplate(confirmLink),
+    });
+    
+    console.log(`✅ Verification email sent successfully to: ${email}`, result);
+    return result;
+  } catch (error) {
+    console.error(`❌ Failed to send verification email to: ${email}`, error);
+    throw error;
+  }
 };
 
 // Student Email Functions
@@ -344,4 +353,63 @@ export const sendBulkEmailToTeachers = async (
   });
 
   return Promise.allSettled(emailPromises);
+};
+
+// Admin Notification Functions
+export const sendAdminNewStudentNotification = async (
+  studentName: string,
+  studentEmail: string,
+  locale: string = defaultLocale
+) => {
+  try {
+    const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL;
+    
+    if (!adminEmail) {
+      console.warn('❌ ADMIN_NOTIFICATION_EMAIL not configured');
+      return;
+    }
+    
+    console.log(`📧 Sending admin notification for new student: ${studentName} (${studentEmail}) to ${adminEmail}`);
+
+    const subject = `🎓 New Student Registration - ${studentName}`;
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #4f46e5;">New Student Registration</h2>
+        
+        <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <h3 style="margin-top: 0; color: #1e293b;">Student Details:</h3>
+          <p><strong>Name:</strong> ${studentName}</p>
+          <p><strong>Email:</strong> ${studentEmail}</p>
+          <p><strong>Registration Date:</strong> ${new Date().toLocaleDateString()}</p>
+        </div>
+        
+        <div style="background-color: #dbeafe; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+          <p style="margin: 0;"><strong>Action Required:</strong> Please review and assign a teacher to the new student.</p>
+        </div>
+        
+        <p style="margin-top: 30px;">
+          <a href="${domain}/${locale}/dashboard/admin" 
+             style="background-color: #4f46e5; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
+            View Admin Dashboard
+          </a>
+        </p>
+        
+        <hr style="margin: 30px 0; border: none; border-top: 1px solid #e2e8f0;">
+        <p style="color: #64748b; font-size: 14px;">This is an automated notification from the Qodwa platform.</p>
+      </div>
+    `;
+
+    const result = await resend.emails.send({
+      from: fromEmail,
+      to: adminEmail,
+      subject,
+      html,
+    });
+    
+    console.log(`✅ Admin notification sent successfully for student: ${studentName}`, result);
+    return result;
+  } catch (error) {
+    console.error(`❌ Failed to send admin notification for student: ${studentName} (${studentEmail})`, error);
+    throw error;
+  }
 };

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import { Prisma } from '@prisma/client';
+import { generateVerificationToken } from '@/lib/tokens';
+import { sendVerificationEmail, sendAdminNewStudentNotification } from '@/lib/mail';
 
 const prisma = new PrismaClient();
 
@@ -64,7 +66,25 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    
+    // Generate verification token and send verification email
+    try {
+      const verificationToken = await generateVerificationToken(email);
+      await sendVerificationEmail(email, verificationToken.token);
+      console.log('✅ Verification email sent to:', email);
+    } catch (emailError) {
+      console.error('❌ Failed to send verification email:', emailError);
+      // Don't fail registration if email fails
+    }
+
+    // Send admin notification
+    try {
+      await sendAdminNewStudentNotification(name, email);
+      console.log('✅ Admin notification sent');
+    } catch (emailError) {
+      console.error('❌ Failed to send admin notification:', emailError);
+      // Don't fail registration if email fails
+    }
+
     const { password: _, ...userWithoutPassword } = user;
     
     return NextResponse.json(userWithoutPassword, { status: 201 });
