@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useState, useTransition } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 import { NewPasswordSchema } from '@/shared/schemas';
 import { Input } from '@/components/ui/input';
@@ -25,6 +25,7 @@ import { newPassword } from '@/features/auth/actions/new-password';
 
 export const NewPasswordForm = () => {
   const t = useTranslations('Auth.new_password');
+  const locale = useLocale();
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
 
@@ -55,7 +56,7 @@ export const NewPasswordForm = () => {
     <CardWrapper
       headerLabel={t('title')}
       backButtonLabel={t('back_to_login')}
-      backButtonHref='login'
+      backButtonHref={`/${locale}/auth/login`}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>

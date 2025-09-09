@@ -23,7 +23,7 @@ import { FormSuccess } from '@/shared/components/form-success';
 import { reset } from '@/features/auth/actions/reset';
 
 export const ResetForm = () => {
-  const t = useTranslations();
+  const t = useTranslations('Auth.reset');
   const locale = useLocale();
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
@@ -56,7 +56,7 @@ export const ResetForm = () => {
     <CardWrapper
       headerLabel={t('title')}
       backButtonLabel={t('back_to_login')}
-      backButtonHref='login'
+      backButtonHref={`/${locale}/auth/login`}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>

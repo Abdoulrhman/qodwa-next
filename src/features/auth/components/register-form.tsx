@@ -71,7 +71,7 @@ export const RegisterForm = () => {
     <CardWrapper
       headerLabel={t('title')}
       backButtonLabel={t('has_account')}
-      backButtonHref='login'
+      backButtonHref={`/${locale}/auth/login`}
       showSocial
       useAuthHeader={true}
       authHeaderProps={{

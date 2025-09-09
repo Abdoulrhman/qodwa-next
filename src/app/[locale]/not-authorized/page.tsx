@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Button } from '@/components/ui/button';
 
 export default function NotAuthorizedPage() {
   const t = useTranslations('NotAuthorized');
+  const locale = useLocale();
 
   return (
     <div className='min-h-screen flex flex-col items-center justify-center p-4 bg-background'>
@@ -34,7 +35,7 @@ export default function NotAuthorizedPage() {
 
         {/* Login Button */}
         <Button asChild size='lg' className='mt-8'>
-          <Link href='/auth/login'>{t('login')}</Link>
+          <Link href={`/${locale}/auth/login`}>{t('login')}</Link>
         </Button>
       </div>
     </div>

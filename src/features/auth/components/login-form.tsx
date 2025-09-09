@@ -210,7 +210,7 @@ export const LoginForm = () => {
                         asChild
                         className='px-0 font-normal'
                       >
-                        <Link href='/auth/reset'>{t('forgot_password')}</Link>
+                        <Link href={`/${locale}/auth/reset`}>{t('forgot_password')}</Link>
                       </Button>
                       <FormMessage />
                     </FormItem>
