@@ -40,10 +40,11 @@ const IntroContent: React.FC<IntroContentProps> = ({ isTeacherPage }) => {
       </p>
       <div className='intro-cta'>
         <button
-          className={`intro-cta-btn ${teachersStylingClass}`}
+          className={`intro-cta-btn enhanced-get-started ${teachersStylingClass}`}
           onClick={handleGetStarted}
         >
-          {t('get_started')}
+          <span className="btn-text">{t('get_started')}</span>
+          <div className="btn-glow"></div>
         </button>
       </div>
     </section>
