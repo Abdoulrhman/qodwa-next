@@ -72,16 +72,20 @@ export default function StudentBillingPage() {
   const fetchBillingData = async () => {
     try {
       setLoading(true);
-      
+
       // Fetch payment methods
-      const paymentMethodsResponse = await fetch('/api/student/payment-methods');
+      const paymentMethodsResponse = await fetch(
+        '/api/student/payment-methods'
+      );
       if (paymentMethodsResponse.ok) {
         const paymentMethodsData = await paymentMethodsResponse.json();
         setPaymentMethods(paymentMethodsData.paymentMethods || []);
       }
 
       // Fetch payment history
-      const paymentHistoryResponse = await fetch('/api/student/payment-history');
+      const paymentHistoryResponse = await fetch(
+        '/api/student/payment-history'
+      );
       if (paymentHistoryResponse.ok) {
         const paymentHistoryData = await paymentHistoryResponse.json();
         setPaymentHistory(paymentHistoryData.payments || []);
@@ -136,9 +140,12 @@ export default function StudentBillingPage() {
     }
 
     try {
-      const response = await fetch(`/api/student/payment-methods/${paymentMethodId}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `/api/student/payment-methods/${paymentMethodId}`,
+        {
+          method: 'DELETE',
+        }
+      );
 
       if (response.ok) {
         // Update the local state

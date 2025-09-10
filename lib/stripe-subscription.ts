@@ -481,9 +481,11 @@ async function createOrGetStripePrice(packageData: any): Promise<string> {
   });
 
   const matchingPrice = existingPrices.data.find(
-    (price) => 
-      price.unit_amount === Math.round(parseFloat(packageData.current_price) * 100) &&
-      price.recurring?.interval === getStripeInterval(packageData.subscription_frequency)
+    (price) =>
+      price.unit_amount ===
+        Math.round(parseFloat(packageData.current_price) * 100) &&
+      price.recurring?.interval ===
+        getStripeInterval(packageData.subscription_frequency)
   );
 
   if (matchingPrice) {
