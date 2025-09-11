@@ -47,7 +47,7 @@
       position: relative;
       overflow: hidden;
       transition: all 0.3s ease;
-      
+
       &.enhanced-get-started {
         --button-glow-duration: 2.5s;
         --button-shine-duration: 3s;
@@ -55,7 +55,7 @@
         --button-primary-color: rgba(66, 46, 135, 1);
         --button-glow-opacity: 0.4;
         --button-shine-opacity: 0.2;
-        
+
         padding: 20px 60px;
         font-size: 18px;
         font-weight: 600;
@@ -63,53 +63,58 @@
         box-shadow: 0 8px 25px var(--button-primary-color);
         transform: translateY(0);
         animation: pulse-glow var(--button-glow-duration) infinite ease-in-out;
-        transition: transform var(--button-hover-duration) ease, 
-                    box-shadow var(--button-hover-duration) ease;
-        
+        transition:
+          transform var(--button-hover-duration) ease,
+          box-shadow var(--button-hover-duration) ease;
+
         .btn-text {
           position: relative;
           z-index: 2;
         }
-        
+
         .btn-glow {
           height: 100%;
           left: 0;
           position: absolute;
           top: 0;
           width: 100%;
-          background: linear-gradient(90deg, 
-            transparent 0%, 
-            rgba(255, 255, 255, var(--button-shine-opacity)) 50%, 
-            transparent 100%);
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, var(--button-shine-opacity)) 50%,
+            transparent 100%
+          );
           border-radius: inherit;
-          animation: shine-sweep var(--button-shine-duration) infinite ease-in-out;
+          animation: shine-sweep var(--button-shine-duration) infinite
+            ease-in-out;
         }
-        
+
         &:hover {
           transform: translateY(-3px);
           box-shadow: 0 12px 35px rgba(66, 46, 135, 0.6);
           --button-glow-opacity: 0.6;
           --button-shine-opacity: 0.3;
         }
-        
+
         &:active {
           transform: translateY(-1px);
           transition: transform 0.1s ease;
         }
       }
-      
+
       &.teacher-version {
         background-color: $color-secondary !important;
         border-color: $color-secondary !important;
         color: #000 !important;
-        
+
         &.enhanced-get-started {
           --button-primary-color: rgba(255, 205, 54, 1);
           --button-glow-opacity: 0.4;
-          
+
           box-shadow: 0 8px 25px var(--button-primary-color);
-          animation: pulse-glow-teacher var(--button-glow-duration) infinite ease-in-out;
-          
+          animation: pulse-glow-teacher var(--button-glow-duration) infinite
+            ease-in-out;
+
           &:hover {
             box-shadow: 0 12px 35px rgba(255, 205, 54, 0.6);
             --button-glow-opacity: 0.6;
@@ -122,20 +127,24 @@
 
 // Keyframe animations
 @keyframes pulse-glow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 8px 25px rgba(66, 46, 135, var(--button-glow-opacity, 0.4));
   }
   50% {
-    box-shadow: 0 8px 30px rgba(66, 46, 135, calc(var(--button-glow-opacity, 0.4) + 0.3));
+    box-shadow: 0 8px 30px
+      rgba(66, 46, 135, calc(var(--button-glow-opacity, 0.4) + 0.3));
   }
 }
 
 @keyframes pulse-glow-teacher {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 8px 25px rgba(255, 205, 54, var(--button-glow-opacity, 0.4));
   }
   50% {
-    box-shadow: 0 8px 30px rgba(255, 205, 54, calc(var(--button-glow-opacity, 0.4) + 0.3));
+    box-shadow: 0 8px 30px
+      rgba(255, 205, 54, calc(var(--button-glow-opacity, 0.4) + 0.3));
   }
 }
 
@@ -163,7 +172,7 @@
         color: #fff !important;
       }
     }
-    
+
     .intro-cta {
       .intro-cta-btn.enhanced-get-started {
         padding: 16px 40px;

@@ -43,8 +43,8 @@ const IntroContent: React.FC<IntroContentProps> = ({ isTeacherPage }) => {
           className={`intro-cta-btn enhanced-get-started ${teachersStylingClass}`}
           onClick={handleGetStarted}
         >
-          <span className="btn-text">{t('get_started')}</span>
-          <div className="btn-glow"></div>
+          <span className='btn-text'>{t('get_started')}</span>
+          <div className='btn-glow'></div>
         </button>
       </div>
     </section>
