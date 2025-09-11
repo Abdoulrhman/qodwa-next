@@ -12,7 +12,10 @@ export async function GET(request: NextRequest) {
 
     // Check if user is admin
     if (session.user.role !== 'ADMIN') {
-      return NextResponse.json({ error: 'Forbidden: Admin access required' }, { status: 403 });
+      return NextResponse.json(
+        { error: 'Forbidden: Admin access required' },
+        { status: 403 }
+      );
     }
 
     // Fetch all subscriptions with user and package details
@@ -41,12 +44,12 @@ export async function GET(request: NextRequest) {
     // Calculate statistics
     const stats = {
       total: subscriptions.length,
-      active: subscriptions.filter(sub => sub.status === 'ACTIVE').length,
-      expired: subscriptions.filter(sub => sub.status === 'EXPIRED').length,
+      active: subscriptions.filter((sub) => sub.status === 'ACTIVE').length,
+      expired: subscriptions.filter((sub) => sub.status === 'EXPIRED').length,
     };
 
     // Transform the data to include computed fields
-    const transformedSubscriptions = subscriptions.map(subscription => ({
+    const transformedSubscriptions = subscriptions.map((subscription) => ({
       id: subscription.id,
       status: subscription.status,
       startDate: subscription.startDate.toISOString(),
@@ -60,7 +63,9 @@ export async function GET(request: NextRequest) {
         price: parseFloat(subscription.package.current_price || '0'),
       },
       sessionsUsed: subscription.classes_completed,
-      totalSessions: subscription.classes_remaining ? subscription.classes_completed + subscription.classes_remaining : subscription.classes_completed,
+      totalSessions: subscription.classes_remaining
+        ? subscription.classes_completed + subscription.classes_remaining
+        : subscription.classes_completed,
     }));
 
     return NextResponse.json({

@@ -8,8 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "seed-packages": "node prisma/seed/packages.js",
-    "renewal": "node scripts/subscription-renewal.js",
-    "renewal:test": "NODE_ENV=development node scripts/subscription-renewal.js"
+    "renewal": "node scripts/subscription-renewal-production.js",
+    "renewal:safe": "node scripts/subscription-renewal-safe.js",
+    "renewal:test": "NODE_ENV=development node scripts/subscription-renewal-production.js",
+    "test:renewal": "node scripts/test-renewal-system.js"
   },
   "prisma": {
     "seed": "node prisma/seed/seed.js"

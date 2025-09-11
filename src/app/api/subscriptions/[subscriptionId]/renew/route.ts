@@ -8,7 +8,7 @@ export async function POST(
 ) {
   try {
     const session = await auth();
-    
+
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -29,18 +29,22 @@ export async function POST(
 
     if (!subscription) {
       return NextResponse.json(
-        { error: 'Subscription not found or already expired' }, 
+        { error: 'Subscription not found or already expired' },
         { status: 404 }
       );
     }
 
     // Check if renewal is allowed (within 7 days of expiry)
     const now = new Date();
-    const daysUntilExpiry = Math.ceil((subscription.endDate!.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-    
+    const daysUntilExpiry = Math.ceil(
+      (subscription.endDate!.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)
+    );
+
     if (daysUntilExpiry > 7) {
       return NextResponse.json(
-        { error: `Renewal not allowed yet. You can renew within 7 days of expiry. Days remaining: ${daysUntilExpiry}` },
+        {
+          error: `Renewal not allowed yet. You can renew within 7 days of expiry. Days remaining: ${daysUntilExpiry}`,
+        },
         { status: 400 }
       );
     }
@@ -48,7 +52,7 @@ export async function POST(
     // Calculate new subscription dates
     const currentEndDate = subscription.endDate!;
     const newStartDate = new Date(currentEndDate.getTime() + 1); // Start the day after current expires
-    
+
     // Calculate new end date based on package duration
     const packageDurationDays = 30; // Default to 30 days, adjust based on package
     const newEndDate = new Date(newStartDate);
@@ -57,9 +61,9 @@ export async function POST(
     // Mark current subscription as expired
     await db.subscription.update({
       where: { id: subscriptionId },
-      data: { 
+      data: {
         status: 'EXPIRED',
-        notes: 'Manually renewed by user'
+        notes: 'Manually renewed by user',
       },
     });
 
@@ -87,7 +91,6 @@ export async function POST(
         status: newSubscription.status,
       },
     });
-
   } catch (error) {
     console.error('Error renewing subscription:', error);
     return NextResponse.json(
