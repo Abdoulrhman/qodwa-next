@@ -212,40 +212,6 @@ export const TeacherDashboardOverview = () => {
         </Card>
       </div>
 
-      {/* Quick Actions */}
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            {t('teacherDashboard.quickActions', { default: 'Quick Actions' })}
-          </CardTitle>
-          <CardDescription>
-            {t('teacherDashboard.quickActionsDesc', {
-              default: 'Manage your teaching activities',
-            })}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className='flex flex-wrap gap-4'>
-          <Button>
-            <Calendar className='mr-2 h-4 w-4' />
-            {t('teacherDashboard.viewSchedule', { default: 'View Schedule' })}
-          </Button>
-          <Button variant='outline'>
-            <Users className='mr-2 h-4 w-4' />
-            {t('teacherDashboard.manageStudents', {
-              default: 'Manage Students',
-            })}
-          </Button>
-          <Button variant='outline'>
-            <BookOpen className='mr-2 h-4 w-4' />
-            {t('teacherDashboard.createLesson', { default: 'Create Lesson' })}
-          </Button>
-          <Button variant='outline'>
-            <DollarSign className='mr-2 h-4 w-4' />
-            {t('teacherDashboard.viewEarnings', { default: 'View Earnings' })}
-          </Button>
-        </CardContent>
-      </Card>
-
       {/* Profile Status */}
       <Card>
         <CardHeader>

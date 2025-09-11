@@ -65,6 +65,18 @@ const getRoutes = (
       href: `/${locale}/dashboard/teacher/students`,
       isActive: true,
     },
+    {
+      label: 'Messages',
+      icon: MessageCircle,
+      href: `/${locale}/dashboard/messages`,
+      isActive: false,
+    },
+    {
+      label: 'Earnings',
+      icon: DollarSign,
+      href: `/${locale}/dashboard/teacher/earnings`,
+      isActive: true,
+    },
   ].filter((route) => route.isActive);
 
   // Student-specific routes
@@ -183,8 +195,8 @@ const getRoutes = (
     },
   ];
 
-  // Common routes for teachers and students (not admins)
-  const commonRoutes: RouteItem[] = [
+  // Student-specific routes (formerly common routes)
+  const studentSpecificRoutes: RouteItem[] = [
     {
       label: 'Messages',
       icon: MessageCircle,
@@ -195,7 +207,7 @@ const getRoutes = (
       label: t('Payments.title'),
       icon: DollarSign,
       href: `/${locale}/dashboard/payments`,
-      isActive: true, // Available to both students and teachers
+      isActive: true,
     },
   ].filter((route) => route.isActive);
 
@@ -213,11 +225,11 @@ const getRoutes = (
       return [...baseRoutes, ...adminRoutes];
 
     case 'teacher':
-      return [...baseRoutes, ...teacherRoutes, ...commonRoutes];
+      return [...baseRoutes, ...teacherRoutes];
 
     case 'student':
     default:
-      return [...baseRoutes, ...studentRoutes, ...commonRoutes];
+      return [...baseRoutes, ...studentRoutes, ...studentSpecificRoutes];
   }
 };
 

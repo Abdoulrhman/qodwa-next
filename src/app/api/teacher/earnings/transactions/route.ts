@@ -22,24 +22,12 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Get current month and year
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth() + 1;
-    const currentYear = currentDate.getFullYear();
+    // For now, return empty transactions array
+    const mockTransactions: any[] = [];
 
-    // For now, return mock data with zero values since the models may need schema updates
-    const mockData = {
-      totalEarnings: 0,
-      monthlyEarnings: 0,
-      pendingPayments: 0,
-      completedLessons: 0,
-      activeStudents: 0,
-      averageRatePerLesson: 0,
-    };
-
-    return NextResponse.json(mockData);
+    return NextResponse.json(mockTransactions);
   } catch (error) {
-    console.error('Teacher earnings error:', error);
+    console.error('Teacher transactions error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
