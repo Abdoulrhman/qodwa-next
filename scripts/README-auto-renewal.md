@@ -22,6 +22,7 @@ scripts/
 ## Scripts Explained
 
 ### 1. `subscription-renewal-production.js` ✅ PRODUCTION READY
+
 - **Purpose**: Processes actual subscription renewals with Stripe payments
 - **Features**:
   - Finds subscriptions due for renewal (7 days before expiry)
@@ -32,6 +33,7 @@ scripts/
   - Creates payment records for accounting
 
 ### 2. `subscription-renewal-safe.js` 🔍 TESTING ONLY
+
 - **Purpose**: Tests system without processing payments
 - **Features**:
   - Database connection testing
@@ -40,6 +42,7 @@ scripts/
   - Safe to run anytime
 
 ### 3. `test-renewal-system.js` 🧪 SYSTEM CHECK
+
 - **Purpose**: Comprehensive system readiness assessment
 - **Features**:
   - Database connectivity test
@@ -56,7 +59,7 @@ scripts/
 1. **Daily Trigger**: GitHub Actions runs at 9:00 AM UTC daily
 2. **Eligibility Check**: Finds subscriptions with `auto_renew: true` and `next_billing_date <= tomorrow`
 3. **Payment Processing**: Uses Stripe to charge the default payment method
-4. **Success Handling**: 
+4. **Success Handling**:
    - Updates subscription end date
    - Sets next billing date
    - Resets class count
@@ -76,13 +79,13 @@ model Subscription {
   status            SubscriptionStatus @default(ACTIVE)
   auto_renew        Boolean  @default(false)
   endDate           DateTime?
-  
+
   // Auto-renewal specific
   next_billing_date     DateTime?
   auto_renew_attempts   Int      @default(0)
   last_renewal_attempt  DateTime?
   renewal_failure_reason String?
-  
+
   // Stripe integration
   stripeSubscriptionId String?
 }
@@ -121,8 +124,8 @@ The workflow is configured in `.github/workflows/subscription-renewal.yml`:
 name: Subscription Renewal
 on:
   schedule:
-    - cron: '0 9 * * *'  # Daily at 9 AM UTC
-  workflow_dispatch:       # Manual trigger for testing
+    - cron: '0 9 * * *' # Daily at 9 AM UTC
+  workflow_dispatch: # Manual trigger for testing
 ```
 
 ## Usage Instructions
@@ -146,8 +149,8 @@ await prisma.subscription.update({
   where: { id: subscriptionId },
   data: {
     auto_renew: true,
-    next_billing_date: new Date('2024-12-01') // 7 days before expiry
-  }
+    next_billing_date: new Date('2024-12-01'), // 7 days before expiry
+  },
 });
 ```
 
@@ -171,18 +174,21 @@ npm run renewal:test
 ## Monitoring & Troubleshooting
 
 ### Success Indicators
+
 - ✅ Subscriptions automatically renewed
 - ✅ Payment records created
 - ✅ End dates updated
 - ✅ Class counts reset
 
 ### Failure Scenarios
+
 - ❌ Invalid payment method → Retry up to 3 times
-- ❌ Insufficient funds → Retry up to 3 times  
+- ❌ Insufficient funds → Retry up to 3 times
 - ❌ Stripe API errors → Logged for investigation
 - ❌ Database errors → Workflow fails, creates GitHub issue
 
 ### Logs Location
+
 - **GitHub Actions**: Repository → Actions → Subscription Renewal
 - **Manual Runs**: Terminal output with detailed status
 

@@ -2,7 +2,7 @@
 
 /**
  * Test Script for Subscription Renewal Logic
- * 
+ *
  * This script tests the renewal logic without processing actual payments.
  * Use this to verify the system is working before enabling auto-renewal.
  */
@@ -12,8 +12,10 @@ const { PrismaClient } = require('@prisma/client');
 const db = new PrismaClient();
 
 async function testRenewalSystem() {
-  console.log(`🧪 Testing subscription renewal system at ${new Date().toISOString()}`);
-  
+  console.log(
+    `🧪 Testing subscription renewal system at ${new Date().toISOString()}`
+  );
+
   try {
     // Test 1: Database connection
     console.log('\n1️⃣ Testing database connection...');
@@ -25,36 +27,43 @@ async function testRenewalSystem() {
     const autoRenewSubs = await db.subscription.findMany({
       where: {
         auto_renew: true,
-        status: 'ACTIVE'
+        status: 'ACTIVE',
       },
       include: {
         user: {
           select: {
             email: true,
             stripeCustomerId: true,
-            defaultPaymentMethodId: true
-          }
+            defaultPaymentMethodId: true,
+          },
         },
         package: {
           select: {
             title: true,
             current_price: true,
-            subscription_frequency: true
-          }
-        }
+            subscription_frequency: true,
+          },
+        },
       },
-      take: 5
+      take: 5,
     });
-    
-    console.log(`✅ Found ${autoRenewSubs.length} subscriptions with auto-renewal enabled`);
-    
+
+    console.log(
+      `✅ Found ${autoRenewSubs.length} subscriptions with auto-renewal enabled`
+    );
+
     if (autoRenewSubs.length > 0) {
       console.log('\n📋 Auto-renewal subscriptions:');
       autoRenewSubs.forEach((sub, index) => {
-        const hasPaymentMethod = sub.user.stripeCustomerId && sub.user.defaultPaymentMethodId;
+        const hasPaymentMethod =
+          sub.user.stripeCustomerId && sub.user.defaultPaymentMethodId;
         console.log(`${index + 1}. ${sub.user.email}`);
-        console.log(`   Package: ${sub.package.title} ($${sub.package.current_price})`);
-        console.log(`   Payment Method: ${hasPaymentMethod ? '✅ Available' : '❌ Missing'}`);
+        console.log(
+          `   Package: ${sub.package.title} ($${sub.package.current_price})`
+        );
+        console.log(
+          `   Payment Method: ${hasPaymentMethod ? '✅ Available' : '❌ Missing'}`
+        );
         console.log(`   Next Billing: ${sub.next_billing_date || 'Not set'}`);
         console.log('');
       });
@@ -71,40 +80,46 @@ async function testRenewalSystem() {
         OR: [
           {
             next_billing_date: {
-              lte: sevenDaysFromNow
-            }
+              lte: sevenDaysFromNow,
+            },
           },
           {
             endDate: {
-              lte: sevenDaysFromNow
-            }
-          }
-        ]
+              lte: sevenDaysFromNow,
+            },
+          },
+        ],
       },
       include: {
         user: {
           select: {
-            email: true
-          }
+            email: true,
+          },
         },
         package: {
           select: {
             title: true,
-            current_price: true
-          }
-        }
-      }
+            current_price: true,
+          },
+        },
+      },
     });
 
-    console.log(`✅ Found ${dueSoon.length} subscriptions due for renewal within 7 days`);
+    console.log(
+      `✅ Found ${dueSoon.length} subscriptions due for renewal within 7 days`
+    );
 
     if (dueSoon.length > 0) {
       console.log('\n📅 Subscriptions due soon:');
       dueSoon.forEach((sub, index) => {
         console.log(`${index + 1}. ${sub.user.email}`);
-        console.log(`   Package: ${sub.package.title} ($${sub.package.current_price})`);
+        console.log(
+          `   Package: ${sub.package.title} ($${sub.package.current_price})`
+        );
         console.log(`   End Date: ${sub.endDate?.toDateString() || 'Not set'}`);
-        console.log(`   Auto-Renew: ${sub.auto_renew ? '✅ Enabled' : '❌ Disabled'}`);
+        console.log(
+          `   Auto-Renew: ${sub.auto_renew ? '✅ Enabled' : '❌ Disabled'}`
+        );
         console.log('');
       });
     }
@@ -115,10 +130,10 @@ async function testRenewalSystem() {
       'DATABASE_URL',
       'STRIPE_SECRET_KEY',
       'NEXTAUTH_SECRET',
-      'NEXT_PUBLIC_APP_URL'
+      'NEXT_PUBLIC_APP_URL',
     ];
 
-    envVars.forEach(envVar => {
+    envVars.forEach((envVar) => {
       const value = process.env[envVar];
       if (value) {
         console.log(`✅ ${envVar}: Set (${value.length} characters)`);
@@ -134,7 +149,9 @@ async function testRenewalSystem() {
         const Stripe = require('stripe');
         const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
         const account = await stripe.accounts.retrieve();
-        console.log(`✅ Stripe connected: ${account.display_name || account.id}`);
+        console.log(
+          `✅ Stripe connected: ${account.display_name || account.id}`
+        );
       } catch (error) {
         console.log(`❌ Stripe connection failed: ${error.message}`);
       }
@@ -144,24 +161,37 @@ async function testRenewalSystem() {
 
     // Summary and recommendations
     console.log('\n📊 System Readiness Assessment:');
-    
+
     const hasAutoRenewSubs = autoRenewSubs.length > 0;
-    const hasValidPaymentMethods = autoRenewSubs.some(sub => 
-      sub.user.stripeCustomerId && sub.user.defaultPaymentMethodId
+    const hasValidPaymentMethods = autoRenewSubs.some(
+      (sub) => sub.user.stripeCustomerId && sub.user.defaultPaymentMethodId
     );
     const hasStripeConnection = !!process.env.STRIPE_SECRET_KEY;
     const hasDatabaseAccess = userCount > 0;
 
     console.log(`Database Access: ${hasDatabaseAccess ? '✅' : '❌'}`);
     console.log(`Stripe Connection: ${hasStripeConnection ? '✅' : '❌'}`);
-    console.log(`Auto-Renewal Subscriptions: ${hasAutoRenewSubs ? '✅' : '⚠️  None found'}`);
-    console.log(`Valid Payment Methods: ${hasValidPaymentMethods ? '✅' : '⚠️  None found'}`);
+    console.log(
+      `Auto-Renewal Subscriptions: ${hasAutoRenewSubs ? '✅' : '⚠️  None found'}`
+    );
+    console.log(
+      `Valid Payment Methods: ${hasValidPaymentMethods ? '✅' : '⚠️  None found'}`
+    );
 
-    if (hasDatabaseAccess && hasStripeConnection && hasAutoRenewSubs && hasValidPaymentMethods) {
+    if (
+      hasDatabaseAccess &&
+      hasStripeConnection &&
+      hasAutoRenewSubs &&
+      hasValidPaymentMethods
+    ) {
       console.log('\n🎉 System is READY for production auto-renewal!');
       console.log('\n📝 To enable production auto-renewal:');
-      console.log('1. Update GitHub Actions workflow to use subscription-renewal-production.js');
-      console.log('2. Ensure all required environment variables are set in GitHub Secrets');
+      console.log(
+        '1. Update GitHub Actions workflow to use subscription-renewal-production.js'
+      );
+      console.log(
+        '2. Ensure all required environment variables are set in GitHub Secrets'
+      );
       console.log('3. Test with manual workflow dispatch first');
     } else {
       console.log('\n⚠️  System needs setup before enabling auto-renewal:');
@@ -175,7 +205,6 @@ async function testRenewalSystem() {
         console.log('- Configure Stripe API keys');
       }
     }
-
   } catch (error) {
     console.error('💥 Test failed:', error);
     throw error;
@@ -198,5 +227,5 @@ if (require.main === module) {
 }
 
 module.exports = {
-  testRenewalSystem
+  testRenewalSystem,
 };

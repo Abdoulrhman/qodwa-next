@@ -1,9 +1,20 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { Package } from '@/types/api';
+import {
+  handleCorsOptions,
+  createCorsResponse,
+  createCorsErrorResponse,
+} from '@/lib/cors';
 
-export async function GET() {
+export async function OPTIONS(request: NextRequest) {
+  return handleCorsOptions(request);
+}
+
+export async function GET(request: NextRequest) {
   try {
+    const origin = request.headers.get('origin');
+
     // Fetch all packages from the database
     const packages = await db.package.findMany();
 
@@ -56,12 +67,14 @@ export async function GET() {
       yearly,
     };
 
-    return NextResponse.json(response);
+    return createCorsResponse(response, { origin: origin || undefined });
   } catch (error) {
+    const origin = request.headers.get('origin');
     console.error('Failed to retrieve packages:', error);
-    return NextResponse.json(
-      { error: 'Failed to retrieve packages' },
-      { status: 500 }
+    return createCorsErrorResponse(
+      'Failed to retrieve packages',
+      500,
+      origin || undefined
     );
   }
 }

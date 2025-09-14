@@ -2,7 +2,7 @@
 
 /**
  * Subscription Renewal Script (Production Version)
- * 
+ *
  * This script runs daily via GitHub Actions to process automatic subscription renewals.
  * It handles Stripe payment processing and manages subscription lifecycles.
  */
@@ -38,11 +38,11 @@ async function findEligibleSubscriptions() {
       status: 'ACTIVE',
       auto_renew: true,
       next_billing_date: {
-        lte: tomorrow
+        lte: tomorrow,
       },
       auto_renew_attempts: {
-        lt: 3 // Maximum 3 retry attempts
-      }
+        lt: 3, // Maximum 3 retry attempts
+      },
     },
     include: {
       user: {
@@ -51,22 +51,24 @@ async function findEligibleSubscriptions() {
           email: true,
           name: true,
           stripeCustomerId: true,
-          defaultPaymentMethodId: true
-        }
+          defaultPaymentMethodId: true,
+        },
       },
       package: {
         select: {
           id: true,
           current_price: true,
           title: true,
-          subscription_frequency: true
-        }
-      }
+          subscription_frequency: true,
+        },
+      },
     },
-    take: 50 // Process max 50 at a time for safety
+    take: 50, // Process max 50 at a time for safety
   });
 
-  console.log(`📋 Found ${subscriptions.length} subscriptions eligible for renewal`);
+  console.log(
+    `📋 Found ${subscriptions.length} subscriptions eligible for renewal`
+  );
   return subscriptions;
 }
 
@@ -75,7 +77,7 @@ async function findEligibleSubscriptions() {
  */
 async function processSubscriptionRenewal(subscription) {
   const { user, package: pkg } = subscription;
-  
+
   console.log(`\n🔄 Processing renewal for user: ${user.email}`);
   console.log(`   Package: ${pkg.title} ($${pkg.current_price})`);
 
@@ -88,12 +90,18 @@ async function processSubscriptionRenewal(subscription) {
 
     // Calculate next billing dates
     const currentEndDate = subscription.endDate || new Date();
-    const newEndDate = calculateNextEndDate(currentEndDate, pkg.subscription_frequency);
-    const nextBillingDate = calculateNextBillingDate(newEndDate, pkg.subscription_frequency);
+    const newEndDate = calculateNextEndDate(
+      currentEndDate,
+      pkg.subscription_frequency
+    );
+    const nextBillingDate = calculateNextBillingDate(
+      newEndDate,
+      pkg.subscription_frequency
+    );
 
     // Create payment intent
     const amount = Math.round(parseFloat(pkg.current_price) * 100); // Convert to cents
-    
+
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency: 'usd',
@@ -106,8 +114,8 @@ async function processSubscriptionRenewal(subscription) {
         subscriptionId: subscription.id,
         userId: user.id,
         packageId: pkg.id.toString(),
-        renewal: 'true'
-      }
+        renewal: 'true',
+      },
     });
 
     if (paymentIntent.status === 'succeeded') {
@@ -121,8 +129,8 @@ async function processSubscriptionRenewal(subscription) {
           last_renewal_attempt: new Date(),
           renewal_failure_reason: null,
           classes_remaining: pkg.classes_per_month || 8, // Reset classes
-          status: 'ACTIVE'
-        }
+          status: 'ACTIVE',
+        },
       });
 
       // Create payment record
@@ -134,19 +142,22 @@ async function processSubscriptionRenewal(subscription) {
           currency: 'USD',
           status: 'SUCCEEDED',
           description: `Auto-renewal: ${pkg.title}`,
-          processedAt: new Date()
-        }
+          processedAt: new Date(),
+        },
       });
 
-      console.log(`✅ Renewal successful! New end date: ${newEndDate.toDateString()}`);
+      console.log(
+        `✅ Renewal successful! New end date: ${newEndDate.toDateString()}`
+      );
       return { success: true, newEndDate };
-
     } else {
       // Payment failed
-      await handleRenewalFailure(subscription.id, `Payment failed: ${paymentIntent.status}`);
+      await handleRenewalFailure(
+        subscription.id,
+        `Payment failed: ${paymentIntent.status}`
+      );
       return { success: false, reason: `Payment ${paymentIntent.status}` };
     }
-
   } catch (error) {
     console.error(`❌ Renewal failed for ${user.email}:`, error.message);
     await handleRenewalFailure(subscription.id, error.message);
@@ -159,7 +170,7 @@ async function processSubscriptionRenewal(subscription) {
  */
 async function handleRenewalFailure(subscriptionId, reason) {
   const subscription = await db.subscription.findUnique({
-    where: { id: subscriptionId }
+    where: { id: subscriptionId },
   });
 
   const newAttempts = (subscription.auto_renew_attempts || 0) + 1;
@@ -172,8 +183,8 @@ async function handleRenewalFailure(subscriptionId, reason) {
       last_renewal_attempt: new Date(),
       renewal_failure_reason: reason,
       status: shouldCancel ? 'EXPIRED' : 'ACTIVE',
-      auto_renew: shouldCancel ? false : true
-    }
+      auto_renew: shouldCancel ? false : true,
+    },
   });
 
   if (shouldCancel) {
@@ -188,7 +199,7 @@ async function handleRenewalFailure(subscriptionId, reason) {
  */
 function calculateNextEndDate(currentDate, frequency) {
   const newDate = new Date(currentDate);
-  
+
   switch (frequency.toLowerCase()) {
     case 'monthly':
       newDate.setMonth(newDate.getMonth() + 1);
@@ -205,7 +216,7 @@ function calculateNextEndDate(currentDate, frequency) {
     default:
       newDate.setMonth(newDate.getMonth() + 1); // Default to monthly
   }
-  
+
   return newDate;
 }
 
@@ -222,13 +233,15 @@ function calculateNextBillingDate(endDate, frequency) {
  * Main renewal processing function
  */
 async function processSubscriptionRenewals() {
-  console.log(`🔄 Starting subscription renewal process at ${new Date().toISOString()}`);
-  
+  console.log(
+    `🔄 Starting subscription renewal process at ${new Date().toISOString()}`
+  );
+
   try {
     initializeStripe();
-    
+
     const eligibleSubscriptions = await findEligibleSubscriptions();
-    
+
     if (eligibleSubscriptions.length === 0) {
       console.log('✅ No subscriptions need renewal at this time');
       return;
@@ -245,7 +258,7 @@ async function processSubscriptionRenewals() {
         subscriptionId: subscription.id,
         userEmail: subscription.user.email,
         packageTitle: subscription.package.title,
-        ...result
+        ...result,
       });
 
       if (result.success) {
@@ -255,7 +268,7 @@ async function processSubscriptionRenewals() {
       }
 
       // Add delay between processing to avoid rate limits
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 
     // Summary report
@@ -267,13 +280,16 @@ async function processSubscriptionRenewals() {
     // Log failures for review
     if (failureCount > 0) {
       console.log(`\n❌ Failed Renewals:`);
-      results.filter(r => !r.success).forEach((result, index) => {
-        console.log(`${index + 1}. ${result.userEmail} (${result.packageTitle}): ${result.reason}`);
-      });
+      results
+        .filter((r) => !r.success)
+        .forEach((result, index) => {
+          console.log(
+            `${index + 1}. ${result.userEmail} (${result.packageTitle}): ${result.reason}`
+          );
+        });
     }
 
     console.log('\n🎉 Subscription renewal process completed!');
-
   } catch (error) {
     console.error('💥 Critical error in renewal process:', error);
     throw error;
@@ -287,10 +303,12 @@ async function processSubscriptionRenewals() {
  */
 function validateEnvironment() {
   const required = ['DATABASE_URL', 'STRIPE_SECRET_KEY'];
-  const missing = required.filter(env => !process.env[env]);
-  
+  const missing = required.filter((env) => !process.env[env]);
+
   if (missing.length > 0) {
-    throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
+    throw new Error(
+      `Missing required environment variables: ${missing.join(', ')}`
+    );
   }
 }
 
@@ -311,5 +329,5 @@ if (require.main === module) {
 module.exports = {
   processSubscriptionRenewals,
   processSubscriptionRenewal,
-  findEligibleSubscriptions
+  findEligibleSubscriptions,
 };
