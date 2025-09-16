@@ -7,6 +7,7 @@ import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
+import { trackPurchase, trackSubscription } from '@/lib/facebook-pixel';
 
 interface SubscriptionDetails {
   id: string;
@@ -54,6 +55,16 @@ export default function SuccessPage() {
         console.log('Received subscription data:', data);
         setSubscription(data);
         setError(null);
+
+        // Track successful purchase in Facebook Pixel
+        if (data && data.package) {
+          trackPurchase(
+            data.package.price,
+            data.package.currency,
+            sessionId || undefined
+          );
+          trackSubscription(data.package.package_type, data.package.price);
+        }
       } catch (error) {
         console.error('Error fetching subscription:', error);
         setError(

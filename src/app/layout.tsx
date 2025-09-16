@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import FacebookPixel from '@/shared/components/facebook-pixel';
 
 export const metadata: Metadata = {
   title: 'Qodwa Platform',
@@ -13,7 +14,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body>{children}</body>
+      <body>
+        <FacebookPixel />
+        {children}
+      </body>
     </html>
   );
 }

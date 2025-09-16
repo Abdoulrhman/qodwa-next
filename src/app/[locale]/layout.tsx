@@ -4,6 +4,7 @@ import { Inter, Almarai } from 'next/font/google';
 import BodyDirection from '@/shared/components/body-direction';
 import { Providers } from '@/shared/components/providers/providers';
 import { AuthProvider } from '@/contexts/auth-context';
+import { FacebookPixelPageViewTracker } from '@/shared/hooks/use-facebook-pixel-page-view';
 import '../globals.css';
 import '../../../styles/main.scss';
 
@@ -35,6 +36,7 @@ export default async function LocaleLayout({
         className={`${inter.className} ${isRTL ? almarai.className : ''}`}
         suppressHydrationWarning={true}
       >
+        <FacebookPixelPageViewTracker />
         <Providers>
           <AuthProvider>
             <NextIntlClientProvider messages={messages} locale={locale}>

@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
+import { trackInitiateCheckout } from '@/lib/facebook-pixel';
 
 // Add error handling for missing Stripe key
 const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
@@ -44,6 +45,14 @@ export default function CheckoutButton({
     }
 
     setLoading(true);
+
+    // Track initiate checkout event
+    const totalValue = items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+    const packageName = items[0]?.name || 'package';
+    trackInitiateCheckout(totalValue, packageName);
 
     try {
       // Check if Stripe was loaded successfully

@@ -29,6 +29,7 @@ import { Button } from '@/components/ui/button';
 import { FormError } from '@/shared/components/form-error';
 import { FormSuccess } from '@/shared/components/form-success';
 import { register } from '@/features/auth/actions/register';
+import { trackRegistration } from '@/lib/facebook-pixel';
 
 type StudentFormValues = z.infer<typeof StudentFormSchema>;
 
@@ -62,7 +63,11 @@ export const RegisterForm = () => {
       register(values, locale).then((data) => {
         setError(data.error);
         setSuccess(data.success);
-        if (data.success) methods.reset();
+        if (data.success) {
+          methods.reset();
+          // Track registration completion in Facebook Pixel
+          trackRegistration('email');
+        }
       });
     });
   };
