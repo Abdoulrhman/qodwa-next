@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import FacebookPixel from '@/shared/components/facebook-pixel';
+import GoogleTag from '@/shared/components/google-tag';
 
 export const metadata: Metadata = {
   title: 'Qodwa Platform',
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang='en'>
       <body>
         <FacebookPixel />
+        <GoogleTag />
         {children}
       </body>
     </html>
