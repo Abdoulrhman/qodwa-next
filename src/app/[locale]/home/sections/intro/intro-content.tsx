@@ -38,12 +38,19 @@ const IntroContent: React.FC<IntroContentProps> = ({ isTeacherPage }) => {
       <p className={`intro-subtitle  ${teachersStylingClass}`}>
         {isTeacherPage ? t('teacher_sub_header_text') : t('sub_header_text')}
       </p>
+      {!isTeacherPage && (
+        <p className="intro-sub-headline">
+          {t('sub_headline')}
+        </p>
+      )}
       <div className='intro-cta'>
         <button
           className={`intro-cta-btn enhanced-get-started ${teachersStylingClass}`}
           onClick={handleGetStarted}
         >
-          <span className='btn-text'>{t('get_started')}</span>
+          <span className='btn-text'>
+            {isTeacherPage ? t('get_started') : t('book_trial')}
+          </span>
           <div className='btn-glow'></div>
         </button>
       </div>

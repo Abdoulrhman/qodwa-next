@@ -1,0 +1,40 @@
+.benefits-section {
+  background: #f8f9fa;
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .benefit-card {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    .icon-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      border-radius: 50%;
+      background: rgba(34, 197, 94, 0.1);
+    }
+
+    .benefit-text {
+      font-weight: 500;
+      line-height: 1.4;
+    }
+  }
+
+  h2 {
+    font-family: inherit;
+    letter-spacing: 0.5px;
+
+    span {
+      font-weight: 700;
+    }
+  }
+}

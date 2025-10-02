@@ -2,6 +2,8 @@ import { useTranslations } from 'next-intl';
 import HomePackages from './home/sections/packages';
 import HomeServices from './home/sections/services';
 import HomeIntro from './home/sections/intro';
+import TrustSection from './home/sections/trust';
+import Benefits from './home/sections/benefits';
 import Head from 'next/head';
 import HowToStart from './teacher/sections/how-to-start';
 import Footer from '@/shared/components/footer';
@@ -29,9 +31,15 @@ export default function Home() {
       </Head>
 
       <HomeIntro />
+      <Benefits />
+      <TrustSection />
       <HomePackages />
-      <HowToStart />
-      <AboutTutorSection />
+      <div className="text-center py-16 bg-gray-50">
+        <h2 className="text-4xl font-bold mb-4">{t('start_journey')}</h2>
+        <button className="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-8 rounded-full text-lg transition-all">
+          {t('enroll_now')}
+        </button>
+      </div>
       <HomeServices />
       <ContactUs />
       <Footer navLinks={navLinks} />

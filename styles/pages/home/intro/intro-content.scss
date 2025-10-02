@@ -33,9 +33,19 @@
     font-weight: 500;
     color: #000;
     font-size: 1.2rem;
+    margin-bottom: 0.5rem;
     &.teacher-version {
       color: #fff !important;
     }
+  }
+
+  .intro-sub-headline {
+    font-size: 1rem;
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .intro-cta {

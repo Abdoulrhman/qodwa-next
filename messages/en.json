@@ -1,15 +1,30 @@
 {
   "Home": {
+    "start_journey": "Start Your Journey Today",
+    "enroll_now": "Enroll Now - First Class Free",
+    "Trust": {
+      "trusted_by": "Trusted by 500+ learners worldwide",
+      "testimonial1": "The personalized attention and flexible scheduling made learning Quran so much easier. I've improved significantly in just a few months!",
+      "testimonial2": "Excellent teaching methods and very patient instructors. The one-on-one sessions are incredibly effective."
+    },
+    "Benefits": {
+      "native_teachers": "Native Arabic-speaking teachers",
+      "flexible_schedule": "Flexible schedule (any time zone)",
+      "interactive_classes": "Interactive 1-on-1 or group classes",
+      "affordable_packages": "Affordable packages for all ages"
+    },
     "about-us": "About Us",
     "contact-us": "Contact Us",
     "packages": "Packages",
     "get_started": "Get Started",
+    "book_trial": "Book Your Free Trial Class",
     "login": "Login",
     "our_packages": "Our Packages",
     "explore": "Explore",
-    "main_header_text": "Start Learning Quran",
-    "sub_header_text": "Join our online Quran learning platform and start your journey today",
-    "teacher_main_header_text": "Start Teaching Quran",
+    "main_header_text": "Learn Arabic & Quran Online with Expert Teachers",
+    "sub_header_text": "Interactive Online Classes for Kids & Adults – Flexible Packages",
+    "sub_headline": "Trusted by students worldwide. Join live 1-on-1 classes today.",
+    "teacher_main_header_text": "Start Teaching Quran Now",
     "teacher_sub_header_text": "Join our platform as a teacher and help students in their Quran learning journey",
     "now": "Now",
     "student": "Student",
