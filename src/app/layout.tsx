@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import FacebookPixel from '@/shared/components/facebook-pixel';
 import GoogleTag from '@/shared/components/google-tag';
+import HotjarTracking from '@/shared/components/hotjar-tracking';
 
 export const metadata: Metadata = {
   title: 'Qodwa Platform',
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body>
         <FacebookPixel />
         <GoogleTag />
+        <HotjarTracking />
         {children}
       </body>
     </html>
